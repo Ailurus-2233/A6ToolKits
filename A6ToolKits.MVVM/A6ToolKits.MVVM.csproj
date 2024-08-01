@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <LangVersion>12</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Prism.Avalonia" Version="9.0.401.11074-pre" />
+      <PackageReference Include="Prism.DryIoc.Avalonia" Version="9.0.401.11074-pre" />
+    </ItemGroup>
+
+</Project>
