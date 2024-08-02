@@ -9,13 +9,9 @@
 
     <ItemGroup>
       <ProjectReference Include="..\A6ToolKits.MVVM\A6ToolKits.MVVM.csproj" />
+      <ProjectReference Include="..\A6ToolKits.System\A6ToolKits.System.csproj" />
+      <ProjectReference Include="..\A6ToolKits.UIPackage\A6ToolKits.UIPackage.csproj" />
       <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Dock.Avalonia" Version="11.1.0.1" />
-      <PackageReference Include="Dock.Model.Avalonia" Version="11.1.0.1" />
-      <PackageReference Include="Dock.Serializer" Version="11.1.0.1" />
     </ItemGroup>
 
 </Project>
