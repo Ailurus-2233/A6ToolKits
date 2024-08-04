@@ -1,0 +1,18 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:A6ToolKits.Layout.Controls"
+        xmlns:converters="clr-namespace:A6ToolKits.Layout.Converters">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+    
+    <Styles.Resources>
+        <converters:WidthRadioToWidthConverter x:Key="WidthRatioToWidthConverter" />
+    </Styles.Resources>
+    <!-- Add Styles Here -->
+    <Style Selector="controls|DockItem">
+        <Setter Property="Width" Value="{TemplateBinding WidthRatio, Converter={StaticResource WidthRatioToWidthConverter}, ConverterParameter={Binding RelativeSource={RelativeSource AncestorType={x:Type DockControl}}, Path=Width}}" />
+    </Style>
+</Styles>

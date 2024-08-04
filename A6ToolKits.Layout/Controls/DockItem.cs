@@ -1,6 +1,8 @@
-﻿using A6ToolKits.MVVM.Container;
+﻿using System.Windows.Input;
+using A6ToolKits.MVVM.Container;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.VisualTree;
 using Dock.Model.Adapters;
 using Dock.Model.Core;
 
@@ -8,6 +10,35 @@ namespace A6ToolKits.Layout.Controls;
 
 public class DockItem : ContentControl, IDockable
 {
+    public double WidthRatio
+    {
+        get => GetValue(WidthRatioProperty);
+        set
+        {
+            SetValue(WidthRatioProperty, value);
+            // // 获取在可视化树上父组件的宽度
+            // var parent = this.Parent;
+            // if (parent is null) return;
+            // var parentWidth = parent.Bounds.Width;
+            // var width = parentWidth * value;
+            // SetVisibleBounds(0, 0, width, 0);
+        }
+    }
+    
+    public static readonly StyledProperty<double> WidthRatioProperty =
+        AvaloniaProperty.Register<DockItem, double>(nameof(WidthRatio), 0.0);
+
+    public double HeightRatio
+    {
+        get => GetValue(HeightRatioProperty);
+        set => SetValue(HeightRatioProperty, value);
+    }
+    
+    public static readonly StyledProperty<double> HeightRatioProperty =
+        AvaloniaProperty.Register<DockItem, double>(nameof(HeightRatio), 0.0);
+    
+    
+    
     #region IDockable Members
 
     private readonly TrackingAdapter _trackingAdapter = new();
