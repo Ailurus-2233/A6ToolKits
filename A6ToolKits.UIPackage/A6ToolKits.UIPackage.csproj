@@ -18,4 +18,12 @@
       <PackageReference Include="Dock.Serializer" Version="11.1.0.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Layout\Styles\LayoutItem.axaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Themes\" />
+    </ItemGroup>
+
 </Project>

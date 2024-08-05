@@ -14,4 +14,9 @@
       <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Converters\" />
+      <Folder Include="Styles\" />
+    </ItemGroup>
+
 </Project>

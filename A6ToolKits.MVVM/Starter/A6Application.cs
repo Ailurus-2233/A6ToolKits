@@ -33,8 +33,15 @@ public abstract class A6Application : PrismApplication
         Starter.LoadModule(moduleCatalog);
     }
     
-    public virtual void SetMainView(UserControl view)
+    public virtual void SetMainView(StyledElement view)
     {
         Starter.SetDisplayView(view);
     }
+    
+    protected override void ConfigureRegionAdapterMappings(RegionAdapterMappings regionAdapterMappings)
+    {
+        base.ConfigureRegionAdapterMappings(regionAdapterMappings);
+        Starter.ConfigureRegionAdapterMappings(regionAdapterMappings);
+    }
+    
 }

@@ -9,7 +9,7 @@ namespace A6ToolKits.MVVM.Starter;
 public abstract class AppFramework : PrismBootstrapper
 {
     protected abstract string Title { get; }
-    
+
     protected override void RegisterTypes(IContainerRegistry container)
     {
         Starter.RegisterTypes(container);
@@ -30,5 +30,11 @@ public abstract class AppFramework : PrismBootstrapper
     protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
     {
         Starter.LoadModule(moduleCatalog);
+    }
+
+    protected override void ConfigureRegionAdapterMappings(RegionAdapterMappings regionAdapterMappings)
+    {
+        base.ConfigureRegionAdapterMappings(regionAdapterMappings);
+        Starter.ConfigureRegionAdapterMappings(regionAdapterMappings);
     }
 }

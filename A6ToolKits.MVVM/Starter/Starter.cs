@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using A6ToolKits.MVVM.Common;
 using A6ToolKits.MVVM.Container;
 using A6ToolKits.MVVM.Starter.MainPage;
 using Avalonia;
@@ -36,9 +37,15 @@ internal static class Starter
     /// </summary>
     public static void ConfigureViewModelLocator()
     {
-        
     }
-    
+
+    public static void ConfigureRegionAdapterMappings(RegionAdapterMappings regionAdapterMappings)
+    {
+        var regionBehaviorFactory = IoC.Get<IRegionBehaviorFactory>();
+        regionAdapterMappings.RegisterMapping(typeof(StyledElement),
+            new StyledElementRegionAdapter(regionBehaviorFactory));
+    }
+
     /// <summary>
     /// 加载平台模块
     /// </summary>
@@ -46,8 +53,8 @@ internal static class Starter
     {
         ModuleHelper.SetModuleCatalog(moduleCatalog);
     }
-    
-    public static void SetDisplayView(UserControl view)
+
+    public static void SetDisplayView(StyledElement view)
     {
         var regionManager = IoC.Get<IRegionManager>();
         var region = regionManager.Regions["DisplayRegion"];
