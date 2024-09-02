@@ -13,12 +13,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Dock.Avalonia" Version="11.1.0.1" />
-      <PackageReference Include="Dock.Model.Avalonia" Version="11.1.0.1" />
-      <PackageReference Include="Dock.Serializer" Version="11.1.0.1" />
-    </ItemGroup>
-
-    <ItemGroup>
       <UpToDateCheckInput Remove="Layout\Styles\LayoutItem.axaml" />
     </ItemGroup>
 
