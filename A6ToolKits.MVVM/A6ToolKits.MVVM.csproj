@@ -12,8 +12,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Prism.Avalonia" Version="9.0.401.11074-pre" />
-      <PackageReference Include="Prism.DryIoc.Avalonia" Version="9.0.401.11074-pre" />
+      <UpToDateCheckInput Remove="Starter\MainPage\MainWindow.axaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.0" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Common\Interfaces\" />
     </ItemGroup>
 
 </Project>
