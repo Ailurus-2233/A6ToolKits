@@ -1,0 +1,6 @@
+﻿{
+  "ModuleName": "A6ToolKits",
+  "ModuleVersion": "1.0.0",
+  "ModuleDescription": "A6ToolKits 是一个快速构建 Avalonia 桌面端项目的开发框架.",
+  "SubModules": []
+}
