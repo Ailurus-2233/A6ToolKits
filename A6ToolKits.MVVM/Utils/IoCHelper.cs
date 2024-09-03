@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using System.Reflection;
+﻿using System.Reflection;
+using A6ToolKits.MVVM.Common;
 using A6ToolKits.MVVM.Common.Attributes;
 using Avalonia.Controls;
 
-namespace A6ToolKits.MVVM.Common;
+namespace A6ToolKits.MVVM.Utils;
 
 public static class IoCHelper
 {
@@ -73,6 +73,12 @@ public static class IoCHelper
         }
     }
 
+    /// <summary>
+    /// 注册 ViewModel 到 IoC 容器中
+    /// </summary>
+    /// <param name="types">
+    /// 需要要注册的 ViewModel 类型列表
+    /// </param>
     public static void RegisterViewModel(IEnumerable<Type> types)
     {
         foreach (var type in types)
@@ -82,12 +88,21 @@ public static class IoCHelper
 
             var targetViewType = attribute.ViewType;
 
-            var targetView = (ContentControl)IoC.Create(targetViewType);
-            var viewModel = IoC.Create(type);
-            targetView.DataContext = viewModel;
-
-            IoC.AddSingleton(type, viewModel);
-            IoC.AddSingleton(targetViewType, targetView);
+            switch (attribute.RegisterType)
+            {
+                case RegisterType.Singleton:
+                    var targetView = (ContentControl)IoC.Create(targetViewType);
+                    var viewModel = IoC.Create(type);
+                    targetView.DataContext = viewModel;
+                    IoC.AddSingleton(type, viewModel);
+                    IoC.AddSingleton(targetViewType, targetView);
+                    break;
+                case RegisterType.Transient:
+                default:
+                    IoC.Add(targetViewType);
+                    IoC.Add(type);
+                    break;
+            }
         }
     }
 

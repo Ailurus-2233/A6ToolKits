@@ -1,8 +1,11 @@
-﻿using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace A6ToolKits.MVVM.Common;
 
+/// <summary>
+/// 基于 Microsoft.Extensions.DependencyInjection 的 IoC 容器封装类
+/// 可以通过 IoC.Add 方法注册类型到 IoC 容器中, 通过 IoC.Get 方法获取类型的实例
+/// </summary>
 public static class IoC
 {
     private static ServiceCollection? _services;
@@ -198,16 +201,43 @@ public static class IoC
 
     #region Get
 
+    /// <summary>
+    /// 从 IoC 容器中获取类型的实例
+    /// </summary>
+    /// <typeparam name="TService">
+    /// 需要从 IoC 容器中获取的类型
+    /// </typeparam>
+    /// <returns>
+    /// 返回类型的实例
+    /// </returns>
     public static TService Get<TService>() where TService : class
     {
         return ServiceProvider.GetRequiredService<TService>();
     }
 
+    /// <summary>
+    /// 尝试从 IoC 容器中获取类型的实例
+    /// </summary>
+    /// <typeparam name="TService">
+    /// 需要从 IoC 容器中获取的类型
+    /// </typeparam>
+    /// <returns>
+    /// 返回类型的实例，如果获取失败则返回 null
+    /// </returns>
     public static TService? TryGet<TService>() where TService : class
     {
         return ServiceProvider.GetService<TService>();
     }
 
+    /// <summary>
+    /// 从 IoC 容器中获取类型的实例
+    /// </summary>
+    /// <param name="serviceType">
+    /// 需要从 IoC 容器中获取的类型
+    /// </param>
+    /// <returns>
+    /// 返回类型的实例
+    /// </returns>
     public static object Get(Type serviceType)
     {
         return ServiceProvider.GetRequiredService(serviceType);
@@ -217,11 +247,29 @@ public static class IoC
 
     #region Creator
 
+    /// <summary>
+    /// 基于 IoC 中的注册信息创建一个实例
+    /// </summary>
+    /// <typeparam name="TService">
+    /// 需要创建的类型
+    /// </typeparam>
+    /// <returns>
+    /// 返回创建的实例
+    /// </returns>
     public static TService Create<TService>() where TService : class
     {
         return ActivatorUtilities.CreateInstance<TService>(ServiceProvider);
     }
 
+    /// <summary>
+    /// 基于 IoC 中的注册信息创建一个实例
+    /// </summary>
+    /// <param name="serviceType">
+    /// 需要创建的类型
+    /// </param>
+    /// <returns>
+    /// 返回创建的实例
+    /// </returns>
     public static object Create(Type serviceType)
     {
         return ActivatorUtilities.CreateInstance(ServiceProvider, serviceType);
@@ -231,11 +279,30 @@ public static class IoC
 
     #region private methods
 
+    /// <summary>
+    /// 获取 ServiceProvider 实例
+    /// </summary>
+    /// <returns></returns>
     private static ServiceProvider GetServiceProvider()
     {
         return Services.BuildServiceProvider();
     }
 
+    /// <summary>
+    /// 检查 IoC 注册的类型是否合法
+    /// </summary>
+    /// <param name="serviceType">
+    /// 基类、接口、抽象类
+    /// </param>
+    /// <param name="implementationType">
+    /// 实现类
+    /// </param>
+    /// <returns>
+    /// 如果注册的类型合法则返回 true
+    /// </returns>
+    /// <exception cref="ArgumentException">
+    /// 当注册的类型不合法时抛出异常
+    /// </exception>
     private static bool IsLegal(Type serviceType, Type? implementationType)
     {
         if (serviceType is { IsInterface: false, IsAbstract: false, IsClass: false })
@@ -252,6 +319,21 @@ public static class IoC
         return true;
     }
 
+    /// <summary>
+    /// 检查 IoC 注册单例实例时是否合法
+    /// </summary>
+    /// <param name="type">
+    /// 需要注册的类型
+    /// </param>
+    /// <param name="instance">
+    /// 具体实例
+    /// </param>
+    /// <returns>
+    /// 如果注册的类型合法则返回 true
+    /// </returns>
+    /// <exception cref="ArgumentException">
+    /// 当注册的类型不合法时抛出异常
+    /// </exception>
     private static bool IsLegal(Type type, object instance)
     {
         if (!type.IsInstanceOfType(instance))
