@@ -31,4 +31,10 @@
       <ProjectReference Include="..\A6ToolKits.UIPackage\A6ToolKits.UIPackage.csproj" />
       <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <None Update="module.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
 </Project>

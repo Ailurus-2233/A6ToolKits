@@ -11,16 +11,14 @@ public partial class MainWindowViewModel : ViewModelBase
 {
     [ObservableProperty] private string _greeting = "Hello World!";
 
-    [ObservableProperty] private RelayCommand _clickCommand;
-    
     [ObservableProperty] private bool _canClick = true;
 
-    public MainWindowViewModel()
+
+    [RelayCommand(CanExecute = nameof(CanClick))]
+    private void Click()
     {
-        _clickCommand = new RelayCommand(() =>
-        {
-            Greeting = "Hello Avalonia!";
-            CanClick = false;
-        }, () => CanClick);
+        Greeting = "Hello A6ToolKits!";
+        CanClick = false;
+        ClickCommand.NotifyCanExecuteChanged();
     }
 }
