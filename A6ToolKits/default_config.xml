@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LoadModules>
+    <Module Name="A6ToolKits.Root" Version="1.0.0" Assembly="A6ToolKits.dll" Target="A6ToolKits.Module.BaseModule"/>
+    <Module Name="A6ToolKits.MVVM" Version="1.0.0" Assembly="A6ToolKits.MVVM.dll" Target="A6ToolKits.MVVM.MVVMModule"/>
+</LoadModules>
