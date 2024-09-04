@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Reactive.Disposables;
 using System.Reflection;
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Interactivity;
 
-namespace A6ToolKits.Bootstrapper;
+namespace A6ToolKits.Bootstrapper.Extensions;
 
 public static class LifetimeExtensions
 {
