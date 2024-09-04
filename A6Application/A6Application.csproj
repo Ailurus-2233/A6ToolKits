@@ -33,8 +33,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="module.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+      <Content Include="bin\Debug\net8.0\config.xml" />
     </ItemGroup>
 </Project>

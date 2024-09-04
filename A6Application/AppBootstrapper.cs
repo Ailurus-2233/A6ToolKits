@@ -10,10 +10,7 @@ public class AppBootstrapper : BaseBootstrapper<App, MainWindow>
 {
     public override void OnCompleted()
     {
-        var assembly = Assembly.GetExecutingAssembly();
-        IoCHelper.AutoRegister(assembly);
         MainWindow = IoC.Get<MainWindow>();
-
         base.OnCompleted();
     }
 }
