@@ -6,7 +6,7 @@ namespace A6ToolKits.MVVM;
 
 public class MVVMModule : ModuleBase
 {
-    public override required string ModuleName { get; set; } = "MVVM";
+    public override required string ModuleName { get; set; } = "A6ToolKits.MVVM";
     public override required string ModuleVersion { get; set; } = "1.0.0";
 
     public override required string ModuleDescription { get; set; } =
