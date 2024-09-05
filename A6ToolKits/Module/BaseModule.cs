@@ -1,4 +1,10 @@
-﻿namespace A6ToolKits.Module;
+﻿using System;
+using A6ToolKits.Command.Controls;
+using Avalonia;
+using Avalonia.Markup.Xaml;
+using Avalonia.Markup.Xaml.Styling;
+
+namespace A6ToolKits.Module;
 
 public class BaseModule : ModuleBase
 {
@@ -8,5 +14,12 @@ public class BaseModule : ModuleBase
 
     protected override void Initialize()
     {
+        // 自动加载 CoreControls.axaml 到 Avalonia 的资源字典中
+        var styleUri = new Uri("avares://A6ToolKits/CoreControls.axaml");
+        var style = new StyleInclude(styleUri)
+        {
+            Source = styleUri
+        };
+        Application.Current?.Styles.Add(style);
     }
 }

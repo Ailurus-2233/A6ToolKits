@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using A6ToolKits.Bootstrapper.Extensions;
-using A6ToolKits.Bootstrapper.Interfaces;
+using A6ToolKits.Helper;
 using A6ToolKits.Module;
 using Avalonia;
 using Avalonia.Controls;
@@ -17,31 +17,24 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper
     where TWindow : Window, new()
 {
     private AppBuilder? _builder = null;
-    private string[]? _runArgs;
+    private string[] _runArgs = [];
     private ClassicDesktopStyleApplicationLifetime? _lifetime;
-    
-    private IEnumerable<ModuleBase> _modules;
-    
     protected TWindow? MainWindow { get; set; }
+    public IEnumerable<ModuleBase>? Modules { get; set; }
 
-    private string[] RunArgs
-    {
-        get => _runArgs ?? [];
-        set => _runArgs = value;
-    }
 
     public virtual void Initialize()
     {
-        Common.Logger.InitializeConsoleLogger(LogEventLevel.Verbose);
+        LoggerHelper.InitializeConsoleLogger(LogEventLevel.Verbose);
         Log.Information($"Initializing Application: {MainWindow?.Title ?? "A6ToolKits Application"}");
-        
+
         Log.Information("Finish Initializing Application.");
     }
 
     public virtual void Configure()
     {
         Log.Information("Configuring Application: Config Avalonia builder & lifetime");
-        
+
         // 如果是 Debug 模式，则启用Avalonia的日志记录
         if (System.Diagnostics.Debugger.IsAttached)
         {
@@ -57,11 +50,11 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper
                 .UsePlatformDetect();
         }
 
-        _lifetime = LifetimeExtensions.PrepareLifetime(_builder, RunArgs, null);
+        _lifetime = LifetimeExtensions.PrepareLifetime(_builder, _runArgs, null);
         _builder.SetupWithLifetime(_lifetime);
-        
+
         // 加载模块
-        _modules = ModuleLoader.LoadModules();
+        Modules = ModuleLoader.LoadModules();
     }
 
     public virtual void OnCompleted()
@@ -69,17 +62,17 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper
         if (_lifetime == null) return;
         MainWindow ??= new TWindow();
         _lifetime.MainWindow = MainWindow;
-        
+
         Log.Information("Finish Configuring Application.");
-        
+
         Log.Information("Starting Application...");
-        _lifetime.Start(RunArgs);
+        _lifetime.Start(_runArgs);
     }
 
 
     public virtual void Run(string[] args)
     {
-        RunArgs = args;
+        _runArgs = args;
         Initialize();
         Configure();
         OnCompleted();

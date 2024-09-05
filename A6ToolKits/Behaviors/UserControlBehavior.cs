@@ -3,7 +3,7 @@ using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls;
 
-namespace A6ToolKits.Common.Behaviors;
+namespace A6ToolKits.Behaviors;
 
 public class UserControlBehavior
 {

@@ -1,10 +1,9 @@
-﻿using Microsoft.VisualBasic;
-using Serilog;
+﻿using Serilog;
 using Serilog.Events;
 
-namespace A6ToolKits.Common;
+namespace A6ToolKits.Helper;
 
-public static class Logger
+public static class LoggerHelper
 {
     public static void InitializeConsoleLogger(LogEventLevel level = LogEventLevel.Information)
     {

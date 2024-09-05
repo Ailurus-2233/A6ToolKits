@@ -18,12 +18,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Bootstrapper\Utils\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Update="default_config.xml">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Command\Styles\CommandButton.axaml" />
     </ItemGroup>
 </Project>

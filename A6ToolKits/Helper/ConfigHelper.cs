@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Xml;
+using A6ToolKits.Helper.Exceptions;
 using Serilog;
 
-namespace A6ToolKits.Common;
+namespace A6ToolKits.Helper;
 
-public static class ConfigReader
+public static class ConfigHelper
 {
     private static readonly string ConfigPath = "config.xml";
     private static readonly string DefaultConfig = "default_config.xml";
@@ -29,7 +27,7 @@ public static class ConfigReader
         } catch (Exception e)
         {
             Log.Error("Failed to load configuration file: {0}", e.Message);
-            return null;
+            throw new ConfigLoadException(e.Message);
         }
         
         

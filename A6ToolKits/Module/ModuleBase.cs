@@ -1,4 +1,5 @@
 ﻿using System;
+using A6ToolKits.Module.Exceptions;
 using Serilog;
 
 namespace A6ToolKits.Module;
@@ -24,8 +25,7 @@ public abstract class ModuleBase
         }
         catch (Exception e)
         {
-            Log.Error(e.Message, "Module load failed");
-            throw new Common.Exceptions.LoadModuleException("Module load failed");
+            throw new LoadModuleException($"Module load failed: {e.Message}");
         }
     }
 }

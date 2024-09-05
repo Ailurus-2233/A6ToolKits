@@ -1,6 +1,4 @@
-﻿using Avalonia;
-
-namespace A6ToolKits.Bootstrapper.Interfaces;
+﻿namespace A6ToolKits.Bootstrapper;
 
 public interface IBootstrapper
 {
