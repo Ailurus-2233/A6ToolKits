@@ -1,4 +1,8 @@
-﻿using A6Application.Views;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using A6Application.Commands;
+using A6Application.Views;
+using A6ToolKits.Command;
 using A6ToolKits.MVVM.Common;
 using A6ToolKits.MVVM.Common.Attributes;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -12,6 +16,8 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] private string _greeting = "Hello World!";
 
     [ObservableProperty] private bool _canClick = true;
+    
+    [ObservableProperty] private ObservableCollection<CommandDefinition> _commands = [];
 
 
     [RelayCommand(CanExecute = nameof(CanClick))]
@@ -20,5 +26,10 @@ public partial class MainWindowViewModel : ViewModelBase
         Greeting = "Hello A6ToolKits!";
         CanClick = false;
         ClickCommand.NotifyCanExecuteChanged();
+    }
+
+    public MainWindowViewModel()
+    {
+        _commands.Add(new OpenWindowCommand());
     }
 }
