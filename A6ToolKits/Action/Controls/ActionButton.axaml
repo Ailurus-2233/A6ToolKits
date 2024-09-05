@@ -1,13 +1,13 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:controls="using:A6ToolKits.Command.Controls">
+        xmlns:controls="clr-namespace:A6ToolKits.Action.Controls">
     <Design.PreviewWith>
-        <controls:CommandButton />
+        <controls:ActionButton />
     </Design.PreviewWith>
 
-    <Style Selector="controls|CommandButton">
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="CornerRadius" Value="3" />
+    <Style Selector="controls|ActionButton">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="CornerRadius" Value="5" />
         <Setter Property="Width" Value="{TemplateBinding ButtonSize}" />
         <Setter Property="Height" Value="{TemplateBinding ButtonSize}" />
         <Setter Property="Template">
@@ -24,16 +24,13 @@
                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                     <ToolTip.Tip>
-                        <TextBlock Text="{TemplateBinding ToolTip}"
-                                   Background="{DynamicResource ThemeBackgroundBrush}"
-                                   Foreground="{DynamicResource ThemeForegroundBrush}" />
+                        <TextBlock Text="{TemplateBinding ToolTip}" />
                     </ToolTip.Tip>
                 </Border>
             </ControlTemplate>
         </Setter>
-        <!-- <Style Selector="^:pointerover"> -->
-        <!--     <Setter Property="BorderThickness" Value="1" /> -->
-        <!--     <Setter Property="BorderBrush" Value="#8029ABE2" /> -->
-        <!-- </Style> -->
+        <Style Selector="^:pointerover">
+            <Setter Property="Background" Value="#80F0F0F0" />
+        </Style>
     </Style>
 </Styles>

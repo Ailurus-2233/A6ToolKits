@@ -1,30 +1,28 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
-using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 
-namespace A6ToolKits.Command.Controls;
+namespace A6ToolKits.Action.Controls;
 
-public class CommandButton : Button
+public class ActionButton : Button
 {
     public static readonly StyledProperty<string> TextProperty =
-        AvaloniaProperty.Register<CommandButton, string>(nameof(Text));
+        AvaloniaProperty.Register<ActionButton, string>(nameof(Text));
 
     public static readonly StyledProperty<string> ToolTipProperty =
-        AvaloniaProperty.Register<CommandButton, string>(nameof(ToolTip));
+        AvaloniaProperty.Register<ActionButton, string>(nameof(ToolTip));
 
     public static readonly StyledProperty<IImage> ImageSourceProperty =
-        AvaloniaProperty.Register<CommandButton, IImage>(nameof(ImageSource));
+        AvaloniaProperty.Register<ActionButton, IImage>(nameof(ImageSource));
 
-    public static readonly StyledProperty<CommandDefinition> DefinitionProperty =
-        AvaloniaProperty.Register<CommandButton, CommandDefinition>(nameof(Definition));
+    public static readonly StyledProperty<ActionDefinition> ActionProperty =
+        AvaloniaProperty.Register<ActionButton, ActionDefinition>(nameof(Action));
 
     public static readonly StyledProperty<double> ButtonSizeProperty =
-        AvaloniaProperty.Register<CommandButton, double>(nameof(ButtonSize), 32);
+        AvaloniaProperty.Register<ActionButton, double>(nameof(ButtonSize), 32);
     
     public static readonly StyledProperty<double> IconSizeProperty =
-        AvaloniaProperty.Register<CommandButton, double>(nameof(IconSize), 30);
+        AvaloniaProperty.Register<ActionButton, double>(nameof(IconSize), 30);
     
     public string Text
     {
@@ -44,10 +42,10 @@ public class CommandButton : Button
         set => SetValue(ImageSourceProperty, value);
     }
 
-    public CommandDefinition Definition
+    public ActionDefinition Action
     {
-        get => GetValue(DefinitionProperty);
-        set => SetValue(DefinitionProperty, value);
+        get => GetValue(ActionProperty);
+        set => SetValue(ActionProperty, value);
     }
     
     public double ButtonSize
@@ -62,11 +60,11 @@ public class CommandButton : Button
         set => SetValue(IconSizeProperty, value);
     }
     
-    public CommandButton()
+    public ActionButton()
     {
-        DefinitionProperty.Changed.AddClassHandler<CommandButton>((_, e) =>
+        ActionProperty.Changed.AddClassHandler<ActionButton>((_, e) =>
         {
-            if (e.NewValue is not CommandDefinition commandDefinition) return;
+            if (e.NewValue is not ActionDefinition commandDefinition) return;
             Text = commandDefinition.Text;
             ToolTip = commandDefinition.ToolTip;
             ImageSource = commandDefinition.ImageSource;

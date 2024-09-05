@@ -12,18 +12,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Demo\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <Compile Update="Common\Controls\WindowContainer.axaml.cs">
         <DependentUpon>WindowContainer.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-      <AdditionalFiles Include="Controls\WindowContainer.axaml" />
     </ItemGroup>
 
 </Project>

@@ -2,7 +2,6 @@
 using A6Application.Views;
 using A6ToolKits.Bootstrapper;
 using A6ToolKits.MVVM.Common;
-using A6ToolKits.MVVM.Utils;
 
 namespace A6Application;
 

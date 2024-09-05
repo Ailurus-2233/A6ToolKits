@@ -3,7 +3,7 @@ using A6ToolKits.MVVM.Common;
 using A6ToolKits.MVVM.Common.Attributes;
 using Avalonia.Controls;
 
-namespace A6ToolKits.MVVM.Utils;
+namespace A6ToolKits.MVVM.Helper;
 
 public static class IoCHelper
 {

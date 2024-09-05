@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using A6ToolKits.Command.Controls;
 using Avalonia.Media;
 
-namespace A6ToolKits.Command;
+namespace A6ToolKits.Action;
 
-public abstract class CommandDefinition
+public abstract class ActionDefinition
 {
     public abstract string Text { get; }
     public abstract string ToolTip { get; }

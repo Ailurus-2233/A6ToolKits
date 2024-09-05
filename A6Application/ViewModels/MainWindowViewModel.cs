@@ -2,9 +2,11 @@
 using System.Collections.ObjectModel;
 using A6Application.Commands;
 using A6Application.Views;
-using A6ToolKits.Command;
+using A6ToolKits.Action;
+using A6ToolKits.Layout.Helper;
 using A6ToolKits.MVVM.Common;
 using A6ToolKits.MVVM.Common.Attributes;
+using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -17,7 +19,9 @@ public partial class MainWindowViewModel : ViewModelBase
 
     [ObservableProperty] private bool _canClick = true;
     
-    [ObservableProperty] private ObservableCollection<CommandDefinition> _commands = [];
+    [ObservableProperty] private ObservableCollection<ActionDefinition> _actionList = [];
+
+    [ObservableProperty] private Menu _menu = MenuHelper.GenerateMenu();
 
 
     [RelayCommand(CanExecute = nameof(CanClick))]
@@ -30,6 +34,7 @@ public partial class MainWindowViewModel : ViewModelBase
 
     public MainWindowViewModel()
     {
-        _commands.Add(new OpenWindowCommand());
+        _actionList.Add(new OpenWindowAction());
+        
     }
 }

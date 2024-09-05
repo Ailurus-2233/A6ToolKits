@@ -1,6 +1,6 @@
 ﻿using A6ToolKits.Module;
 using A6ToolKits.MVVM.Common;
-using A6ToolKits.MVVM.Utils;
+using A6ToolKits.MVVM.Helper;
 
 namespace A6ToolKits.MVVM;
 

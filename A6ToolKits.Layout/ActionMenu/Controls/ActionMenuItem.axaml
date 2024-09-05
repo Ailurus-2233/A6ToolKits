@@ -1,0 +1,12 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:A6ToolKits.Layout.ActionMenu.Controls">
+    <Design.PreviewWith>
+        <controls:ActionMenuItem />
+    </Design.PreviewWith>
+
+    <Style Selector="controls|ActionMenuItem">
+        <!-- Set Defaults -->
+        <Setter Property="Header" Value="{TemplateBinding Text}" />
+    </Style>
+</Styles>
