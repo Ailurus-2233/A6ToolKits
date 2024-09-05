@@ -8,15 +8,22 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\A6ToolKits.MVVM\A6ToolKits.MVVM.csproj" />
-      <ProjectReference Include="..\A6ToolKits.System\A6ToolKits.System.csproj" />
-      <ProjectReference Include="..\A6ToolKits.UIPackage\A6ToolKits.UIPackage.csproj" />
       <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Converters\" />
-      <Folder Include="Styles\" />
+      <Folder Include="Demo\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Common\Controls\WindowContainer.axaml.cs">
+        <DependentUpon>WindowContainer.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Controls\WindowContainer.axaml" />
     </ItemGroup>
 
 </Project>

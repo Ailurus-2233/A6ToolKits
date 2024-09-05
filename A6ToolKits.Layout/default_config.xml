@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+    <Layout Type="Window" Hight="450" Width="800">
+        <Menu Target="A6ToolKits.Layout.Default.Menu" Assembly="A6ToolKits.Layout.dll"/>
+        <TabBar Position="Top" Target="A6ToolKits.Layout.Default.TabBar" Assembly="A6ToolKits.Layout.dll"/>
+        <Toolbar Position="Left" Target="A6ToolKits.Layout.Default.Toolbar" Assembly="A6ToolKits.Layout.dll"/>
+        <Pages>
+            <Page Target="A6ToolKits.Layout.Default.Pages.HomePage" Assembly="A6ToolKits.Layout.dll" Default="True"/>
+            <Page Target="A6ToolKits.Layout.Default.Pages.AboutPage" Assembly="A6ToolKits.Layout.dll"/>
+        </Pages>
+        <StatusBar Target="A6ToolKits.Layout.Default.StatusBar" Assembly="A6ToolKits.Layout.dll"/>
+    </Layout>
+</Configuration>
