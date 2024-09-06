@@ -14,12 +14,35 @@
         <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <StackPanel>
-        <ContentControl Content="{Binding Menu}" />
-        <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <Button Command="{Binding ClickCommand }" Content="Click" />
-        <controls:ActionButton Action="{Binding ActionList[0]}" />
-    </StackPanel>
-
-
+    <!-- <StackPanel> -->
+    <!--     <Menu> -->
+    <!--         <MenuItem Header="测试"> -->
+    <!--             <controls:ActionMenuItem Action="{Binding ActionList[0]}" /> -->
+    <!--             <controls:ActionMenuItem Action="{Binding ActionList[0]}" /> -->
+    <!--             <controls:ActionMenuItem Action="{Binding ActionList[0]}" /> -->
+    <!--             <controls:ActionMenuItem Action="{Binding ActionList[0]}" /> -->
+    <!--         </MenuItem> -->
+    <!--         <MenuItem Header="测试"> -->
+    <!--             <controls:ActionMenuItem Action="{Binding ActionList[0]}" /> -->
+    <!--             <controls:ActionMenuItem Action="{Binding ActionList[0]}" /> -->
+    <!--             <controls:ActionMenuItem Action="{Binding ActionList[0]}" /> -->
+    <!--             <controls:ActionMenuItem Action="{Binding ActionList[0]}" /> -->
+    <!--         </MenuItem> -->
+    <!--     </Menu> -->
+    <!--     <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center" /> -->
+    <!--     <Button Command="{Binding ClickCommand }" Content="Click" /> -->
+    <!--     <controls:ActionButton Action="{Binding ActionList[0]}" /> -->
+    <!-- </StackPanel> -->
+    
+    <Grid RowDefinitions="Auto,*,Auto">
+        <Menu Grid.Row="0" x:Name="Menu" IsVisible="False" />
+        <DockPanel Grid.Row="1" LastChildFill="True">
+            <StackPanel DockPanel.Dock="Top" x:Name="TopDock" Background="Aqua" />
+            <StackPanel DockPanel.Dock="Bottom" x:Name="BottomDock" Background="Yellow" />
+            <StackPanel DockPanel.Dock="Left" x:Name="LeftDock" Background="Brown" />
+            <StackPanel DockPanel.Dock="Right" x:Name="RightDock" Background="Azure" />
+            <ContentControl x:Name="Page" Background="Chartreuse" />
+        </DockPanel>
+        <DockPanel Grid.Row="2" x:Name="StatusBar" />
+    </Grid>
 </Window>

@@ -7,11 +7,11 @@ using Avalonia.Media;
 
 namespace A6Application.Commands;
 
-public class OpenWindowAction : ActionDefinition
+public class OpenWindowAction : ActionBase
 {
-    public override string Text => "Open Window";
+    public override string Name => "Open Window";
     public override string ToolTip => "Open a new TestWindow";
-    public override IImage ImageSource => 
+    public override IImage Icon => 
         ImageHelper.LoadFromResource(new Uri("avares://A6Application/Assets/avalonia-logo.ico"));
 
     public override Task Run()

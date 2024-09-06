@@ -18,11 +18,8 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] private string _greeting = "Hello World!";
 
     [ObservableProperty] private bool _canClick = true;
-    
-    [ObservableProperty] private ObservableCollection<ActionDefinition> _actionList = [];
 
-    [ObservableProperty] private Menu _menu = MenuHelper.GenerateMenu();
-
+    [ObservableProperty] private ObservableCollection<ActionBase> _actionList = [];
 
     [RelayCommand(CanExecute = nameof(CanClick))]
     private void Click()
@@ -35,6 +32,5 @@ public partial class MainWindowViewModel : ViewModelBase
     public MainWindowViewModel()
     {
         _actionList.Add(new OpenWindowAction());
-        
     }
 }
