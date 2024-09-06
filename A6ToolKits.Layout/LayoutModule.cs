@@ -1,6 +1,8 @@
+using A6ToolKits.Layout.Container;
 using A6ToolKits.Module;
 using Avalonia;
 using Avalonia.Markup.Xaml.Styling;
+using Serilog;
 
 namespace A6ToolKits.Layout;
 
@@ -12,18 +14,16 @@ public class LayoutModule : ModuleBase
     public override string ModuleDescription { get; set; } =
         "Add Layout capabilities to A6ToolKits to automatically load layout for main window";
 
+    public WindowLayout? WindowLayout { get; set; } 
+
     protected override void Initialize()
     {
-        // 自动加载 CoreControls.axaml 到 Avalonia 的资源字典中
-        var styleUri = new Uri("avares://A6ToolKits.Layout/LayoutControls.axaml");
-        var style = new StyleInclude(styleUri)
-        {
-            Source = styleUri
-        };
-        Application.Current?.Styles.Add(style);
+        Log.Information("Load layout from configuration file");
         
-        // TODO: 自动加载 Menu
+        WindowLayout = LayoutLoader.LoadLayout();
+        if (WindowLayout == null)
+            throw new Exception("Failed to load layout configuration");
         
-        // TODO: 自动加载 Page
+        Log.Information("Load layout success");
     }
 }

@@ -4,4 +4,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="A6ToolKits.Layout.Container.Controls.WindowContainer">
+    <Grid RowDefinitions="Auto,*,Auto">
+        <Menu Grid.Row="0" x:Name="Menu" IsVisible="False" />
+        <DockPanel Grid.Row="1" LastChildFill="True">
+            <StackPanel DockPanel.Dock="Top" x:Name="TopDock" />
+            <StackPanel DockPanel.Dock="Bottom" x:Name="BottomDock" />
+            <StackPanel DockPanel.Dock="Left" x:Name="LeftDock" />
+            <StackPanel DockPanel.Dock="Right" x:Name="RightDock" />
+            <ContentControl x:Name="Page" />
+        </DockPanel>
+        <DockPanel Grid.Row="2" x:Name="StatusBar" />
+    </Grid>
 </Window>
