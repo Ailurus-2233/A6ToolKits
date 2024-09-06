@@ -20,7 +20,7 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper
     private string[] _runArgs = [];
     private ClassicDesktopStyleApplicationLifetime? _lifetime;
     protected TWindow? MainWindow { get; set; }
-    public IEnumerable<ModuleBase>? Modules { get; set; }
+    public IList<ModuleBase>? Modules { get; set; }
 
 
     public virtual void Initialize()

@@ -5,26 +5,22 @@ namespace A6ToolKits.Helper;
 
 public static class AssemblyHelper
 {
-    public static Type? LoadType(string assemblyName, string typeName)
+    private static Type? LoadType(string? assemblyName, string typeName)
     {
+        if (assemblyName == null) return Type.GetType(typeName);
         var assembly = System.Reflection.Assembly.LoadFrom(assemblyName);
         var type = assembly.GetTypes().FirstOrDefault(t => t.FullName == typeName);
         return type;
     }
 
-    public static T? CreateInstance<T>(string assemblyName, string typeName) 
+    public static T? CreateInstance<T>(string? assemblyName, string typeName)
         where T : class
     {
         var type = LoadType(assemblyName, typeName);
-        if (type == null)
-        {
-            return null;
-        }
-
-        return (T)Activator.CreateInstance(type)!;
+        return type == null ? null : Activator.CreateInstance(type)! as T;
     }
-    
-    public static object? CreateInstance(string assemblyName, string typeName) 
+
+    public static object? CreateInstance(string? assemblyName, string typeName)
     {
         var type = LoadType(assemblyName, typeName);
         return type == null ? null : Activator.CreateInstance(type)!;

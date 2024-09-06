@@ -29,7 +29,5 @@ public static class ConfigHelper
             Log.Error("Failed to load configuration file: {0}", e.Message);
             throw new ConfigLoadException(e.Message);
         }
-        
-        
     }
 }

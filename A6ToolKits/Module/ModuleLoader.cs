@@ -9,7 +9,7 @@ namespace A6ToolKits.Module;
 
 public static class ModuleLoader
 {
-    public static IEnumerable<ModuleBase> LoadModules()
+    public static IList<ModuleBase> LoadModules()
     {
         Log.Information("Start loading modules.");
 

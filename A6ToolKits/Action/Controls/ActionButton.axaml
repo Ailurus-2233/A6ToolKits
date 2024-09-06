@@ -18,11 +18,11 @@
                         CornerRadius="{TemplateBinding CornerRadius}"
                         Width="{TemplateBinding ButtonSize}"
                         Height="{TemplateBinding ButtonSize}">
-                    <Image Source="{TemplateBinding ImageSource}"
+                    <Image Source="{TemplateBinding Icon}"
                            Width="{TemplateBinding IconSize}"
                            Height="{TemplateBinding IconSize}"
-                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
                     <ToolTip.Tip>
                         <TextBlock Text="{TemplateBinding ToolTip}" />
                     </ToolTip.Tip>
@@ -30,7 +30,7 @@
             </ControlTemplate>
         </Setter>
         <Style Selector="^:pointerover">
-            <Setter Property="Background" Value="#80F0F0F0" />
+            <Setter Property="Background" Value="#E6E6E6" />
         </Style>
     </Style>
 </Styles>

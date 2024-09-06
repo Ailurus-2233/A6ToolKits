@@ -12,18 +12,18 @@ public class ActionButton : Button
     public static readonly StyledProperty<string> ToolTipProperty =
         AvaloniaProperty.Register<ActionButton, string>(nameof(ToolTip));
 
-    public static readonly StyledProperty<IImage> ImageSourceProperty =
-        AvaloniaProperty.Register<ActionButton, IImage>(nameof(ImageSource));
+    public static readonly StyledProperty<IImage?> IconProperty =
+        AvaloniaProperty.Register<ActionButton, IImage?>(nameof(Icon));
 
-    public static readonly StyledProperty<ActionDefinition> ActionProperty =
-        AvaloniaProperty.Register<ActionButton, ActionDefinition>(nameof(Action));
+    public static readonly StyledProperty<ActionBase> ActionProperty =
+        AvaloniaProperty.Register<ActionButton, ActionBase>(nameof(Action));
 
     public static readonly StyledProperty<double> ButtonSizeProperty =
         AvaloniaProperty.Register<ActionButton, double>(nameof(ButtonSize), 32);
-    
+
     public static readonly StyledProperty<double> IconSizeProperty =
         AvaloniaProperty.Register<ActionButton, double>(nameof(IconSize), 30);
-    
+
     public string Text
     {
         get => GetValue(TextProperty);
@@ -36,18 +36,18 @@ public class ActionButton : Button
         set => SetValue(ToolTipProperty, value);
     }
 
-    public IImage ImageSource
+    public IImage? Icon
     {
-        get => GetValue(ImageSourceProperty);
-        set => SetValue(ImageSourceProperty, value);
+        get => GetValue(IconProperty);
+        set => SetValue(IconProperty, value);
     }
 
-    public ActionDefinition Action
+    public ActionBase Action
     {
         get => GetValue(ActionProperty);
         set => SetValue(ActionProperty, value);
     }
-    
+
     public double ButtonSize
     {
         get => GetValue(ButtonSizeProperty);
@@ -59,18 +59,19 @@ public class ActionButton : Button
         get => GetValue(IconSizeProperty);
         set => SetValue(IconSizeProperty, value);
     }
-    
+
     public ActionButton()
     {
         ActionProperty.Changed.AddClassHandler<ActionButton>((_, e) =>
         {
-            if (e.NewValue is not ActionDefinition commandDefinition) return;
-            Text = commandDefinition.Text;
-            ToolTip = commandDefinition.ToolTip;
-            ImageSource = commandDefinition.ImageSource;
-            Click += (_, _) => commandDefinition.Run();
-            IsEnabled = commandDefinition.CanRun;
-            commandDefinition.CanRunChanged += (_, _) => IsEnabled = commandDefinition.CanRun;
+            if (e.NewValue is not ActionBase action) return;
+
+            Text = action.Name;
+            ToolTip = action.ToolTip;
+            Icon = action.Icon;
+            Click += (_, _) => action.Run();
+            IsEnabled = action.CanRun;
+            action.CanRunChanged += (_, _) => IsEnabled = action.CanRun;
         });
     }
 }
