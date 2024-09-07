@@ -26,5 +26,7 @@
 
     <ItemGroup>
       <UpToDateCheckInput Remove="Command\Styles\CommandButton.axaml" />
+      <UpToDateCheckInput Remove="Action\Controls\ActionButton.axaml" />
+      <UpToDateCheckInput Remove="Action\Controls\ActionMenuItem.axaml" />
     </ItemGroup>
 </Project>

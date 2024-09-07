@@ -1,6 +1,9 @@
+using A6ToolKits.Helper;
 using A6ToolKits.Layout.Container;
+using A6ToolKits.Layout.Helper;
 using A6ToolKits.Module;
 using Avalonia;
+using Avalonia.Layout;
 using Avalonia.Markup.Xaml.Styling;
 using Serilog;
 
@@ -19,8 +22,8 @@ public class LayoutModule : ModuleBase
     protected override void Initialize()
     {
         Log.Information("Load layout from configuration file");
-        
-        WindowLayout = LayoutLoader.LoadLayout();
+
+        WindowLayout = GenerateHelper.LoadLayout();
         if (WindowLayout == null)
             throw new Exception("Failed to load layout configuration");
         

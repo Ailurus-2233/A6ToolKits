@@ -31,6 +31,6 @@ public partial class MainWindowViewModel : ViewModelBase
 
     public MainWindowViewModel()
     {
-        _actionList.Add(new OpenWindowAction());
+        _actionList.Add(new OpenWindow());
     }
 }

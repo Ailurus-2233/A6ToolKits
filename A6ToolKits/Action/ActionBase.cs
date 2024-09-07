@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Media;
+using Avalonia.Styling;
 
 namespace A6ToolKits.Action;
 
@@ -12,17 +15,17 @@ public abstract class ActionBase : IAction
     /// <summary>
     /// 动作名称
     /// </summary>
-    public virtual string Name { get; init; } = string.Empty;
+    public virtual string? Name { get; init; }
 
     /// <summary>
     /// 动作工具提示
     /// </summary>
-    public virtual string ToolTip { get; init; } = string.Empty;
+    public virtual string? ToolTip { get; init; }
 
     /// <summary>
-    /// 动作描述
+    /// 动作的描述信息
     /// </summary>
-    public virtual string Description { get; init; } = string.Empty;
+    public virtual string? Description { get; init; }
 
     /// <summary>
     /// 动作图标
@@ -46,4 +49,5 @@ public abstract class ActionBase : IAction
     /// 返回一个异步任务
     /// </returns>
     public abstract Task Run();
+    
 }

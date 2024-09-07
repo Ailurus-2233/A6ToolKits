@@ -24,7 +24,8 @@ public static class ModuleLoader
 
                 if (instance?.ModuleVersion != module.Version)
                 {
-                    Log.Error("Module {0} version mismatch: {1} != {2}", module.Name, instance?.ModuleVersion, module.Version);
+                    Log.Error("Module {0} version mismatch: {1} != {2}", module.Name, instance?.ModuleVersion,
+                        module.Version);
                     continue;
                 }
 
@@ -39,29 +40,19 @@ public static class ModuleLoader
         return modules;
     }
 
-    private static List<ModuleConfig> GetModules()
+    private static List<ModuleConfigItem> GetModules()
     {
         // 加载模块配置文件
-        var moduleNames = new List<ModuleConfig>();
+        var moduleNames = new List<ModuleConfigItem>();
         try
         {
             var modules = ConfigHelper.GetElements("Module");
-            if (modules == null)
+            foreach (XmlNode module in modules!)
             {
-                return moduleNames;
+                var item = new ModuleConfigItem();
+                item.GenerateFromXmlNode(module);
+                moduleNames.Add(item);
             }
-            moduleNames.AddRange(from XmlElement module in modules
-                let moduleName = module.GetAttribute("Name")
-                let moduleVersion = module.GetAttribute("Version")
-                let assembly = module.GetAttribute("Assembly")
-                let target = module.GetAttribute("Target")
-                select new ModuleConfig
-                {
-                    Name = moduleName,
-                    Version = moduleVersion,
-                    Assembly = assembly,
-                    Target = target
-                });
         }
         catch (Exception e)
         {
@@ -70,12 +61,12 @@ public static class ModuleLoader
 
         return moduleNames;
     }
+}
 
-    private class ModuleConfig
-    {
-        public required string Name { get; init; }
-        public required string Version { get; init; }
-        public required string Assembly { get; init; }
-        public required string Target { get; init; }
-    }
+public class ModuleConfigItem : ConfigItemBase
+{
+    public string Name { get; set; } = string.Empty;
+    public string Version { get; set; } = string.Empty;
+    public string Assembly { get; set; } = string.Empty;
+    public string Target { get; set; } = string.Empty;
 }

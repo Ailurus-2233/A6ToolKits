@@ -1,11 +1,14 @@
-﻿using System.Xml;
+using System.Xml;
+using A6ToolKits.Action;
 using A6ToolKits.Helper;
 using A6ToolKits.Layout.Container;
+using A6ToolKits.Layout.Definitions;
+using Avalonia.Controls;
 using Avalonia.Layout;
 
-namespace A6ToolKits.Layout;
+namespace A6ToolKits.Layout.Helper;
 
-public static class LayoutLoader
+public static class GenerateHelper
 {
     public static WindowLayout LoadLayout()
     {
@@ -23,24 +26,18 @@ public static class LayoutLoader
 
     private static void SetWindowProperty(WindowLayout layout, XmlNode node)
     {
-        var type = node.Attributes?["Type"]?.Value;
-        if (type != null)
+        var layoutItem = new LayoutItemConfigItem();
+        layoutItem.GenerateFromXmlNode(node);
+        layout.Type = layoutItem.Type switch
         {
-            layout.Type = type switch
-            {
-                "Window" => WindowType.Window,
-                "FullScreen" => WindowType.FullScreen,
-                _ => WindowType.Window
-            };
-        }
+            "Window" => WindowType.Window,
+            "FullScreen" => WindowType.FullScreen,
+            _ => WindowType.Window
+        };
+        layout.Width = Convert.ToDouble(layoutItem.Width);
+        layout.Height = Convert.ToDouble(layoutItem.Height);
 
-        var width = node.Attributes?["Width"]?.Value;
-        if (width != null) layout.Width = double.Parse(width);
-
-        var height = node.Attributes?["Height"]?.Value;
-        if (height != null) layout.Height = double.Parse(height);
-
-        var organizations = node.Attributes?["Organization"]?.Value.Split(",");
+        var organizations = layoutItem.Organization.Split(",");
 
         if (organizations is not { Length: 4 })
             throw new Exception("Invalid layout configuration");
@@ -67,23 +64,33 @@ public static class LayoutLoader
         if (menuNode == null)
             throw new Exception("Failed to load menu configuration");
 
-        var assembly = menuNode.Attributes["Assembly"]?.Value;
-        var target = menuNode.Attributes["Target"]?.Value;
+        var menuConfigItem = new LayoutItemConfigItem();
+        menuConfigItem.GenerateFromXmlNode(menuNode);
 
-        if (target == null)
+        if (string.IsNullOrEmpty(menuConfigItem.Target))
             throw new Exception("Invalid menu configuration");
 
-        if (AssemblyHelper.CreateInstance(assembly, target) is not LayoutMenu targetMenu)
+        if (AssemblyHelper.CreateInstance(menuConfigItem.Assembly, menuConfigItem.Target) is not MenuDefinition
+            menuDefinition)
             throw new Exception("Invalid menu configuration");
 
-        targetMenu.LoadFromXml(menuNode);
-        targetMenu.GenerateMenu().ForEach(menuItem =>
+        menuDefinition.GenerateMenu().ForEach(item =>
         {
-            menuItem.Classes.Add("Root");
-            layout.Menu.Items.Add(menuItem);
+            layout.Menu.Items.Add(item);
         });
-        
-        if (layout.Menu.Items.Count > 0)
-            layout.Menu.IsVisible = true;
+        layout.Menu.IsVisible = true;
     }
+}
+
+public class LayoutItemConfigItem : ConfigItemBase
+{
+    public string Type { get; set; } = string.Empty;
+    public string Height { get; set; } = string.Empty;
+    public string Width { get; set; } = string.Empty;
+    public string Organization { get; set; } = string.Empty;
+
+    public string Position { get; set; } = string.Empty;
+    public string Default { get; set; } = string.Empty;
+    public string Assembly { get; set; } = string.Empty;
+    public string Target { get; set; } = string.Empty;
 }

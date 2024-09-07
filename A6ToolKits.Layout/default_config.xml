@@ -1,12 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Configuration>
     <Layout Type="Window" Height="450" Width="600" Organization="H,V,H,V">
-        <Menu Name="Menu" Height="30" Porsition="Top" Target="A6ToolKits.Layout.Default.MenuDefault" Assembly="A6ToolKits.Layout.dll"/>
-        <Item Name="ToolBar" Width="50" Position="Left" Target="A6ToolKits.Layout.Default.Toolbar" Assembly="A6ToolKits.Layout.dll"/>
-        <Pages Position="Center">
+        <Menu Height="30" Target="A6ToolKits.Layout.Default.DefaultMenu" Assembly="A6ToolKits.Layout.dll"/>
+        <ToolBar Height="30" Target="A6ToolKits.Layout.Default.Pages.AboutPage" Assembly="A6ToolKits.Layout.dll"/>
+        <Pages>
             <Page Target="A6ToolKits.Layout.Default.Pages.HomePage" Assembly="A6ToolKits.Layout.dll" Default="True"/>
             <Page Target="A6ToolKits.Layout.Default.Pages.AboutPage" Assembly="A6ToolKits.Layout.dll"/>
         </Pages>
-        <Status Name="StatusBar" Position="Bottom" Height="30" Target="A6ToolKits.Layout.Default.StatusBar" Assembly="A6ToolKits.Layout.dll"/>
+        <StatusBar Height="30" Target="A6ToolKits.Layout.Default.Pages.AboutPage" Assembly="A6ToolKits.Layout.dll"/>
+        <Items>
+            <Item Position="Left" Target="A6ToolKits.Layout.Default.Pages.HomePage" Assembly="A6ToolKits.Layout.dll"/>
+        </Items>
     </Layout>
 </Configuration>

@@ -1,6 +1,4 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <!-- Add Resources Here -->
-    <StyleInclude Source="avares://A6ToolKits/Action/Controls/ActionButton.axaml" />
-    <StyleInclude Source="avares://A6ToolKits/Action/Controls/ActionMenuItem.axaml" />
 </Styles>

@@ -7,7 +7,7 @@ using Avalonia.Media;
 
 namespace A6Application.Commands;
 
-public class OpenWindowAction : ActionBase
+public class OpenWindow : ActionBase
 {
     public override string Name => "Open Window";
     public override string ToolTip => "Open a new TestWindow";
