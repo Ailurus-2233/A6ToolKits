@@ -74,7 +74,7 @@ public static class GenerateHelper
             menuDefinition)
             throw new Exception("Invalid menu configuration");
 
-        menuDefinition.GenerateMenu().ForEach(item =>
+        menuDefinition.Generate().ForEach(item =>
         {
             layout.Menu.Items.Add(item);
         });

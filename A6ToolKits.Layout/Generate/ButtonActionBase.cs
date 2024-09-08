@@ -14,7 +14,7 @@ public abstract class ButtonActionBase : ActionBase, IGenerateControl<Button>
         var button = new Button();
         button.Click += (_, _) => Run();
         CanRunChanged += (_, _) => button.IsEnabled = CanRun;
-
+        SetStyles(button);
         return button;
     }
 
@@ -42,6 +42,13 @@ public abstract class ButtonActionBase : ActionBase, IGenerateControl<Button>
             VerticalAlignment = VerticalAlignment.Center,
             HorizontalAlignment = HorizontalAlignment.Center
         };
+        
+        var initials = new TextBlock()
+        {
+            Text = Name?.Substring(0, 1).ToUpper(),
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Center
+        };
 
         switch (Type)
         {
@@ -61,6 +68,11 @@ public abstract class ButtonActionBase : ActionBase, IGenerateControl<Button>
                 style.Setters.Add(new Setter(Layoutable.HeightProperty, buttonSize));
                 style.Setters.Add(new Setter(ContentControl.ContentProperty, stackPanel));
                 break;
+            case ButtonType.Initials:
+                style.Setters.Add(new Setter(ContentControl.ContentProperty, initials));
+                style.Setters.Add(new Setter(Layoutable.HeightProperty, buttonSize));
+                style.Setters.Add(new Setter(Layoutable.WidthProperty, buttonSize));
+                break;
             case ButtonType.Text:
             default:
                 style.Setters.Add(new Setter(ContentControl.ContentProperty, textBlock));
@@ -74,5 +86,6 @@ public enum ButtonType
 {
     Icon,
     Text,
-    IconAndText
+    IconAndText,
+    Initials
 }

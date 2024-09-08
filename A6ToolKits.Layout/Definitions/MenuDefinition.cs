@@ -8,9 +8,9 @@ using Serilog;
 
 namespace A6ToolKits.Layout.Definitions;
 
-public abstract class MenuDefinition : IDefinition
+public abstract class MenuDefinition : IDefinition<MenuItem>
 {
-    public List<MenuItem> GenerateMenu()
+    public List<MenuItem> Generate()
     {
         var properties = GetType().GetProperties().Where(p => GetMenuAttribute(p) != null);
 
@@ -24,7 +24,7 @@ public abstract class MenuDefinition : IDefinition
             {
                 Header = group.Key,
             };
-            var dict = GenerateMenu(1, group);
+            var dict = Generate(1, group);
             AddResult(menuItem, dict);
             result.Add(menuItem);
         }
@@ -32,7 +32,7 @@ public abstract class MenuDefinition : IDefinition
         return result;
     }
 
-    private Dictionary<int, List<MenuItem>> GenerateMenu(int index, IGrouping<string?, PropertyInfo> group)
+    private Dictionary<int, List<MenuItem>> Generate(int index, IGrouping<string?, PropertyInfo> group)
     {
         var dict = new Dictionary<int, List<MenuItem>>();
 
@@ -47,7 +47,7 @@ public abstract class MenuDefinition : IDefinition
                 Header = next.Key,
             };
 
-            var children = GenerateMenu(index + 1, next);
+            var children = Generate(index + 1, next);
 
             AddResult(menuItem, children);
 
