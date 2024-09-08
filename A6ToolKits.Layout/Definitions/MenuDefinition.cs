@@ -2,6 +2,7 @@ using System.Reflection;
 using A6ToolKits.Layout.Attributes;
 using A6ToolKits.Layout.Generate;
 using Avalonia.Controls;
+using Avalonia.Remote.Protocol.Input;
 using DynamicData;
 using Serilog;
 
@@ -23,16 +24,17 @@ public abstract class MenuDefinition : IDefinition
             {
                 Header = group.Key,
             };
-            GenerateMenu(1, group).ForEach(item => { menuItem.Items.Add(item); });
+            var dict = GenerateMenu(1, group);
+            AddResult(menuItem, dict);
             result.Add(menuItem);
         }
 
         return result;
     }
 
-    private List<MenuItem> GenerateMenu(int index, IGrouping<string?, PropertyInfo> group)
+    private Dictionary<int, List<MenuItem>> GenerateMenu(int index, IGrouping<string?, PropertyInfo> group)
     {
-        var result = new List<MenuItem>();
+        var dict = new Dictionary<int, List<MenuItem>>();
 
         var properties = group.Where(property => GetMenuAttribute(property)?.Path.Length == index);
         var groups = group.Where(property => GetMenuAttribute(property)?.Path.Length > index)
@@ -44,22 +46,53 @@ public abstract class MenuDefinition : IDefinition
             {
                 Header = next.Key,
             };
-            GenerateMenu(index + 1, next).ForEach(item => { menuItem.Items.Add(item); });
-            result.Add(menuItem);
+
+            var children = GenerateMenu(index + 1, next);
+
+            AddResult(menuItem, children);
+
+            var key = GetMenuAttribute(next.First())?.Path[index - 1].Order;
+            if (key == null) continue;
+            if (!dict.TryGetValue(key.Value, out var value))
+            {
+                value = new List<MenuItem>();
+                dict[key.Value] = value;
+            }
+
+            value.Add(menuItem);
         }
 
         foreach (var property in properties)
         {
-            var attr = GetMenuAttribute(property);
             var temp = (property.GetValue(this) as MenuActionBase)?.GenerateControl();
-            if (temp != null) result.Add(temp);
+            var key = GetMenuAttribute(property)?.Path[index - 1].Order;
+            if (key == null || temp == null) continue;
+            if (!dict.TryGetValue(key.Value, out var value))
+            {
+                value = new List<MenuItem>();
+                dict[key.Value] = value;
+            }
+
+            value.Add(temp);
         }
 
-        return result;
+        return dict;
     }
 
     private static MenuAttribute? GetMenuAttribute(PropertyInfo property)
     {
         return property.GetCustomAttribute<MenuAttribute>();
+    }
+
+    private void AddResult(MenuItem menuItem, Dictionary<int, List<MenuItem>> children)
+    {
+        var latest = new Separator();
+        children.Keys.ToList().ForEach(key =>
+        {
+            children[key].ForEach(item => menuItem.Items.Add(item));
+            latest = new Separator();
+            menuItem.Items.Add(latest);
+        });
+        menuItem.Items.Remove(latest);
     }
 }

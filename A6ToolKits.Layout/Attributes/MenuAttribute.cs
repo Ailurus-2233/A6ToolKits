@@ -3,12 +3,10 @@ namespace A6ToolKits.Layout.Attributes;
 [AttributeUsage(AttributeTargets.Property)]
 public class MenuAttribute : Attribute
 {
-    public string Name { get; set; }
     public GroupInfo[] Path { get; set; }
 
-    public MenuAttribute(string name, params string[] path)
+    public MenuAttribute(params string[] path)
     {
-        Name = name;
         Path = path.Select(p =>
         {
             var split = p.Split(':');
@@ -20,7 +18,7 @@ public class MenuAttribute : Attribute
 public readonly struct GroupInfo(string itemName, int itemValue)
 {
     public string ItemName { get; } = itemName;
-    public int ItemValue { get; } = itemValue;
+    public int Order { get; } = itemValue;
     
-    public override string ToString() => $"{ItemName}:{ItemValue}";
+    public override string ToString() => $"{ItemName}:{Order}";
 }

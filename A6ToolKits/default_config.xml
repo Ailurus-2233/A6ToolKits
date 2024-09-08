@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Configuration>
     <LoadModules>
-        <Module Name="A6ToolKits.Root" Version="1.0.0" Assembly="A6ToolKits.dll" Target="A6ToolKits.Module.BaseModule"/>
-        <Module Name="A6ToolKits.MVVM" Version="1.0.0" Assembly="A6ToolKits.MVVM.dll" Target="A6ToolKits.MVVM.MVVMModule"/>
-        <Module Name="A6ToolKits.Layout" Version="1.0.0" Assembly="A6ToolKits.Layout.dll" Target="A6ToolKits.Layout.LayoutModule"/>
+        <Module Name="A6ToolKits.Root" Version="1.0.0" Target="A6ToolKits.Module.BaseModule"/>
+        <Module Name="A6ToolKits.MVVM" Version="1.0.0" Target="A6ToolKits.MVVM.MVVMModule"/>
+        <Module Name="A6ToolKits.Layout" Version="1.0.0" Target="A6ToolKits.Layout.LayoutModule"/>
     </LoadModules>
 
     <!-- if use layout module, you can define layout configuration here -->
     <Layout Type="Window" Height="450" Width="600" Organization="H,V,H,V">
-        <Menu Height="30" Target="A6ToolKits.Layout.Default.DefaultMenu" Assembly="A6ToolKits.Layout.dll"/>
-        <ToolBar Height="30" Target="A6ToolKits.Layout.Default.Pages.AboutPage" Assembly="A6ToolKits.Layout.dll"/>
+        <Menu Height="30" Target="A6ToolKits.Layout.Default.DefaultMenu"/>
+        <ToolBar Height="30" Target="A6ToolKits.Layout.Default.Pages.AboutPage"/>
         <Pages>
-            <Page Target="A6ToolKits.Layout.Default.Pages.HomePage" Assembly="A6ToolKits.Layout.dll" Default="True"/>
-            <Page Target="A6ToolKits.Layout.Default.Pages.AboutPage" Assembly="A6ToolKits.Layout.dll"/>
+            <Page Target="A6ToolKits.Layout.Default.Pages.HomePage" Default="True"/>
+            <Page Target="A6ToolKits.Layout.Default.Pages.AboutPage"/>
         </Pages>
-        <StatusBar Height="30" Target="A6ToolKits.Layout.Default.Pages.AboutPage" Assembly="A6ToolKits.Layout.dll"/>
+        <StatusBar Height="30" Target="A6ToolKits.Layout.Default.Pages.AboutPage"/>
         <Items>
-            <Item Position="Left" Target="A6ToolKits.Layout.Default.Pages.HomePage" Assembly="A6ToolKits.Layout.dll"/>
+            <Item Position="Left" Target="A6ToolKits.Layout.Default.Pages.HomePage"/>
         </Items>
     </Layout>
 </Configuration>

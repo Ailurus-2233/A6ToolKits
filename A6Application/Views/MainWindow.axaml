@@ -34,7 +34,16 @@
     <!-- </StackPanel> -->
     
     <Grid RowDefinitions="Auto,*,Auto">
-        <Menu Grid.Row="0" x:Name="Menu" IsVisible="False" />
+        <Menu Grid.Row="0" x:Name="Menu" Height="24">
+            <MenuItem Header="Test">
+                <MenuItem Header="Test1" />
+                <MenuItem Header="Test2" />
+                <Separator />
+                <MenuItem Header="TestGroup">
+                    <MenuItem Header="Test3" />
+                </MenuItem>
+            </MenuItem>
+        </Menu>
         <DockPanel Grid.Row="1" LastChildFill="True">
             <StackPanel DockPanel.Dock="Top" x:Name="TopDock" Background="Aqua" />
             <StackPanel DockPanel.Dock="Bottom" x:Name="BottomDock" Background="Yellow" />
