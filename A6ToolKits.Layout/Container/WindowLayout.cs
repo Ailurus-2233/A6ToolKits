@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using A6ToolKits.Layout.Container.Controls;
 using Avalonia.Controls;
+using Avalonia.Media;
 
 namespace A6ToolKits.Layout.Container;
 
@@ -23,6 +24,8 @@ public class WindowLayout
     public WindowType Type { get; set; } = WindowType.Window;
     public double Width { get; set; } = 800;
     public double Height { get; set; } = 600;
+    
+    public Color MainColor { get; set; } = Colors.CornflowerBlue;
 }
 
 public enum WindowType

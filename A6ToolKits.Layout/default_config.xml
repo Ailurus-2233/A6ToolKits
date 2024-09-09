@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Configuration>
-    <Layout Type="Window" Height="450" Width="600" Organization="H,V,H,V">
+    <Layout Type="Window" Height="450" Width="600" Organization="H,V,H,V" MainColor="#0C3E81">
         <Menu Height="30" Target="A6ToolKits.Layout.Default.DefaultMenu" Assembly="A6ToolKits.Layout.dll"/>
         <ToolBar Type="Icon" Height="30" Target="A6ToolKits.Layout.Default.DefaultToolBar" Assembly="A6ToolKits.Layout.dll"/>
         <Pages>

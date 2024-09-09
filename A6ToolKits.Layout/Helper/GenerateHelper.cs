@@ -5,6 +5,7 @@ using A6ToolKits.Layout.Container;
 using A6ToolKits.Layout.Definitions;
 using Avalonia.Controls;
 using Avalonia.Layout;
+using Avalonia.Media;
 
 namespace A6ToolKits.Layout.Helper;
 
@@ -50,6 +51,10 @@ public static class GenerateHelper
         layout.TopPanel.Orientation = SwitchOrientation(organizations[1]);
         layout.RightPanel.Orientation = SwitchOrientation(organizations[2]);
         layout.BottomPanel.Orientation = SwitchOrientation(organizations[3]);
+
+        var color = layoutItem.MainColor;
+        if (color.StartsWith("#"))
+            layout.MainColor = Color.Parse(color);
     }
 
     private static Orientation SwitchOrientation(string orientation)
@@ -139,6 +144,9 @@ public static class GenerateHelper
                       layout.WindowContainer.CenterStatus.Children.Count != 0;
 
         layout.WindowContainer.StatusBar.IsVisible = visible;
+
+        var color = layout.MainColor;
+        layout.WindowContainer.StatusBar.Background = new SolidColorBrush(color, 0.5);
     }
 }
 
@@ -148,6 +156,8 @@ public class LayoutItemConfigItem : ConfigItemBase
     public string Height { get; set; } = string.Empty;
     public string Width { get; set; } = string.Empty;
     public string Organization { get; set; } = string.Empty;
+
+    public string MainColor { get; set; } = string.Empty;
 
     public string Position { get; set; } = string.Empty;
     public string Default { get; set; } = string.Empty;
