@@ -1,18 +1,17 @@
 using System.Reflection;
+using A6ToolKits.Action;
 using A6ToolKits.Layout.Attributes;
-using A6ToolKits.Layout.Generate;
+using A6ToolKits.Layout.Generator;
 using Avalonia.Controls;
 
 namespace A6ToolKits.Layout.Definitions;
 
-public abstract class MenuDefinition : IDefinition<MenuItem>
+public static class MenuDefinitionExtensions
 {
-    public List<MenuItem> Generate()
+    public static List<MenuItem> GenerateMenuItem(this IDefinition definition)
     {
-        var properties = GetType().GetProperties().Where(p => GetMenuAttribute(p) != null);
-
         var result = new List<MenuItem>();
-
+        var properties = definition.GetType().GetProperties().Where(p => GetMenuAttribute(p) != null);
         var groups = properties.GroupBy(p => GetMenuAttribute(p)?.Path[0].ItemName);
 
         foreach (var group in groups)
@@ -21,7 +20,7 @@ public abstract class MenuDefinition : IDefinition<MenuItem>
             {
                 Header = group.Key
             };
-            var dict = Generate(1, group);
+            var dict = Generate(1, group, definition);
             AddResult(menuItem, dict);
             result.Add(menuItem);
         }
@@ -29,7 +28,10 @@ public abstract class MenuDefinition : IDefinition<MenuItem>
         return result;
     }
 
-    private Dictionary<int, List<MenuItem>> Generate(int index, IGrouping<string?, PropertyInfo> group)
+    private static Dictionary<int, List<MenuItem>> Generate(
+        int index,
+        IGrouping<string?, PropertyInfo> group,
+        IDefinition definition)
     {
         var dict = new Dictionary<int, List<MenuItem>>();
 
@@ -44,7 +46,7 @@ public abstract class MenuDefinition : IDefinition<MenuItem>
                 Header = next.Key
             };
 
-            var children = Generate(index + 1, next);
+            var children = Generate(index + 1, next, definition);
 
             AddResult(menuItem, children);
 
@@ -59,18 +61,21 @@ public abstract class MenuDefinition : IDefinition<MenuItem>
             value.Add(menuItem);
         }
 
+        var menuGenerator = new MenuGenerator();
+
         foreach (var property in properties)
         {
-            var temp = (property.GetValue(this) as MenuActionBase)?.GenerateControl();
+            if (property.GetValue(definition) is not ActionBase temp) continue;
+            var menuItem = menuGenerator.GenerateControl(temp);
             var key = GetMenuAttribute(property)?.Path[index - 1].Order;
-            if (key == null || temp == null) continue;
+            if (key == null) continue;
             if (!dict.TryGetValue(key.Value, out var value))
             {
                 value = new List<MenuItem>();
                 dict[key.Value] = value;
             }
 
-            value.Add(temp);
+            value.Add(menuItem);
         }
 
         return dict;
@@ -81,15 +86,13 @@ public abstract class MenuDefinition : IDefinition<MenuItem>
         return property.GetCustomAttribute<MenuAttribute>();
     }
 
-    private void AddResult(MenuItem menuItem, Dictionary<int, List<MenuItem>> children)
+    private static void AddResult(MenuItem menuItem, Dictionary<int, List<MenuItem>> children)
     {
-        var latest = new Separator();
         children.Keys.ToList().ForEach(key =>
         {
             children[key].ForEach(item => menuItem.Items.Add(item));
-            latest = new Separator();
-            menuItem.Items.Add(latest);
+            menuItem.Items.Add(new Separator());
         });
-        menuItem.Items.Remove(latest);
+        menuItem.Items.RemoveAt(menuItem.Items.Count - 1);
     }
 }

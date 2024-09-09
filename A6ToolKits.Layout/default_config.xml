@@ -2,7 +2,7 @@
 <Configuration>
     <Layout Type="Window" Height="450" Width="600" Organization="H,V,H,V">
         <Menu Height="30" Target="A6ToolKits.Layout.Default.DefaultMenu" Assembly="A6ToolKits.Layout.dll"/>
-        <ToolBar Height="30" Target="A6ToolKits.Layout.Default.Pages.AboutPage" Assembly="A6ToolKits.Layout.dll"/>
+        <ToolBar Type="Icon" Height="30" Target="A6ToolKits.Layout.Default.DefaultToolBar" Assembly="A6ToolKits.Layout.dll"/>
         <Pages>
             <Page Target="A6ToolKits.Layout.Default.Pages.HomePage" Assembly="A6ToolKits.Layout.dll" Default="True"/>
             <Page Target="A6ToolKits.Layout.Default.Pages.AboutPage" Assembly="A6ToolKits.Layout.dll"/>

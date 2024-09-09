@@ -4,7 +4,7 @@ using A6ToolKits.Layout.Definitions;
 
 namespace A6ToolKits.Layout.Default;
 
-public class DefaultMenu : MenuDefinition
+public class DefaultMenu : IDefinition
 {
     [Menu("文件:0")] public NewFile NewFile { get; } = new();
     [Menu("文件:0")] public NewFolder NewFolder { get; } = new();

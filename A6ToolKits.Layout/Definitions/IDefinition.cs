@@ -2,7 +2,6 @@ using Avalonia.Controls;
 
 namespace A6ToolKits.Layout.Definitions;
 
-public interface IDefinition<T> where T : Control
+public interface IDefinition
 {
-    public List<T> Generate();
 }

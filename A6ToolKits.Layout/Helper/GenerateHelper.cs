@@ -1,7 +1,9 @@
 using System.Xml;
 using A6ToolKits.Helper;
+using A6ToolKits.Layout.Attributes;
 using A6ToolKits.Layout.Container;
 using A6ToolKits.Layout.Definitions;
+using Avalonia.Controls;
 using Avalonia.Layout;
 
 namespace A6ToolKits.Layout.Helper;
@@ -17,9 +19,37 @@ public static class GenerateHelper
 
         SetWindowProperty(layout, layoutElement);
 
-        SetMenuPanel(layout, layoutElement);
+        SetMenu(layout, layoutElement);
+
+        SetToolBar(layout, layoutElement);
 
         return layout;
+    }
+
+    private static void SetToolBar(WindowLayout layout, XmlNode layoutElement)
+    {
+        var toolBarNode = layoutElement["ToolBar"];
+        if (toolBarNode == null)
+            return;
+
+        var toolBarConfigItem = new LayoutItemConfigItem();
+        toolBarConfigItem.GenerateFromXmlNode(toolBarNode);
+
+        if (string.IsNullOrEmpty(toolBarConfigItem.Target))
+            throw new Exception("Invalid toolbar configuration");
+
+        if (AssemblyHelper.CreateInstance(toolBarConfigItem.Assembly, toolBarConfigItem.Target) is not IDefinition toolBarDefinition)
+            throw new Exception("Invalid toolbar configuration");
+
+        layout.WindowContainer.ToolBar.Height = toolBarConfigItem.Height == "Auto" ? double.NaN : double.Parse(toolBarConfigItem.Height);
+
+
+        toolBarDefinition.GenerateToolBar(Position.Left).ForEach(item => { layout.WindowContainer.ToolBar.Children.Add(item); });
+
+        toolBarDefinition.GenerateToolBar(Position.Right).ForEach(item => { layout.WindowContainer.RightToolBar.Children.Add(item); });
+
+        layout.WindowContainer.ToolBar.IsVisible = layout.WindowContainer.ToolBar.Children.Count != 0;
+        layout.WindowContainer.RightToolBar.IsVisible = layout.WindowContainer.RightToolBar.Children.Count != 0;
     }
 
     private static void SetWindowProperty(WindowLayout layout, XmlNode node)
@@ -56,11 +86,11 @@ public static class GenerateHelper
         };
     }
 
-    private static void SetMenuPanel(WindowLayout layout, XmlNode layoutElement)
+    private static void SetMenu(WindowLayout layout, XmlNode layoutElement)
     {
         var menuNode = layoutElement["Menu"];
         if (menuNode == null)
-            throw new Exception("Failed to load menu configuration");
+            return;
 
         var menuConfigItem = new LayoutItemConfigItem();
         menuConfigItem.GenerateFromXmlNode(menuNode);
@@ -68,12 +98,18 @@ public static class GenerateHelper
         if (string.IsNullOrEmpty(menuConfigItem.Target))
             throw new Exception("Invalid menu configuration");
 
-        if (AssemblyHelper.CreateInstance(menuConfigItem.Assembly, menuConfigItem.Target) is not MenuDefinition
+        if (AssemblyHelper.CreateInstance(menuConfigItem.Assembly, menuConfigItem.Target) is not IDefinition
             menuDefinition)
             throw new Exception("Invalid menu configuration");
 
-        menuDefinition.Generate().ForEach(item => { layout.Menu.Items.Add(item); });
-        layout.Menu.IsVisible = true;
+        layout.Menu.Height = menuConfigItem.Height == "Auto" ? double.NaN : double.Parse(menuConfigItem.Height);
+
+        foreach (var targetItem in menuDefinition.GenerateMenuItem())
+        {
+            layout.Menu.Items.Add(targetItem);
+        }
+
+        layout.Menu.IsVisible = layout.Menu.Items.Count != 0;
     }
 }
 
