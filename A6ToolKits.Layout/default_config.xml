@@ -7,7 +7,7 @@
             <Page Target="A6ToolKits.Layout.Default.Pages.HomePage" Assembly="A6ToolKits.Layout.dll" Default="True"/>
             <Page Target="A6ToolKits.Layout.Default.Pages.AboutPage" Assembly="A6ToolKits.Layout.dll"/>
         </Pages>
-        <StatusBar Height="30" Target="A6ToolKits.Layout.Default.Pages.AboutPage" Assembly="A6ToolKits.Layout.dll"/>
+        <StatusBar Height="30" Target="A6ToolKits.Layout.Default.DefaultStatusBar" Assembly="A6ToolKits.Layout.dll"/>
         <Items>
             <Item Position="Left" Target="A6ToolKits.Layout.Default.Pages.HomePage" Assembly="A6ToolKits.Layout.dll"/>
         </Items>

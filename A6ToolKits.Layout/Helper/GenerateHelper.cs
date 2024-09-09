@@ -23,33 +23,9 @@ public static class GenerateHelper
 
         SetToolBar(layout, layoutElement);
 
+        SetStatusBar(layout, layoutElement);
+
         return layout;
-    }
-
-    private static void SetToolBar(WindowLayout layout, XmlNode layoutElement)
-    {
-        var toolBarNode = layoutElement["ToolBar"];
-        if (toolBarNode == null)
-            return;
-
-        var toolBarConfigItem = new LayoutItemConfigItem();
-        toolBarConfigItem.GenerateFromXmlNode(toolBarNode);
-
-        if (string.IsNullOrEmpty(toolBarConfigItem.Target))
-            throw new Exception("Invalid toolbar configuration");
-
-        if (AssemblyHelper.CreateInstance(toolBarConfigItem.Assembly, toolBarConfigItem.Target) is not IDefinition toolBarDefinition)
-            throw new Exception("Invalid toolbar configuration");
-
-        layout.WindowContainer.ToolBar.Height = toolBarConfigItem.Height == "Auto" ? double.NaN : double.Parse(toolBarConfigItem.Height);
-
-
-        toolBarDefinition.GenerateToolBar(Position.Left).ForEach(item => { layout.WindowContainer.ToolBar.Children.Add(item); });
-
-        toolBarDefinition.GenerateToolBar(Position.Right).ForEach(item => { layout.WindowContainer.RightToolBar.Children.Add(item); });
-
-        layout.WindowContainer.ToolBar.IsVisible = layout.WindowContainer.ToolBar.Children.Count != 0;
-        layout.WindowContainer.RightToolBar.IsVisible = layout.WindowContainer.RightToolBar.Children.Count != 0;
     }
 
     private static void SetWindowProperty(WindowLayout layout, XmlNode node)
@@ -110,6 +86,59 @@ public static class GenerateHelper
         }
 
         layout.Menu.IsVisible = layout.Menu.Items.Count != 0;
+    }
+
+    private static void SetToolBar(WindowLayout layout, XmlNode layoutElement)
+    {
+        var toolBarNode = layoutElement["ToolBar"];
+        if (toolBarNode == null)
+            return;
+
+        var toolBarConfigItem = new LayoutItemConfigItem();
+        toolBarConfigItem.GenerateFromXmlNode(toolBarNode);
+
+        if (string.IsNullOrEmpty(toolBarConfigItem.Target))
+            throw new Exception("Invalid toolbar configuration");
+
+        if (AssemblyHelper.CreateInstance(toolBarConfigItem.Assembly, toolBarConfigItem.Target) is not IDefinition toolBarDefinition)
+            throw new Exception("Invalid toolbar configuration");
+
+        layout.WindowContainer.ToolBar.Height = toolBarConfigItem.Height == "Auto" ? double.NaN : double.Parse(toolBarConfigItem.Height);
+
+
+        toolBarDefinition.GenerateToolBar(ToolBarPosition.Left).ForEach(item => { layout.WindowContainer.ToolBar.Children.Add(item); });
+
+        toolBarDefinition.GenerateToolBar(ToolBarPosition.Right).ForEach(item => { layout.WindowContainer.RightToolBar.Children.Add(item); });
+
+        layout.WindowContainer.ToolBar.IsVisible = layout.WindowContainer.ToolBar.Children.Count != 0;
+        layout.WindowContainer.RightToolBar.IsVisible = layout.WindowContainer.RightToolBar.Children.Count != 0;
+    }
+
+    private static void SetStatusBar(WindowLayout layout, XmlNode layoutElement)
+    {
+        var statusBarNode = layoutElement["StatusBar"];
+        if (statusBarNode == null)
+            return;
+
+        var statusBarConfigItem = new LayoutItemConfigItem();
+        statusBarConfigItem.GenerateFromXmlNode(statusBarNode);
+
+        if (string.IsNullOrEmpty(statusBarConfigItem.Target))
+            throw new Exception("Invalid status bar configuration");
+
+        if (AssemblyHelper.CreateInstance(statusBarConfigItem.Assembly, statusBarConfigItem.Target) is not IDefinition statusBarDefinition)
+            throw new Exception("Invalid status bar configuration");
+
+        layout.WindowContainer.StatusBar.Height = statusBarConfigItem.Height == "Auto" ? double.NaN : double.Parse(statusBarConfigItem.Height);
+
+        statusBarDefinition.GenerateStatusBar(StatusPosition.Left).ForEach(item => { layout.WindowContainer.LeftStatus.Children.Add(item); });
+        statusBarDefinition.GenerateStatusBar(StatusPosition.Right).ForEach(item => { layout.WindowContainer.RightStatus.Children.Add(item); });
+        statusBarDefinition.GenerateStatusBar(StatusPosition.Center).ForEach(item => { layout.WindowContainer.CenterStatus.Children.Add(item); });
+
+        var visible = layout.WindowContainer.LeftStatus.Children.Count != 0 || layout.WindowContainer.RightStatus.Children.Count != 0 ||
+                      layout.WindowContainer.CenterStatus.Children.Count != 0;
+
+        layout.WindowContainer.StatusBar.IsVisible = visible;
     }
 }
 

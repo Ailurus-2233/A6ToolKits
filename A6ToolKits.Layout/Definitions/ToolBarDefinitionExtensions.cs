@@ -10,14 +10,14 @@ namespace A6ToolKits.Layout.Definitions;
 
 public static class ToolBarDefinitionExtensions
 {
-    public static List<Control> GenerateToolBar(this IDefinition definition, Position position)
+    public static List<Control> GenerateToolBar(this IDefinition definition, ToolBarPosition toolBarPosition)
     {
         var result = new List<Control>();
 
         var properties = definition.GetType().GetProperties().Where(p =>
         {
             var attr = GetToolBarAttribute(p);
-            return attr != null && attr.Position == position;
+            return attr != null && attr.Position == toolBarPosition;
         });
 
         var groups = properties.GroupBy(p => GetToolBarAttribute(p)?.Group);
@@ -38,7 +38,7 @@ public static class ToolBarDefinitionExtensions
             {
                 Width = 1,
                 Height = double.NaN,
-                Margin = Thickness.Parse("5")
+                Margin = new Thickness(5)
             });
         }
 

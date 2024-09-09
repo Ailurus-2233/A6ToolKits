@@ -27,6 +27,16 @@
             <ContentControl x:Name="Page" />
         </DockPanel>
         <Separator Grid.Row="3" Margin="0" Background="#E5E5E5" />
-        <DockPanel x:Name="StatusBar" Grid.Row="4" />
+        <DockPanel x:Name="StatusBar" Grid.Row="4" IsVisible="False">
+            <StackPanel x:Name="LeftStatus"
+                        Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                        DockPanel.Dock="Left" Orientation="Horizontal" />
+            <StackPanel x:Name="RightStatus"
+                        Margin="0,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+                        DockPanel.Dock="Right" Orientation="Horizontal" />
+            <StackPanel x:Name="CenterStatus"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        DockPanel.Dock="Bottom" Orientation="Horizontal" />
+        </DockPanel>
     </Grid>
 </Window>

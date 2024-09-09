@@ -121,3 +121,11 @@ public class ButtonGenerator : IControlGenerator<Button>
         return fontSize - 5;
     }
 }
+
+public enum ButtonType
+{
+    Icon,
+    Text,
+    IconAndText,
+    Initials
+}
