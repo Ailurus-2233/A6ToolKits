@@ -8,14 +8,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj" />
+        <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Common\Controls\WindowContainer.axaml.cs">
-        <DependentUpon>WindowContainer.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
+        <Compile Update="Common\Controls\WindowContainer.axaml.cs">
+            <DependentUpon>WindowContainer.axaml</DependentUpon>
+            <SubType>Code</SubType>
+        </Compile>
     </ItemGroup>
 
 </Project>

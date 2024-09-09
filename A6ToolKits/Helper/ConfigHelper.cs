@@ -15,10 +15,7 @@ public static class ConfigHelper
     {
         try
         {
-            if (!File.Exists(ConfigPath))
-            {
-                File.Copy(DefaultConfig, ConfigPath);
-            }
+            if (!File.Exists(ConfigPath)) File.Copy(DefaultConfig, ConfigPath);
 
             var xml = new XmlDocument();
             xml.Load(ConfigPath);

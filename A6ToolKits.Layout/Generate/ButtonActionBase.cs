@@ -26,8 +26,8 @@ public abstract class ButtonActionBase : ActionBase, IGenerateControl<Button>
         // 设置水平剧中
         style.Setters.Add(new Setter(Layoutable.HorizontalAlignmentProperty, HorizontalAlignment.Center));
         var buttonSize = button.Height > button.Width ? button.Width : button.Height;
-        
-        var image = new Image()
+
+        var image = new Image
         {
             Source = Icon,
             Width = buttonSize - 2,
@@ -35,15 +35,15 @@ public abstract class ButtonActionBase : ActionBase, IGenerateControl<Button>
             VerticalAlignment = VerticalAlignment.Center,
             HorizontalAlignment = HorizontalAlignment.Center
         };
-        
-        var textBlock = new TextBlock()
+
+        var textBlock = new TextBlock
         {
             Text = Name,
             VerticalAlignment = VerticalAlignment.Center,
             HorizontalAlignment = HorizontalAlignment.Center
         };
-        
-        var initials = new TextBlock()
+
+        var initials = new TextBlock
         {
             Text = Name?.Substring(0, 1).ToUpper(),
             VerticalAlignment = VerticalAlignment.Center,
@@ -59,7 +59,7 @@ public abstract class ButtonActionBase : ActionBase, IGenerateControl<Button>
                 style.Setters.Add(new Setter(ContentControl.ContentProperty, image));
                 break;
             case ButtonType.IconAndText:
-                var stackPanel = new StackPanel()
+                var stackPanel = new StackPanel
                 {
                     Orientation = Orientation.Horizontal
                 };

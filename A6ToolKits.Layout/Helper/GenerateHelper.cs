@@ -1,9 +1,7 @@
 using System.Xml;
-using A6ToolKits.Action;
 using A6ToolKits.Helper;
 using A6ToolKits.Layout.Container;
 using A6ToolKits.Layout.Definitions;
-using Avalonia.Controls;
 using Avalonia.Layout;
 
 namespace A6ToolKits.Layout.Helper;
@@ -74,10 +72,7 @@ public static class GenerateHelper
             menuDefinition)
             throw new Exception("Invalid menu configuration");
 
-        menuDefinition.Generate().ForEach(item =>
-        {
-            layout.Menu.Items.Add(item);
-        });
+        menuDefinition.Generate().ForEach(item => { layout.Menu.Items.Add(item); });
         layout.Menu.IsVisible = true;
     }
 }

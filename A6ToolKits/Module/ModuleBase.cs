@@ -5,7 +5,7 @@ using Serilog;
 namespace A6ToolKits.Module;
 
 /// <summary>
-/// 一个模块接口，用于记录模块的信息
+///     一个模块接口，用于记录模块的信息
 /// </summary>
 public abstract class ModuleBase
 {

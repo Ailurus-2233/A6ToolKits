@@ -8,8 +8,8 @@ namespace A6ToolKits.MVVM.Helper;
 public static class IoCHelper
 {
     /// <summary>
-    /// 从所有加载的程序集中查找带有 AutoRegisterAttribute 特性的类型并注册到 IoC 容器中
-    /// 注意：最好不要使用，因为会加载所有的程序集
+    ///     从所有加载的程序集中查找带有 AutoRegisterAttribute 特性的类型并注册到 IoC 容器中
+    ///     注意：最好不要使用，因为会加载所有的程序集
     /// </summary>
     public static void AutoRegisterAll()
     {
@@ -26,10 +26,10 @@ public static class IoCHelper
     }
 
     /// <summary>
-    /// 从程序集中查找带有 AutoRegisterAttribute 特性的类型并注册到 IoC 容器中
+    ///     从程序集中查找带有 AutoRegisterAttribute 特性的类型并注册到 IoC 容器中
     /// </summary>
     /// <param name="assembly">
-    /// 程序集
+    ///     程序集
     /// </param>
     public static void AutoRegister(Assembly assembly)
     {
@@ -43,10 +43,10 @@ public static class IoCHelper
     }
 
     /// <summary>
-    /// 注册类型到 IoC 容器中
+    ///     注册类型到 IoC 容器中
     /// </summary>
     /// <param name="types">
-    /// 需要要注册的类型列表
+    ///     需要要注册的类型列表
     /// </param>
     public static void RegisterServices(IEnumerable<Type> types)
     {
@@ -74,10 +74,10 @@ public static class IoCHelper
     }
 
     /// <summary>
-    /// 注册 ViewModel 到 IoC 容器中
+    ///     注册 ViewModel 到 IoC 容器中
     /// </summary>
     /// <param name="types">
-    /// 需要要注册的 ViewModel 类型列表
+    ///     需要要注册的 ViewModel 类型列表
     /// </param>
     public static void RegisterViewModel(IEnumerable<Type> types)
     {
@@ -107,10 +107,10 @@ public static class IoCHelper
     }
 
     /// <summary>
-    /// 依赖注入，从 IoC 容器中获取依赖并注入到目标对象中
+    ///     依赖注入，从 IoC 容器中获取依赖并注入到目标对象中
     /// </summary>
     /// <param name="target">
-    /// 要注入依赖的对象
+    ///     要注入依赖的对象
     /// </param>
     public static void InjectDependencies(object target)
     {

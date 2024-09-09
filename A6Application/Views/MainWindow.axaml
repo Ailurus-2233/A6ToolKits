@@ -1,13 +1,10 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:A6Application.ViewModels"
+<Window x:Class="A6Application.Views.MainWindow"
+        xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="A6Application.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="A6Application">
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:vm="using:A6Application.ViewModels"
+        Title="A6Application"
+        d:DesignHeight="450" d:DesignWidth="800" x:DataType="vm:MainWindowViewModel" Icon="/Assets/avalonia-logo.ico"
+        mc:Ignorable="d">
 
     <Design.DataContext>
         <vm:MainWindowViewModel />
@@ -32,9 +29,9 @@
     <!--     <Button Command="{Binding ClickCommand }" Content="Click" /> -->
     <!--     <controls:ActionButton Action="{Binding ActionList[0]}" /> -->
     <!-- </StackPanel> -->
-    
+
     <Grid RowDefinitions="Auto,*,Auto">
-        <Menu Grid.Row="0" x:Name="Menu" Height="24">
+        <Menu x:Name="Menu" Grid.Row="0" Height="24">
             <MenuItem Header="Test">
                 <MenuItem Header="Test1" />
                 <MenuItem Header="Test2" />
@@ -45,12 +42,12 @@
             </MenuItem>
         </Menu>
         <DockPanel Grid.Row="1" LastChildFill="True">
-            <StackPanel DockPanel.Dock="Top" x:Name="TopDock" Background="Aqua" />
-            <StackPanel DockPanel.Dock="Bottom" x:Name="BottomDock" Background="Yellow" />
-            <StackPanel DockPanel.Dock="Left" x:Name="LeftDock" Background="Brown" />
-            <StackPanel DockPanel.Dock="Right" x:Name="RightDock" Background="Azure" />
+            <StackPanel x:Name="TopDock" Background="Aqua" DockPanel.Dock="Top" />
+            <StackPanel x:Name="BottomDock" Background="Yellow" DockPanel.Dock="Bottom" />
+            <StackPanel x:Name="LeftDock" Background="Brown" DockPanel.Dock="Left" />
+            <StackPanel x:Name="RightDock" Background="Azure" DockPanel.Dock="Right" />
             <ContentControl x:Name="Page" Background="Chartreuse" />
         </DockPanel>
-        <DockPanel Grid.Row="2" x:Name="StatusBar" />
+        <DockPanel x:Name="StatusBar" Grid.Row="2" />
     </Grid>
 </Window>

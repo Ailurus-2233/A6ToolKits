@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj" />
+        <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj"/>
     </ItemGroup>
 
 </Project>

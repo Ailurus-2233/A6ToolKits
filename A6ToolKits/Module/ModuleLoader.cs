@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Xml;
 using A6ToolKits.Helper;
 using Serilog;
@@ -16,7 +15,6 @@ public static class ModuleLoader
         var modules = new List<ModuleBase>();
         var moduleConfigs = GetModules();
         foreach (var module in moduleConfigs)
-        {
             try
             {
                 var instance = AssemblyHelper.CreateInstance<ModuleBase>(module.Assembly, module.Target);
@@ -35,7 +33,6 @@ public static class ModuleLoader
             {
                 Log.Error("Failed to load module {0}.{1}: {2}", module.Name, module.Version, e.Message);
             }
-        }
 
         return modules;
     }

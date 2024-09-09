@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 
 namespace A6ToolKits.Helper;
 
@@ -8,7 +9,7 @@ public static class AssemblyHelper
     private static Type? LoadType(string? assemblyName, string typeName)
     {
         if (assemblyName == null) return Type.GetType(typeName);
-        var assembly = System.Reflection.Assembly.LoadFrom(assemblyName);
+        var assembly = Assembly.LoadFrom(assemblyName);
         var type = assembly.GetTypes().FirstOrDefault(t => t.FullName == typeName);
         return type;
     }

@@ -3,8 +3,8 @@
 namespace A6ToolKits.MVVM.Common;
 
 /// <summary>
-/// 基于 Microsoft.Extensions.DependencyInjection 的 IoC 容器封装类
-/// 可以通过 IoC.Add 方法注册类型到 IoC 容器中, 通过 IoC.Get 方法获取类型的实例
+///     基于 Microsoft.Extensions.DependencyInjection 的 IoC 容器封装类
+///     可以通过 IoC.Add 方法注册类型到 IoC 容器中, 通过 IoC.Get 方法获取类型的实例
 /// </summary>
 public static class IoC
 {
@@ -17,10 +17,10 @@ public static class IoC
     #region Register
 
     /// <summary>
-    /// 注册类型到 IoC 容器中
+    ///     注册类型到 IoC 容器中
     /// </summary>
     /// <param name="type">
-    /// 一个可以实例化的类型
+    ///     一个可以实例化的类型
     /// </param>
     public static void Add(Type type)
     {
@@ -29,13 +29,13 @@ public static class IoC
     }
 
     /// <summary>
-    /// 注册类型到 IoC 容器中
+    ///     注册类型到 IoC 容器中
     /// </summary>
     /// <param name="serviceType">
-    /// 一个接口或抽象类
+    ///     一个接口或抽象类
     /// </param>
     /// <param name="implementationType">
-    /// 一个可以实例化的类型
+    ///     一个可以实例化的类型
     /// </param>
     public static void Add(Type serviceType, Type implementationType)
     {
@@ -44,10 +44,10 @@ public static class IoC
     }
 
     /// <summary>
-    /// 注册类型到 IoC 容器中
+    ///     注册类型到 IoC 容器中
     /// </summary>
     /// <typeparam name="TService">
-    /// 一个可以实例化的类型
+    ///     一个可以实例化的类型
     /// </typeparam>
     public static void Add<TService>() where TService : class
     {
@@ -55,13 +55,13 @@ public static class IoC
     }
 
     /// <summary>
-    /// 注册类型到 IoC 容器中
+    ///     注册类型到 IoC 容器中
     /// </summary>
     /// <typeparam name="TService">
-    /// 一个接口或抽象类
+    ///     一个接口或抽象类
     /// </typeparam>
     /// <typeparam name="TImplementation">
-    /// 一个可以实例化的类型，并且实现了TService
+    ///     一个可以实例化的类型，并且实现了TService
     /// </typeparam>
     public static void Add<TService, TImplementation>()
         where TService : class where TImplementation : class, TService
@@ -70,10 +70,10 @@ public static class IoC
     }
 
     /// <summary>
-    /// 注册一个单例到 IoC 容器中
+    ///     注册一个单例到 IoC 容器中
     /// </summary>
     /// <param name="type">
-    /// 一个可以实例化的类型
+    ///     一个可以实例化的类型
     /// </param>
     public static void AddSingleton(Type type)
     {
@@ -82,13 +82,13 @@ public static class IoC
     }
 
     /// <summary>
-    /// 注册一个单例到 IoC 容器中
+    ///     注册一个单例到 IoC 容器中
     /// </summary>
     /// <param name="serviceType">
-    /// 一个接口或抽象类
+    ///     一个接口或抽象类
     /// </param>
     /// <param name="implementationType">
-    /// 一个可以实例化的类型，并且实现了serviceType
+    ///     一个可以实例化的类型，并且实现了serviceType
     /// </param>
     public static void AddSingleton(Type serviceType, Type implementationType)
     {
@@ -97,13 +97,13 @@ public static class IoC
     }
 
     /// <summary>
-    /// 注册一个具体实例到 IoC 容器中
+    ///     注册一个具体实例到 IoC 容器中
     /// </summary>
     /// <param name="type">
-    /// 可以是类、接口、抽象类
+    ///     可以是类、接口、抽象类
     /// </param>
     /// <param name="instance">
-    /// 具体实例，必须是type的实例
+    ///     具体实例，必须是type的实例
     /// </param>
     public static void AddSingleton(Type type, object instance)
     {
@@ -112,10 +112,10 @@ public static class IoC
     }
 
     /// <summary>
-    /// 注册一个单例到 IoC 容器中
+    ///     注册一个单例到 IoC 容器中
     /// </summary>
     /// <typeparam name="TService">
-    /// 一个可以实例化的类型
+    ///     一个可以实例化的类型
     /// </typeparam>
     public static void AddSingleton<TService>() where TService : class
     {
@@ -123,13 +123,13 @@ public static class IoC
     }
 
     /// <summary>
-    /// 注册一个单例到 IoC 容器中
+    ///     注册一个单例到 IoC 容器中
     /// </summary>
     /// <param name="service">
-    /// 一个具体实例
+    ///     一个具体实例
     /// </param>
     /// <typeparam name="TService">
-    /// 一个可以实例化的类型
+    ///     一个可以实例化的类型
     /// </typeparam>
     public static void AddSingleton<TService>(TService service) where TService : class
     {
@@ -137,13 +137,13 @@ public static class IoC
     }
 
     /// <summary>
-    /// 注册一个单例到 IoC 容器中
+    ///     注册一个单例到 IoC 容器中
     /// </summary>
     /// <typeparam name="TService">
-    /// 一个接口或抽象类
+    ///     一个接口或抽象类
     /// </typeparam>
     /// <typeparam name="TImplementation">
-    /// 一个可以实例化的类型，并且实现了TService
+    ///     一个可以实例化的类型，并且实现了TService
     /// </typeparam>
     public static void AddSingleton<TService, TImplementation>()
         where TService : class where TImplementation : class, TService
@@ -152,16 +152,16 @@ public static class IoC
     }
 
     /// <summary>
-    /// 注册一个具体实例到 IoC 容器中
+    ///     注册一个具体实例到 IoC 容器中
     /// </summary>
     /// <param name="implementation">
-    /// 具体实例，必须是 TImplementation 的实例
+    ///     具体实例，必须是 TImplementation 的实例
     /// </param>
     /// <typeparam name="TService">
-    /// 一个可以实例化的类型
+    ///     一个可以实例化的类型
     /// </typeparam>
     /// <typeparam name="TImplementation">
-    /// 一个可以实例化的类型，并且实现了 TService
+    ///     一个可以实例化的类型，并且实现了 TService
     /// </typeparam>
     public static void AddSingleton<TService, TImplementation>(TImplementation implementation)
         where TService : class where TImplementation : class, TService
@@ -170,13 +170,13 @@ public static class IoC
     }
 
     /// <summary>
-    /// 注册一个实例工厂到 IoC 容器中
+    ///     注册一个实例工厂到 IoC 容器中
     /// </summary>
     /// <param name="factory">
-    /// 具体的构造实例工厂
+    ///     具体的构造实例工厂
     /// </param>
     /// <typeparam name="TService">
-    /// 类，接口，抽象类
+    ///     类，接口，抽象类
     /// </typeparam>
     public static void AddByFactory<TService>(Func<IServiceProvider, TService> factory) where TService : class
     {
@@ -184,13 +184,13 @@ public static class IoC
     }
 
     /// <summary>
-    /// 注册一个单例实例工厂到 IoC 容器中
+    ///     注册一个单例实例工厂到 IoC 容器中
     /// </summary>
     /// <param name="factory">
-    /// 具体的构造实例工厂
+    ///     具体的构造实例工厂
     /// </param>
     /// <typeparam name="TService">
-    /// 类，接口，抽象类
+    ///     类，接口，抽象类
     /// </typeparam>
     public static void AddSingletonByFactory<TService>(Func<IServiceProvider, TService> factory) where TService : class
     {
@@ -202,13 +202,13 @@ public static class IoC
     #region Get
 
     /// <summary>
-    /// 从 IoC 容器中获取类型的实例
+    ///     从 IoC 容器中获取类型的实例
     /// </summary>
     /// <typeparam name="TService">
-    /// 需要从 IoC 容器中获取的类型
+    ///     需要从 IoC 容器中获取的类型
     /// </typeparam>
     /// <returns>
-    /// 返回类型的实例
+    ///     返回类型的实例
     /// </returns>
     public static TService Get<TService>() where TService : class
     {
@@ -216,13 +216,13 @@ public static class IoC
     }
 
     /// <summary>
-    /// 尝试从 IoC 容器中获取类型的实例
+    ///     尝试从 IoC 容器中获取类型的实例
     /// </summary>
     /// <typeparam name="TService">
-    /// 需要从 IoC 容器中获取的类型
+    ///     需要从 IoC 容器中获取的类型
     /// </typeparam>
     /// <returns>
-    /// 返回类型的实例，如果获取失败则返回 null
+    ///     返回类型的实例，如果获取失败则返回 null
     /// </returns>
     public static TService? TryGet<TService>() where TService : class
     {
@@ -230,13 +230,13 @@ public static class IoC
     }
 
     /// <summary>
-    /// 从 IoC 容器中获取类型的实例
+    ///     从 IoC 容器中获取类型的实例
     /// </summary>
     /// <param name="serviceType">
-    /// 需要从 IoC 容器中获取的类型
+    ///     需要从 IoC 容器中获取的类型
     /// </param>
     /// <returns>
-    /// 返回类型的实例
+    ///     返回类型的实例
     /// </returns>
     public static object Get(Type serviceType)
     {
@@ -248,13 +248,13 @@ public static class IoC
     #region Creator
 
     /// <summary>
-    /// 基于 IoC 中的注册信息创建一个实例
+    ///     基于 IoC 中的注册信息创建一个实例
     /// </summary>
     /// <typeparam name="TService">
-    /// 需要创建的类型
+    ///     需要创建的类型
     /// </typeparam>
     /// <returns>
-    /// 返回创建的实例
+    ///     返回创建的实例
     /// </returns>
     public static TService Create<TService>() where TService : class
     {
@@ -262,13 +262,13 @@ public static class IoC
     }
 
     /// <summary>
-    /// 基于 IoC 中的注册信息创建一个实例
+    ///     基于 IoC 中的注册信息创建一个实例
     /// </summary>
     /// <param name="serviceType">
-    /// 需要创建的类型
+    ///     需要创建的类型
     /// </param>
     /// <returns>
-    /// 返回创建的实例
+    ///     返回创建的实例
     /// </returns>
     public static object Create(Type serviceType)
     {
@@ -280,7 +280,7 @@ public static class IoC
     #region private methods
 
     /// <summary>
-    /// 获取 ServiceProvider 实例
+    ///     获取 ServiceProvider 实例
     /// </summary>
     /// <returns></returns>
     private static ServiceProvider GetServiceProvider()
@@ -289,19 +289,19 @@ public static class IoC
     }
 
     /// <summary>
-    /// 检查 IoC 注册的类型是否合法
+    ///     检查 IoC 注册的类型是否合法
     /// </summary>
     /// <param name="serviceType">
-    /// 基类、接口、抽象类
+    ///     基类、接口、抽象类
     /// </param>
     /// <param name="implementationType">
-    /// 实现类
+    ///     实现类
     /// </param>
     /// <returns>
-    /// 如果注册的类型合法则返回 true
+    ///     如果注册的类型合法则返回 true
     /// </returns>
     /// <exception cref="ArgumentException">
-    /// 当注册的类型不合法时抛出异常
+    ///     当注册的类型不合法时抛出异常
     /// </exception>
     private static bool IsLegal(Type serviceType, Type? implementationType)
     {
@@ -320,19 +320,19 @@ public static class IoC
     }
 
     /// <summary>
-    /// 检查 IoC 注册单例实例时是否合法
+    ///     检查 IoC 注册单例实例时是否合法
     /// </summary>
     /// <param name="type">
-    /// 需要注册的类型
+    ///     需要注册的类型
     /// </param>
     /// <param name="instance">
-    /// 具体实例
+    ///     具体实例
     /// </param>
     /// <returns>
-    /// 如果注册的类型合法则返回 true
+    ///     如果注册的类型合法则返回 true
     /// </returns>
     /// <exception cref="ArgumentException">
-    /// 当注册的类型不合法时抛出异常
+    ///     当注册的类型不合法时抛出异常
     /// </exception>
     private static bool IsLegal(Type type, object instance)
     {

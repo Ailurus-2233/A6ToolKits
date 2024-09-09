@@ -2,9 +2,6 @@ using System.Reflection;
 using A6ToolKits.Layout.Attributes;
 using A6ToolKits.Layout.Generate;
 using Avalonia.Controls;
-using Avalonia.Remote.Protocol.Input;
-using DynamicData;
-using Serilog;
 
 namespace A6ToolKits.Layout.Definitions;
 
@@ -20,9 +17,9 @@ public abstract class MenuDefinition : IDefinition<MenuItem>
 
         foreach (var group in groups)
         {
-            var menuItem = new MenuItem()
+            var menuItem = new MenuItem
             {
-                Header = group.Key,
+                Header = group.Key
             };
             var dict = Generate(1, group);
             AddResult(menuItem, dict);
@@ -42,9 +39,9 @@ public abstract class MenuDefinition : IDefinition<MenuItem>
 
         foreach (var next in groups)
         {
-            var menuItem = new MenuItem()
+            var menuItem = new MenuItem
             {
-                Header = next.Key,
+                Header = next.Key
             };
 
             var children = Generate(index + 1, next);

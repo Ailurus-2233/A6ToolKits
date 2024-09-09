@@ -1,9 +1,6 @@
 ﻿using System.Linq;
-using System.Reflection;
-using A6Application.Views;
 using A6ToolKits.Bootstrapper;
 using A6ToolKits.Layout;
-using A6ToolKits.MVVM.Common;
 using Avalonia.Controls;
 
 namespace A6Application;

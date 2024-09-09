@@ -8,16 +8,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\A6ToolKits.MVVM\A6ToolKits.MVVM.csproj" />
-      <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj" />
+        <ProjectReference Include="..\A6ToolKits.MVVM\A6ToolKits.MVVM.csproj"/>
+        <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <UpToDateCheckInput Remove="Layout\Styles\LayoutItem.axaml" />
+        <UpToDateCheckInput Remove="Layout\Styles\LayoutItem.axaml"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Themes\" />
+        <Folder Include="Themes\"/>
     </ItemGroup>
 
 </Project>

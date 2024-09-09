@@ -8,20 +8,20 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj" />
+        <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <UpToDateCheckInput Remove="Starter\MainPage\MainWindow.axaml" />
+        <UpToDateCheckInput Remove="Starter\MainPage\MainWindow.axaml"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.0" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.0"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Common\Interfaces\" />
+        <Folder Include="Common\Interfaces\"/>
     </ItemGroup>
 
 </Project>

@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 
 namespace A6ToolKits.Behaviors;
 
@@ -66,7 +67,7 @@ public class UserControlBehavior
         control.PointerPressed += Control_Click;
     }
 
-    private static void Control_Click(object? sender, Avalonia.Input.PointerPressedEventArgs e)
+    private static void Control_Click(object? sender, PointerPressedEventArgs e)
     {
         if (sender is not Control control) return;
         var command = GetClickCommand(control);

@@ -2,7 +2,7 @@
 
 namespace A6ToolKits.Layout.Definitions;
 
-public class ToolBarDefinition: IDefinition<Button>
+public class ToolBarDefinition : IDefinition<Button>
 {
     public List<Button> Generate()
     {

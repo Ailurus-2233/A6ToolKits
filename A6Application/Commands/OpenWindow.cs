@@ -11,7 +11,8 @@ public class OpenWindow : ActionBase
 {
     public override string Name => "Open Window";
     public override string ToolTip => "Open a new TestWindow";
-    public override IImage Icon => 
+
+    public override IImage Icon =>
         ImageHelper.LoadFromResource(new Uri("avares://A6Application/Assets/avalonia-logo.ico"));
 
     public override Task Run()

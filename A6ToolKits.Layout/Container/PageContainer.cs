@@ -4,10 +4,10 @@ namespace A6ToolKits.Layout.Container;
 
 public class PageContainer : ContentControl
 {
+    private int _currentPageIndex;
     public List<ContentControl> Pages { get; set; } = [];
     public bool CanMoveToPreviousPage => PreviousPages.Count > 0;
     public bool CanMoveToNextPage => NextPages.Count > 0;
-    private int _currentPageIndex;
 
 
     public ContentControl CurrentPage
@@ -17,7 +17,9 @@ public class PageContainer : ContentControl
         {
             var index = Pages.IndexOf(value);
             if (index != -1)
+            {
                 MoveToPage(index);
+            }
             else
             {
                 Pages.Add(value);
@@ -29,11 +31,11 @@ public class PageContainer : ContentControl
         }
     }
 
-    private int DefaultPageIndex { get; set; } = 0;
+    private int DefaultPageIndex { get; } = 0;
 
     public ContentControl DefaultPage => Pages[DefaultPageIndex];
-    private Stack<ContentControl> PreviousPages { get; set; } = new();
-    private Stack<ContentControl> NextPages { get; set; } = new();
+    private Stack<ContentControl> PreviousPages { get; } = new();
+    private Stack<ContentControl> NextPages { get; } = new();
 
     private void MoveToPage(int index)
     {
@@ -41,7 +43,7 @@ public class PageContainer : ContentControl
             throw new Exception("Index out of range.");
 
         _currentPageIndex = index;
-        var page = Pages[_currentPageIndex] as ContentControl;
+        var page = Pages[_currentPageIndex];
         Content = page;
         DataContext = page?.DataContext;
     }

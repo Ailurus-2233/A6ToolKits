@@ -1,3 +1,5 @@
-﻿namespace A6ToolKits.Helper.Exceptions;
+﻿using System;
 
-public class ConfigLoadException(string message) : System.Exception(message);
+namespace A6ToolKits.Helper.Exceptions;
+
+public class ConfigLoadException(string message) : Exception(message);

@@ -24,15 +24,15 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\A6ToolKits.Database\A6ToolKits.Database.csproj" />
-      <ProjectReference Include="..\A6ToolKits.Layout\A6ToolKits.Layout.csproj" />
-      <ProjectReference Include="..\A6ToolKits.MVVM\A6ToolKits.MVVM.csproj" />
-      <ProjectReference Include="..\A6ToolKits.System\A6ToolKits.System.csproj" />
-      <ProjectReference Include="..\A6ToolKits.UIPackage\A6ToolKits.UIPackage.csproj" />
-      <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj" />
+        <ProjectReference Include="..\A6ToolKits.Database\A6ToolKits.Database.csproj"/>
+        <ProjectReference Include="..\A6ToolKits.Layout\A6ToolKits.Layout.csproj"/>
+        <ProjectReference Include="..\A6ToolKits.MVVM\A6ToolKits.MVVM.csproj"/>
+        <ProjectReference Include="..\A6ToolKits.System\A6ToolKits.System.csproj"/>
+        <ProjectReference Include="..\A6ToolKits.UIPackage\A6ToolKits.UIPackage.csproj"/>
+        <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="bin\Debug\net8.0\config.xml" />
+        <Content Include="bin\Debug\net8.0\config.xml"/>
     </ItemGroup>
 </Project>

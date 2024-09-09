@@ -23,12 +23,9 @@ public static class LifetimeExtensions
         var extensionsType = typeof(ClassicDesktopStyleApplicationLifetimeExtensions);
         var prepareLifetimeMethod =
             extensionsType.GetMethod("PrepareLifetime", BindingFlags.NonPublic | BindingFlags.Static);
-        
-        if (prepareLifetimeMethod == null)
-        {
-            throw new MissingMethodException("PrepareLifetime method not found.");
-        }
-        
+
+        if (prepareLifetimeMethod == null) throw new MissingMethodException("PrepareLifetime method not found.");
+
         return prepareLifetimeMethod.Invoke(null, [builder, args, lifetimeBuilder]) as
             ClassicDesktopStyleApplicationLifetime ?? throw new InvalidOperationException();
     }

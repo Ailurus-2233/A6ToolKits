@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using A6ToolKits.Bootstrapper.Extensions;
 using A6ToolKits.Helper;
 using A6ToolKits.Module;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Logging;
 using Serilog;
 using LogEventLevel = Serilog.Events.LogEventLevel;
 
@@ -16,9 +15,9 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper
     where TApplication : Application, new()
     where TWindow : Window, new()
 {
-    private AppBuilder? _builder = null;
-    private string[] _runArgs = [];
+    private AppBuilder? _builder;
     private ClassicDesktopStyleApplicationLifetime? _lifetime;
+    private string[] _runArgs = [];
     protected TWindow? MainWindow { get; set; }
     public IList<ModuleBase>? Modules { get; set; }
 
@@ -36,19 +35,15 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper
         Log.Information("Configuring Application: Config Avalonia builder & lifetime");
 
         // 如果是 Debug 模式，则启用Avalonia的日志记录
-        if (System.Diagnostics.Debugger.IsAttached)
-        {
+        if (Debugger.IsAttached)
             _builder = AppBuilder
                 .Configure<TApplication>()
                 .UsePlatformDetect()
                 .LogToTrace();
-        }
         else
-        {
             _builder = AppBuilder
                 .Configure<TApplication>()
                 .UsePlatformDetect();
-        }
 
         _lifetime = LifetimeExtensions.PrepareLifetime(_builder, _runArgs, null);
         _builder.SetupWithLifetime(_lifetime);
