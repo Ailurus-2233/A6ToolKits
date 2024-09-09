@@ -14,6 +14,8 @@ public class LayoutModule : ModuleBase
         "Add Layout capabilities to A6ToolKits to automatically load layout for main window";
 
     public static WindowLayout? WindowLayout { get; set; }
+    
+    public static event EventHandler? LoadLayoutCompleted;
 
     protected override void Initialize()
     {
@@ -24,5 +26,6 @@ public class LayoutModule : ModuleBase
             throw new Exception("Failed to load layout configuration");
 
         Log.Information("Load layout success");
+        LoadLayoutCompleted?.Invoke(this, EventArgs.Empty);
     }
 }

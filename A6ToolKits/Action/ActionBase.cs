@@ -9,6 +9,8 @@ namespace A6ToolKits.Action;
 /// </summary>
 public abstract class ActionBase : IAction
 {
+    private bool _canRun = true;
+    
     /// <summary>
     ///     动作名称
     /// </summary>
@@ -32,7 +34,15 @@ public abstract class ActionBase : IAction
     /// <summary>
     ///     动作是否可以执行
     /// </summary>
-    public bool CanRun { get; set; } = true;
+    public bool CanRun
+    {
+        get => _canRun;
+        set
+        {
+            _canRun = value;
+            CanRunChanged?.Invoke(this, EventArgs.Empty);
+        }
+    }
 
     /// <summary>
     ///     动作是否可以执行发生变化时触发的事件

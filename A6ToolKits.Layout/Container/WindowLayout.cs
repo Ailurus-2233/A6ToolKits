@@ -26,8 +26,8 @@ public class WindowLayout
     public double Height { get; set; } = 600;
     
     public Color MainColor { get; set; } = Colors.CornflowerBlue;
-    
-    public PageContainer Container { get; } = new();
+
+    public PageContainer Container => WindowContainer.Page;
 }
 
 public enum WindowType

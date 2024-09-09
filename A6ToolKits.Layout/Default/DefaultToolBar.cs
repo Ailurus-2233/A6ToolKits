@@ -17,4 +17,6 @@ public class DefaultToolBar : IDefinition
     [ToolBar(2, "Left")] public PreviewPage PreviewPage { get; } = new();
 
     [ToolBar(2, "Left")] public NextPage NextPage { get; } = new();
+    
+    [ToolBar(2, "Left")] public ActiveAboutPage ActiveAboutPage { get; } = new();
 }
