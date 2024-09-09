@@ -25,6 +25,7 @@ public static class GenerateHelper
         SetToolBar(layout, layoutElement);
 
         SetStatusBar(layout, layoutElement);
+        
 
         return layout;
     }
@@ -53,8 +54,12 @@ public static class GenerateHelper
         layout.BottomPanel.Orientation = SwitchOrientation(organizations[3]);
 
         var color = layoutItem.MainColor;
-        if (color.StartsWith("#"))
+        if (color.StartsWith('#'))
             layout.MainColor = Color.Parse(color);
+        
+        var iconPath = layoutItem.IconPath;
+        if (!string.IsNullOrEmpty(iconPath))
+            layout.WindowContainer.Icon = new WindowIcon(iconPath);
     }
 
     private static Orientation SwitchOrientation(string orientation)
@@ -159,6 +164,8 @@ public class LayoutItemConfigItem : ConfigItemBase
 
     public string MainColor { get; set; } = string.Empty;
 
+    public string IconPath { get; set; } = string.Empty;
+    
     public string Position { get; set; } = string.Empty;
     public string Default { get; set; } = string.Empty;
     public string Assembly { get; set; } = string.Empty;

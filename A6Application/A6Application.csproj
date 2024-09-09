@@ -9,8 +9,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Models\"/>
         <AvaloniaResource Include="Assets\**"/>
+        <AvaloniaResource Include="Assets\avalonia-logo.ico">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AvaloniaResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -34,5 +36,11 @@
 
     <ItemGroup>
         <Content Include="bin\Debug\net8.0\config.xml"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Assets\avalonia-logo.ico">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 </Project>

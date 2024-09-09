@@ -13,7 +13,7 @@ public class LayoutModule : ModuleBase
     public override string ModuleDescription { get; set; } =
         "Add Layout capabilities to A6ToolKits to automatically load layout for main window";
 
-    public WindowLayout? WindowLayout { get; set; }
+    public static WindowLayout? WindowLayout { get; set; }
 
     protected override void Initialize()
     {

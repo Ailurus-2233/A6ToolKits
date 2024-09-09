@@ -9,8 +9,8 @@ public class AppBootstrapper : BaseBootstrapper<App, Window>
 {
     public override void OnCompleted()
     {
-        if (Modules?.FirstOrDefault(m => m is LayoutModule) is LayoutModule layoutModule)
-            MainWindow = layoutModule.WindowLayout?.WindowContainer;
+        if ((bool)Modules?.Any(m => m is LayoutModule))
+            MainWindow = LayoutModule.WindowLayout?.WindowContainer;
 
         // MainWindow = IoC.Get<MainWindow>();
         base.OnCompleted();

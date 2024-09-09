@@ -13,4 +13,8 @@ public class DefaultToolBar : IDefinition
     [ToolBar(1, "Left")] public NewFolder NewFolder { get; } = new();
 
     [ToolBar(1, "Right")] public OpenFolder OpenFolder { get; } = new();
+
+    [ToolBar(2, "Left")] public PreviewPage PreviewPage { get; } = new();
+
+    [ToolBar(2, "Left")] public NextPage NextPage { get; } = new();
 }
