@@ -8,16 +8,24 @@
         <ApplicationIcon>Assets\avalonia-logo.ico</ApplicationIcon>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <DebugType>full</DebugType>
+        <DebugType>full</DebugType>
+        <DocumentationFile>bin\Debug\A6Application.xml</DocumentationFile>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+        <DebugType>none</DebugType>
+        <DocumentationFile>bin\Release\A6Application.xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
         <AvaloniaResource Include="Assets\**"/>
         <None Update="after_build.sh">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="config.xml">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 
@@ -35,12 +43,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="Assets\avalonia-logo.ico">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+        <None Update="Assets\avalonia-logo.ico">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="cd $(TargetDir)&#xA;bash ./after_build.sh" />
+        <Exec Command="cd $(TargetDir)&#xA;bash ./after_build.sh"/>
     </Target>
 </Project>

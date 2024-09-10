@@ -23,6 +23,13 @@ public sealed class AutoRegisterAttribute(Type? interfaceType = null, RegisterTy
 /// </summary>
 public enum RegisterType
 {
-    Transient, // 瞬时
-    Singleton // 单例
+    /// <summary>
+    ///     瞬时注册模式
+    /// </summary>
+    Transient,
+
+    /// <summary>
+    ///     单例注册模式
+    /// </summary>
+    Singleton
 }

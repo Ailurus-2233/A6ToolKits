@@ -1,11 +1,11 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 
 namespace A6ToolKits.Layout.Default;
 
+/// <inheritdoc />
 public partial class AboutPageView : UserControl
 {
+    /// <inheritdoc />
     public AboutPageView()
     {
         InitializeComponent();

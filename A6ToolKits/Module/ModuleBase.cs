@@ -9,13 +9,37 @@ namespace A6ToolKits.Module;
 /// </summary>
 public abstract class ModuleBase
 {
+    /// <summary>
+    ///     模块名称
+    /// </summary>
     public abstract string ModuleName { get; set; }
+
+    /// <summary>
+    ///     模块版本
+    /// </summary>
     public abstract string ModuleVersion { get; set; }
+
+    /// <summary>
+    ///     模块描述
+    /// </summary>
     public abstract string ModuleDescription { get; set; }
 
+    /// <summary>
+    ///     初始化，加载模块时执行的操作
+    /// </summary>
     protected abstract void Initialize();
+
+    /// <summary>
+    ///     模块加载完成事件
+    /// </summary>
     public event EventHandler? LoadModuleCompleted;
 
+    /// <summary>
+    ///     加载模块，加载完成后触发 <see cref="LoadModuleCompleted" />
+    /// </summary>
+    /// <exception cref="LoadModuleException">
+    ///     模块加载失败
+    /// </exception>
     public void LoadModule()
     {
         try

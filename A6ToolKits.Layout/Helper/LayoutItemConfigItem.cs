@@ -2,21 +2,63 @@
 
 namespace A6ToolKits.Layout.Helper;
 
+/// <summary>
+///     布局项配置项
+/// </summary>
 public class LayoutItemConfigItem : ConfigItemBase
 {
-    public string Type { get; set; } = string.Empty;
-    public string Height { get; set; } = string.Empty;
-    public string Width { get; set; } = string.Empty;
-    public string Organization { get; set; } = string.Empty;
-
-    public string MainColor { get; set; } = string.Empty;
-
-    public string IconPath { get; set; } = string.Empty;
-
-    public string Position { get; set; } = string.Empty;
-    public string Default { get; set; } = string.Empty;
+    /// <summary>
+    ///     控件加载的程序集
+    /// </summary>
     public string Assembly { get; set; } = string.Empty;
+
+    /// <summary>
+    ///     控件的具体类
+    /// </summary>
     public string Target { get; set; } = string.Empty;
 
+    /// <summary>
+    ///     窗口类型
+    /// </summary>
+    public string Type { get; set; } = string.Empty;
+
+    /// <summary>
+    ///     窗口宽高
+    /// </summary>
+    public string Height { get; set; } = string.Empty;
+
+    /// <summary>
+    ///     窗口宽高
+    /// </summary>
+    public string Width { get; set; } = string.Empty;
+
+    /// <summary>
+    ///     四边控件的布局方式，H 水平布局，V 垂直布局
+    /// </summary>
+    public string Organization { get; set; } = string.Empty;
+
+    /// <summary>
+    ///     主题颜色
+    /// </summary>
+    public string MainColor { get; set; } = string.Empty;
+
+    /// <summary>
+    ///     图标路径
+    /// </summary>
+    public string IconPath { get; set; } = string.Empty;
+
+    /// <summary>
+    ///     控件位置，对 Items 有效
+    /// </summary>
+    public string Position { get; set; } = string.Empty;
+
+    /// <summary>
+    ///     页面名称
+    /// </summary>
     public string Name { get; set; } = string.Empty;
+
+    /// <summary>
+    ///     默认页面，对 Pages 有效
+    /// </summary>
+    public string Default { get; set; } = string.Empty;
 }

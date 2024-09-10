@@ -10,7 +10,7 @@ namespace A6ToolKits.Action;
 public abstract class ActionBase : IAction
 {
     private bool _canRun = true;
-    
+
     /// <summary>
     ///     动作名称
     /// </summary>

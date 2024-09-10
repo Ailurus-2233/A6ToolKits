@@ -1,19 +1,31 @@
 using System.Globalization;
 using A6ToolKits.Action;
-using A6ToolKits.Layout.Attributes;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 using Avalonia.Media;
-using Avalonia.Styling;
 
 namespace A6ToolKits.Layout.Generator;
 
+/// <summary>
+///     按钮生成器，针对不同的按钮类型生成不同的按钮
+/// </summary>
 public class ButtonGenerator : IControlGenerator<Button>
 {
+    /// <summary>
+    ///     按钮类型，默认为 Icon
+    /// </summary>
     public ButtonType Type { get; set; }
 
+    /// <summary>
+    ///     基于 ActionBase 生成按钮
+    /// </summary>
+    /// <param name="action">
+    ///     按钮执行的动作
+    /// </param>
+    /// <returns>
+    ///     生成的按钮控件
+    /// </returns>
     public Button GenerateControl(ActionBase action)
     {
         var button = new Button();
@@ -101,7 +113,7 @@ public class ButtonGenerator : IControlGenerator<Button>
     }
 
     /// <summary>
-    /// 根据高度计算字体大小，使字符刚好可以填充按钮
+    ///     根据高度计算字体大小，使字符刚好可以填充按钮
     /// </summary>
     /// <param name="button"> 按钮 </param>
     /// <returns></returns>
@@ -113,19 +125,34 @@ public class ButtonGenerator : IControlGenerator<Button>
 
         var formatText = new FormattedText(text.Text, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, Typeface.Default, fontSize,
             Brushes.Black);
-        while (formatText.Width < button.Bounds.Height && formatText.Height < button.Bounds.Height)
-        {
-            formatText.SetFontSize(fontSize++);
-        }
+        while (formatText.Width < button.Bounds.Height && formatText.Height < button.Bounds.Height) formatText.SetFontSize(fontSize++);
 
         return fontSize - 5;
     }
 }
 
+/// <summary>
+///     按钮类型
+/// </summary>
 public enum ButtonType
 {
+    /// <summary>
+    ///     仅图标
+    /// </summary>
     Icon,
+
+    /// <summary>
+    ///     仅文字
+    /// </summary>
     Text,
+
+    /// <summary>
+    ///     图标和文字
+    /// </summary>
     IconAndText,
+
+    /// <summary>
+    ///     首字母
+    /// </summary>
     Initials
 }

@@ -5,6 +5,9 @@ using Avalonia.Controls;
 
 namespace A6ToolKits.MVVM.Helper;
 
+/// <summary>
+///     IoC 帮助类
+/// </summary>
 public static class IoCHelper
 {
     /// <summary>

@@ -1,5 +1,4 @@
 using System.Xml;
-using A6ToolKits.Helper;
 using A6ToolKits.Helper.Assembly;
 using A6ToolKits.Helper.Config;
 using A6ToolKits.Layout.Attributes;
@@ -11,8 +10,20 @@ using Avalonia.Media;
 
 namespace A6ToolKits.Layout.Helper;
 
+/// <summary>
+///     生成窗口布局，基于配置文件，组装一个窗口布局并返回
+/// </summary>
 public static class GenerateHelper
 {
+    /// <summary>
+    ///     生成窗口布局，基于配置文件，组装一个窗口布局并返回
+    /// </summary>
+    /// <returns>
+    ///     生成的窗口布局
+    /// </returns>
+    /// <exception cref="Exception">
+    ///     配置文件读取异常
+    /// </exception>
     public static WindowLayout LoadLayout()
     {
         var layout = new WindowLayout();
@@ -95,10 +106,7 @@ public static class GenerateHelper
 
         layout.Menu.Height = menuConfigItem.Height == "Auto" ? double.NaN : double.Parse(menuConfigItem.Height);
 
-        foreach (var targetItem in menuDefinition.GenerateMenuItem())
-        {
-            layout.Menu.Items.Add(targetItem);
-        }
+        foreach (var targetItem in menuDefinition.GenerateMenuItem()) layout.Menu.Items.Add(targetItem);
 
         layout.Menu.IsVisible = layout.Menu.Items.Count != 0;
     }

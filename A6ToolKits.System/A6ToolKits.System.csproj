@@ -8,6 +8,10 @@
         <RootNamespace>A6ToolKit.System</RootNamespace>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+
     <ItemGroup>
         <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj"/>
     </ItemGroup>

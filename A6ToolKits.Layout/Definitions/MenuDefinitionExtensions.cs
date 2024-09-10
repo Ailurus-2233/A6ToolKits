@@ -6,8 +6,20 @@ using Avalonia.Controls;
 
 namespace A6ToolKits.Layout.Definitions;
 
+/// <summary>
+///     菜单定义类扩展，用于生成菜单项
+/// </summary>
 public static class MenuDefinitionExtensions
 {
+    /// <summary>
+    ///     根据属性中的 MenuAttribute 生成菜单项
+    /// </summary>
+    /// <param name="definition">
+    ///     定义类
+    /// </param>
+    /// <returns>
+    ///     菜单项列表，只需要将该列表添加到 Menu.Items 中即可
+    /// </returns>
     public static List<MenuItem> GenerateMenuItem(this IDefinition definition)
     {
         var result = new List<MenuItem>();

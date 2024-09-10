@@ -2,17 +2,29 @@
 
 namespace A6ToolKits.Layout.Container;
 
+/// <summary>
+///     页面容器，用于管理多个页面
+/// </summary>
 public class PageContainer : ContentControl
 {
     private int _currentPageIndex = -1;
-    private List<ContentControl> Pages { get; set; } = [];
-    private Dictionary<string, ContentControl> PageDictionary { get; set; } = new();
+    private List<ContentControl> Pages { get; } = [];
+    private Dictionary<string, ContentControl> PageDictionary { get; } = new();
+
+    /// <summary>
+    ///     是否可以移动到上一页
+    /// </summary>
     public bool CanMoveToPreviousPage => PreviousPages.Count > 0;
+
+    /// <summary>
+    ///     是否可以移动到下一页
+    /// </summary>
     public bool CanMoveToNextPage => NextPages.Count > 0;
 
-    public event EventHandler? PageChanged;
 
-
+    /// <summary>
+    ///     当前活动的页面
+    /// </summary>
     public ContentControl CurrentPage
     {
         get => Pages[_currentPageIndex];
@@ -34,12 +46,40 @@ public class PageContainer : ContentControl
         }
     }
 
-    private int DefaultPageIndex { get; } = 0;
+    /// <summary>
+    ///     默认页面索引
+    /// </summary>
+    public int DefaultPageIndex { get; set; } = 0;
 
+    /// <summary>
+    ///     默认页面
+    /// </summary>
     public ContentControl DefaultPage => Pages[DefaultPageIndex];
+
+    /// <summary>
+    ///     返回的数据栈
+    /// </summary>
     private Stack<ContentControl> PreviousPages { get; } = new();
+
+    /// <summary>
+    ///     前进的数据栈
+    /// </summary>
     private Stack<ContentControl> NextPages { get; } = new();
 
+    /// <summary>
+    ///     页面切换事件
+    /// </summary>
+    public event EventHandler? PageChanged;
+
+    /// <summary>
+    ///     移动到指定页面
+    /// </summary>
+    /// <param name="index">
+    ///     页面索引
+    /// </param>
+    /// <exception cref="Exception">
+    ///     索引超出范围
+    /// </exception>
     public void MoveToPage(int index)
     {
         if (index < 0 || index >= Pages.Count)
@@ -49,9 +89,15 @@ public class PageContainer : ContentControl
         var page = Pages[_currentPageIndex];
         Content = page;
         DataContext = page.DataContext;
-        OnPageChanged();
+        PageChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    /// <summary>
+    ///     移动到上一页
+    /// </summary>
+    /// <exception cref="Exception">
+    ///     上一页未找到
+    /// </exception>
     public void MoveToPreviousPage()
     {
         if (PreviousPages.Count == 0)
@@ -65,9 +111,17 @@ public class PageContainer : ContentControl
             MoveToPage(index);
         }
         else
+        {
             throw new Exception("Previous page not found.");
+        }
     }
 
+    /// <summary>
+    ///     移动到下一页
+    /// </summary>
+    /// <exception cref="Exception">
+    ///     下一页未找到
+    /// </exception>
     public void MoveToNextPage()
     {
         if (NextPages.Count == 0)
@@ -81,14 +135,20 @@ public class PageContainer : ContentControl
             MoveToPage(index);
         }
         else
+        {
             throw new Exception("Next page not found.");
+        }
     }
 
-    private void OnPageChanged()
-    {
-        PageChanged?.Invoke(this, EventArgs.Empty);
-    }
-
+    /// <summary>
+    ///     添加页面到容器中
+    /// </summary>
+    /// <param name="name">
+    ///     页面名称
+    /// </param>
+    /// <param name="page">
+    ///     页面控件
+    /// </param>
     public void AddPage(string name, ContentControl page)
     {
         Pages.Add(page);
@@ -96,6 +156,12 @@ public class PageContainer : ContentControl
         PageDictionary.TryAdd(name, page);
     }
 
+    /// <summary>
+    ///     指定控件激活页面，如果页面不存在则添加到容器中
+    /// </summary>
+    /// <param name="page">
+    ///     页面控件
+    /// </param>
     public void ActivatePage(ContentControl page)
     {
         var index = Pages.IndexOf(page);
@@ -119,11 +185,14 @@ public class PageContainer : ContentControl
         }
     }
 
+    /// <summary>
+    ///     指定名称激活页面，如果页面不存在则不操作
+    /// </summary>
+    /// <param name="name">
+    ///     页面名称
+    /// </param>
     public void ActivatePage(string name)
     {
-        if (PageDictionary.TryGetValue(name, out var page))
-        {
-            ActivatePage(page);
-        }
+        if (PageDictionary.TryGetValue(name, out var page)) ActivatePage(page);
     }
 }

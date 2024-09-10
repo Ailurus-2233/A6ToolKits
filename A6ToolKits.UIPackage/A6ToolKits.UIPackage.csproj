@@ -7,6 +7,10 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+
     <ItemGroup>
         <ProjectReference Include="..\A6ToolKits.MVVM\A6ToolKits.MVVM.csproj"/>
         <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj"/>
@@ -14,10 +18,6 @@
 
     <ItemGroup>
         <UpToDateCheckInput Remove="Layout\Styles\LayoutItem.axaml"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Folder Include="Themes\"/>
     </ItemGroup>
 
 </Project>

@@ -7,13 +7,34 @@ using Avalonia.Platform;
 
 namespace A6ToolKits.Helper;
 
+/// <summary>
+///     图片帮助类
+/// </summary>
 public static class ImageHelper
 {
+    /// <summary>
+    ///     从 Avalonia应用资源 中加载图片
+    /// </summary>
+    /// <param name="resourceUri">
+    ///     资源 URI
+    /// </param>
+    /// <returns>
+    ///     返回图片
+    /// </returns>
     public static Bitmap LoadFromResource(Uri resourceUri)
     {
         return new Bitmap(AssetLoader.Open(resourceUri));
     }
 
+    /// <summary>
+    ///     从 网络地址 加载图片
+    /// </summary>
+    /// <param name="url">
+    ///     网络地址
+    /// </param>
+    /// <returns>
+    ///     返回图片的异步任务
+    /// </returns>
     public static async Task<Bitmap?> LoadFromWeb(Uri url)
     {
         using var httpClient = new HttpClient();

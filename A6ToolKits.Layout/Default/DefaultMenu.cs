@@ -4,6 +4,7 @@ using A6ToolKits.Layout.Definitions;
 
 namespace A6ToolKits.Layout.Default;
 
+#pragma warning disable CS1591 // 缺少对公共可见类型或成员的 XML 注释
 public class DefaultMenu : IDefinition
 {
     [Menu("文件:0")] public NewFile NewFile { get; } = new();
@@ -23,3 +24,5 @@ public class DefaultMenu : IDefinition
     [Menu("文件:1")] public OpenFile OpenFile3 { get; } = new();
     [Menu("文件:1")] public OpenFolder OpenFolder3 { get; } = new();
 }
+
+#pragma warning restore CS1591 // 缺少对公共可见类型或成员的 XML 注释

@@ -4,6 +4,16 @@
         <Nullable>enable</Nullable>
         <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>A6 桌面应用开发工具包</Title>
+        <Authors>Ailurus2233</Authors>
+        <Description>快速搭建 Avalonia 复杂桌面应用程序的开发框架</Description>
+        <AssemblyVersion>1.0.0</AssemblyVersion>
+        <FileVersion>1.0.0</FileVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <DocumentationFile>bin\Debug\A6ToolKits.xml</DocumentationFile>
+        <WarningLevel>4</WarningLevel>
     </PropertyGroup>
 
     <ItemGroup>
@@ -22,5 +32,14 @@
         <UpToDateCheckInput Remove="Command\Styles\CommandButton.axaml"/>
         <UpToDateCheckInput Remove="Action\Controls\ActionButton.axaml"/>
         <UpToDateCheckInput Remove="Action\Controls\ActionMenuItem.axaml"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="after_build.sh"/>
+        <Resource Include="after_build.sh">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <None Remove="default_config.xml"/>
+        <Resource Include="default_config.xml"/>
     </ItemGroup>
 </Project>

@@ -303,20 +303,18 @@ public static class IoC
     /// <exception cref="ArgumentException">
     ///     当注册的类型不合法时抛出异常
     /// </exception>
-    private static bool IsLegal(Type serviceType, Type? implementationType)
+    private static void IsLegal(Type serviceType, Type? implementationType)
     {
         if (serviceType is { IsInterface: false, IsAbstract: false, IsClass: false })
             throw new ArgumentException("Service type must be a base class or interface or abstract class");
 
-        if (implementationType == null) return true;
+        if (implementationType == null) return;
 
         if (!implementationType.IsClass || implementationType.IsAbstract)
             throw new ArgumentException("Implementation type must be a non-abstract class");
 
         if (!serviceType.IsAssignableFrom(implementationType))
             throw new ArgumentException("Implementation type must be assignable to service type");
-
-        return true;
     }
 
     /// <summary>
@@ -334,12 +332,10 @@ public static class IoC
     /// <exception cref="ArgumentException">
     ///     当注册的类型不合法时抛出异常
     /// </exception>
-    private static bool IsLegal(Type type, object instance)
+    private static void IsLegal(Type type, object instance)
     {
         if (!type.IsInstanceOfType(instance))
             throw new ArgumentException("Instance must be an instance of type");
-
-        return true;
     }
 
     #endregion
