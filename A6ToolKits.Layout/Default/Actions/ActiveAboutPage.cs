@@ -1,4 +1,5 @@
 using A6ToolKits.Action;
+using A6ToolKits.Module;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
@@ -14,7 +15,8 @@ public class ActiveAboutPage : ActionBase
 
     public override Task Run()
     {
-        var container = LayoutModule.WindowLayout?.Container;
+        ModuleLoader.TryGetModule<LayoutModule>(out var layoutModule);
+        var container = layoutModule?.WindowLayout?.Container;
         container?.ActivatePage("AboutPage");
         return Task.CompletedTask;
     }

@@ -1,4 +1,5 @@
 using A6ToolKits.Action;
+using A6ToolKits.Module;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
@@ -15,15 +16,17 @@ public class PreviewPage: ActionBase
 
     public override Task Run()
     {
-        LayoutModule.WindowLayout?.Container.MoveToPreviousPage();
+        ModuleLoader.TryGetModule<LayoutModule>(out var layoutModule);
+        layoutModule?.WindowLayout?.Container.MoveToPreviousPage();
         return Task.CompletedTask;
     }
     
     public PreviewPage()
     {
-        LayoutModule.LoadLayoutCompleted += (_, _) =>
+        ModuleLoader.LoadModulesCompleted += (_, _) =>
         {
-            var container = LayoutModule.WindowLayout?.Container;
+            ModuleLoader.TryGetModule<LayoutModule>(out var layoutModule);
+            var container = layoutModule?.WindowLayout?.Container;
             CanRun = container?.CanMoveToPreviousPage ?? false;
             if (container != null)
                 container.PageChanged += (_, _) =>

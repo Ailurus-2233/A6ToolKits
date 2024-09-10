@@ -14,6 +14,7 @@ public abstract class ModuleBase
     public abstract string ModuleDescription { get; set; }
 
     protected abstract void Initialize();
+    public event EventHandler? LoadModuleCompleted;
 
     public void LoadModule()
     {
@@ -27,5 +28,7 @@ public abstract class ModuleBase
         {
             throw new LoadModuleException($"Module load failed: {e.Message}");
         }
+
+        LoadModuleCompleted?.Invoke(this, EventArgs.Empty);
     }
 }

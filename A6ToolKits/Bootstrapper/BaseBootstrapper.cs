@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using A6ToolKits.Bootstrapper.Extensions;
 using A6ToolKits.Helper;
+using A6ToolKits.Helper.Assembly;
 using A6ToolKits.Module;
 using Avalonia;
 using Avalonia.Controls;
@@ -19,13 +21,16 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper
     private ClassicDesktopStyleApplicationLifetime? _lifetime;
     private string[] _runArgs = [];
     protected TWindow? MainWindow { get; set; }
-    public IList<ModuleBase>? Modules { get; set; }
-
 
     public virtual void Initialize()
     {
+        // 初始化日志记录器
         LoggerHelper.InitializeConsoleLogger(LogEventLevel.Verbose);
+
         Log.Information($"Initializing Application: {MainWindow?.Title ?? "A6ToolKits Application"}");
+
+        // 自动加载配置文件中Assembly路径
+        Log.Information("Loading Assembly Path from configuration file");
 
         Log.Information("Finish Initializing Application.");
     }
@@ -49,7 +54,7 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper
         _builder.SetupWithLifetime(_lifetime);
 
         // 加载模块
-        Modules = ModuleLoader.LoadModules();
+        ModuleLoader.LoadModules();
     }
 
     public virtual void OnCompleted()
@@ -68,6 +73,10 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper
     public virtual void Run(string[] args)
     {
         _runArgs = args;
+        // 加载程序集
+        AssemblyHelper.LoadAssemblyPath();
+        AppDomain.CurrentDomain.AssemblyResolve += AssemblyHelper.OnResolveAssembly;
+        
         Initialize();
         Configure();
         OnCompleted();

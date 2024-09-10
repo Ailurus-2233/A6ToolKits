@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reflection;
+using A6ToolKits.Helper.Assembly;
 using Avalonia;
 using Avalonia.Markup.Xaml.Styling;
 

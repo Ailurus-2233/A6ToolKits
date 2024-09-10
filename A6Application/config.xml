@@ -2,9 +2,9 @@
 <Configuration>
     <!-- The path to load assemblies  -->
     <Libraries>
-        <Path Path="./libs/a6toolkits"/>
-        <Path Path="./libs/avalonia"/>
-        <Path Path="./libs/third-party"/>
+        <Path Path="./Libraries/a6toolkits"/>
+        <Path Path="./Libraries/avalonia"/>
+        <Path Path="./Libraries/third-party"/>
     </Libraries>
 
     <!-- List of modules that are automatically loaded -->

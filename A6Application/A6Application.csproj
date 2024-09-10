@@ -4,25 +4,21 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-        <ApplicationManifest>app.manifest</ApplicationManifest>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <ApplicationIcon>Assets\avalonia-logo.ico</ApplicationIcon>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DebugType>full</DebugType>
     </PropertyGroup>
 
     <ItemGroup>
         <AvaloniaResource Include="Assets\**"/>
-        <AvaloniaResource Include="Assets\avalonia-logo.ico">
+        <None Update="after_build.sh">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </AvaloniaResource>
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.1.3"/>
-        <PackageReference Include="Avalonia.Desktop" Version="11.1.3"/>
-        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.3"/>
-        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.3"/>
-        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.3"/>
-        <PackageReference Include="Avalonia.ReactiveUI" Version="11.1.3"/>
+        </None>
+        <None Update="config.xml">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
@@ -43,4 +39,8 @@
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+      <Exec Command="cd $(TargetDir)&#xA;bash ./after_build.sh" />
+    </Target>
 </Project>

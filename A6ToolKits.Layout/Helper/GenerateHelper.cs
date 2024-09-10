@@ -1,5 +1,7 @@
 using System.Xml;
 using A6ToolKits.Helper;
+using A6ToolKits.Helper.Assembly;
+using A6ToolKits.Helper.Config;
 using A6ToolKits.Layout.Attributes;
 using A6ToolKits.Layout.Container;
 using A6ToolKits.Layout.Definitions;
@@ -61,6 +63,8 @@ public static class GenerateHelper
         var iconPath = layoutItem.IconPath;
         if (!string.IsNullOrEmpty(iconPath))
             layout.WindowContainer.Icon = new WindowIcon(iconPath);
+
+        layout.WindowContainer.Title = layoutItem.Name;
     }
 
     private static Orientation SwitchOrientation(string orientation)
@@ -119,15 +123,9 @@ public static class GenerateHelper
             toolBarConfigItem.Height == "Auto" ? double.NaN : double.Parse(toolBarConfigItem.Height);
 
 
-        toolBarDefinition.GenerateToolBar(ToolBarPosition.Left).ForEach(item =>
-        {
-            layout.WindowContainer.ToolBar.Children.Add(item);
-        });
+        toolBarDefinition.GenerateToolBar(ToolBarPosition.Left).ForEach(item => { layout.WindowContainer.ToolBar.Children.Add(item); });
 
-        toolBarDefinition.GenerateToolBar(ToolBarPosition.Right).ForEach(item =>
-        {
-            layout.WindowContainer.RightToolBar.Children.Add(item);
-        });
+        toolBarDefinition.GenerateToolBar(ToolBarPosition.Right).ForEach(item => { layout.WindowContainer.RightToolBar.Children.Add(item); });
 
         layout.WindowContainer.ToolBar.IsVisible = layout.WindowContainer.ToolBar.Children.Count != 0;
         layout.WindowContainer.RightToolBar.IsVisible = layout.WindowContainer.RightToolBar.Children.Count != 0;
@@ -153,18 +151,9 @@ public static class GenerateHelper
             ? double.NaN
             : double.Parse(statusBarConfigItem.Height);
 
-        statusBarDefinition.GenerateStatusBar(StatusPosition.Left).ForEach(item =>
-        {
-            layout.WindowContainer.LeftStatus.Children.Add(item);
-        });
-        statusBarDefinition.GenerateStatusBar(StatusPosition.Right).ForEach(item =>
-        {
-            layout.WindowContainer.RightStatus.Children.Add(item);
-        });
-        statusBarDefinition.GenerateStatusBar(StatusPosition.Center).ForEach(item =>
-        {
-            layout.WindowContainer.CenterStatus.Children.Add(item);
-        });
+        statusBarDefinition.GenerateStatusBar(StatusPosition.Left).ForEach(item => { layout.WindowContainer.LeftStatus.Children.Add(item); });
+        statusBarDefinition.GenerateStatusBar(StatusPosition.Right).ForEach(item => { layout.WindowContainer.RightStatus.Children.Add(item); });
+        statusBarDefinition.GenerateStatusBar(StatusPosition.Center).ForEach(item => { layout.WindowContainer.CenterStatus.Children.Add(item); });
 
         var visible = layout.WindowContainer.LeftStatus.Children.Count != 0 ||
                       layout.WindowContainer.RightStatus.Children.Count != 0 ||
@@ -197,29 +186,10 @@ public static class GenerateHelper
             if (pageConfigItem.Default == "True")
                 defaultPage = pageControl;
         }
-        
+
         if (defaultPage != null)
             layout.Container.ActivatePage(defaultPage);
-        else 
+        else
             layout.Container.MoveToPage(0);
     }
-}
-
-public class LayoutItemConfigItem : ConfigItemBase
-{
-    public string Type { get; set; } = string.Empty;
-    public string Height { get; set; } = string.Empty;
-    public string Width { get; set; } = string.Empty;
-    public string Organization { get; set; } = string.Empty;
-
-    public string MainColor { get; set; } = string.Empty;
-
-    public string IconPath { get; set; } = string.Empty;
-
-    public string Position { get; set; } = string.Empty;
-    public string Default { get; set; } = string.Empty;
-    public string Assembly { get; set; } = string.Empty;
-    public string Target { get; set; } = string.Empty;
-
-    public string Name { get; set; } = string.Empty;
 }

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Xml;
-using A6ToolKits.Helper.Exceptions;
 using Serilog;
 
-namespace A6ToolKits.Helper;
+namespace A6ToolKits.Helper.Config;
 
 public static class ConfigHelper
 {
@@ -26,19 +25,6 @@ public static class ConfigHelper
         {
             Log.Error("Failed to load configuration file: {0}", e.Message);
             throw new ConfigLoadException(e.Message);
-        }
-    }
-}
-
-public abstract class ConfigItemBase
-{
-    public void GenerateFromXmlNode(XmlNode node)
-    {
-        var property = GetType().GetProperties();
-        foreach (var prop in property)
-        {
-            var value = node.Attributes?[prop.Name]?.Value;
-            if (value != null) prop.SetValue(this, Convert.ChangeType(value, prop.PropertyType));
         }
     }
 }
