@@ -87,9 +87,11 @@ public static class GenerateHelper
 
         layout.Menu.Height = menuConfigItem.Height == "Auto" ? double.NaN : double.Parse(menuConfigItem.Height);
 
-        foreach (var targetItem in menuDefinition.GenerateMenuItem()) layout.Menu.Items.Add(targetItem);
+        foreach (var targetItem in menuDefinition.GenerateMenuItem(new SolidColorBrush(layout.FontColor))) layout.Menu.Items.Add(targetItem);
 
         layout.Menu.IsVisible = layout.Menu.Items.Count != 0;
+        
+        layout.TopPanel.Background = new SolidColorBrush(layout.MainColor);
     }
 
     private static void SetToolBar(WindowLayout layout, XmlNode layoutElement)

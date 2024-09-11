@@ -1,4 +1,4 @@
-<Application x:Class="A6Application.App" xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" RequestedThemeVariant="Dark">
+<Application x:Class="A6Application.App" xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" RequestedThemeVariant="Light">
     <Application.Styles>
         <FluentTheme />
     </Application.Styles>

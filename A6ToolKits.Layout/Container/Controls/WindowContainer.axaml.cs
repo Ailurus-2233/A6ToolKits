@@ -17,14 +17,4 @@ public partial class WindowContainer : Window
     {
         InitializeComponent();
     }
-
-    private void OnLoaded(object sender, RoutedEventArgs e)
-    {
-        if (!ModuleLoader.TryGetModule<LayoutModule>(out var layoutModule)) return;
-        var color = layoutModule?.WindowLayout?.MainColor;
-        if (color == null) return;
-        var brush = new SolidColorBrush(color.Value);
-        TopPanel.Background = brush;
-        StatusBar.Background = brush;
-    }
 }

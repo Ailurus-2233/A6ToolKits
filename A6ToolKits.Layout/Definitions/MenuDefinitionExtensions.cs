@@ -3,6 +3,7 @@ using A6ToolKits.Action;
 using A6ToolKits.Attributes;
 using A6ToolKits.Layout.Generator;
 using Avalonia.Controls;
+using Avalonia.Media;
 
 namespace A6ToolKits.Layout.Definitions;
 
@@ -17,10 +18,11 @@ public static class MenuDefinitionExtensions
     /// <param name="definition">
     ///     定义类
     /// </param>
+    /// <param name="foreground">字体颜色</param>
     /// <returns>
     ///     菜单项列表，只需要将该列表添加到 Menu.Items 中即可
     /// </returns>
-    public static List<MenuItem> GenerateMenuItem(this IDefinition definition)
+    public static List<MenuItem> GenerateMenuItem(this IDefinition definition, IBrush? foreground = null)
     {
         var result = new List<MenuItem>();
         var properties = definition.GetType().GetProperties().Where(p => GetMenuAttribute(p) != null);
@@ -30,7 +32,8 @@ public static class MenuDefinitionExtensions
         {
             var menuItem = new MenuItem
             {
-                Header = group.Key
+                Header = group.Key,
+                Foreground = foreground
             };
             var dict = Generate(1, group, definition);
             AddResult(menuItem, dict);
