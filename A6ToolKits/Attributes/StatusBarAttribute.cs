@@ -1,4 +1,6 @@
-﻿namespace A6ToolKits.Layout.Attributes;
+﻿using System;
+
+namespace A6ToolKits.Attributes;
 
 /// <summary>
 ///     状态栏属性，标记到一个 UserControl 的属性上，用于生成 StatusBar

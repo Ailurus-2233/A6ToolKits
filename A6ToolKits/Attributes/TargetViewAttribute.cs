@@ -1,4 +1,6 @@
-﻿namespace A6ToolKits.MVVM.Common.Attributes;
+﻿using System;
+
+namespace A6ToolKits.Attributes;
 
 /// <summary>
 ///     一个类的标记，用于指定ViewModel对应的View，并将 View 和 ViewModel 自动注册到IoC容器中, 默认为单例

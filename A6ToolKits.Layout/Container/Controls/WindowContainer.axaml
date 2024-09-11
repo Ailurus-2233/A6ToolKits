@@ -2,11 +2,10 @@
         xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:container="clr-namespace:A6ToolKits.Layout.Container"
-        d:DesignHeight="450" d:DesignWidth="800"
+        d:DesignHeight="450" d:DesignWidth="800" Loaded="OnLoaded"
         mc:Ignorable="d">
     <Grid RowDefinitions="Auto, Auto, *, Auto, Auto">
-        <DockPanel Grid.Row="0">
+        <DockPanel x:Name="TopPanel" Grid.Row="0">
             <StackPanel x:Name="RightToolBar"
                         HorizontalAlignment="Right"
                         DockPanel.Dock="Right" IsVisible="False" Orientation="Horizontal" />
@@ -20,13 +19,7 @@
             </Grid>
         </DockPanel>
         <Separator Grid.Row="1" Margin="0" />
-        <DockPanel Grid.Row="2" LastChildFill="True">
-            <StackPanel x:Name="TopDock" DockPanel.Dock="Top" />
-            <StackPanel x:Name="BottomDock" DockPanel.Dock="Bottom" />
-            <StackPanel x:Name="LeftDock" DockPanel.Dock="Left" />
-            <StackPanel x:Name="RightDock" DockPanel.Dock="Right" />
-            <container:PageContainer x:Name="Page" />
-        </DockPanel>
+        <DockPanel x:Name="MainPanel" Grid.Row="2" LastChildFill="True" />
         <Separator Grid.Row="3" Margin="0" />
         <DockPanel x:Name="StatusBar" Grid.Row="4" IsVisible="False">
             <StackPanel x:Name="LeftStatus"

@@ -1,4 +1,6 @@
-﻿namespace A6ToolKits.MVVM.Common.Attributes;
+﻿using System;
+
+namespace A6ToolKits.Attributes;
 
 /// <summary>
 ///     一个属性，用于标记需要注入的属性

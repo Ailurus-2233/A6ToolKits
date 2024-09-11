@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace A6ToolKits.MVVM.Common;
+namespace A6ToolKits.MVVM;
 
 /// <summary>
 ///     基于 Microsoft.Extensions.DependencyInjection 的 IoC 容器封装类

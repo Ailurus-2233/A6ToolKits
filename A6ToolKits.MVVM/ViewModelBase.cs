@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace A6ToolKits.MVVM.Common;
+namespace A6ToolKits.MVVM;
 
 /// <summary>
 ///     ViewModel基类，继承自ReactiveUI.ReactiveObject

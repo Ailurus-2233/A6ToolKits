@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
-using A6ToolKits.MVVM.Common;
-using A6ToolKits.MVVM.Common.Attributes;
+using A6ToolKits.Attributes;
 using Avalonia.Controls;
 
 namespace A6ToolKits.MVVM.Helper;

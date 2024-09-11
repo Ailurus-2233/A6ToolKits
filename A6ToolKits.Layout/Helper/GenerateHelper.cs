@@ -1,11 +1,10 @@
 using System.Xml;
+using A6ToolKits.Attributes;
 using A6ToolKits.Helper.Assembly;
 using A6ToolKits.Helper.Config;
-using A6ToolKits.Layout.Attributes;
 using A6ToolKits.Layout.Container;
 using A6ToolKits.Layout.Definitions;
 using Avalonia.Controls;
-using Avalonia.Layout;
 using Avalonia.Media;
 
 namespace A6ToolKits.Layout.Helper;
@@ -39,6 +38,8 @@ public static class GenerateHelper
 
         SetStatusBar(layout, layoutElement);
 
+        SetItems(layout);
+
         SetPages(layout);
 
         return layout;
@@ -57,16 +58,6 @@ public static class GenerateHelper
         layout.Width = Convert.ToDouble(layoutItem.Width);
         layout.Height = Convert.ToDouble(layoutItem.Height);
 
-        var organizations = layoutItem.Organization.Split(",");
-
-        if (organizations is not { Length: 4 })
-            throw new Exception("Invalid layout configuration");
-
-        layout.LeftPanel.Orientation = SwitchOrientation(organizations[0]);
-        layout.TopPanel.Orientation = SwitchOrientation(organizations[1]);
-        layout.RightPanel.Orientation = SwitchOrientation(organizations[2]);
-        layout.BottomPanel.Orientation = SwitchOrientation(organizations[3]);
-
         var color = layoutItem.MainColor;
         if (color.StartsWith('#'))
             layout.MainColor = Color.Parse(color);
@@ -76,16 +67,6 @@ public static class GenerateHelper
             layout.WindowContainer.Icon = new WindowIcon(iconPath);
 
         layout.WindowContainer.Title = layoutItem.Name;
-    }
-
-    private static Orientation SwitchOrientation(string orientation)
-    {
-        return orientation switch
-        {
-            "V" => Orientation.Vertical,
-            "H" => Orientation.Horizontal,
-            _ => Orientation.Vertical
-        };
     }
 
     private static void SetMenu(WindowLayout layout, XmlNode layoutElement)
@@ -127,16 +108,16 @@ public static class GenerateHelper
             toolBarDefinition)
             throw new Exception("Invalid toolbar configuration");
 
-        layout.WindowContainer.ToolBar.Height =
+        layout.ToolBar.Height =
             toolBarConfigItem.Height == "Auto" ? double.NaN : double.Parse(toolBarConfigItem.Height);
 
 
-        toolBarDefinition.GenerateToolBar(ToolBarPosition.Left).ForEach(item => { layout.WindowContainer.ToolBar.Children.Add(item); });
+        toolBarDefinition.GenerateToolBar(ToolBarPosition.Left).ForEach(item => { layout.ToolBar.Children.Add(item); });
 
-        toolBarDefinition.GenerateToolBar(ToolBarPosition.Right).ForEach(item => { layout.WindowContainer.RightToolBar.Children.Add(item); });
+        toolBarDefinition.GenerateToolBar(ToolBarPosition.Right).ForEach(item => { layout.RightToolBar.Children.Add(item); });
 
-        layout.WindowContainer.ToolBar.IsVisible = layout.WindowContainer.ToolBar.Children.Count != 0;
-        layout.WindowContainer.RightToolBar.IsVisible = layout.WindowContainer.RightToolBar.Children.Count != 0;
+        layout.ToolBar.IsVisible = layout.ToolBar.Children.Count != 0;
+        layout.RightToolBar.IsVisible = layout.RightToolBar.Children.Count != 0;
     }
 
     private static void SetStatusBar(WindowLayout layout, XmlNode layoutElement)
@@ -155,22 +136,61 @@ public static class GenerateHelper
             statusBarDefinition)
             throw new Exception("Invalid status bar configuration");
 
-        layout.WindowContainer.StatusBar.Height = statusBarConfigItem.Height == "Auto"
+        layout.StatusBar.Height = statusBarConfigItem.Height == "Auto"
             ? double.NaN
             : double.Parse(statusBarConfigItem.Height);
 
-        statusBarDefinition.GenerateStatusBar(StatusPosition.Left).ForEach(item => { layout.WindowContainer.LeftStatus.Children.Add(item); });
-        statusBarDefinition.GenerateStatusBar(StatusPosition.Right).ForEach(item => { layout.WindowContainer.RightStatus.Children.Add(item); });
-        statusBarDefinition.GenerateStatusBar(StatusPosition.Center).ForEach(item => { layout.WindowContainer.CenterStatus.Children.Add(item); });
+        AddControlToStatusBar(layout.LeftStatusBar, statusBarDefinition, StatusPosition.Left);
+        AddControlToStatusBar(layout.CenterStatusBar, statusBarDefinition, StatusPosition.Center);
+        AddControlToStatusBar(layout.RightStatusBar, statusBarDefinition, StatusPosition.Right);
 
-        var visible = layout.WindowContainer.LeftStatus.Children.Count != 0 ||
-                      layout.WindowContainer.RightStatus.Children.Count != 0 ||
-                      layout.WindowContainer.CenterStatus.Children.Count != 0;
+        var visible = layout.LeftStatusBar.Children.Count != 0 ||
+                      layout.RightStatusBar.Children.Count != 0 ||
+                      layout.CenterStatusBar.Children.Count != 0;
 
-        layout.WindowContainer.StatusBar.IsVisible = visible;
+        layout.StatusBar.IsVisible = visible;
 
         var color = layout.MainColor;
-        layout.WindowContainer.StatusBar.Background = new SolidColorBrush(color, 0.5);
+        layout.StatusBar.Background = new SolidColorBrush(color);
+    }
+
+    private static void AddControlToStatusBar(StackPanel statusBar, IDefinition definition, StatusPosition position)
+    {
+        foreach (var item in definition.GenerateStatusBar(position))
+        {
+            statusBar.Children.Add(item);
+            statusBar.Children.Add(new Separator());
+        }
+
+        statusBar.Children.RemoveAt(statusBar.Children.Count - 1);
+    }
+
+    private static void SetItems(WindowLayout layout)
+    {
+        var items = ConfigHelper.GetElements("Item");
+        if (items == null) return;
+        foreach (XmlNode item in items)
+        {
+            var itemConfigItem = new LayoutItemConfigItem();
+            itemConfigItem.GenerateFromXmlNode(item);
+
+            if (string.IsNullOrEmpty(itemConfigItem.Target))
+                throw new Exception("Invalid item configuration");
+
+            if (AssemblyHelper.CreateInstance(itemConfigItem.Assembly, itemConfigItem.Target) is not UserControl
+                itemControl)
+                throw new Exception("Invalid item configuration");
+
+            itemControl.SetValue(DockPanel.DockProperty, itemConfigItem.Position switch
+            {
+                "Top" => Dock.Top,
+                "Bottom" => Dock.Bottom,
+                "Left" => Dock.Left,
+                "Right" => Dock.Right,
+                _ => throw new Exception("Invalid item configuration")
+            });
+            layout.MainPanel.Children.Add(itemControl);
+        }
     }
 
     private static void SetPages(WindowLayout layout)

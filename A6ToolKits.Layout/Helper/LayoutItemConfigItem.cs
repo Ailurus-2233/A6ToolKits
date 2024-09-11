@@ -33,11 +33,6 @@ public class LayoutItemConfigItem : ConfigItemBase
     public string Width { get; set; } = string.Empty;
 
     /// <summary>
-    ///     四边控件的布局方式，H 水平布局，V 垂直布局
-    /// </summary>
-    public string Organization { get; set; } = string.Empty;
-
-    /// <summary>
     ///     主题颜色
     /// </summary>
     public string MainColor { get; set; } = string.Empty;

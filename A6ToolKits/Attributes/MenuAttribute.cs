@@ -1,4 +1,7 @@
-namespace A6ToolKits.Layout.Attributes;
+using System;
+using System.Linq;
+
+namespace A6ToolKits.Attributes;
 
 /// <summary>
 ///     菜单属性，标记到一个 ActionBase 的属性上，用于生成 MenuItem

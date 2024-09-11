@@ -9,10 +9,17 @@ namespace A6ToolKits.Layout.Container;
 /// </summary>
 public class WindowLayout
 {
+    private PageContainer? _container;
+
     /// <summary>
     ///     窗口容器，用于实现具体的布局设置
     /// </summary>
     public WindowContainer WindowContainer { get; } = new();
+
+    /// <summary>
+    ///     顶部面板，是菜单、工具栏、大图标工具栏的容器
+    /// </summary>
+    public DockPanel TopPanel => WindowContainer.TopPanel;
 
     /// <summary>
     ///     菜单，根据菜单项生成，位置在窗口顶部
@@ -20,29 +27,41 @@ public class WindowLayout
     public Menu Menu => WindowContainer.Menu;
 
     /// <summary>
-    ///     左侧面板，用于放置一些控件，位置在窗口左侧
+    ///     工具栏，用于展示一些工具按钮，位置在窗口顶部
     /// </summary>
-    public StackPanel LeftPanel => WindowContainer.LeftDock;
+    public StackPanel ToolBar => WindowContainer.ToolBar;
+
 
     /// <summary>
-    ///     右侧面板，用于放置一些控件，位置在窗口右侧
+    ///     大图标工具栏，用于展示一些工具按钮，位置在窗口顶部右侧
     /// </summary>
-    public StackPanel RightPanel => WindowContainer.RightDock;
+    public StackPanel RightToolBar => WindowContainer.RightToolBar;
 
     /// <summary>
-    ///     顶部面板，用于放置一些控件，位置在窗口顶部，菜单下方
-    /// </summary>
-    public StackPanel TopPanel => WindowContainer.TopDock;
-
-    /// <summary>
-    ///     底部面板，用于放置一些控件，位置在窗口底部，状态栏上方
-    /// </summary>
-    public StackPanel BottomPanel => WindowContainer.BottomDock;
-
-    /// <summary>
-    ///     状态栏，用于展示一些状态信息，位置在窗口底部
+    ///     状态栏，用于展示一些状态信息，位置在窗口底部，包括左侧、中间、右侧
     /// </summary>
     public DockPanel StatusBar => WindowContainer.StatusBar;
+
+    /// <summary>
+    ///     状态栏，用于展示一些状态信息，位置在窗口底部左侧
+    /// </summary>
+    public StackPanel LeftStatusBar => WindowContainer.LeftStatus;
+
+    /// <summary>
+    ///     状态栏，用于展示一些状态信息，位置在窗口底部中间
+    /// </summary>
+    public StackPanel CenterStatusBar => WindowContainer.CenterStatus;
+
+    /// <summary>
+    ///     状态栏，用于展示一些状态信息，位置在窗口底部右侧
+    /// </summary>
+    public StackPanel RightStatusBar => WindowContainer.RightStatus;
+
+
+    /// <summary>
+    ///     主面板，用于展示页面，位置在窗口中间
+    /// </summary>
+    public DockPanel MainPanel => WindowContainer.MainPanel;
 
     /// <summary>
     ///     窗口类型，默认为 Window
@@ -67,7 +86,16 @@ public class WindowLayout
     /// <summary>
     ///     页面容器，用于展示页面，位置在窗口中间
     /// </summary>
-    public PageContainer Container => WindowContainer.Page;
+    public PageContainer Container
+    {
+        get
+        {
+            if (_container != null) return _container;
+            _container = new PageContainer();
+            MainPanel.Children.Add(_container);
+            return _container;
+        }
+    }
 }
 
 /// <summary>
