@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml;
-using A6ToolKits.Helper.Assembly;
 using A6ToolKits.Helper.Config;
+using A6ToolKits.InstanceCreator;
 using Serilog;
 
 namespace A6ToolKits.Module;
@@ -13,6 +13,7 @@ namespace A6ToolKits.Module;
 public static class ModuleLoader
 {
     private static List<ModuleBase> Modules { get; } = [];
+    private static IInstanceCreator? Creator { get; set; } = new BaseInstanceCreator();
 
     /// <summary>
     ///     尝试获取模块，会从当前已加载的模块中查找是否存在指定类型的模块
@@ -46,25 +47,28 @@ public static class ModuleLoader
 
         Modules.Clear();
         var moduleConfigs = GetModules();
+
+        // 优先加载 MVVMModule
+        var mvvm = moduleConfigs.Find(m => string.Equals(m.Name, "A6ToolKits.MVVM", StringComparison.Ordinal));
+        CreateModule(mvvm);
+        moduleConfigs.Remove(mvvm!);
+
+        // 最后加载 LayoutModule
+        var layout = moduleConfigs.Find(m => string.Equals(m.Name, "A6ToolKits.Layout", StringComparison.Ordinal));
+        moduleConfigs.Remove(layout!);
+
         foreach (var module in moduleConfigs)
             try
             {
-                var instance = AssemblyHelper.CreateInstance<ModuleBase>(module.Assembly, module.Target);
-                instance?.LoadModule();
-
-                if (instance?.ModuleVersion != module.Version)
-                {
-                    Log.Error("Module {0} version mismatch: {1} != {2}", module.Name, instance?.ModuleVersion,
-                        module.Version);
-                    continue;
-                }
-
-                Modules.Add(instance);
+                CreateModule(module);
             }
             catch (Exception e)
             {
-                Log.Error("Failed to load module {0}.{1}: {2}", module.Name, module.Version, e.Message);
+                Log.Error("Failed to load module {0}.{1}", module.Name, module.Version);
+                Log.Error("Exception: {0}", e.Message);
             }
+
+        CreateModule(layout);
 
         LoadModulesCompleted?.Invoke(null, EventArgs.Empty);
     }
@@ -89,5 +93,22 @@ public static class ModuleLoader
         }
 
         return moduleNames;
+    }
+
+    private static void CreateModule(ModuleConfigItem? module)
+    {
+        if (module == null) return;
+        if (Creator?.GetOrCreateInstance(module.Target, module.Assembly) is not ModuleBase instance) return;
+
+        if (string.Equals(instance.ModuleName, "A6ToolKits.MVVM", StringComparison.Ordinal))
+            Creator = instance.Creator;
+
+        instance.Creator = Creator;
+        instance.LoadModule();
+
+        if (instance.ModuleVersion != module.Version)
+            Log.Error("Module {0} version mismatch: {1} != {2}", module.Name, instance.ModuleVersion, module.Version);
+
+        Modules.Add(instance);
     }
 }

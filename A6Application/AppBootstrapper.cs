@@ -1,10 +1,8 @@
 ﻿using A6ToolKits;
 using A6ToolKits.Bootstrapper;
 using A6ToolKits.Layout;
-using A6ToolKits.Module;
-using Avalonia;
+using A6ToolKits.MVVM;
 using Avalonia.Controls;
-using Avalonia.Themes.Fluent;
 
 namespace A6Application;
 
@@ -18,10 +16,8 @@ public class AppBootstrapper : BaseBootstrapper<BaseApp, Window>
     /// </summary>
     public override void OnCompleted()
     {
-        if (ModuleLoader.TryGetModule<LayoutModule>(out var layoutModule))
-        {
+        if (IoC.TryGet<LayoutModule>(out var layoutModule))
             MainWindow = layoutModule?.WindowLayout?.WindowContainer;
-        }
         // MainWindow = IoC.Get<MainWindow>();
         base.OnCompleted();
     }

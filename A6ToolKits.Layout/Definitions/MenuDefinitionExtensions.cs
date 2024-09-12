@@ -3,7 +3,6 @@ using A6ToolKits.Action;
 using A6ToolKits.Attributes;
 using A6ToolKits.Layout.Generator;
 using Avalonia.Controls;
-using Avalonia.Media;
 
 namespace A6ToolKits.Layout.Definitions;
 
@@ -31,7 +30,7 @@ public static class MenuDefinitionExtensions
         {
             var menuItem = new MenuItem
             {
-                Header = group.Key,
+                Header = group.Key
             };
             var dict = Generate(1, group, definition);
             AddResult(menuItem, dict);

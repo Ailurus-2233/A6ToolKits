@@ -16,57 +16,29 @@ public static class AssemblyHelper
 {
     private static List<string> AssemblyPaths { get; } = [];
 
-    private static Type? LoadType(string? assemblyName, string typeName)
+    /// <summary>
+    ///     根据程序集名称和类型名称加载类型
+    /// </summary>
+    /// <param name="type">
+    ///     类型名称
+    /// </param>
+    /// <param name="assembly">
+    ///     程序集名称
+    /// </param>
+    /// <returns>
+    ///     返回加载的类型
+    /// </returns>
+    public static Type? LoadType(string type, string? assembly = null)
     {
-        if (assemblyName == null) return Type.GetType(typeName);
-        SysAssembly? assembly = null;
+        if (assembly == null) return Type.GetType(type);
+        SysAssembly? sysAssembly = null;
         AssemblyPaths.ForEach(path =>
         {
-            var assemblyPath = Path.Combine(path, assemblyName);
-            if (File.Exists(assemblyPath)) assembly = SysAssembly.LoadFrom(assemblyPath);
+            var assemblyPath = Path.Combine(path, assembly);
+            if (File.Exists(assemblyPath)) sysAssembly = SysAssembly.LoadFrom(assemblyPath);
         });
-        var type = assembly?.GetTypes().FirstOrDefault(t => t.FullName == typeName);
-        return type;
-    }
-
-    /// <summary>
-    ///     创建指定类型的实例
-    /// </summary>
-    /// <param name="assemblyName">
-    ///     类型所在的程序集名称，如果为 null 则从当前程序集中查找
-    /// </param>
-    /// <param name="typeName">
-    ///     类型名称
-    /// </param>
-    /// <typeparam name="T">
-    ///     类型
-    /// </typeparam>
-    /// <returns>
-    ///     返回类型的实例，如果创建失败则返回 null
-    /// </returns>
-    public static T? CreateInstance<T>(string? assemblyName, string typeName)
-        where T : class
-    {
-        var type = LoadType(assemblyName, typeName);
-        return type == null ? null : Activator.CreateInstance(type)! as T;
-    }
-
-    /// <summary>
-    ///     创建指定类型的实例
-    /// </summary>
-    /// <param name="assemblyName">
-    ///     类型所在的程序集名称，如果为 null 则从当前程序集中查找
-    /// </param>
-    /// <param name="typeName">
-    ///     类型名称
-    /// </param>
-    /// <returns>
-    ///     返回类型的实例，如果创建失败则返回 null
-    /// </returns>
-    public static object? CreateInstance(string? assemblyName, string typeName)
-    {
-        var type = LoadType(assemblyName, typeName);
-        return type == null ? null : Activator.CreateInstance(type)!;
+        var result = sysAssembly?.GetTypes().FirstOrDefault(t => t.FullName == type);
+        return result;
     }
 
     /// <summary>
@@ -106,5 +78,23 @@ public static class AssemblyHelper
             if (item.Path != null)
                 AssemblyPaths.Add(item.Path);
         }
+    }
+
+    /// <summary>
+    ///     获取所有程序集
+    /// </summary>
+    /// <returns>
+    ///     返回所有程序集
+    /// </returns>
+    public static List<string> GetAllAssemblies()
+    {
+        var result = new List<string>();
+        AssemblyPaths.ForEach(path =>
+        {
+            var files = Directory.GetFiles(path, "*.dll");
+            // 只存储名称，不记录路径和后缀
+            result.AddRange(files.Select(Path.GetFileNameWithoutExtension)!);
+        });
+        return result;
     }
 }

@@ -1,4 +1,6 @@
-﻿using A6ToolKits.Module;
+﻿using A6ToolKits.Attributes;
+using A6ToolKits.InstanceCreator;
+using A6ToolKits.Module;
 using A6ToolKits.MVVM.Helper;
 
 namespace A6ToolKits.MVVM;
@@ -6,8 +8,14 @@ namespace A6ToolKits.MVVM;
 /// <summary>
 ///     MVVM模块， 用于为A6ToolKits添加MVVM、IOC的能力，自动加载一些服务和View、Viewmodel
 /// </summary>
+[AutoRegister(typeof(MVVMModule), RegisterType.Singleton)]
 public class MVVMModule : ModuleBase
 {
+    /// <summary>
+    ///     实例创建器，用于模块内部创建实例
+    /// </summary>
+    public override IInstanceCreator? Creator { get; set; } = IoC.Instance;
+
     /// <summary>
     ///     模块名称
     /// </summary>

@@ -10,16 +10,20 @@
     <!-- List of modules that are automatically loaded -->
     <LoadModules>
         <Module Name="A6ToolKits.Root" Version="1.0.0" Assembly="A6ToolKits.dll" Target="A6ToolKits.Module.BaseModule"/>
-        <Module Name="A6ToolKits.MVVM" Version="1.0.0" Assembly="A6ToolKits.MVVM.dll" Target="A6ToolKits.MVVM.MVVMModule"/>
-        <Module Name="A6ToolKits.Layout" Version="1.0.0" Assembly="A6ToolKits.Layout.dll" Target="A6ToolKits.Layout.LayoutModule"/>
+        <Module Name="A6ToolKits.MVVM" Version="1.0.0" Assembly="A6ToolKits.MVVM.dll"
+                Target="A6ToolKits.MVVM.MVVMModule"/>
+        <Module Name="A6ToolKits.Layout" Version="1.0.0" Assembly="A6ToolKits.Layout.dll"
+                Target="A6ToolKits.Layout.LayoutModule"/>
     </LoadModules>
 
     <!-- if use layout module, you can define layout configuration here -->
     <Layout Name="A6Application" Type="Window" Height="450" Width="600" MainColor="#0C3E81">
         <Menu Height="30" Target="A6ToolKits.Layout.Default.DefaultMenu" Assembly="A6ToolKits.Layout.dll"/>
-        <ToolBar Type="Icon" Height="30" Target="A6ToolKits.Layout.Default.DefaultToolBar" Assembly="A6ToolKits.Layout.dll"/>
+        <ToolBar Type="Icon" Height="30" Target="A6ToolKits.Layout.Default.DefaultToolBar"
+                 Assembly="A6ToolKits.Layout.dll"/>
         <Pages>
-            <Page Name="DefaultPage" Target="A6ToolKits.Layout.Default.DefaultPageView" Assembly="A6ToolKits.Layout.dll" Default="True"/>
+            <Page Name="DefaultPage" Target="A6ToolKits.Layout.Default.DefaultPageView" Assembly="A6ToolKits.Layout.dll"
+                  Default="True"/>
             <Page Name="AboutPage" Target="A6ToolKits.Layout.Default.AboutPageView" Assembly="A6ToolKits.Layout.dll"/>
         </Pages>
         <StatusBar Height="30" Target="A6ToolKits.Layout.Default.DefaultStatusBar" Assembly="A6ToolKits.Layout.dll"/>

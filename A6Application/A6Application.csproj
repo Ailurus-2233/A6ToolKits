@@ -49,7 +49,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <DocFileItem Remove="bin\Debug\A6Application.xml" />
+        <DocFileItem Remove="bin\Debug\A6Application.xml"/>
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">

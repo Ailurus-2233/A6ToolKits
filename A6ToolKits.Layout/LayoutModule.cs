@@ -1,3 +1,5 @@
+using A6ToolKits.Attributes;
+using A6ToolKits.InstanceCreator;
 using A6ToolKits.Layout.Container;
 using A6ToolKits.Layout.Helper;
 using A6ToolKits.Module;
@@ -8,8 +10,14 @@ namespace A6ToolKits.Layout;
 /// <summary>
 ///     布局模块，如果加载该模块将会基于配置文件自动加载窗口
 /// </summary>
+[AutoRegister(typeof(LayoutModule), RegisterType.Singleton)]
 public class LayoutModule : ModuleBase
 {
+    /// <summary>
+    ///     实例创建器，用于模块内部创建实例
+    /// </summary>
+    public override IInstanceCreator? Creator { get; set; } = new BaseInstanceCreator();
+
     /// <summary>
     ///     模块名称
     /// </summary>
@@ -41,7 +49,7 @@ public class LayoutModule : ModuleBase
     protected override void Initialize()
     {
         Log.Information("Load layout from configuration file");
-
+        GenerateHelper.Creator = Creator;
         WindowLayout = GenerateHelper.LoadLayout();
         if (WindowLayout == null)
             throw new Exception("Failed to load layout configuration");

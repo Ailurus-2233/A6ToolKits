@@ -123,9 +123,11 @@ public class ButtonGenerator : IControlGenerator<Button>
 
         var fontSize = text.FontSize;
 
-        var formatText = new FormattedText(text.Text, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, Typeface.Default, fontSize,
+        var formatText = new FormattedText(text.Text, CultureInfo.CurrentCulture, FlowDirection.LeftToRight,
+            Typeface.Default, fontSize,
             Brushes.Black);
-        while (formatText.Width < button.Bounds.Height && formatText.Height < button.Bounds.Height) formatText.SetFontSize(fontSize++);
+        while (formatText.Width < button.Bounds.Height && formatText.Height < button.Bounds.Height)
+            formatText.SetFontSize(fontSize++);
 
         return fontSize - 5;
     }

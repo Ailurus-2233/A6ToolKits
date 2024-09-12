@@ -1,4 +1,6 @@
 ﻿using System;
+using A6ToolKits.Attributes;
+using A6ToolKits.InstanceCreator;
 using Avalonia;
 using Avalonia.Markup.Xaml.Styling;
 
@@ -7,8 +9,14 @@ namespace A6ToolKits.Module;
 /// <summary>
 ///     核心模块
 /// </summary>
+[AutoRegister(typeof(BaseModule), RegisterType.Singleton)]
 public class BaseModule : ModuleBase
 {
+    /// <summary>
+    ///     实例创建器，用于模块内部创建实例
+    /// </summary>
+    public override IInstanceCreator? Creator { get; set; } = new BaseInstanceCreator();
+
     /// <summary>
     ///     模块名称
     /// </summary>

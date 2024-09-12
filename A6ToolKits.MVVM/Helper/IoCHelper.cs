@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using A6ToolKits.Attributes;
+using A6ToolKits.Helper.Assembly;
 using Avalonia.Controls;
 
 namespace A6ToolKits.MVVM.Helper;
@@ -19,12 +20,8 @@ public static class IoCHelper
         if (assembly == null) return;
         AutoRegister(assembly);
 
-        var assemblies = Assembly.GetExecutingAssembly().GetReferencedAssemblies();
-        foreach (var assemblyName in assemblies)
-        {
-            var loadedAssembly = Assembly.Load(assemblyName);
-            AutoRegister(loadedAssembly);
-        }
+        var assemblies = AssemblyHelper.GetAllAssemblies();
+        foreach (var loadedAssembly in assemblies.Select(Assembly.Load)) AutoRegister(loadedAssembly);
     }
 
     /// <summary>
@@ -93,7 +90,7 @@ public static class IoCHelper
             switch (attribute.RegisterType)
             {
                 case RegisterType.Singleton:
-                    var targetView = (ContentControl)IoC.Create(targetViewType);
+                    if (IoC.Create(targetViewType) is not UserControl targetView) continue;
                     var viewModel = IoC.Create(type);
                     targetView.DataContext = viewModel;
                     IoC.AddSingleton(type, viewModel);

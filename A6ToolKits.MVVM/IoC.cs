@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using A6ToolKits.Helper.Assembly;
+using A6ToolKits.InstanceCreator;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace A6ToolKits.MVVM;
 
@@ -6,13 +8,25 @@ namespace A6ToolKits.MVVM;
 ///     基于 Microsoft.Extensions.DependencyInjection 的 IoC 容器封装类
 ///     可以通过 IoC.Add 方法注册类型到 IoC 容器中, 通过 IoC.Get 方法获取类型的实例
 /// </summary>
-public static class IoC
+public sealed class IoC : IInstanceCreator
 {
-    private static ServiceCollection? _services;
+    private readonly ServiceCollection _service = [];
+
+    static IoC()
+    {
+    }
+
+    private IoC()
+    {
+    }
+
+    /// <summary>
+    /// </summary>
+    public static IoC Instance { get; } = new();
 
     private static ServiceProvider ServiceProvider => GetServiceProvider();
 
-    private static ServiceCollection Services => _services ??= [];
+    private static ServiceCollection Services => Instance._service;
 
     #region Register
 
@@ -24,7 +38,7 @@ public static class IoC
     /// </param>
     public static void Add(Type type)
     {
-        IsLegal(type, null);
+        Instance.IsLegal(type, null);
         Services.AddTransient(type);
     }
 
@@ -39,7 +53,7 @@ public static class IoC
     /// </param>
     public static void Add(Type serviceType, Type implementationType)
     {
-        IsLegal(serviceType, implementationType);
+        Instance.IsLegal(serviceType, implementationType);
         Services.AddTransient(serviceType, implementationType);
     }
 
@@ -77,7 +91,7 @@ public static class IoC
     /// </param>
     public static void AddSingleton(Type type)
     {
-        IsLegal(type, null);
+        Instance.IsLegal(type, null);
         Services.AddSingleton(type);
     }
 
@@ -92,7 +106,7 @@ public static class IoC
     /// </param>
     public static void AddSingleton(Type serviceType, Type implementationType)
     {
-        IsLegal(serviceType, implementationType);
+        Instance.IsLegal(serviceType, implementationType);
         Services.AddSingleton(serviceType, implementationType);
     }
 
@@ -107,7 +121,7 @@ public static class IoC
     /// </param>
     public static void AddSingleton(Type type, object instance)
     {
-        IsLegal(type, instance);
+        Instance.IsLegal(type, instance);
         Services.AddSingleton(type, instance);
     }
 
@@ -224,9 +238,10 @@ public static class IoC
     /// <returns>
     ///     返回类型的实例，如果获取失败则返回 null
     /// </returns>
-    public static TService? TryGet<TService>() where TService : class
+    public static bool TryGet<TService>(out TService? service) where TService : class
     {
-        return ServiceProvider.GetService<TService>();
+        service = ServiceProvider.GetService<TService>();
+        return service != null;
     }
 
     /// <summary>
@@ -243,9 +258,137 @@ public static class IoC
         return ServiceProvider.GetRequiredService(serviceType);
     }
 
+    /// <summary>
+    ///     尝试从 IoC 容器中获取类型的实例
+    /// </summary>
+    /// <param name="type">
+    ///     需要从 IoC 容器中获取的类型
+    /// </param>
+    /// <param name="service">
+    ///     返回类型的实例
+    /// </param>
+    /// <returns>
+    ///     如果获取成功则返回 true
+    /// </returns>
+    public static bool TryGet(Type type, out object? service)
+    {
+        service = ServiceProvider.GetService(type);
+        return service != null;
+    }
+
     #endregion
 
     #region Creator
+
+    /// <summary>
+    ///     创建指定程序集类型的实例
+    /// </summary>
+    /// <param name="type">
+    ///     类型名称
+    /// </param>
+    /// <param name="assembly">
+    ///     类型所在的程序集名称，如果为 null 则从当前程序集中查找
+    /// </param>
+    /// <returns>
+    ///     返回类型的实例，如果创建失败则返回 null
+    /// </returns>
+    public object? CreateInstance(string type, string? assembly = null)
+    {
+        var target = assembly == null ? Type.GetType(type) : AssemblyHelper.LoadType(type, assembly);
+        return target == null ? null : CreateInstance(target);
+    }
+
+    /// <summary>
+    ///     从 IoC 容器获取指定类型的实例，如果不存在则创建一个新的实例
+    /// </summary>
+    /// <param name="type">
+    ///     类型名称
+    /// </param>
+    /// <param name="assembly">
+    ///     类型所在的程序集名称，如果为 null 则从当前程序集中查找
+    /// </param>
+    /// <returns>
+    ///     返回类型的实例，如果创建失败则返回 null
+    /// </returns>
+    public object? GetOrCreateInstance(string type, string? assembly = null)
+    {
+        var targetType = assembly == null ? Type.GetType(type) : AssemblyHelper.LoadType(type, assembly);
+        return targetType == null ? null : GetOrCreateInstance(targetType);
+    }
+
+
+    /// <summary>
+    ///     基于 IoC 中的注册信息创建一个实例
+    /// </summary>
+    /// <typeparam name="TService">
+    ///     需要创建的类型
+    /// </typeparam>
+    /// <returns>
+    ///     返回创建的实例
+    /// </returns>
+    public TService CreateInstance<TService>() where TService : class
+    {
+        return ActivatorUtilities.CreateInstance<TService>(ServiceProvider);
+    }
+
+    /// <summary>
+    ///     从 IoC 容器获取指定类型的实例，如果不存在则创建一个新的实例
+    /// </summary>
+    /// <typeparam name="TService">
+    ///     类型
+    /// </typeparam>
+    /// <returns>
+    ///     返回类型的实例，如果创建失败则返回 null
+    /// </returns>
+    public TService? GetOrCreateInstance<TService>() where TService : class
+    {
+        return TryGet<TService>(out var result) ? result : CreateInstance<TService>();
+    }
+
+    /// <summary>
+    ///     基于 IoC 中的注册信息创建一个实例
+    /// </summary>
+    /// <param name="type">
+    ///     需要创建的类型
+    /// </param>
+    /// <returns>
+    ///     返回创建的实例
+    /// </returns>
+    public object CreateInstance(Type type)
+    {
+        return ActivatorUtilities.CreateInstance(ServiceProvider, type);
+    }
+
+    /// <summary>
+    ///     从 IoC 容器获取指定类型的实例，如果不存在则创建一个新的实例
+    /// </summary>
+    /// <param name="type">
+    ///     指定类型
+    /// </param>
+    /// <returns>
+    ///     返回类型的实例，如果创建失败则返回 null
+    /// </returns>
+    public object? GetOrCreateInstance(Type type)
+    {
+        return TryGet(type, out var result) ? result : CreateInstance(type);
+    }
+
+    /// <summary>
+    ///     基于 IoC 中的注册信息创建一个实例
+    /// </summary>
+    /// <param name="type">
+    ///     类型名称
+    /// </param>
+    /// <param name="assembly">
+    ///     类型所在的程序集名称，如果为 null 则从当前程序集中查找
+    /// </param>
+    /// <returns>
+    ///     返回类型的实例，如果创建失败则返回 null
+    /// </returns>
+    public static object? Create(string type, string? assembly = null)
+    {
+        return Instance.CreateInstance(type, assembly);
+    }
 
     /// <summary>
     ///     基于 IoC 中的注册信息创建一个实例
@@ -258,21 +401,22 @@ public static class IoC
     /// </returns>
     public static TService Create<TService>() where TService : class
     {
-        return ActivatorUtilities.CreateInstance<TService>(ServiceProvider);
+        return Instance.CreateInstance<TService>();
     }
+
 
     /// <summary>
     ///     基于 IoC 中的注册信息创建一个实例
     /// </summary>
-    /// <param name="serviceType">
+    /// <param name="type">
     ///     需要创建的类型
     /// </param>
     /// <returns>
     ///     返回创建的实例
     /// </returns>
-    public static object Create(Type serviceType)
+    public static object Create(Type type)
     {
-        return ActivatorUtilities.CreateInstance(ServiceProvider, serviceType);
+        return Instance.CreateInstance(type);
     }
 
     #endregion
@@ -303,7 +447,7 @@ public static class IoC
     /// <exception cref="ArgumentException">
     ///     当注册的类型不合法时抛出异常
     /// </exception>
-    private static void IsLegal(Type serviceType, Type? implementationType)
+    private void IsLegal(Type serviceType, Type? implementationType)
     {
         if (serviceType is { IsInterface: false, IsAbstract: false, IsClass: false })
             throw new ArgumentException("Service type must be a base class or interface or abstract class");
@@ -332,7 +476,7 @@ public static class IoC
     /// <exception cref="ArgumentException">
     ///     当注册的类型不合法时抛出异常
     /// </exception>
-    private static void IsLegal(Type type, object instance)
+    private void IsLegal(Type type, object instance)
     {
         if (!type.IsInstanceOfType(instance))
             throw new ArgumentException("Instance must be an instance of type");

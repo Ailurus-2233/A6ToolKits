@@ -1,13 +1,12 @@
 using System.Xml;
 using A6ToolKits.Attributes;
-using A6ToolKits.Helper.Assembly;
 using A6ToolKits.Helper.Config;
+using A6ToolKits.InstanceCreator;
 using A6ToolKits.Layout.Container;
 using A6ToolKits.Layout.Definitions;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
-using Avalonia.Styling;
 
 namespace A6ToolKits.Layout.Helper;
 
@@ -16,6 +15,11 @@ namespace A6ToolKits.Layout.Helper;
 /// </summary>
 public static class GenerateHelper
 {
+    /// <summary>
+    ///     实例创建器，用于初始化布局过程中控件实例的创建
+    /// </summary>
+    public static IInstanceCreator? Creator { private get; set; }
+
     /// <summary>
     ///     生成窗口布局，基于配置文件，组装一个窗口布局并返回
     /// </summary>
@@ -86,7 +90,7 @@ public static class GenerateHelper
         if (string.IsNullOrEmpty(menuConfigItem.Target))
             throw new Exception("Invalid menu configuration");
 
-        if (AssemblyHelper.CreateInstance(menuConfigItem.Assembly, menuConfigItem.Target) is not IDefinition
+        if (Creator?.CreateInstance(menuConfigItem.Target, menuConfigItem.Assembly) is not IDefinition
             menuDefinition)
             throw new Exception("Invalid menu configuration");
 
@@ -111,7 +115,7 @@ public static class GenerateHelper
         if (string.IsNullOrEmpty(toolBarConfigItem.Target))
             throw new Exception("Invalid toolbar configuration");
 
-        if (AssemblyHelper.CreateInstance(toolBarConfigItem.Assembly, toolBarConfigItem.Target) is not IDefinition
+        if (Creator?.CreateInstance(toolBarConfigItem.Target, toolBarConfigItem.Assembly) is not IDefinition
             toolBarDefinition)
             throw new Exception("Invalid toolbar configuration");
 
@@ -121,7 +125,8 @@ public static class GenerateHelper
 
         toolBarDefinition.GenerateToolBar(ToolBarPosition.Left).ForEach(item => { layout.ToolBar.Children.Add(item); });
 
-        toolBarDefinition.GenerateToolBar(ToolBarPosition.Right).ForEach(item => { layout.RightToolBar.Children.Add(item); });
+        toolBarDefinition.GenerateToolBar(ToolBarPosition.Right)
+            .ForEach(item => { layout.RightToolBar.Children.Add(item); });
 
         layout.ToolBar.IsVisible = layout.ToolBar.Children.Count != 0;
         layout.RightToolBar.IsVisible = layout.RightToolBar.Children.Count != 0;
@@ -139,7 +144,7 @@ public static class GenerateHelper
         if (string.IsNullOrEmpty(statusBarConfigItem.Target))
             throw new Exception("Invalid status bar configuration");
 
-        if (AssemblyHelper.CreateInstance(statusBarConfigItem.Assembly, statusBarConfigItem.Target) is not IDefinition
+        if (Creator?.CreateInstance(statusBarConfigItem.Target, statusBarConfigItem.Assembly) is not IDefinition
             statusBarDefinition)
             throw new Exception("Invalid status bar configuration");
 
@@ -156,7 +161,7 @@ public static class GenerateHelper
                       layout.CenterStatusBar.Children.Count != 0;
 
         layout.StatusBar.IsVisible = visible;
-        
+
         layout.StatusBar.Background = new SolidColorBrush(layout.MainColor, 0.8);
     }
 
@@ -183,7 +188,7 @@ public static class GenerateHelper
             if (string.IsNullOrEmpty(itemConfigItem.Target))
                 throw new Exception("Invalid item configuration");
 
-            if (AssemblyHelper.CreateInstance(itemConfigItem.Assembly, itemConfigItem.Target) is not UserControl
+            if (Creator?.CreateInstance(itemConfigItem.Target, itemConfigItem.Assembly) is not UserControl
                 itemControl)
                 throw new Exception("Invalid item configuration");
 
@@ -212,7 +217,7 @@ public static class GenerateHelper
             if (string.IsNullOrEmpty(pageConfigItem.Target))
                 throw new Exception("Invalid page configuration");
 
-            if (AssemblyHelper.CreateInstance(pageConfigItem.Assembly, pageConfigItem.Target) is not UserControl
+            if (Creator?.CreateInstance(pageConfigItem.Target, pageConfigItem.Assembly) is not UserControl
                 pageControl)
                 throw new Exception("Invalid page configuration");
 
