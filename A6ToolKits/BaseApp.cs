@@ -14,7 +14,6 @@ public class BaseApp : Application
     /// </summary>
     public override void Initialize()
     {
-        RequestedThemeVariant = ThemeVariant.Dark;
         Styles.Add(new FluentTheme());
     }
 }

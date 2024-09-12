@@ -6,6 +6,8 @@ using A6ToolKits.Layout.Container;
 using A6ToolKits.Layout.Definitions;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
+using Avalonia.Input;
 using Avalonia.Media;
 
 namespace A6ToolKits.Layout.Helper;
@@ -90,7 +92,7 @@ public static class GenerateHelper
         if (string.IsNullOrEmpty(menuConfigItem.Target))
             throw new Exception("Invalid menu configuration");
 
-        if (Creator?.CreateInstance(menuConfigItem.Target, menuConfigItem.Assembly) is not IDefinition
+        if (Creator?.GetOrCreateInstance(menuConfigItem.Target, menuConfigItem.Assembly) is not IDefinition
             menuDefinition)
             throw new Exception("Invalid menu configuration");
 
@@ -115,7 +117,7 @@ public static class GenerateHelper
         if (string.IsNullOrEmpty(toolBarConfigItem.Target))
             throw new Exception("Invalid toolbar configuration");
 
-        if (Creator?.CreateInstance(toolBarConfigItem.Target, toolBarConfigItem.Assembly) is not IDefinition
+        if (Creator?.GetOrCreateInstance(toolBarConfigItem.Target, toolBarConfigItem.Assembly) is not IDefinition
             toolBarDefinition)
             throw new Exception("Invalid toolbar configuration");
 
@@ -144,7 +146,7 @@ public static class GenerateHelper
         if (string.IsNullOrEmpty(statusBarConfigItem.Target))
             throw new Exception("Invalid status bar configuration");
 
-        if (Creator?.CreateInstance(statusBarConfigItem.Target, statusBarConfigItem.Assembly) is not IDefinition
+        if (Creator?.GetOrCreateInstance(statusBarConfigItem.Target, statusBarConfigItem.Assembly) is not IDefinition
             statusBarDefinition)
             throw new Exception("Invalid status bar configuration");
 
@@ -176,6 +178,15 @@ public static class GenerateHelper
         statusBar.Children.RemoveAt(statusBar.Children.Count - 1);
     }
 
+
+    private static readonly Dictionary<string, bool> ItemsLoaded = new()
+    {
+        { "Top", false },
+        { "Bottom", false },
+        { "Left", false },
+        { "Right", false }
+    };
+
     private static void SetItems(WindowLayout layout)
     {
         var items = ConfigHelper.GetElements("Item");
@@ -188,19 +199,28 @@ public static class GenerateHelper
             if (string.IsNullOrEmpty(itemConfigItem.Target))
                 throw new Exception("Invalid item configuration");
 
-            if (Creator?.CreateInstance(itemConfigItem.Target, itemConfigItem.Assembly) is not UserControl
+            if (Creator?.GetOrCreateInstance(itemConfigItem.Target, itemConfigItem.Assembly) is not UserControl
                 itemControl)
                 throw new Exception("Invalid item configuration");
 
-            itemControl.SetValue(DockPanel.DockProperty, itemConfigItem.Position switch
+            if (ItemsLoaded[itemConfigItem.Position])
+                throw new Exception($"Invalid item configuration: {itemConfigItem.Position} already loaded");
+
+            ItemsLoaded[itemConfigItem.Position] = true;
+
+            var dockPosition = itemConfigItem.Position switch
             {
                 "Top" => Dock.Top,
                 "Bottom" => Dock.Bottom,
                 "Left" => Dock.Left,
                 "Right" => Dock.Right,
                 _ => throw new Exception("Invalid item configuration")
-            });
+            };
+
+            itemControl.SetValue(DockPanel.DockProperty, dockPosition);
             layout.MainPanel.Children.Add(itemControl);
+
+            var slider = new Slider();
         }
     }
 
@@ -217,7 +237,7 @@ public static class GenerateHelper
             if (string.IsNullOrEmpty(pageConfigItem.Target))
                 throw new Exception("Invalid page configuration");
 
-            if (Creator?.CreateInstance(pageConfigItem.Target, pageConfigItem.Assembly) is not UserControl
+            if (Creator?.GetOrCreateInstance(pageConfigItem.Target, pageConfigItem.Assembly) is not UserControl
                 pageControl)
                 throw new Exception("Invalid page configuration");
 
