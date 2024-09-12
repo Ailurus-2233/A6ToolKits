@@ -15,7 +15,7 @@
     </LoadModules>
 
     <!-- if use layout module, you can define layout configuration here -->
-    <Layout Name="A6Application" Type="Window" Height="450" Width="600" MainColor="#0C3E81">
+    <Layout Name="A6Application" Type="Window" Height="450" Width="600" MainColor="#F4F6F8">
         <Menu Height="30" Target="A6ToolKits.Layout.Default.DefaultMenu" Assembly="A6ToolKits.Layout.dll"/>
         <ToolBar Type="Icon" Height="30" Target="A6ToolKits.Layout.Default.DefaultToolBar" Assembly="A6ToolKits.Layout.dll"/>
         <Pages>

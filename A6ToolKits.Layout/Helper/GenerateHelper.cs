@@ -4,8 +4,10 @@ using A6ToolKits.Helper.Assembly;
 using A6ToolKits.Helper.Config;
 using A6ToolKits.Layout.Container;
 using A6ToolKits.Layout.Definitions;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
+using Avalonia.Styling;
 
 namespace A6ToolKits.Layout.Helper;
 
@@ -62,6 +64,9 @@ public static class GenerateHelper
         if (color.StartsWith('#'))
             layout.MainColor = Color.Parse(color);
 
+        var current = Application.Current;
+        if (current != null) current.RequestedThemeVariant = layout.Theme;
+
         var iconPath = layoutItem.IconPath;
         if (!string.IsNullOrEmpty(iconPath))
             layout.WindowContainer.Icon = new WindowIcon(iconPath);
@@ -87,11 +92,11 @@ public static class GenerateHelper
 
         layout.Menu.Height = menuConfigItem.Height == "Auto" ? double.NaN : double.Parse(menuConfigItem.Height);
 
-        foreach (var targetItem in menuDefinition.GenerateMenuItem(new SolidColorBrush(layout.FontColor))) layout.Menu.Items.Add(targetItem);
+        foreach (var targetItem in menuDefinition.GenerateMenuItem()) layout.Menu.Items.Add(targetItem);
 
         layout.Menu.IsVisible = layout.Menu.Items.Count != 0;
-        
-        layout.TopPanel.Background = new SolidColorBrush(layout.MainColor);
+
+        layout.TopPanel.Background = new SolidColorBrush(layout.MainColor, 0.8);
     }
 
     private static void SetToolBar(WindowLayout layout, XmlNode layoutElement)
@@ -151,9 +156,8 @@ public static class GenerateHelper
                       layout.CenterStatusBar.Children.Count != 0;
 
         layout.StatusBar.IsVisible = visible;
-
-        var color = layout.MainColor;
-        layout.StatusBar.Background = new SolidColorBrush(color);
+        
+        layout.StatusBar.Background = new SolidColorBrush(layout.MainColor, 0.8);
     }
 
     private static void AddControlToStatusBar(StackPanel statusBar, IDefinition definition, StatusPosition position)

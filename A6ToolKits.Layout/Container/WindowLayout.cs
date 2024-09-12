@@ -1,6 +1,7 @@
 ﻿using A6ToolKits.Layout.Container.Controls;
 using Avalonia.Controls;
 using Avalonia.Media;
+using Avalonia.Styling;
 
 namespace A6ToolKits.Layout.Container;
 
@@ -84,19 +85,10 @@ public class WindowLayout
     public Color MainColor { get; set; } = Colors.CornflowerBlue;
 
     /// <summary>
-    ///     字体颜色，默认为白色，会根据主题色的深浅自动调整黑色或白色
+    ///     全局主题，根据主题色生成，如果主题色为深色则生成深色主题，否则生成浅色主题
     /// </summary>
-    public Color FontColor
-    {
-        get
-        {
-            var r = MainColor.R;
-            var g = MainColor.G;
-            var b = MainColor.B;
-            var gray = 0.299 * r + 0.587 * g + 0.114 * b;
-            return gray > 192 ? Colors.Black : Colors.White;
-        }
-    }
+    public ThemeVariant Theme =>
+        0.299 * MainColor.R + 0.587 * MainColor.G + 0.114 * MainColor.B > 128 ? ThemeVariant.Light : ThemeVariant.Dark;
 
     /// <summary>
     ///     页面容器，用于展示页面，位置在窗口中间

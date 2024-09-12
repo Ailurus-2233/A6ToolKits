@@ -48,6 +48,10 @@
         </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <DocFileItem Remove="bin\Debug\A6Application.xml" />
+    </ItemGroup>
+
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
         <Exec Command="cd $(TargetDir)&#xA;bash ./after_build.sh"/>
     </Target>
