@@ -8,6 +8,7 @@
         mc:Ignorable="d">
     <Grid x:Name="Target" RowDefinitions="Auto, *, Auto">
         <controls:HeaderBar x:Name="HeaderBar" Grid.Row="0" />
+        <controls:MainPanel x:Name="MainPanel" Grid.Row="1" />
         <controls:StatusBar x:Name="StatusBar" Grid.Row="2" />
     </Grid>
 </Window>

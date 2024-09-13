@@ -13,31 +13,24 @@ namespace A6ToolKits.Layout.Container.Controls;
 public partial class MainPanel : UserControl
 {
     /// <summary>
-    ///     辅助侧边栏，用于展示一些信息，位置在窗口右侧
-    /// </summary>
-    public RightItemBar RightItemBar { get; } = new();
-
-    /// <summary>
-    ///     主侧边栏，用于展示一些信息，位置在窗口左侧
-    /// </summary>
-    public LeftItemBar LeftItemBar { get; } = new();
-
-    /// <summary>
-    ///     底部侧边栏，用于展示一些信息，位置在窗口底部
-    /// </summary>
-    public BottomItemBar BottomItemBar { get; } = new();
-
-    /// <summary>
-    ///     页面容器，用于展示页面内容
-    /// </summary>
-    public PageContainer PageContainer { get; } = new();
-
-    /// <summary>
     ///     构造函数，初始化主面板
     /// </summary>
-    public MainPanel(LayoutAlignment alignment)
+    public MainPanel()
     {
         InitializeComponent();
+    }
+
+    private enum Orientation
+    {
+        Horizontal,
+        Vertical
+    }
+
+    public void SetLayout(LayoutAlignment alignment, int leftWidth = 300, int rightWidth = 300, int bottomHeight = 300)
+    {
+        MainGrid.ColumnDefinitions = new ColumnDefinitions($"{leftWidth},Auto,*,Auto,{rightWidth}");
+        MainGrid.RowDefinitions = new RowDefinitions($"*,Auto,{bottomHeight}");
+
         switch (alignment)
         {
             case LayoutAlignment.Left:
@@ -56,79 +49,113 @@ public partial class MainPanel : UserControl
         }
     }
 
-    private enum Orientation
-    {
-        Horizontal,
-        Vertical
-    }
-
-    private static void SetGridPanel(Grid grid, Orientation orientation, Control control1, Control control2)
-    {
-        var gridSplitter = new GridSplitter();
-        var property = orientation == Orientation.Horizontal ? Grid.ColumnProperty : Grid.RowProperty;
-
-        switch (orientation)
-        {
-            case Orientation.Horizontal:
-                grid.RowDefinitions = null!;
-                grid.ColumnDefinitions = new ColumnDefinitions("Auto,Auto,Auto");
-                break;
-            case Orientation.Vertical:
-            default:
-                grid.ColumnDefinitions = null!;
-                grid.RowDefinitions = new RowDefinitions("Auto,Auto,Auto");
-                break;
-        }
-
-        grid.Children.Clear();
-
-        control1.SetValue(property, 0);
-        gridSplitter.SetValue(property, 1);
-        control2.SetValue(property, 2);
-
-        grid.Children.Add(control1);
-        grid.Children.Add(gridSplitter);
-        grid.Children.Add(control2);
-    }
-
-
     private void SetLeftAlignmentLayout()
     {
-        var topGrid = new Grid();
-        var leftGrid = new Grid();
+        LeftItemBar.SetValue(Grid.RowProperty, 0);
+        LeftItemBar.SetValue(Grid.ColumnProperty, 0);
 
-        SetGridPanel(topGrid, Orientation.Horizontal, LeftItemBar, PageContainer);
-        SetGridPanel(leftGrid, Orientation.Vertical, topGrid, BottomItemBar);
-        SetGridPanel(MainGrid, Orientation.Horizontal, leftGrid, RightItemBar);
+        LeftSplitter.SetValue(Grid.RowProperty, 0);
+        LeftSplitter.SetValue(Grid.ColumnProperty, 1);
+
+        PageContainer.SetValue(Grid.RowProperty, 0);
+        PageContainer.SetValue(Grid.ColumnProperty, 2);
+
+        BottomSplitter.SetValue(Grid.RowProperty, 1);
+        BottomSplitter.SetValue(Grid.ColumnProperty, 0);
+        BottomSplitter.SetValue(Grid.ColumnSpanProperty, 3);
+
+        BottomItemBar.SetValue(Grid.RowProperty, 2);
+        BottomItemBar.SetValue(Grid.ColumnProperty, 0);
+        BottomItemBar.SetValue(Grid.ColumnSpanProperty, 3);
+
+        RightSplitter.SetValue(Grid.RowProperty, 0);
+        RightSplitter.SetValue(Grid.ColumnProperty, 3);
+        RightSplitter.SetValue(Grid.RowSpanProperty, 3);
+
+        RightItemBar.SetValue(Grid.RowProperty, 0);
+        RightItemBar.SetValue(Grid.ColumnProperty, 4);
+        RightItemBar.SetValue(Grid.RowSpanProperty, 3);
     }
 
     private void SetRightAlignmentLayout()
     {
-        var topGrid = new Grid();
-        var rightGrid = new Grid();
+        RightItemBar.SetValue(Grid.RowProperty, 0);
+        RightItemBar.SetValue(Grid.ColumnProperty, 4);
 
-        SetGridPanel(topGrid, Orientation.Horizontal, PageContainer, RightItemBar);
-        SetGridPanel(rightGrid, Orientation.Vertical, topGrid, BottomItemBar);
-        SetGridPanel(MainGrid, Orientation.Horizontal, LeftItemBar, rightGrid);
+        RightSplitter.SetValue(Grid.RowProperty, 0);
+        RightSplitter.SetValue(Grid.ColumnProperty, 3);
+
+        PageContainer.SetValue(Grid.RowProperty, 0);
+        PageContainer.SetValue(Grid.ColumnProperty, 2);
+
+        BottomSplitter.SetValue(Grid.RowProperty, 1);
+        BottomSplitter.SetValue(Grid.ColumnProperty, 2);
+        BottomSplitter.SetValue(Grid.ColumnSpanProperty, 3);
+
+        BottomItemBar.SetValue(Grid.RowProperty, 2);
+        BottomItemBar.SetValue(Grid.ColumnProperty, 2);
+        BottomItemBar.SetValue(Grid.ColumnSpanProperty, 3);
+
+        LeftSplitter.SetValue(Grid.RowProperty, 0);
+        LeftSplitter.SetValue(Grid.ColumnProperty, 1);
+        LeftSplitter.SetValue(Grid.RowSpanProperty, 3);
+
+        LeftItemBar.SetValue(Grid.RowProperty, 0);
+        LeftItemBar.SetValue(Grid.ColumnProperty, 0);
+        LeftItemBar.SetValue(Grid.RowSpanProperty, 3);
     }
 
     private void SetCenterAlignmentLayout()
     {
-        var centerGrid = new Grid();
-        var rightGrid = new Grid();
+        PageContainer.SetValue(Grid.RowProperty, 0);
+        PageContainer.SetValue(Grid.ColumnProperty, 2);
 
-        SetGridPanel(centerGrid, Orientation.Vertical, PageContainer, BottomItemBar);
-        SetGridPanel(rightGrid, Orientation.Horizontal, centerGrid, RightItemBar);
-        SetGridPanel(MainGrid, Orientation.Horizontal, LeftItemBar, rightGrid);
+        BottomSplitter.SetValue(Grid.RowProperty, 1);
+        BottomSplitter.SetValue(Grid.ColumnProperty, 2);
+
+        BottomItemBar.SetValue(Grid.RowProperty, 2);
+        BottomItemBar.SetValue(Grid.ColumnProperty, 2);
+
+        LeftSplitter.SetValue(Grid.RowProperty, 0);
+        LeftSplitter.SetValue(Grid.ColumnProperty, 1);
+        LeftSplitter.SetValue(Grid.RowSpanProperty, 3);
+
+        LeftItemBar.SetValue(Grid.RowProperty, 0);
+        LeftItemBar.SetValue(Grid.ColumnProperty, 0);
+        LeftItemBar.SetValue(Grid.RowSpanProperty, 3);
+
+        RightSplitter.SetValue(Grid.RowProperty, 0);
+        RightSplitter.SetValue(Grid.ColumnProperty, 3);
+        RightSplitter.SetValue(Grid.RowSpanProperty, 3);
+
+        RightItemBar.SetValue(Grid.RowProperty, 0);
+        RightItemBar.SetValue(Grid.ColumnProperty, 4);
+        RightItemBar.SetValue(Grid.RowSpanProperty, 3);
     }
 
     private void SetTowSideAlignmentLayout()
     {
-        var rightGrid = new Grid();
-        var topGrid = new Grid();
+        LeftItemBar.SetValue(Grid.RowProperty, 0);
+        LeftItemBar.SetValue(Grid.ColumnProperty, 0);
 
-        SetGridPanel(rightGrid, Orientation.Horizontal, PageContainer, RightItemBar);
-        SetGridPanel(topGrid, Orientation.Horizontal, LeftItemBar, rightGrid);
-        SetGridPanel(MainGrid, Orientation.Vertical, topGrid, BottomItemBar);
+        LeftSplitter.SetValue(Grid.RowProperty, 0);
+        LeftSplitter.SetValue(Grid.ColumnProperty, 1);
+
+        PageContainer.SetValue(Grid.RowProperty, 0);
+        PageContainer.SetValue(Grid.ColumnProperty, 2);
+
+        RightSplitter.SetValue(Grid.RowProperty, 0);
+        RightSplitter.SetValue(Grid.ColumnProperty, 3);
+
+        RightItemBar.SetValue(Grid.RowProperty, 0);
+        RightItemBar.SetValue(Grid.ColumnProperty, 4);
+
+        BottomSplitter.SetValue(Grid.RowProperty, 1);
+        BottomSplitter.SetValue(Grid.ColumnProperty, 0);
+        BottomSplitter.SetValue(Grid.ColumnSpanProperty, 5);
+
+        BottomItemBar.SetValue(Grid.RowProperty, 2);
+        BottomItemBar.SetValue(Grid.ColumnProperty, 0);
+        BottomItemBar.SetValue(Grid.ColumnSpanProperty, 5);
     }
 }

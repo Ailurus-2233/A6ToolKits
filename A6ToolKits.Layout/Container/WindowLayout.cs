@@ -29,12 +29,12 @@ public class WindowLayout
     /// <summary>
     ///     主面板，用于展示页面，位置在窗口中间
     /// </summary>
-    public MainPanel? MainPanel { get; set; }
+    public MainPanel MainPanel => WindowContainer.MainPanel;
 
     /// <summary>
     ///     页面容器，用于展示页面，位置在窗口中间
     /// </summary>
-    public PageContainer? Container => MainPanel?.PageContainer;
+    public PageContainer Container => MainPanel.PageContainer;
 
     /// <summary>
     ///     窗口类型，默认为 Window

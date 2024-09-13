@@ -5,8 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="450" d:DesignWidth="800"
              mc:Ignorable="d">
-    <Grid VerticalAlignment="Center" RowDefinitions="Auto, Auto">
-        <Separator Grid.Row="0" Margin="0" />
+    <Grid VerticalAlignment="Center" RowDefinitions="Auto, *">
+        <Separator Grid.Row="0" Margin="0" Padding="0"/>
         <DockPanel Grid.Row="1">
             <StackPanel x:Name="LeftStatus"
                         Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"

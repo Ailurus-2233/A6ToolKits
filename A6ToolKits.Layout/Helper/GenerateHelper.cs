@@ -45,7 +45,7 @@ public static class GenerateHelper
         SetHeaderBar(layout.HeaderBar, layoutElement, layout);
 
         SetStatusBar(layout.StatusBar, layoutElement, layout);
-
+        
         return layout;
     }
 
@@ -74,6 +74,8 @@ public static class GenerateHelper
             layout.WindowContainer.Icon = new WindowIcon(iconPath);
 
         layout.WindowContainer.Title = layoutItem.Name;
+        
+        layout.MainPanel.SetLayout(Enum.Parse<LayoutAlignment>(layoutItem.Alignment));
     }
 
     private static void SetHeaderBar(HeaderBar header, XmlNode layoutElement, WindowLayout layout)
