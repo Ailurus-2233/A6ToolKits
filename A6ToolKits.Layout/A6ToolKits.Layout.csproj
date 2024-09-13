@@ -21,6 +21,18 @@
             <DependentUpon>WindowContainer.axaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
+        <Compile Update="Container\Controls\Sidebar\RightItemBar.axaml.cs">
+          <DependentUpon>AuxiliarySidebar.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Container\Controls\Sidebar\BottomItemBar.axaml.cs">
+          <DependentUpon>BottomSideBar.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Container\Controls\Sidebar\LeftItemBar.axaml.cs">
+          <DependentUpon>MainSidebar.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>

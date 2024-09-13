@@ -17,18 +17,21 @@
     </LoadModules>
 
     <!-- if use layout module, you can define layout configuration here -->
-    <Layout Name="A6Application" Type="Window" Height="450" Width="600" MainColor="#0C3E81">
+    <Layout Name="A6Application" Type="Window" Height="450" Width="600" MainColor="#0C3E81" Alignment="Right"
+            ShowToolBar="False">
         <Menu Height="30" Target="A6ToolKits.Layout.Default.DefaultMenu" Assembly="A6ToolKits.Layout.dll"/>
-        <ToolBar Type="Icon" Height="30" Target="A6ToolKits.Layout.Default.DefaultToolBar"
-                 Assembly="A6ToolKits.Layout.dll"/>
+        <ButtonBar Type="Icon" Height="30" Target="A6ToolKits.Layout.Default.DefaultToolBar"
+                   Assembly="A6ToolKits.Layout.dll"/>
+        <Items>
+            <Item Position="Left" Target="A6ToolKits.Layout.Default.LeftItemView" Assembly="A6ToolKits.Layout.dll"/>
+        </Items>
+        
         <Pages>
             <Page Name="DefaultPage" Target="A6ToolKits.Layout.Default.DefaultPageView" Assembly="A6ToolKits.Layout.dll"
                   Default="True"/>
             <Page Name="AboutPage" Target="A6ToolKits.Layout.Default.AboutPageView" Assembly="A6ToolKits.Layout.dll"/>
         </Pages>
+        
         <StatusBar Height="30" Target="A6ToolKits.Layout.Default.DefaultStatusBar" Assembly="A6ToolKits.Layout.dll"/>
-        <Items>
-            <Item Position="Left" Target="A6ToolKits.Layout.Default.LeftItemView" Assembly="A6ToolKits.Layout.dll"/>
-        </Items>
     </Layout>
 </Configuration>

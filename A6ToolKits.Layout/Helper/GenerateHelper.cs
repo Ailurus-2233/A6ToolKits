@@ -3,6 +3,8 @@ using A6ToolKits.Attributes;
 using A6ToolKits.Helper.Config;
 using A6ToolKits.InstanceCreator;
 using A6ToolKits.Layout.Container;
+using A6ToolKits.Layout.Container.Controls;
+using A6ToolKits.Layout.Container.Controls.Enums;
 using A6ToolKits.Layout.Definitions;
 using Avalonia;
 using Avalonia.Controls;
@@ -40,23 +42,17 @@ public static class GenerateHelper
 
         SetWindowProperty(layout, layoutElement);
 
-        SetMenu(layout, layoutElement);
+        SetHeaderBar(layout.HeaderBar, layoutElement, layout);
 
-        SetToolBar(layout, layoutElement);
-
-        SetStatusBar(layout, layoutElement);
-
-        SetItems(layout);
-
-        SetPages(layout);
+        SetStatusBar(layout.StatusBar, layoutElement, layout);
 
         return layout;
     }
 
-    private static void SetWindowProperty(WindowLayout layout, XmlNode node)
+    private static void SetWindowProperty(WindowLayout layout, XmlNode layoutElement)
     {
         var layoutItem = new LayoutItemConfigItem();
-        layoutItem.GenerateFromXmlNode(node);
+        layoutItem.GenerateFromXmlNode(layoutElement);
         layout.Type = layoutItem.Type switch
         {
             "Window" => WindowType.Window,
@@ -80,12 +76,25 @@ public static class GenerateHelper
         layout.WindowContainer.Title = layoutItem.Name;
     }
 
-    private static void SetMenu(WindowLayout layout, XmlNode layoutElement)
+    private static void SetHeaderBar(HeaderBar header, XmlNode layoutElement, WindowLayout layout)
     {
         var menuNode = layoutElement["Menu"];
-        if (menuNode == null)
-            return;
+        if (menuNode != null)
+            SetMenu(header.Menu, menuNode);
 
+        var toolBarNode = layoutElement["ToolBar"];
+        if (toolBarNode != null)
+            SetButtonBar(header.ButtonBar, header.RightButtonBar, toolBarNode);
+
+        header.SetMenuVisible(header.Menu.Items.Count != 0);
+        header.SetButtonBarVisible(header.ButtonBar.Children.Count != 0);
+        header.SetRightButtonBarVisible(header.RightButtonBar.Children.Count != 0);
+
+        header.Background = new SolidColorBrush(layout.MainColor, 0.8);
+    }
+
+    private static void SetMenu(Menu menu, XmlNode menuNode)
+    {
         var menuConfigItem = new LayoutItemConfigItem();
         menuConfigItem.GenerateFromXmlNode(menuNode);
 
@@ -96,21 +105,13 @@ public static class GenerateHelper
             menuDefinition)
             throw new Exception("Invalid menu configuration");
 
-        layout.Menu.Height = menuConfigItem.Height == "Auto" ? double.NaN : double.Parse(menuConfigItem.Height);
+        menu.Height = menuConfigItem.Height == "Auto" ? double.NaN : double.Parse(menuConfigItem.Height);
 
-        foreach (var targetItem in menuDefinition.GenerateMenuItem()) layout.Menu.Items.Add(targetItem);
-
-        layout.Menu.IsVisible = layout.Menu.Items.Count != 0;
-
-        layout.TopPanel.Background = new SolidColorBrush(layout.MainColor, 0.8);
+        foreach (var targetItem in menuDefinition.GenerateMenuItem()) menu.Items.Add(targetItem);
     }
 
-    private static void SetToolBar(WindowLayout layout, XmlNode layoutElement)
+    private static void SetButtonBar(StackPanel buttonBar, StackPanel rightButtonBar, XmlNode toolBarNode)
     {
-        var toolBarNode = layoutElement["ToolBar"];
-        if (toolBarNode == null)
-            return;
-
         var toolBarConfigItem = new LayoutItemConfigItem();
         toolBarConfigItem.GenerateFromXmlNode(toolBarNode);
 
@@ -121,20 +122,18 @@ public static class GenerateHelper
             toolBarDefinition)
             throw new Exception("Invalid toolbar configuration");
 
-        layout.ToolBar.Height =
+        buttonBar.Height =
             toolBarConfigItem.Height == "Auto" ? double.NaN : double.Parse(toolBarConfigItem.Height);
 
 
-        toolBarDefinition.GenerateToolBar(ToolBarPosition.Left).ForEach(item => { layout.ToolBar.Children.Add(item); });
+        toolBarDefinition.GenerateToolBar(ToolBarPosition.Left)
+            .ForEach(item => { buttonBar.Children.Add(item); });
 
         toolBarDefinition.GenerateToolBar(ToolBarPosition.Right)
-            .ForEach(item => { layout.RightToolBar.Children.Add(item); });
-
-        layout.ToolBar.IsVisible = layout.ToolBar.Children.Count != 0;
-        layout.RightToolBar.IsVisible = layout.RightToolBar.Children.Count != 0;
+            .ForEach(item => { rightButtonBar.Children.Add(item); });
     }
 
-    private static void SetStatusBar(WindowLayout layout, XmlNode layoutElement)
+    private static void SetStatusBar(StatusBar statusBar, XmlNode layoutElement, WindowLayout layout)
     {
         var statusBarNode = layoutElement["StatusBar"];
         if (statusBarNode == null)
@@ -150,21 +149,20 @@ public static class GenerateHelper
             statusBarDefinition)
             throw new Exception("Invalid status bar configuration");
 
-        layout.StatusBar.Height = statusBarConfigItem.Height == "Auto"
+        statusBar.Height = statusBarConfigItem.Height == "Auto"
             ? double.NaN
             : double.Parse(statusBarConfigItem.Height);
 
-        AddControlToStatusBar(layout.LeftStatusBar, statusBarDefinition, StatusPosition.Left);
-        AddControlToStatusBar(layout.CenterStatusBar, statusBarDefinition, StatusPosition.Center);
-        AddControlToStatusBar(layout.RightStatusBar, statusBarDefinition, StatusPosition.Right);
+        AddControlToStatusBar(statusBar.LeftStatus, statusBarDefinition, StatusPosition.Left);
+        AddControlToStatusBar(statusBar.CenterStatus, statusBarDefinition, StatusPosition.Center);
+        AddControlToStatusBar(statusBar.RightStatus, statusBarDefinition, StatusPosition.Right);
 
-        var visible = layout.LeftStatusBar.Children.Count != 0 ||
-                      layout.RightStatusBar.Children.Count != 0 ||
-                      layout.CenterStatusBar.Children.Count != 0;
+        var visible = statusBar.LeftStatus.Children.Count != 0 ||
+                      statusBar.RightStatus.Children.Count != 0 ||
+                      statusBar.CenterStatus.Children.Count != 0;
 
-        layout.StatusBar.IsVisible = visible;
-
-        layout.StatusBar.Background = new SolidColorBrush(layout.MainColor, 0.8);
+        statusBar.IsVisible = visible;
+        statusBar.Background = new SolidColorBrush(layout.MainColor, 0.8);
     }
 
     private static void AddControlToStatusBar(StackPanel statusBar, IDefinition definition, StatusPosition position)
@@ -177,78 +175,67 @@ public static class GenerateHelper
 
         statusBar.Children.RemoveAt(statusBar.Children.Count - 1);
     }
-
-
-    private static readonly Dictionary<string, bool> ItemsLoaded = new()
-    {
-        { "Top", false },
-        { "Bottom", false },
-        { "Left", false },
-        { "Right", false }
-    };
-
-    private static void SetItems(WindowLayout layout)
-    {
-        var items = ConfigHelper.GetElements("Item");
-        if (items == null) return;
-        foreach (XmlNode item in items)
-        {
-            var itemConfigItem = new LayoutItemConfigItem();
-            itemConfigItem.GenerateFromXmlNode(item);
-
-            if (string.IsNullOrEmpty(itemConfigItem.Target))
-                throw new Exception("Invalid item configuration");
-
-            if (Creator?.GetOrCreateInstance(itemConfigItem.Target, itemConfigItem.Assembly) is not UserControl
-                itemControl)
-                throw new Exception("Invalid item configuration");
-
-            if (ItemsLoaded[itemConfigItem.Position])
-                throw new Exception($"Invalid item configuration: {itemConfigItem.Position} already loaded");
-
-            ItemsLoaded[itemConfigItem.Position] = true;
-
-            var dockPosition = itemConfigItem.Position switch
-            {
-                "Top" => Dock.Top,
-                "Bottom" => Dock.Bottom,
-                "Left" => Dock.Left,
-                "Right" => Dock.Right,
-                _ => throw new Exception("Invalid item configuration")
-            };
-
-            itemControl.SetValue(DockPanel.DockProperty, dockPosition);
-            layout.MainPanel.Children.Add(itemControl);
-
-            var slider = new Slider();
-        }
-    }
-
-    private static void SetPages(WindowLayout layout)
-    {
-        var pages = ConfigHelper.GetElements("Page");
-        if (pages == null) return;
-        UserControl? defaultPage = null;
-        foreach (XmlNode page in pages)
-        {
-            var pageConfigItem = new LayoutItemConfigItem();
-            pageConfigItem.GenerateFromXmlNode(page);
-
-            if (string.IsNullOrEmpty(pageConfigItem.Target))
-                throw new Exception("Invalid page configuration");
-
-            if (Creator?.GetOrCreateInstance(pageConfigItem.Target, pageConfigItem.Assembly) is not UserControl
-                pageControl)
-                throw new Exception("Invalid page configuration");
-
-            layout.Container.AddPage(pageConfigItem.Name, pageControl);
-            if (pageConfigItem.Default == "True")
-                defaultPage = pageControl;
-        }
-
-        if (defaultPage != null)
-            layout.Container.ActivatePage(defaultPage);
-        else
-            layout.Container.MoveToPage(0);
-    }
+    
+    // private static void SetItems(WindowLayout layout)
+    // {
+    //     var items = ConfigHelper.GetElements("Item");
+    //     if (items == null) return;
+    //     foreach (XmlNode item in items)
+    //     {
+    //         var itemConfigItem = new LayoutItemConfigItem();
+    //         itemConfigItem.GenerateFromXmlNode(item);
+    //
+    //         if (string.IsNullOrEmpty(itemConfigItem.Target))
+    //             throw new Exception("Invalid item configuration");
+    //
+    //         if (Creator?.GetOrCreateInstance(itemConfigItem.Target, itemConfigItem.Assembly) is not UserControl
+    //             itemControl)
+    //             throw new Exception("Invalid item configuration");
+    //
+    //         if (ItemsLoaded[itemConfigItem.Position])
+    //             throw new Exception($"Invalid item configuration: {itemConfigItem.Position} already loaded");
+    //
+    //         ItemsLoaded[itemConfigItem.Position] = true;
+    //
+    //         var dockPosition = itemConfigItem.Position switch
+    //         {
+    //             "Top" => Dock.Top,
+    //             "Bottom" => Dock.Bottom,
+    //             "Left" => Dock.Left,
+    //             "Right" => Dock.Right,
+    //             _ => throw new Exception("Invalid item configuration")
+    //         };
+    //
+    //         itemControl.SetValue(DockPanel.DockProperty, dockPosition);
+    //         layout.MainPanel.Children.Add(itemControl);
+    //     }
+    // }
+    //
+    // private static void SetPages(WindowLayout layout)
+    // {
+    //     var pages = ConfigHelper.GetElements("Page");
+    //     if (pages == null) return;
+    //     UserControl? defaultPage = null;
+    //     foreach (XmlNode page in pages)
+    //     {
+    //         var pageConfigItem = new LayoutItemConfigItem();
+    //         pageConfigItem.GenerateFromXmlNode(page);
+    //
+    //         if (string.IsNullOrEmpty(pageConfigItem.Target))
+    //             throw new Exception("Invalid page configuration");
+    //
+    //         if (Creator?.GetOrCreateInstance(pageConfigItem.Target, pageConfigItem.Assembly) is not UserControl
+    //             pageControl)
+    //             throw new Exception("Invalid page configuration");
+    //
+    //         layout.Container.AddPage(pageConfigItem.Name, pageControl);
+    //         if (pageConfigItem.Default == "True")
+    //             defaultPage = pageControl;
+    //     }
+    //
+    //     if (defaultPage != null)
+    //         layout.Container.ActivatePage(defaultPage);
+    //     else
+    //         layout.Container.MoveToPage(0);
+    // }
 }

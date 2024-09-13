@@ -14,4 +14,16 @@ public partial class WindowContainer : Window
     {
         InitializeComponent();
     }
+
+    /// <summary>
+    ///     添加主面板
+    /// </summary>
+    /// <param name="mainPanel">
+    ///     主面板对象
+    /// </param>
+    public void AddMainPanel(MainPanel mainPanel)
+    {
+        mainPanel.SetValue(Grid.RowProperty, 1);
+        Target.Children.Add(mainPanel);
+    }
 }
