@@ -1,0 +1,14 @@
+﻿<Window x:Class="A6ToolKits.Layout.Container.DefaultWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:A6ToolKits.Layout.Controls"
+        d:DesignHeight="450" d:DesignWidth="800"
+        mc:Ignorable="d">
+    <Grid x:Name="Target" RowDefinitions="Auto, *, Auto">
+        <controls:HeaderBar x:Name="HeaderBar" Grid.Row="0" />
+        <controls:MainPanel x:Name="MainPanel" Grid.Row="1" />
+        <controls:StatusBar x:Name="StatusBar" Grid.Row="2" />
+    </Grid>
+</Window>

@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="A6ToolKits.Layout.Controls.HeaderBar"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="450" d:DesignWidth="800"
+             mc:Ignorable="d">
+    <Grid RowDefinitions="Auto, Auto">
+        <DockPanel Grid.Row="0">
+            <StackPanel x:Name="RightButtonBar"
+                        HorizontalAlignment="Right"
+                        DockPanel.Dock="Right" Orientation="Horizontal" />
+            <Grid DockPanel.Dock="Left" RowDefinitions="Auto,Auto,Auto">
+                <Menu x:Name="Menu" Grid.Row="0" />
+                <Separator x:Name="MenuSeparator" Grid.Row="1" Margin="0" />
+                <StackPanel x:Name="ButtonBar"
+                            Grid.Row="2"
+                            Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                            Orientation="Horizontal" />
+            </Grid>
+        </DockPanel>
+        <Separator x:Name="HeaderSeparator" Grid.Row="1" Margin="0" />
+    </Grid>
+</UserControl>

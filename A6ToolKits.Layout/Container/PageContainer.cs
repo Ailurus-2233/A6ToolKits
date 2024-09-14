@@ -20,8 +20,7 @@ public class PageContainer : ContentControl
     ///     是否可以移动到下一页
     /// </summary>
     public bool CanMoveToNextPage => NextPages.Count > 0;
-
-
+    
     /// <summary>
     ///     当前活动的页面
     /// </summary>

@@ -41,8 +41,13 @@ public class LayoutItemConfigItem : ConfigItemBase
     /// <summary>
     ///     主题颜色
     /// </summary>
-    public string MainColor { get; set; } = string.Empty;
-
+    public string BackgroundColor { get; set; } = "#181818";
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    public string PrimaryColor { get; set; } = "#3377D2";
+    
     /// <summary>
     ///     图标路径
     /// </summary>
@@ -57,15 +62,16 @@ public class LayoutItemConfigItem : ConfigItemBase
     ///     是否显示工具栏
     /// </summary>
     public string ShowToolBar { get; set; } = "True";
-
-    #endregion
-
-    #region Page 生效的属性
-
+    
+    
     /// <summary>
     ///     页面名称
     /// </summary>
     public string Name { get; set; } = string.Empty;
+
+    #endregion
+
+    #region Page 生效的属性
 
     /// <summary>
     ///     默认页面，对 Pages 有效

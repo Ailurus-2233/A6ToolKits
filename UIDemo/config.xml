@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration>
+    <!-- List of modules that are automatically loaded -->
+    <LoadModules>
+        <Module Name="A6ToolKits.Root" Version="1.0.0" Assembly="A6ToolKits.dll" Target="A6ToolKits.Module.BaseModule"/>
+        <Module Name="A6ToolKits.UIPackage" Version="1.0.0" Assembly="A6ToolKits.UIPackage.dll"
+                Target="A6ToolKits.UIPackage.UIPackageModule"/>
+    </LoadModules>
+</Configuration>

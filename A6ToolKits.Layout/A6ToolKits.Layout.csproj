@@ -33,10 +33,34 @@
           <DependentUpon>MainSidebar.axaml</DependentUpon>
           <SubType>Code</SubType>
         </Compile>
+        <Compile Update="DefaultWindow.axaml.cs">
+          <DependentUpon>DefaultWindow.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>
         <AvaloniaResource Include="Assets\**"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Container\Controls\HeaderBar.axaml" />
+      <UpToDateCheckInput Remove="Container\Controls\LeftToolBar.axaml" />
+      <UpToDateCheckInput Remove="Container\Controls\MainPanel.axaml" />
+      <UpToDateCheckInput Remove="Container\Controls\StatusBar.axaml" />
+      <UpToDateCheckInput Remove="Container\Controls\TabBar\BottomTabBar.axaml" />
+      <UpToDateCheckInput Remove="Container\Controls\TabBar\LeftTabBar.axaml" />
+      <UpToDateCheckInput Remove="Container\Controls\TabBar\RightTabBar.axaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Controls\HeaderBar.axaml" />
+      <AdditionalFiles Include="Controls\LeftToolBar.axaml" />
+      <AdditionalFiles Include="Controls\MainPanel.axaml" />
+      <AdditionalFiles Include="Controls\StatusBar.axaml" />
+      <AdditionalFiles Include="Controls\TabBar\BottomTabBar.axaml" />
+      <AdditionalFiles Include="Controls\TabBar\LeftTabBar.axaml" />
+      <AdditionalFiles Include="Controls\TabBar\RightTabBar.axaml" />
     </ItemGroup>
 
 </Project>

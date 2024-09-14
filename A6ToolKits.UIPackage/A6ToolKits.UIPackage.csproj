@@ -12,12 +12,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\A6ToolKits.MVVM\A6ToolKits.MVVM.csproj"/>
-        <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj"/>
+        <UpToDateCheckInput Remove="Layout\Styles\LayoutItem.axaml"/>
     </ItemGroup>
 
     <ItemGroup>
-        <UpToDateCheckInput Remove="Layout\Styles\LayoutItem.axaml"/>
+      <Folder Include="UIControls\" />
+      <Folder Include="UIStyles\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj" />
     </ItemGroup>
 
 </Project>

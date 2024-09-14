@@ -1,8 +1,0 @@
-﻿<UserControl x:Class="A6ToolKits.Layout.Default.LeftItemView"
-             xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             Loaded="OnLoaded"
-             mc:Ignorable="d">
-    <Grid x:Name="LeftItem" Width="300" />
-</UserControl>

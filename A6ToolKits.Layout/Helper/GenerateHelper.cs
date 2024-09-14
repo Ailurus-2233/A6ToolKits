@@ -3,9 +3,9 @@ using A6ToolKits.Attributes;
 using A6ToolKits.Helper.Config;
 using A6ToolKits.InstanceCreator;
 using A6ToolKits.Layout.Container;
-using A6ToolKits.Layout.Container.Controls;
-using A6ToolKits.Layout.Container.Controls.Enums;
+using A6ToolKits.Layout.Controls;
 using A6ToolKits.Layout.Definitions;
+using A6ToolKits.Layout.Enums;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
@@ -62,9 +62,9 @@ public static class GenerateHelper
         layout.Width = Convert.ToDouble(layoutItem.Width);
         layout.Height = Convert.ToDouble(layoutItem.Height);
 
-        var color = layoutItem.MainColor;
+        var color = layoutItem.BackgroundColor;
         if (color.StartsWith('#'))
-            layout.MainColor = Color.Parse(color);
+            layout.BackgroundColor = Color.Parse(color);
 
         var current = Application.Current;
         if (current != null) current.RequestedThemeVariant = layout.Theme;
@@ -84,15 +84,15 @@ public static class GenerateHelper
         if (menuNode != null)
             SetMenu(header.Menu, menuNode);
 
-        var toolBarNode = layoutElement["ToolBar"];
-        if (toolBarNode != null)
-            SetButtonBar(header.ButtonBar, header.RightButtonBar, toolBarNode);
+        var buttonBarNode = layoutElement["ButtonBar"];
+        if (buttonBarNode != null)
+            SetButtonBar(header.ButtonBar, header.RightButtonBar, buttonBarNode);
 
         header.SetMenuVisible(header.Menu.Items.Count != 0);
         header.SetButtonBarVisible(header.ButtonBar.Children.Count != 0);
         header.SetRightButtonBarVisible(header.RightButtonBar.Children.Count != 0);
 
-        header.Background = new SolidColorBrush(layout.MainColor, 0.8);
+        header.Background = new SolidColorBrush(layout.BackgroundColor, 0.8);
     }
 
     private static void SetMenu(Menu menu, XmlNode menuNode)
@@ -112,26 +112,26 @@ public static class GenerateHelper
         foreach (var targetItem in menuDefinition.GenerateMenuItem()) menu.Items.Add(targetItem);
     }
 
-    private static void SetButtonBar(StackPanel buttonBar, StackPanel rightButtonBar, XmlNode toolBarNode)
+    private static void SetButtonBar(StackPanel buttonBar, StackPanel rightButtonBar, XmlNode buttonBarNode)
     {
-        var toolBarConfigItem = new LayoutItemConfigItem();
-        toolBarConfigItem.GenerateFromXmlNode(toolBarNode);
+        var buttonBarNodeConfigItem = new LayoutItemConfigItem();
+        buttonBarNodeConfigItem.GenerateFromXmlNode(buttonBarNode);
 
-        if (string.IsNullOrEmpty(toolBarConfigItem.Target))
-            throw new Exception("Invalid toolbar configuration");
+        if (string.IsNullOrEmpty(buttonBarNodeConfigItem.Target))
+            throw new Exception("Invalid button bar configuration");
 
-        if (Creator?.GetOrCreateInstance(toolBarConfigItem.Target, toolBarConfigItem.Assembly) is not IDefinition
-            toolBarDefinition)
-            throw new Exception("Invalid toolbar configuration");
+        if (Creator?.GetOrCreateInstance(buttonBarNodeConfigItem.Target, buttonBarNodeConfigItem.Assembly) is not IDefinition
+            buttonBarDefinition)
+            throw new Exception("Invalid button bar configuration");
 
         buttonBar.Height =
-            toolBarConfigItem.Height == "Auto" ? double.NaN : double.Parse(toolBarConfigItem.Height);
+            buttonBarNodeConfigItem.Height == "Auto" ? double.NaN : double.Parse(buttonBarNodeConfigItem.Height);
 
 
-        toolBarDefinition.GenerateToolBar(ToolBarPosition.Left)
+        buttonBarDefinition.GenerateButtonBar(ButtonBarPosition.Left)
             .ForEach(item => { buttonBar.Children.Add(item); });
 
-        toolBarDefinition.GenerateToolBar(ToolBarPosition.Right)
+        buttonBarDefinition.GenerateButtonBar(ButtonBarPosition.Right)
             .ForEach(item => { rightButtonBar.Children.Add(item); });
     }
 
@@ -151,7 +151,7 @@ public static class GenerateHelper
             statusBarDefinition)
             throw new Exception("Invalid status bar configuration");
 
-        statusBar.Height = statusBarConfigItem.Height == "Auto"
+        statusBar.DockPanel.Height = statusBarConfigItem.Height == "Auto"
             ? double.NaN
             : double.Parse(statusBarConfigItem.Height);
 
@@ -164,7 +164,7 @@ public static class GenerateHelper
                       statusBar.CenterStatus.Children.Count != 0;
 
         statusBar.IsVisible = visible;
-        statusBar.Background = new SolidColorBrush(layout.MainColor, 0.8);
+        statusBar.Background = new SolidColorBrush(layout.BackgroundColor, 0.8);
     }
 
     private static void AddControlToStatusBar(StackPanel statusBar, IDefinition definition, StatusPosition position)

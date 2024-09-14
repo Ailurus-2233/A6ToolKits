@@ -14,7 +14,7 @@ namespace A6ToolKits.Helper.Assembly;
 /// </summary>
 public static class AssemblyHelper
 {
-    private static List<string> AssemblyPaths { get; } = [];
+    private static List<string> AssemblyPaths { get; } = ["./"];
 
     /// <summary>
     ///     根据程序集名称和类型名称加载类型
