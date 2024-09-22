@@ -1,0 +1,89 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:common="clr-namespace:A6ToolKits.UIPackage.LayoutControls.Common"
+        xmlns:controls="clr-namespace:A6ToolKits.UIPackage.LayoutControls.Buttons"
+        xmlns:tab="clr-namespace:A6ToolKits.UIPackage.LayoutControls.Tab">
+
+    <!--  Add Styles Here  -->
+    <Style Selector="tab|TabRadioButton">
+        <!--  Set Defaults  -->
+        <Setter Property="Template">
+            <ControlTemplate TargetType="tab:TabRadioButton">
+                <Border Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        Padding="2"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="2">
+                    <DockPanel HorizontalAlignment="Center"
+                               VerticalAlignment="Center">
+                        <common:Icon DockPanel.Dock="Left"
+                                     IconImage="{TemplateBinding Icon}"
+                                     IconSize="{TemplateBinding IconSize}"
+                                     IsIconVisible="{Binding Path=DisplayIcon, RelativeSource={RelativeSource TemplatedParent}}"
+                                     IsVisible="False" />
+                        <controls:CloseButton Padding="3"
+                                              DockPanel.Dock="Right"
+                                              IconSize="{TemplateBinding IconSize}"
+                                              IsIconVisible="False"
+                                              IsVisible="False" />
+                        <Label Content="{TemplateBinding Header}" />
+                    </DockPanel>
+                    <ToolTip.Tip>
+                        <TextBlock Text="{TemplateBinding ToolTip}" />
+                    </ToolTip.Tip>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:pointerover">
+            <Setter Property="Background" Value="{DynamicResource ButtonPointOverBrush}" />
+            <Style Selector="^ /template/ controls|CloseButton">
+                <Setter Property="IsIconVisible" Value="True" />
+            </Style>
+        </Style>
+
+        <Style Selector="^.LeftPromptLine /template/ Border">
+            <Setter Property="BorderThickness" Value="2, 0, 0, 0" />
+        </Style>
+        <Style Selector="^.TopPromptLine /template/ Border">
+            <Setter Property="BorderThickness" Value="0, 2, 0, 0" />
+        </Style>
+        <Style Selector="^.RightPromptLine /template/ Border">
+            <Setter Property="BorderThickness" Value="0, 0, 2, 0" />
+        </Style>
+        <Style Selector="^.BottomPromptLine /template/ Border">
+            <Setter Property="BorderThickness" Value="0, 0, 0, 2" />
+        </Style>
+
+        <Style Selector="^:checked">
+            <Setter Property="Background" Value="{DynamicResource ButtonPointOverBrush}" />
+            <Style Selector="^ /template/ Border">
+                <Setter Property="BorderBrush" Value="{Binding Path=PromptLineColor, RelativeSource={RelativeSource TemplatedParent}}" />
+            </Style>
+            <Style Selector="^ /template/ controls|CloseButton">
+                <Setter Property="IsIconVisible" Value="True" />
+            </Style>
+        </Style>
+
+        <Style Selector="^.Closeable">
+            <Style Selector="^ /template/ controls|CloseButton">
+                <Setter Property="IsVisible" Value="True" />
+            </Style>
+        </Style>
+
+        <Style Selector="^.IconVisible">
+            <Style Selector="^ /template/ common|Icon">
+                <Setter Property="IsVisible" Value="True" />
+            </Style>
+        </Style>
+
+        <Style Selector="^.OnlyIcon">
+            <Style Selector="^ /template/ common|Icon">
+                <Setter Property="IsVisible" Value="True" />
+            </Style>
+            <Style Selector="^ /template/ Label">
+                <Setter Property="IsVisible" Value="False" />
+            </Style>
+        </Style>
+    </Style>
+</Styles>

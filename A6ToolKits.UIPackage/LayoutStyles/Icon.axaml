@@ -1,0 +1,18 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:common="clr-namespace:A6ToolKits.UIPackage.LayoutControls.Common">
+    <!--  Add Styles Here  -->
+    <Style Selector="common|Icon">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Width="{TemplateBinding IconSize}"
+                        Height="{TemplateBinding IconSize}"
+                        Background="Transparent"
+                        IsVisible="{TemplateBinding IsVisible}">
+                    <Image IsVisible="{TemplateBinding IsIconVisible}"
+                           Source="{TemplateBinding IconImage}" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

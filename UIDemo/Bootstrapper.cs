@@ -1,6 +1,8 @@
 ﻿using A6ToolKits;
 using A6ToolKits.Bootstrapper;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Styling;
 
 namespace UIDemo;
 
@@ -12,6 +14,8 @@ public class Bootstrapper : BaseBootstrapper<BaseApp, Window>
     public override void OnCompleted()
     {
         MainWindow = new MainWindow();
+        var current = Application.Current;
+        if (current != null) current.RequestedThemeVariant = ThemeVariant.Dark;
         // MainWindow = IoC.Get<MainWindow>();
         base.OnCompleted();
     }

@@ -1,33 +1,30 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Metadata;
-using Avalonia.Input;
 using Avalonia.Media;
 
-namespace A6ToolKits.UIPackage.LayoutControls.Buttons;
+namespace A6ToolKits.UIPackage.LayoutControls.Tab;
 
-[PseudoClasses(":clicked")]
 public class TabRadioButton : RadioButton
 {
-    public static readonly StyledProperty<IImage> IconProperty =
-        AvaloniaProperty.Register<TabRadioButton, IImage>(nameof(Icon));
+    public static readonly StyledProperty<IImage?> IconProperty =
+        AvaloniaProperty.Register<TabRadioButton, IImage?>(nameof(Icon));
 
     public static readonly StyledProperty<double> IconSizeProperty =
         AvaloniaProperty.Register<TabRadioButton, double>(nameof(IconSize), 20);
 
     public static readonly StyledProperty<string> ToolTipProperty =
-        AvaloniaProperty.Register<TabRadioButton, string>(nameof(ToolTip));
+        AvaloniaProperty.Register<TabRadioButton, string>(nameof(ToolTip), "");
 
     public static readonly StyledProperty<string> HeaderProperty =
         AvaloniaProperty.Register<TabRadioButton, string>(nameof(Header));
 
     public static readonly StyledProperty<bool> IsCloseableProperty =
-        AvaloniaProperty.Register<TabRadioButton, bool>(nameof(IsCloseable));
-    
-    public static readonly StyledProperty<bool> IsSelectedProperty =
-        AvaloniaProperty.Register<TabRadioButton, bool>(nameof(IsSelected));
+        AvaloniaProperty.Register<TabRadioButton, bool>(nameof(IsCloseable), false);
 
-    public IImage Icon
+    public static readonly StyledProperty<IBrush> PromptLineColorProperty =
+        AvaloniaProperty.Register<TabRadioButton, IBrush>(nameof(PromptLineColor), SolidColorBrush.Parse("#3377D2"));
+    
+    public IImage? Icon
     {
         get => GetValue(IconProperty);
         set => SetValue(IconProperty, value);
@@ -57,17 +54,12 @@ public class TabRadioButton : RadioButton
         set => SetValue(IsCloseableProperty, value);
     }
 
-    public bool IsSelected
+    public IBrush PromptLineColor
     {
-        get => GetValue(IsSelectedProperty);
-        set => SetValue(IsSelectedProperty, value);
+        get => GetValue(PromptLineColorProperty);
+        set => SetValue(PromptLineColorProperty, value);
     }
 
-    public void OnPointerPressed(object sender, PointerPressedEventArgs e)
-    {
-        if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
-        {
-            PseudoClasses.Add(":clicked");
-        }
-    }
+    public bool DisplayIcon => Icon != null;
+    
 }

@@ -13,15 +13,42 @@
 
     <ItemGroup>
         <UpToDateCheckInput Remove="Layout\Styles\LayoutItem.axaml"/>
+        <UpToDateCheckInput Remove="LayoutControls\Resources\CloseButtonResources.axaml" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="UIControls\" />
-      <Folder Include="UIStyles\" />
-    </ItemGroup>
-
-    <ItemGroup>
+      <ProjectReference Include="..\A6ToolKits.Layout\A6ToolKits.Layout.csproj" />
       <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AvaloniaXaml Remove="UIControls\**" />
+      <AvaloniaXaml Remove="UIStyles\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="UIControls\**" />
+      <Compile Remove="UIStyles\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="UIControls\**" />
+      <EmbeddedResource Remove="UIStyles\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Remove="UIControls\**" />
+      <AdditionalFiles Remove="UIStyles\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AvaloniaResource Remove="UIControls\**" />
+      <AvaloniaResource Remove="UIStyles\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="UIControls\**" />
+      <None Remove="UIStyles\**" />
     </ItemGroup>
 
 </Project>

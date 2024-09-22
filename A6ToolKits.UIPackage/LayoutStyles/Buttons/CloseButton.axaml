@@ -1,0 +1,29 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:buttons="clr-namespace:A6ToolKits.UIPackage.LayoutControls.Buttons"
+        xmlns:common="clr-namespace:A6ToolKits.UIPackage.LayoutControls.Common">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!--  Add Controls for Previewer Here  -->
+        </Border>
+    </Design.PreviewWith>
+
+    <!--  Add Styles Here  -->
+    <Style Selector="buttons|CloseButton">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Button Width="{TemplateBinding IconSize}"
+                        Height="{TemplateBinding IconSize}"
+                        Padding="{TemplateBinding Padding}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Background="Transparent">
+                    <common:Icon IconImage="{DynamicResource CloseIcon}"
+                                 IsIconVisible="{TemplateBinding IsIconVisible}" />
+                </Button>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>
