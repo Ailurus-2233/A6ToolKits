@@ -3,11 +3,12 @@ using A6ToolKits.Layout.Controls;
 
 namespace A6ToolKits.UIPackage.Controls.Layout.Tab.Models;
 
-public class TabItemCollection(string groupName, ObservableCollection<TabItem> items) : ControlBase
+public class TabItemCollection : ControlBase
 {
     private TabItem? _selectedItem;
-    private string _groupName = groupName;
-    private ObservableCollection<TabItem> _items = items;
+    private string? _groupName;
+    private ObservableCollection<TabItem> _items;
+    private bool? _isCloseable;
 
     public ObservableCollection<TabItem> Items
     {
@@ -15,9 +16,22 @@ public class TabItemCollection(string groupName, ObservableCollection<TabItem> i
         set => SetField(ref _items, value);
     }
 
+    public string? GroupName
+    {
+        get => _groupName;
+        set => SetField(ref _groupName, value);
+    }
+
     public TabItem? SelectedItem
     {
-        get => _selectedItem;
+        get
+        {
+            if (_selectedItem != null) return _selectedItem;
+            if (Items.Count == 0) return null;
+            _selectedItem = Items[0];
+            _selectedItem.IsSelected = true;
+            return _selectedItem;
+        }
         set
         {
             if (_selectedItem != null)
@@ -28,9 +42,40 @@ public class TabItemCollection(string groupName, ObservableCollection<TabItem> i
         }
     }
 
-    public string GroupName
+    public bool? IsCloseable
     {
-        get => _groupName;
-        set => SetField(ref _groupName, value);
+        get => _isCloseable;
+        set => SetField(ref _isCloseable, value);
+    }
+
+    public TabItemCollection(string groupName, ObservableCollection<TabItem> items)
+    {
+        _groupName = groupName;
+        _items = items;
+        TabItem.Selected += (sender, s) =>
+        {
+            if (s == _groupName && sender is TabItem tabItem)
+            {
+                SelectedItem = tabItem;
+            }
+        };
+
+        TabItem.Deleted += (sender, s) =>
+        {
+            if (s != _groupName || sender is not TabItem tabItem) return;
+            if (SelectedItem == tabItem)
+            {
+                var index = Items.IndexOf(tabItem);
+                if (index == 0)
+                {
+                    SelectedItem = Items.Count > 1 ? Items[1] : null;
+                }
+                else
+                {
+                    SelectedItem = Items[index - 1];
+                }
+            }
+            Items.Remove(tabItem);
+        };
     }
 }

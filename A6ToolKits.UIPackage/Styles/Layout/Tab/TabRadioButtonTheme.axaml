@@ -8,25 +8,26 @@
                   TargetType="tab:TabRadioButton">
         <Setter Property="Template">
             <ControlTemplate TargetType="tab:TabRadioButton">
-                <Border Padding="2"
+                <Border Padding="5"
                         Background="{TemplateBinding Background}"
-                        BorderThickness="{Binding Path=PromptThickness, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
-                        CornerRadius="2">
-                    <DockPanel HorizontalAlignment="Center"
-                               VerticalAlignment="Center">
-                        <simple:Icon DockPanel.Dock="Left"
-                                     IconImage="{TemplateBinding Icon}"
+                        BorderThickness="{Binding Path=PromptThickness, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <simple:Icon IconImage="{TemplateBinding Icon}"
                                      IconSize="{TemplateBinding IconSize}"
                                      IsIconVisible="{Binding Path=DisplayIcon, RelativeSource={RelativeSource TemplatedParent}}"
-                                     IsVisible="{Binding Path=IsIconVisible, RelativeSource={RelativeSource TemplatedParent}}" />
-                        <buttons:CloseButton Padding="3"
-                                             DockPanel.Dock="Right"
+                                     IsVisible="{Binding Path=IsIconVisible, RelativeSource={RelativeSource TemplatedParent}}" 
+                                     Margin="0,0,5,0"/>
+                        <TextBlock Text="{TemplateBinding Header}" HorizontalAlignment="Center" TextAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   IsVisible="{Binding Path=IsHeaderVisible, RelativeSource={RelativeSource TemplatedParent}}" 
+                                   Margin="0,0,5,0"/>
+                        <buttons:CloseButton Padding="2"
                                              IconSize="{TemplateBinding IconSize}"
                                              IsIconVisible="False"
-                                             IsVisible="{TemplateBinding CloseButtonVisible}" />
-                        <Label Content="{TemplateBinding Header}"
-                               IsVisible="{Binding Path=IsHeaderVisible, RelativeSource={RelativeSource TemplatedParent}}" />
-                    </DockPanel>
+                                             IsVisible="{TemplateBinding IsCloseable}"
+                                             Command="{TemplateBinding CloseCommand}" />
+                    </StackPanel>
                     <ToolTip.Tip>
                         <TextBlock Text="{TemplateBinding ToolTip}" />
                     </ToolTip.Tip>
@@ -37,7 +38,8 @@
         <Style Selector="^:checked">
             <Setter Property="Background" Value="{DynamicResource ButtonPointOverBrush}" />
             <Style Selector="^ /template/ Border">
-                <Setter Property="BorderBrush" Value="{Binding Path=PromptLineColor, RelativeSource={RelativeSource TemplatedParent}}" />
+                <Setter Property="BorderBrush"
+                        Value="{Binding Path=PromptLineColor, RelativeSource={RelativeSource TemplatedParent}}" />
             </Style>
             <Style Selector="^ /template/ buttons|CloseButton">
                 <Setter Property="IsIconVisible" Value="True" />
@@ -47,7 +49,8 @@
         <Style Selector="^:pointerover">
             <Setter Property="Background" Value="{DynamicResource ButtonPointOverBrush}" />
             <Style Selector="^ /template/ Border">
-                <Setter Property="BorderBrush" Value="{Binding Path=PromptLineColor, RelativeSource={RelativeSource TemplatedParent}}" />
+                <Setter Property="BorderBrush"
+                        Value="{Binding Path=PromptLineColor, RelativeSource={RelativeSource TemplatedParent}}" />
             </Style>
             <Style Selector="^ /template/ buttons|CloseButton">
                 <Setter Property="IsIconVisible" Value="True" />

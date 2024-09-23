@@ -19,13 +19,17 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="models:TabItem">
-                            <tab:TabRadioButton DisplayType="{Binding Path=DisplayType, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
-                                                GroupName="{Binding Path=TabCollection.GroupName, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
-                                                Header="{Binding Header}"
-                                                Icon="{Binding Icon}"
-                                                IconSize="{Binding Path=IconSize, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
-                                                PromptLinePosition="{Binding Path=PromptLinePosition, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
-                                                ToolTip="{Binding ToolTip}" />
+                            <tab:TabRadioButton
+                                DisplayType="{Binding Path=DisplayType, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
+                                GroupName="{Binding GroupName}"
+                                Header="{Binding Header}"
+                                Icon="{Binding Icon}"
+                                IconSize="{Binding Path=IconSize, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
+                                PromptLinePosition="{Binding Path=PromptLinePosition, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
+                                ToolTip="{Binding ToolTip}"
+                                Command="{Binding SelectTabItem}"
+                                IsCloseable="{Binding Path=TabCollection.IsCloseable, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
+                                CloseCommand="{Binding DeleteTabItem}"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

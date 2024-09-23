@@ -11,12 +11,15 @@
         d:DesignWidth="800"
         x:DataType="uiDemo:MainWindow"
         mc:Ignorable="d">
-    <StackPanel>
+    <DockPanel>
         <tab:TabHeader x:Name="TabHeader"
-                       Height="50"
+                       DockPanel.Dock="Top"
+                       Height="30"
+                       IconSize="15"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
                        DisplayType="Text"
                        PromptLinePosition="Bottom" />
-    </StackPanel>
+        <tab:TabContainer x:Name="TabContainer" />
+    </DockPanel>
 </Window>

@@ -14,11 +14,18 @@ public partial class MainWindow : Window
         InitializeComponent();
         var tabHeader = this.FindControl<TabHeader>("TabHeader");
         TabItemCollection tabItems = new("Group1", [
-            new TabItem { Header = "Tab1", ToolTip = "Content1", Content = new Tab1()},
-            new TabItem { Header = "Tab2", ToolTip = "Content2", Content = new Tab2()},
-            new TabItem { Header = "Tab3", ToolTip = "Content3", Content = new Tab3()}
-        ]);
+            new TabItem { Header = "Tab1", ToolTip = "Content1", GroupName = "Group1", Content = new Tab1() },
+            new TabItem { Header = "Tab2", ToolTip = "Content2", GroupName = "Group1", Content = new Tab2() },
+            new TabItem { Header = "Tab3", ToolTip = "Content3", GroupName = "Group1", Content = new Tab3() }
+        ])
+        {
+            IsCloseable = true
+        };
         if (tabHeader == null) return;
         tabHeader.TabCollection = tabItems;
+        
+        var tabContainer = this.FindControl<TabContainer>("TabContainer");
+        if (tabContainer == null) return;
+        tabContainer.TabCollection = tabItems;
     }
 }

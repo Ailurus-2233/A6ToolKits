@@ -2,6 +2,7 @@ using A6ToolKits.UIPackage.Controls.Layout.Tab.Models;
 using Avalonia;
 using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
+using TabItem = Avalonia.Controls.TabItem;
 
 namespace A6ToolKits.UIPackage.Controls.Layout.Tab;
 

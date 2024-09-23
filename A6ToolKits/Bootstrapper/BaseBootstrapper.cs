@@ -35,6 +35,11 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper
     protected TWindow? MainWindow { get; set; }
 
     /// <summary>
+    ///     构造器，用于子类进行扩展修改
+    /// </summary>
+    public AppBuilder? AppBuilder => _builder;
+
+    /// <summary>
     ///     加载步骤1-初始化：在应用启动前需要进行的一些配置，这里进行了程序集加载和
     ///     日志记录器的初始化，可以在子类中重写此方法以添加更多的初始化操作
     /// </summary>
@@ -63,7 +68,16 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper
     public virtual void Configure()
     {
         Log.Information("Configuring Application: Config Avalonia builder & lifetime");
+        AvaloniaConfigure();
+        // 加载模块
+        ModuleLoader.LoadModules();
+    }
 
+    /// <summary>
+    ///     Avalonia 框架的相关配置
+    /// </summary>
+    public virtual void AvaloniaConfigure()
+    {
         // 如果是 Debug 模式，则启用Avalonia的日志记录
         if (Debugger.IsAttached)
             _builder = AppBuilder
@@ -77,9 +91,6 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper
 
         _lifetime = LifetimeExtensions.PrepareLifetime(_builder, _runArgs, null);
         _builder.SetupWithLifetime(_lifetime);
-
-        // 加载模块
-        ModuleLoader.LoadModules();
     }
 
     /// <summary>

@@ -8,15 +8,17 @@
                   TargetType="buttons:CloseButton">
         <Setter Property="Template">
             <ControlTemplate>
-                <Button Width="{TemplateBinding IconSize}"
+                <Button Padding="{TemplateBinding Padding}"
+                        Width="{TemplateBinding IconSize}"
                         Height="{TemplateBinding IconSize}"
-                        Padding="{TemplateBinding Padding}"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center"
-                        Background="Transparent">
+                        Background="Transparent"
+                        Command="{TemplateBinding Command}">
                     <simple:Icon IconImage="{DynamicResource CloseIcon}"
+                                 IconSize="{TemplateBinding IconSize}"
                                  IsIconVisible="{TemplateBinding IsIconVisible}" />
                 </Button>
             </ControlTemplate>

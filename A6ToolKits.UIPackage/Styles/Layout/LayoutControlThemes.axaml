@@ -3,7 +3,9 @@
     <!--  Add Resources Here  -->
     <ResourceDictionary.MergedDictionaries>
         <ResourceInclude Source="Buttons/CloseButtonTheme.axaml" />
+        
         <ResourceInclude Source="Tab/TabRadioButtonTheme.axaml" />
         <ResourceInclude Source="Tab/TabHeaderTheme.axaml" />
+        <ResourceInclude Source="Tab/TabContainer.axaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

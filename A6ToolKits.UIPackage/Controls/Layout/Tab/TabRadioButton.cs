@@ -1,5 +1,7 @@
-﻿using Avalonia;
+﻿using System.Windows.Input;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Media;
 
 namespace A6ToolKits.UIPackage.Controls.Layout.Tab;
@@ -33,9 +35,8 @@ public class TabRadioButton : RadioButton
     public static readonly StyledProperty<string> DisplayTypeProperty =
         AvaloniaProperty.Register<TabRadioButton, string>(nameof(DisplayType), "IconAndText");
     
-    public static readonly StyledProperty<bool> CloseButtonVisibleProperty =
-        AvaloniaProperty.Register<TabRadioButton, bool>(nameof(CloseButtonVisible));
-
+    public static readonly StyledProperty<ICommand> CloseCommandProperty = 
+        AvaloniaProperty.Register<TabRadioButton, ICommand>(nameof (CloseCommand), enableDataValidation: true);
     public IImage? Icon
     {
         get => GetValue(IconProperty);
@@ -83,12 +84,6 @@ public class TabRadioButton : RadioButton
         get => GetValue(DisplayTypeProperty);
         set => SetValue(DisplayTypeProperty, DisplayTypes.Contains(value) ? value : "IconAndText");
     }
-    
-    public bool CloseButtonVisible
-    {
-        get => GetValue(CloseButtonVisibleProperty);
-        set => SetValue(CloseButtonVisibleProperty, value);
-    }
 
     public bool DisplayIcon => Icon != null;
 
@@ -111,4 +106,10 @@ public class TabRadioButton : RadioButton
     public bool IsIconVisible => DisplayType is "Icon" or "IconAndText";
     
     public bool IsHeaderVisible => DisplayType is "Text" or "IconAndText";
+    
+    public ICommand CloseCommand
+    {
+        get => GetValue(CloseCommandProperty);
+        set => SetValue(CloseCommandProperty, value);
+    }
 }
