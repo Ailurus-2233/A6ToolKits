@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:simple="clr-namespace:A6ToolKits.UIPackage.Controls.Simple">
+    <!--  Add Resources Here  -->
+    <ControlTheme x:Key="{x:Type simple:Icon}"
+                  TargetType="simple:Icon">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Width="{TemplateBinding IconSize}"
+                        Height="{TemplateBinding IconSize}"
+                        Background="Transparent"
+                        IsVisible="{TemplateBinding IsVisible}">
+                    <Image IsVisible="{TemplateBinding IsIconVisible}"
+                           Source="{TemplateBinding IconImage}" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

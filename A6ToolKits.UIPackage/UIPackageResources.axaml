@@ -2,9 +2,14 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <!--  Add Resources Here  -->
     <ResourceDictionary.MergedDictionaries>
-        <ResourceInclude Source="./Icons/IconResource.axaml" />
-        <ResourceInclude Source="./BrushResource.axaml" />
+        <!--  Icon  -->
+        <ResourceInclude Source="Resources/Icons/IconResources.axaml" />
 
+        <!--  Resource  -->
+        <ResourceInclude Source="Resources/BrushResources.axaml" />
+
+        <!--  Theme  -->
+        <ResourceInclude Source="ControlTheme.axaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

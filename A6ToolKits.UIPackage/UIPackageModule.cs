@@ -16,12 +16,12 @@ public class UIPackageModule : ModuleBase
 
     protected override void Initialize()
     {
-        var styleUri = new Uri("avares://A6ToolKits.UIPackage/UIPackageStyles.axaml");
-        var style = new StyleInclude(styleUri)
-        {
-            Source = styleUri
-        };
-        Application.Current?.Styles.Add(style);
+        // var styleUri = new Uri("avares://A6ToolKits.UIPackage/UIPackageStyles.axaml");
+        // var style = new StyleInclude(styleUri)
+        // {
+        //     Source = styleUri
+        // };
+        // Application.Current?.Styles.Add(style);
         
         var resUri = new Uri("avares://A6ToolKits.UIPackage/UIPackageResources.axaml");
         var resource = new ResourceInclude(resUri)

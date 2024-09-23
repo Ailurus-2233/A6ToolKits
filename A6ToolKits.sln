@@ -12,11 +12,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A6ToolKits", "A6ToolKits\A6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A6ToolKits.Layout", "A6ToolKits.Layout\A6ToolKits.Layout.csproj", "{FF5E7E07-FA4F-4652-8386-CF43870249D5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{09EE593B-32E7-489E-B7A3-B59EA2B6DFFD}"
-	ProjectSection(SolutionItems) = preProject
-		A6Documents\MVVM.md = A6Documents\MVVM.md
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A6Application", "A6Application\A6Application.csproj", "{3B3C893B-B93B-469C-9C36-07BF488134F6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIDemo", "UIDemo\UIDemo.csproj", "{E824EA12-6BD5-4365-89E9-0D4AF5D4D549}"

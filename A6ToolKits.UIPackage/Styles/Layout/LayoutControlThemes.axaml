@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  Add Resources Here  -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceInclude Source="Buttons/CloseButtonTheme.axaml" />
+        <ResourceInclude Source="Tab/TabRadioButtonTheme.axaml" />
+        <ResourceInclude Source="Tab/TabHeaderTheme.axaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

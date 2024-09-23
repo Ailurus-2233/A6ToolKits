@@ -1,0 +1,35 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:models="clr-namespace:A6ToolKits.UIPackage.Controls.Layout.Tab.Models"
+                    xmlns:tab="clr-namespace:A6ToolKits.UIPackage.Controls.Layout.Tab">
+    <!--  Add Resources Here  -->
+    <ControlTheme x:Key="{x:Type tab:TabHeader}"
+                  TargetType="tab:TabHeader">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ItemsControl Width="{TemplateBinding Width}"
+                              Height="{TemplateBinding Height}"
+                              ItemsSource="{Binding Path=TabCollection.Items, RelativeSource={RelativeSource TemplatedParent}}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                        VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                        Orientation="{TemplateBinding Orientation}" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="models:TabItem">
+                            <tab:TabRadioButton DisplayType="{Binding Path=DisplayType, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
+                                                GroupName="{Binding Path=TabCollection.GroupName, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
+                                                Header="{Binding Header}"
+                                                Icon="{Binding Icon}"
+                                                IconSize="{Binding Path=IconSize, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
+                                                PromptLinePosition="{Binding Path=PromptLinePosition, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
+                                                ToolTip="{Binding ToolTip}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

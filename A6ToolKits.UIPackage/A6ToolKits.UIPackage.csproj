@@ -39,6 +39,7 @@
     <ItemGroup>
       <AdditionalFiles Remove="UIControls\**" />
       <AdditionalFiles Remove="UIStyles\**" />
+      <AdditionalFiles Include="Resources\Icons\IconResources.axaml" />
     </ItemGroup>
 
     <ItemGroup>

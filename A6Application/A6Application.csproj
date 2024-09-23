@@ -53,6 +53,6 @@
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-        <Exec Command="cd $(TargetDir)&#xA;bash ./after_build.sh"/>
+      <Exec Command="cd $(TargetDir)&#xA;C:/Users/WZY/scoop/apps/git/2.45.2/git-bash.exe ./after_build.sh" />
     </Target>
 </Project>

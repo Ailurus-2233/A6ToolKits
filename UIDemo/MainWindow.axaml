@@ -1,12 +1,10 @@
 <Window x:Class="UIDemo.MainWindow"
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:buttons="clr-namespace:A6ToolKits.UIPackage.LayoutControls.Buttons;assembly=A6ToolKits.UIPackage"
+        xmlns:buttons="clr-namespace:A6ToolKits.UIPackage.Controls.Layout.Buttons;assembly=A6ToolKits.UIPackage"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:models="clr-namespace:A6ToolKits.UIPackage.LayoutControls.Tab.Models;assembly=A6ToolKits.UIPackage"
-        xmlns:system="clr-namespace:System;assembly=System.Runtime"
-        xmlns:tab="clr-namespace:A6ToolKits.UIPackage.LayoutControls.Tab;assembly=A6ToolKits.UIPackage"
+        xmlns:tab="clr-namespace:A6ToolKits.UIPackage.Controls.Layout.Tab;assembly=A6ToolKits.UIPackage"
         xmlns:uiDemo="clr-namespace:UIDemo"
         Title="UIDemo"
         d:DesignHeight="450"
@@ -14,36 +12,11 @@
         x:DataType="uiDemo:MainWindow"
         mc:Ignorable="d">
     <StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <tab:TabRadioButton Classes="LeftPromptLine OnlyIcon"
-                                GroupName="Hello"
-                                Header="Hello"
-                                IconSize="30" />
-            <tab:TabRadioButton Classes="BottomPromptLine OnlyIcon"
-                                GroupName="Hello"
-                                Header="Hello1"
-                                IconSize="30" />
-            <tab:TabRadioButton Classes="RightPromptLine OnlyIcon"
-                                GroupName="Hello"
-                                Header="Hello2"
-                                IconSize="30" />
-            <Button Content="Hello" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <tab:TabRadioButton Height="30"
-                                Classes="LeftPromptLine"
-                                GroupName="Hello"
-                                Header="Hello" />
-            <tab:TabRadioButton Height="30"
-                                GroupName="Hello"
-                                Header="Hello1" />
-            <tab:TabRadioButton Height="30"
-                                GroupName="Hello"
-                                Header="Hello2" />
-            <Button Content="Hello" />
-            <buttons:CloseButton Classes="AutoHidden"
-                                 IconSize="30" />
-        </StackPanel>
-        <tab:TabHeader x:Name="TabHeader" />
+        <tab:TabHeader x:Name="TabHeader"
+                       Height="50"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       DisplayType="Text"
+                       PromptLinePosition="Bottom" />
     </StackPanel>
 </Window>

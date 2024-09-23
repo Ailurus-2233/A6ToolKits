@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:tab="clr-namespace:A6ToolKits.UIPackage.Controls.Layout.Tab">
+    <ControlTheme x:Key="{x:Type tab:TabContainer}"
+                  TargetType="tab:TabContainer">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ContentControl Content="{Binding Path=DisplayControl, RelativeSource={RelativeSource TemplatedParent}}" />
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

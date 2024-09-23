@@ -1,8 +1,9 @@
 using System.Collections.ObjectModel;
-using A6ToolKits.UIPackage.LayoutControls.Tab;
-using A6ToolKits.UIPackage.LayoutControls.Tab.Models;
+using A6ToolKits.UIPackage.Controls.Layout.Tab;
+using A6ToolKits.UIPackage.Controls.Layout.Tab.Models;
 using Avalonia.Controls;
-using TabItem = A6ToolKits.UIPackage.LayoutControls.Tab.Models.TabItem;
+using UIDemo.TabDemo;
+using TabItem = A6ToolKits.UIPackage.Controls.Layout.Tab.Models.TabItem;
 
 namespace UIDemo;
 
@@ -12,12 +13,12 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         var tabHeader = this.FindControl<TabHeader>("TabHeader");
-        if (tabHeader != null) tabHeader.TabCollection = TabItems;
+        TabItemCollection tabItems = new("Group1", [
+            new TabItem { Header = "Tab1", ToolTip = "Content1", Content = new Tab1()},
+            new TabItem { Header = "Tab2", ToolTip = "Content2", Content = new Tab2()},
+            new TabItem { Header = "Tab3", ToolTip = "Content3", Content = new Tab3()}
+        ]);
+        if (tabHeader == null) return;
+        tabHeader.TabCollection = tabItems;
     }
-
-    private TabItemCollection TabItems { get; set; } = new("Group1", [
-        new TabItem { Header = "Tab1", ToolTip = "Content1" },
-        new TabItem { Header = "Tab2", ToolTip = "Content2" },
-        new TabItem { Header = "Tab3", ToolTip = "Content3" }
-    ]);
 }
