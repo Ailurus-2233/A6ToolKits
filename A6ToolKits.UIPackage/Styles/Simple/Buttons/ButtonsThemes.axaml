@@ -2,7 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <!--  Add Resources Here  -->
     <ResourceDictionary.MergedDictionaries>
-        <ResourceInclude Source="IconTheme.axaml" />
-        <ResourceInclude Source="Buttons/ButtonsThemes.axaml" />
+        <ResourceInclude Source="ButtonsThemes.axaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

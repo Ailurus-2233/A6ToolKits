@@ -1,5 +1,7 @@
 ﻿using A6ToolKits;
 using A6ToolKits.Bootstrapper;
+using A6ToolKits.Layout;
+using A6ToolKits.Module;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Styling;
@@ -13,10 +15,11 @@ public class Bootstrapper : BaseBootstrapper<BaseApp, Window>
     /// </summary>
     public override void OnCompleted()
     {
-        MainWindow = new MainWindow();
+        MainWindow = ModuleLoader.TryGetModule<LayoutModule>(out var layoutModule)
+            ? layoutModule?.WindowLayout?.WindowContainer
+            : new Window();
         var current = Application.Current;
         if (current != null) current.RequestedThemeVariant = ThemeVariant.Dark;
-        // MainWindow = IoC.Get<MainWindow>();
         base.OnCompleted();
     }
 }

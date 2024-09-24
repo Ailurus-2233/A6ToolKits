@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:tab="clr-namespace:A6ToolKits.UIPackage.Controls.Layout.Tab"
-                    xmlns:converters="clr-namespace:A6ToolKits.UIPackage.Styles.Layout.Converters">
+                    xmlns:converters="clr-namespace:A6ToolKits.UIPackage.Styles.Layout.Tab.Converters"
+                    xmlns:tab="clr-namespace:A6ToolKits.UIPackage.Controls.Layout.Tab">
     <ControlTheme x:Key="{x:Type tab:TabContainer}"
                   TargetType="tab:TabContainer">
         <ControlTheme.Resources>
@@ -9,8 +9,7 @@
         </ControlTheme.Resources>
         <Setter Property="Template">
             <ControlTemplate>
-                <ContentControl
-                    Content="{Binding Path=TabCollection.SelectedItem, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TabItemToDataContentConverter}}" />
+                <ContentControl Content="{Binding Path=TabCollection.SelectedItem, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TabItemToDataContentConverter}}" />
             </ControlTemplate>
         </Setter>
     </ControlTheme>

@@ -3,6 +3,7 @@ using A6ToolKits.Layout.Controls;
 using A6ToolKits.Layout.Enums;
 using Avalonia.Media;
 using Avalonia.Styling;
+using DefaultWindow = A6ToolKits.Layout.Controls.DefaultWindow;
 using MainPanel = A6ToolKits.Layout.Controls.MainPanel;
 
 namespace A6ToolKits.Layout;
@@ -45,18 +46,26 @@ public class WindowLayout
     /// <summary>
     ///     窗口宽度，默认为 800
     /// </summary>
-    public double Width { get; set; } = 800;
+    public double Width
+    {
+        get => WindowContainer.Width;
+        set => WindowContainer.Width = value;
+    }
 
     /// <summary>
     ///     窗口高度，默认为 600
     /// </summary>
-    public double Height { get; set; } = 600;
+    public double Height
+    {
+        get => WindowContainer.Height;
+        set => WindowContainer.Height = value;
+    }
 
     /// <summary>
     ///     背景色，会修改部分生成控件的颜色，默认为 CornflowerBlue
     /// </summary>
     public Color BackgroundColor { get; set; } = Color.Parse("#181818");
-    
+
     /// <summary>
     ///     主题色，会修改部分生成控件的颜色，默认为 CornflowerBlue
     /// </summary>
@@ -66,5 +75,7 @@ public class WindowLayout
     ///     全局主题，根据主题色生成，如果主题色为深色则生成深色主题，否则生成浅色主题
     /// </summary>
     public ThemeVariant Theme =>
-        0.299 * BackgroundColor.R + 0.587 * BackgroundColor.G + 0.114 * BackgroundColor.B > 128 ? ThemeVariant.Light : ThemeVariant.Dark;
+        0.299 * BackgroundColor.R + 0.587 * BackgroundColor.G + 0.114 * BackgroundColor.B > 128
+            ? ThemeVariant.Light
+            : ThemeVariant.Dark;
 }

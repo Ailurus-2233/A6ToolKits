@@ -23,10 +23,14 @@ public partial class MainPanel : UserControl
         Vertical
     }
 
-    public void SetLayout(LayoutAlignment alignment, int leftWidth = 300, int rightWidth = 300, int bottomHeight = 300)
+    public void SetLayout(LayoutAlignment alignment, double leftWidth = 0, double rightWidth = 0, double bottomHeight = 0)
     {
-        MainGrid.ColumnDefinitions = new ColumnDefinitions($"{leftWidth},Auto,*,Auto,{rightWidth}");
-        MainGrid.RowDefinitions = new RowDefinitions($"*,Auto,{bottomHeight}");
+        var leftStr = leftWidth > 0 ? $"{leftWidth}" : "Auto";
+        var rightStr = rightWidth > 0 ? $"{rightWidth}" : "Auto";
+        var bottomStr = bottomHeight > 0 ? $"{bottomHeight}" : "Auto";
+        
+        MainGrid.ColumnDefinitions = new ColumnDefinitions($"{leftStr},Auto,*,Auto,{rightStr}");
+        MainGrid.RowDefinitions = new RowDefinitions($"*,Auto,{bottomStr}");
 
         switch (alignment)
         {
@@ -48,49 +52,49 @@ public partial class MainPanel : UserControl
 
     private void SetLeftAlignmentLayout()
     {
-        ControlExtension.SetGridPosition(LeftItemBar, 0, 0, 2, 2);
-        ControlExtension.SetGridPosition(LeftSplitter, 0, 1, 2, 1);
-        ControlExtension.SetGridPosition(PageContainer, 0, 2, 2, 2);
-        ControlExtension.SetGridPosition(RightItemBar, 0, 3, 3, 1);
-        ControlExtension.SetGridPosition(RightItemBar, 0, 4, 3, 1);
-        ControlExtension.SetGridPosition(BottomSplitter, 1, 0, 1, 4);
-        ControlExtension.SetGridPosition(BottomItemBar, 2, 0, 1, 4);
+        LeftItemBar.SetGridPosition(0, 0, 2, 2);
+        LeftSplitter.SetGridPosition(0, 1, 2, 1);
+        PageContainer.SetGridPosition(0, 2, 2, 2);
+        RightItemBar.SetGridPosition(0, 3, 3, 1);
+        RightItemBar.SetGridPosition(0, 4, 3, 1);
+        BottomSplitter.SetGridPosition(1, 0, 1, 4);
+        BottomItemBar.SetGridPosition(2, 0, 1, 4);
     }
 
     private void SetRightAlignmentLayout()
     {
-        ControlExtension.SetGridPosition(LeftItemBar, 0, 0, 3, 2);
-        ControlExtension.SetGridPosition(PageContainer, 0, 2, 2, 2);
-        ControlExtension.SetGridPosition(RightItemBar, 0, 4, 2, 1);
-        ControlExtension.SetGridPosition(BottomItemBar, 2, 2, 1, 4);
+        LeftItemBar.SetGridPosition(0, 0, 3, 2);
+        PageContainer.SetGridPosition(0, 2, 2, 2);
+        RightItemBar.SetGridPosition(0, 4, 2);
+        BottomItemBar.SetGridPosition(2, 2, 1, 4);
         
-        ControlExtension.SetGridPosition(LeftSplitter, 0, 1, 3, 1);
-        ControlExtension.SetGridPosition(RightSplitter, 0, 3, 2, 1);
-        ControlExtension.SetGridPosition(BottomSplitter, 1, 2, 1, 4);
+        LeftSplitter.SetGridPosition(0, 1, 3);
+        RightSplitter.SetGridPosition(0, 3, 2);
+        BottomSplitter.SetGridPosition(1, 2, 1, 4);
     }
 
     private void SetCenterAlignmentLayout()
     {
-        ControlExtension.SetGridPosition(LeftItemBar, 0, 0, 3, 2);
-        ControlExtension.SetGridPosition(PageContainer, 0, 2, 2, 2);
-        ControlExtension.SetGridPosition(RightItemBar, 0, 4, 3, 1);
-        ControlExtension.SetGridPosition(BottomItemBar, 2, 2, 1, 2);
+        LeftItemBar.SetGridPosition(0, 0, 3, 2);
+        PageContainer.SetGridPosition(0, 2, 2, 2);
+        RightItemBar.SetGridPosition(0, 4, 3);
+        BottomItemBar.SetGridPosition(2, 2, 1, 2);
         
-        ControlExtension.SetGridPosition(LeftSplitter, 0, 1, 3, 1);
-        ControlExtension.SetGridPosition(RightSplitter, 0, 3, 3, 1);
-        ControlExtension.SetGridPosition(BottomSplitter, 1, 2, 1, 2);
+        LeftSplitter.SetGridPosition(0, 1, 3);
+        RightSplitter.SetGridPosition(0, 3, 3);
+        BottomSplitter.SetGridPosition(1, 2, 1, 2);
         
     }
 
     private void SetTowSideAlignmentLayout()
     {
-        ControlExtension.SetGridPosition(LeftItemBar, 0, 0, 2, 2);
-        ControlExtension.SetGridPosition(PageContainer, 0, 2, 2, 2);
-        ControlExtension.SetGridPosition(RightItemBar, 0, 4, 2, 1);
-        ControlExtension.SetGridPosition(BottomItemBar, 2, 0, 1, 5);
+        LeftItemBar.SetGridPosition(0, 0, 2, 2);
+        PageContainer.SetGridPosition(0, 2, 2, 2);
+        RightItemBar.SetGridPosition(0, 4, 2);
+        BottomItemBar.SetGridPosition(2, 0, 1, 5);
         
-        ControlExtension.SetGridPosition(LeftSplitter, 0, 1, 2, 1);
-        ControlExtension.SetGridPosition(RightSplitter, 0, 3, 2, 1);
-        ControlExtension.SetGridPosition(BottomSplitter, 1, 0, 1, 5);
+        LeftSplitter.SetGridPosition(0, 1, 2);
+        RightSplitter.SetGridPosition(0, 3, 2);
+        BottomSplitter.SetGridPosition(1, 0, 1, 5);
     }
 }

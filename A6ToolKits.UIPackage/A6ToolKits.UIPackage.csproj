@@ -40,6 +40,7 @@
       <AdditionalFiles Remove="UIControls\**" />
       <AdditionalFiles Remove="UIStyles\**" />
       <AdditionalFiles Include="Resources\Icons\IconResources.axaml" />
+      <AdditionalFiles Include="Styles\Simple\Buttons\CloseButtonTheme.axaml" />
     </ItemGroup>
 
     <ItemGroup>

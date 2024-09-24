@@ -33,7 +33,7 @@
           <DependentUpon>MainSidebar.axaml</DependentUpon>
           <SubType>Code</SubType>
         </Compile>
-        <Compile Update="DefaultWindow.axaml.cs">
+        <Compile Update="Controls\DefaultWindow.axaml.cs">
           <DependentUpon>DefaultWindow.axaml</DependentUpon>
           <SubType>Code</SubType>
         </Compile>
@@ -51,6 +51,10 @@
       <UpToDateCheckInput Remove="Container\Controls\TabBar\BottomTabBar.axaml" />
       <UpToDateCheckInput Remove="Container\Controls\TabBar\LeftTabBar.axaml" />
       <UpToDateCheckInput Remove="Container\Controls\TabBar\RightTabBar.axaml" />
+      <UpToDateCheckInput Remove="Default\AboutPageView.axaml" />
+      <UpToDateCheckInput Remove="Default\DefaultPageView.axaml" />
+      <UpToDateCheckInput Remove="Assets\next.png" />
+      <UpToDateCheckInput Remove="Assets\prev.png" />
     </ItemGroup>
 
     <ItemGroup>

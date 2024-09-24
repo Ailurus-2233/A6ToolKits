@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:buttons="clr-namespace:A6ToolKits.UIPackage.Controls.Layout.Buttons"
+                    xmlns:buttons="clr-namespace:A6ToolKits.UIPackage.Controls.Simple.Buttons"
                     xmlns:simple="clr-namespace:A6ToolKits.UIPackage.Controls.Simple"
                     xmlns:tab="clr-namespace:A6ToolKits.UIPackage.Controls.Layout.Tab">
     <!--  Add Resources Here  -->
@@ -11,22 +11,25 @@
                 <Border Padding="5"
                         Background="{TemplateBinding Background}"
                         BorderThickness="{Binding Path=PromptThickness, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal"
-                                VerticalAlignment="Center">
-                        <simple:Icon IconImage="{TemplateBinding Icon}"
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                        <simple:Icon Margin="0,0,5,0"
+                                     IconImage="{TemplateBinding Icon}"
                                      IconSize="{TemplateBinding IconSize}"
                                      IsIconVisible="{Binding Path=DisplayIcon, RelativeSource={RelativeSource TemplatedParent}}"
-                                     IsVisible="{Binding Path=IsIconVisible, RelativeSource={RelativeSource TemplatedParent}}" 
-                                     Margin="0,0,5,0"/>
-                        <TextBlock Text="{TemplateBinding Header}" HorizontalAlignment="Center" TextAlignment="Center"
+                                     IsVisible="{Binding Path=IsIconVisible, RelativeSource={RelativeSource TemplatedParent}}" />
+                        <TextBlock Margin="0,0,5,0"
+                                   HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
-                                   IsVisible="{Binding Path=IsHeaderVisible, RelativeSource={RelativeSource TemplatedParent}}" 
-                                   Margin="0,0,5,0"/>
+                                   IsVisible="{Binding Path=IsHeaderVisible, RelativeSource={RelativeSource TemplatedParent}}"
+                                   Text="{TemplateBinding Header}"
+                                   TextAlignment="Center" />
                         <buttons:CloseButton Padding="2"
+                                             Command="{TemplateBinding CloseCommand}"
                                              IconSize="{TemplateBinding IconSize}"
                                              IsIconVisible="False"
-                                             IsVisible="{TemplateBinding IsCloseable}"
-                                             Command="{TemplateBinding CloseCommand}" />
+                                             IsVisible="{TemplateBinding IsCloseable}" />
                     </StackPanel>
                     <ToolTip.Tip>
                         <TextBlock Text="{TemplateBinding ToolTip}" />
@@ -38,8 +41,7 @@
         <Style Selector="^:checked">
             <Setter Property="Background" Value="{DynamicResource ButtonPointOverBrush}" />
             <Style Selector="^ /template/ Border">
-                <Setter Property="BorderBrush"
-                        Value="{Binding Path=PromptLineColor, RelativeSource={RelativeSource TemplatedParent}}" />
+                <Setter Property="BorderBrush" Value="{Binding Path=PromptLineColor, RelativeSource={RelativeSource TemplatedParent}}" />
             </Style>
             <Style Selector="^ /template/ buttons|CloseButton">
                 <Setter Property="IsIconVisible" Value="True" />
@@ -49,8 +51,7 @@
         <Style Selector="^:pointerover">
             <Setter Property="Background" Value="{DynamicResource ButtonPointOverBrush}" />
             <Style Selector="^ /template/ Border">
-                <Setter Property="BorderBrush"
-                        Value="{Binding Path=PromptLineColor, RelativeSource={RelativeSource TemplatedParent}}" />
+                <Setter Property="BorderBrush" Value="{Binding Path=PromptLineColor, RelativeSource={RelativeSource TemplatedParent}}" />
             </Style>
             <Style Selector="^ /template/ buttons|CloseButton">
                 <Setter Property="IsIconVisible" Value="True" />

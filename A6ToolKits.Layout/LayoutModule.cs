@@ -49,8 +49,8 @@ public class LayoutModule : ModuleBase
     protected override void Initialize()
     {
         Log.Information("Load layout from configuration file");
-        GenerateHelper.Creator = Creator;
-        WindowLayout = GenerateHelper.LoadLayout();
+        LayoutGenerateHelper.Creator = Creator;
+        WindowLayout = LayoutGenerateHelper.LoadLayout();
         if (WindowLayout == null)
             throw new Exception("Failed to load layout configuration");
 
