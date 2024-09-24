@@ -19,17 +19,17 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="models:TabItem">
-                            <tab:TabRadioButton
-                                DisplayType="{Binding Path=DisplayType, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
-                                GroupName="{Binding GroupName}"
-                                Header="{Binding Header}"
-                                Icon="{Binding Icon}"
-                                IconSize="{Binding Path=IconSize, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
-                                PromptLinePosition="{Binding Path=PromptLinePosition, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
-                                ToolTip="{Binding ToolTip}"
-                                Command="{Binding SelectTabItem}"
-                                IsCloseable="{Binding Path=TabCollection.IsCloseable, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
-                                CloseCommand="{Binding DeleteTabItem}"/>
+                            <tab:TabRadioButton CloseCommand="{Binding DeleteTabItem}"
+                                                Command="{Binding SelectTabItem}"
+                                                DisplayType="{Binding Path=DisplayType, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
+                                                GroupName="{Binding GroupName}"
+                                                Header="{Binding Header}"
+                                                Icon="{Binding Icon}"
+                                                IconSize="{Binding Path=IconSize, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
+                                                IsChecked="{Binding IsSelected}"
+                                                IsCloseable="{Binding Path=TabCollection.IsCloseable, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
+                                                PromptLinePosition="{Binding Path=PromptLinePosition, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
+                                                ToolTip="{Binding ToolTip}" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

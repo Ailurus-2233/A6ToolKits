@@ -63,19 +63,12 @@ public class TabItemCollection : ControlBase
         TabItem.Deleted += (sender, s) =>
         {
             if (s != _groupName || sender is not TabItem tabItem) return;
-            if (SelectedItem == tabItem)
-            {
-                var index = Items.IndexOf(tabItem);
-                if (index == 0)
-                {
-                    SelectedItem = Items.Count > 1 ? Items[1] : null;
-                }
-                else
-                {
-                    SelectedItem = Items[index - 1];
-                }
-            }
-            Items.Remove(tabItem);
+            var index = Items.IndexOf(tabItem);
+            Items.RemoveAt(index);
+            if (index == 0)
+                SelectedItem = Items.Count > 0 ? Items[0] : null;
+            else
+                SelectedItem = Items[index - 1];
         };
     }
 }
