@@ -30,6 +30,12 @@ public class TabContainer : TemplatedControl
     
     public static readonly StyledProperty<double> HeaderWidthProperty =
         AvaloniaProperty.Register<TabContainer, double>(nameof(HeaderWidth), 30);
+    
+    public static readonly StyledProperty<int> HeaderFontSizeProperty =
+        AvaloniaProperty.Register<TabContainer, int>(nameof(HeaderFontSize), 14);
+    
+    public static readonly StyledProperty<int> HeaderIconSizeProperty =
+        AvaloniaProperty.Register<TabContainer, int>(nameof(HeaderIconSize), 20);
 
     public Dock TabStripPlacement
     {
@@ -71,6 +77,18 @@ public class TabContainer : TemplatedControl
     {
         get => GetValue(HeaderWidthProperty);
         set => SetValue(HeaderWidthProperty, value);
+    }
+    
+    public int HeaderFontSize
+    {
+        get => GetValue(HeaderFontSizeProperty);
+        set => SetValue(HeaderFontSizeProperty, value);
+    }
+    
+    public int HeaderIconSize
+    {
+        get => GetValue(HeaderIconSizeProperty);
+        set => SetValue(HeaderIconSizeProperty, value);
     }
     
 }

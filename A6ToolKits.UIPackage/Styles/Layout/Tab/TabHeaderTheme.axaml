@@ -22,6 +22,7 @@
                             <tab:TabRadioButton CloseCommand="{Binding DeleteTabItem}"
                                                 Command="{Binding SelectTabItem}"
                                                 DisplayType="{Binding Path=DisplayType, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
+                                                FontSize="{Binding Path=FontSize, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
                                                 GroupName="{Binding GroupName}"
                                                 Header="{Binding Header}"
                                                 Icon="{Binding Icon}"

@@ -11,16 +11,19 @@
         <Setter Property="Template">
             <ControlTemplate TargetType="tab:TabContainer">
                 <DockPanel>
-                    <tab:TabHeader Width="{TemplateBinding HeaderWidth,
-                                                           Converter={StaticResource WidthConverter}}"
-                                   Height="{TemplateBinding HeaderHeight,
-                                                            Converter={StaticResource HeightConverter}}"
-                                   BorderThickness="0,0,0,2"
-                                   DisplayType="{TemplateBinding DisplayType}"
-                                   DockPanel.Dock="{TemplateBinding TabStripPlacement}"
-                                   IsCloseable="{TemplateBinding IsHeaderCloseable}"
-                                   IsVisible="{TemplateBinding IsHeaderVisible}"
-                                   TabCollection="{TemplateBinding TabCollection}" />
+                    <Grid Width="{Binding HeaderWidth, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource WidthConverter}}"
+                          Height="{Binding RelativeSource={RelativeSource AncestorType=tab:TabContainer}, Converter={StaticResource HeightConverter}}"
+                          DockPanel.Dock="{TemplateBinding TabStripPlacement}"
+                          IsVisible="{TemplateBinding IsHeaderVisible}">
+                        <tab:TabHeader Width="{Binding Width, RelativeSource={RelativeSource AncestorType=Grid}}"
+                                       Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Grid}}"
+                                       BorderThickness="0,0,0,2"
+                                       DisplayType="{TemplateBinding DisplayType}"
+                                       FontSize="{TemplateBinding HeaderFontSize}"
+                                       IconSize="{TemplateBinding HeaderIconSize}"
+                                       IsCloseable="{TemplateBinding IsHeaderCloseable}"
+                                       TabCollection="{TemplateBinding TabCollection}" />
+                    </Grid>
                     <tab:TabBody TabCollection="{TemplateBinding TabCollection}" />
                 </DockPanel>
             </ControlTemplate>

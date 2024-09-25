@@ -1,5 +1,6 @@
 ﻿using A6ToolKits.Layout.Controls;
 using A6ToolKits.Layout.Enums;
+using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Styling;
 using DefaultWindow = A6ToolKits.Layout.Controls.DefaultWindow;
@@ -77,4 +78,17 @@ public class WindowLayout
         0.299 * BackgroundColor.R + 0.587 * BackgroundColor.G + 0.114 * BackgroundColor.B > 128
             ? ThemeVariant.Light
             : ThemeVariant.Dark;
+    
+    /// <summary>
+    ///     激活指定页面
+    /// </summary>
+    /// <param name="name">页面名称</param>
+    public void ActivatePage(string name) => Container.ActivatePage(name);
+    
+    /// <summary>
+    ///     添加页面到容器中
+    /// </summary>
+    /// <param name="name">页面名称</param>
+    /// <param name="page">对应控件</param>
+    public void AddPage(string name, ContentControl page) => Container.AddPage(name, page);
 }

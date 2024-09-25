@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using A6ToolKits.UIPackage.Controls.Layout.Tab;
 using Avalonia.Controls;
 using Avalonia.Data.Converters;
 
@@ -8,12 +9,8 @@ public class HeaderHeightConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (parameter is Dock dock)
-        {
-            return dock is Dock.Top or Dock.Bottom ? value : double.NaN;
-        }
-
-        return double.NaN;
+        if (value is not TabContainer tabContainer) return double.NaN;
+        return tabContainer.TabStripPlacement is Dock.Top or Dock.Bottom ? tabContainer.HeaderHeight : double.NaN;
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

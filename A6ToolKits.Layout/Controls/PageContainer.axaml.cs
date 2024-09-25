@@ -48,7 +48,7 @@ public partial class PageContainer : UserControl
     /// <param name="page">
     ///     页面控件
     /// </param>
-    public void ActivatePage(TabItem page)
+    private void ActivatePage(TabItem page)
     {
         _pageCollection.SelectedItem = page;
     }
