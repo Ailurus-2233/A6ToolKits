@@ -8,7 +8,7 @@ namespace A6ToolKits.Attributes;
 /// <param name="group"></param>
 /// <param name="position"></param>
 [AttributeUsage(AttributeTargets.Property)]
-public class ButtonBarAttribute(int group, string position)
+public class ToolBarAttribute(int group, string position)
     : Attribute
 {
     /// <summary>

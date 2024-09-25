@@ -61,8 +61,8 @@ public static class ButtonBarDefinerExtensions
         return result;
     }
 
-    private static ButtonBarAttribute? GetToolBarAttribute(PropertyInfo propertyInfo)
+    private static ToolBarAttribute? GetToolBarAttribute(PropertyInfo propertyInfo)
     {
-        return propertyInfo.GetCustomAttribute<ButtonBarAttribute>();
+        return propertyInfo.GetCustomAttribute<ToolBarAttribute>();
     }
 }

@@ -93,9 +93,9 @@ public static class MenuDefinerExtensions
         return dict;
     }
 
-    private static MenuAttribute? GetMenuAttribute(PropertyInfo property)
+    private static MenuBarAttribute? GetMenuAttribute(PropertyInfo property)
     {
-        return property.GetCustomAttribute<MenuAttribute>();
+        return property.GetCustomAttribute<MenuBarAttribute>();
     }
 
     private static void AddResult(MenuItem menuItem, Dictionary<int, List<MenuItem>> children)

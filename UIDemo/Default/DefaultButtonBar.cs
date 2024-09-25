@@ -6,13 +6,13 @@ namespace UIDemo.Default;
 
 public class DefaultButtonBar : IDefiner
 {
-    [ButtonBar(0, "Left")] public NewFile NewFile { get; } = new();
+    [ToolBar(0, "Left")] public NewFile NewFile { get; } = new();
 
-    [ButtonBar(0, "Left")] public OpenFile OpenFile { get; } = new();
+    [ToolBar(0, "Left")] public OpenFile OpenFile { get; } = new();
 
-    [ButtonBar(1, "Left")] public NewFolder NewFolder { get; } = new();
+    [ToolBar(1, "Left")] public NewFolder NewFolder { get; } = new();
 
-    [ButtonBar(1, "Right")] public OpenFolder OpenFolder { get; } = new();
+    [ToolBar(1, "Right")] public OpenFolder OpenFolder { get; } = new();
 
-    [ButtonBar(2, "Left")] public ActiveAboutPage ActiveAboutPage { get; } = new();
+    [ToolBar(2, "Left")] public ActiveAboutPage ActiveAboutPage { get; } = new();
 }

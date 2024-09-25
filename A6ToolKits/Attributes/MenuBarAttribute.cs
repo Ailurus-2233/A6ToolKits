@@ -7,7 +7,7 @@ namespace A6ToolKits.Attributes;
 ///     菜单属性，标记到一个 ActionBase 的属性上，用于生成 MenuItem
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
-public class MenuAttribute : Attribute
+public class MenuBarAttribute : Attribute
 {
     /// <summary>
     ///     构造函数
@@ -15,7 +15,7 @@ public class MenuAttribute : Attribute
     /// <param name="path">
     ///     菜单路径，格式为 "Group:Order"，如 "File:1"
     /// </param>
-    public MenuAttribute(params string[] path)
+    public MenuBarAttribute(params string[] path)
     {
         Path = path.Select(p =>
         {

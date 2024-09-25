@@ -1,4 +1,5 @@
 ﻿using A6ToolKits.Layout.Enums;
+using A6ToolKits.UIPackage.Controls.Layout.Tab.Models;
 using Avalonia.Controls;
 
 namespace A6ToolKits.Layout.Controls;
@@ -89,5 +90,17 @@ public partial class MainPanel : UserControl
         LeftSplitter.SetGridPosition(0, 1, 2);
         RightSplitter.SetGridPosition(0, 3, 2);
         BottomSplitter.SetGridPosition(1, 0, 1, 5);
+    }
+
+    public void SetTabCollection(TabCollection primaryTabs, TabCollection secondaryTabs, TabCollection bottomTabs)
+    {
+        ActivityBar.PrimaryTabHeader.TabCollection = primaryTabs;
+        PrimarySideBar.PrimaryTabBody.TabCollection = primaryTabs;
+
+        SecondarySideBar.SecondaryTabHeader.TabCollection = secondaryTabs;
+        SecondarySideBar.SecondaryTabBody.TabCollection = secondaryTabs;
+
+        PanelBar.PanelTabHeader.TabCollection = bottomTabs;
+        PanelBar.PanelTabBody.TabCollection = bottomTabs;
     }
 }
