@@ -2,7 +2,6 @@ using System.Xml;
 using A6ToolKits.Attributes;
 using A6ToolKits.Helper.Config;
 using A6ToolKits.InstanceCreator;
-using A6ToolKits.Layout.Container;
 using A6ToolKits.Layout.Controls;
 using A6ToolKits.Layout.Definitions;
 using A6ToolKits.Layout.Definitions.Extensions;
@@ -73,9 +72,9 @@ public static class LayoutGenerateHelper
 
         var iconPath = layoutItem.IconPath;
         if (!string.IsNullOrEmpty(iconPath))
-            layout.WindowContainer.Icon = new WindowIcon(iconPath);
+            layout.DefaultWindow.Icon = new WindowIcon(iconPath);
 
-        layout.WindowContainer.Title = layoutItem.Name;
+        layout.DefaultWindow.Title = layoutItem.Name;
 
         layout.MainPanel.SetLayout(Enum.Parse<LayoutAlignment>(layoutItem.Alignment));
     }
@@ -220,7 +219,7 @@ public static class LayoutGenerateHelper
     {
         var pages = ConfigHelper.GetElements("Page");
         if (pages == null) return;
-        UserControl? defaultPage = null;
+        string? defaultPageName = null;
         foreach (XmlNode page in pages)
         {
             var pageConfigItem = new LayoutItemConfigItem();
@@ -235,12 +234,10 @@ public static class LayoutGenerateHelper
     
             container.AddPage(pageConfigItem.Name, pageControl);
             if (pageConfigItem.Default == "True")
-                defaultPage = pageControl;
+                defaultPageName = pageConfigItem.Name;
         }
     
-        if (defaultPage != null)
-            container.ActivatePage(defaultPage);
-        else
-            container.MoveToPage(0);
+        if (defaultPageName != null)
+            container.ActivatePage(defaultPageName);
     }
 }

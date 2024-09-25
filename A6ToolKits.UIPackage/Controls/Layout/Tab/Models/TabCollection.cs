@@ -1,25 +1,32 @@
 using System.Collections.ObjectModel;
-using A6ToolKits.Layout.Controls;
 
 namespace A6ToolKits.UIPackage.Controls.Layout.Tab.Models;
 
-public class TabItemCollection : ControlBase
+public class TabCollection : ControlBase
 {
     private TabItem? _selectedItem;
     private string? _groupName;
     private ObservableCollection<TabItem> _items;
-    private bool? _isCloseable;
-
+    
     public ObservableCollection<TabItem> Items
     {
         get => _items;
-        set => SetField(ref _items, value);
+        set
+        {
+            UpdateGroupName(value, _groupName);
+            SetField(ref _items, value);
+        }
     }
 
     public string? GroupName
     {
         get => _groupName;
-        set => SetField(ref _groupName, value);
+        set
+        {
+            if (string.IsNullOrEmpty(value)) return;
+            SetField(ref _groupName, value);
+            UpdateGroupName(Items, value);
+        }
     }
 
     public TabItem? SelectedItem
@@ -34,22 +41,19 @@ public class TabItemCollection : ControlBase
         }
         set
         {
+            if (value != null && !Items.Contains(value)) return;
             if (_selectedItem != null)
                 _selectedItem.IsSelected = false;
-            if (value != null)
-                value.IsSelected = true;
+            if (value != null) value.IsSelected = true;
             SetField(ref _selectedItem, value);
         }
     }
-
-    public bool? IsCloseable
+    
+    public TabCollection(ObservableCollection<TabItem>? items = null, string? groupName = null)
     {
-        get => _isCloseable;
-        set => SetField(ref _isCloseable, value);
-    }
+        groupName ??= Guid.NewGuid().ToString();
+        items ??= [];
 
-    public TabItemCollection(string groupName, ObservableCollection<TabItem> items)
-    {
         _groupName = groupName;
         _items = items;
         TabItem.Selected += (sender, s) =>
@@ -70,5 +74,22 @@ public class TabItemCollection : ControlBase
             else
                 SelectedItem = Items[index - 1];
         };
+
+        UpdateGroupName(items, groupName);
+    }
+
+    private static void UpdateGroupName(IList<TabItem> items, string groupName)
+    {
+        foreach (var item in items)
+        {
+            item.GroupName = groupName;
+        }
+    }
+
+    public void AddItem(TabItem item)
+    {
+        item.GroupName = _groupName;
+        Items.Add(item);
+        SelectedItem ??= item;
     }
 }

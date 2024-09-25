@@ -1,6 +1,6 @@
 ﻿using Avalonia.Controls;
 
-namespace A6ToolKits.Layout.Controls.TabBar;
+namespace A6ToolKits.Layout.Controls;
 
 internal static class ControlExtension
 {

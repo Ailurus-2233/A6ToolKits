@@ -1,5 +1,4 @@
-﻿using A6ToolKits.Layout.Controls.TabBar;
-using A6ToolKits.Layout.Enums;
+﻿using A6ToolKits.Layout.Enums;
 using Avalonia.Controls;
 
 namespace A6ToolKits.Layout.Controls;
@@ -15,12 +14,6 @@ public partial class MainPanel : UserControl
     public MainPanel()
     {
         InitializeComponent();
-    }
-
-    private enum Orientation
-    {
-        Horizontal,
-        Vertical
     }
 
     public void SetLayout(LayoutAlignment alignment, double leftWidth = 0, double rightWidth = 0, double bottomHeight = 0)
@@ -52,21 +45,21 @@ public partial class MainPanel : UserControl
 
     private void SetLeftAlignmentLayout()
     {
-        LeftItemBar.SetGridPosition(0, 0, 2, 2);
+        PrimarySideBar.SetGridPosition(0, 0, 2, 2);
         LeftSplitter.SetGridPosition(0, 1, 2, 1);
         PageContainer.SetGridPosition(0, 2, 2, 2);
-        RightItemBar.SetGridPosition(0, 3, 3, 1);
-        RightItemBar.SetGridPosition(0, 4, 3, 1);
+        RightSplitter.SetGridPosition(0, 3, 3, 1);
+        SecondarySideBar.SetGridPosition(0, 4, 3, 1);
         BottomSplitter.SetGridPosition(1, 0, 1, 4);
-        BottomItemBar.SetGridPosition(2, 0, 1, 4);
+        PanelBar.SetGridPosition(2, 0, 1, 4);
     }
 
     private void SetRightAlignmentLayout()
     {
-        LeftItemBar.SetGridPosition(0, 0, 3, 2);
+        PrimarySideBar.SetGridPosition(0, 0, 3, 2);
         PageContainer.SetGridPosition(0, 2, 2, 2);
-        RightItemBar.SetGridPosition(0, 4, 2);
-        BottomItemBar.SetGridPosition(2, 2, 1, 4);
+        SecondarySideBar.SetGridPosition(0, 4, 2);
+        PanelBar.SetGridPosition(2, 2, 1, 4);
         
         LeftSplitter.SetGridPosition(0, 1, 3);
         RightSplitter.SetGridPosition(0, 3, 2);
@@ -75,10 +68,10 @@ public partial class MainPanel : UserControl
 
     private void SetCenterAlignmentLayout()
     {
-        LeftItemBar.SetGridPosition(0, 0, 3, 2);
+        PrimarySideBar.SetGridPosition(0, 0, 3, 2);
         PageContainer.SetGridPosition(0, 2, 2, 2);
-        RightItemBar.SetGridPosition(0, 4, 3);
-        BottomItemBar.SetGridPosition(2, 2, 1, 2);
+        SecondarySideBar.SetGridPosition(0, 4, 3);
+        PanelBar.SetGridPosition(2, 2, 1, 2);
         
         LeftSplitter.SetGridPosition(0, 1, 3);
         RightSplitter.SetGridPosition(0, 3, 3);
@@ -88,10 +81,10 @@ public partial class MainPanel : UserControl
 
     private void SetTowSideAlignmentLayout()
     {
-        LeftItemBar.SetGridPosition(0, 0, 2, 2);
+        PrimarySideBar.SetGridPosition(0, 0, 2, 2);
         PageContainer.SetGridPosition(0, 2, 2, 2);
-        RightItemBar.SetGridPosition(0, 4, 2);
-        BottomItemBar.SetGridPosition(2, 0, 1, 5);
+        SecondarySideBar.SetGridPosition(0, 4, 2);
+        PanelBar.SetGridPosition(2, 0, 1, 5);
         
         LeftSplitter.SetGridPosition(0, 1, 2);
         RightSplitter.SetGridPosition(0, 3, 2);

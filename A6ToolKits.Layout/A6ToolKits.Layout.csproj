@@ -13,6 +13,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\A6ToolKits.UIPackage\A6ToolKits.UIPackage.csproj" />
         <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj"/>
     </ItemGroup>
 
@@ -37,6 +38,18 @@
           <DependentUpon>DefaultWindow.axaml</DependentUpon>
           <SubType>Code</SubType>
         </Compile>
+        <Compile Update="Controls\PanelBar.axaml.cs">
+          <DependentUpon>PanelBar.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Controls\PrimarySideBar.axaml.cs">
+          <DependentUpon>PrimarySideBar.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Controls\SecondarySideBar.axaml.cs">
+          <DependentUpon>SecondarySideBar.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -59,12 +72,8 @@
 
     <ItemGroup>
       <AdditionalFiles Include="Controls\HeaderBar.axaml" />
-      <AdditionalFiles Include="Controls\LeftToolBar.axaml" />
       <AdditionalFiles Include="Controls\MainPanel.axaml" />
       <AdditionalFiles Include="Controls\StatusBar.axaml" />
-      <AdditionalFiles Include="Controls\TabBar\BottomTabBar.axaml" />
-      <AdditionalFiles Include="Controls\TabBar\LeftTabBar.axaml" />
-      <AdditionalFiles Include="Controls\TabBar\RightTabBar.axaml" />
     </ItemGroup>
 
 </Project>

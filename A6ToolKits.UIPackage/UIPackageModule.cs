@@ -12,7 +12,7 @@ public class UIPackageModule : ModuleBase
     public override string ModuleVersion { get; set; } = "1.0.0";
 
     public override string ModuleDescription { get; set; } =
-        "Provides custom styles and resources for A6Toolkits and applications";
+        "Provides custom control theme and resources for A6Toolkits and applications";
 
     protected override void Initialize()
     {

@@ -1,6 +1,4 @@
-using A6ToolKits.Layout.Controls;
 using Avalonia.Controls;
-using Avalonia.Interactivity;
 using Avalonia.Media;
 
 namespace A6ToolKits.UIPackage.Controls.Layout.Tab.Models;
@@ -50,7 +48,7 @@ public class TabItem : ControlBase
     public string? GroupName
     {
         get => _groupName;
-        set => SetField(ref _groupName, value);
+        internal set => SetField(ref _groupName, value);
     }
 
     public void SelectTabItem()

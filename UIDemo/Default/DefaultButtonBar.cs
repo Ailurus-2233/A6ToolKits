@@ -14,9 +14,5 @@ public class DefaultButtonBar : IDefiner
 
     [ButtonBar(1, "Right")] public OpenFolder OpenFolder { get; } = new();
 
-    [ButtonBar(2, "Left")] public PreviewPage PreviewPage { get; } = new();
-
-    [ButtonBar(2, "Left")] public NextPage NextPage { get; } = new();
-
     [ButtonBar(2, "Left")] public ActiveAboutPage ActiveAboutPage { get; } = new();
 }

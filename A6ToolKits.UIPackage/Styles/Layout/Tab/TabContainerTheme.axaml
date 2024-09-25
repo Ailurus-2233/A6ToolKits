@@ -5,11 +5,24 @@
     <ControlTheme x:Key="{x:Type tab:TabContainer}"
                   TargetType="tab:TabContainer">
         <ControlTheme.Resources>
-            <converters:TabItemToDataContentConverter x:Key="TabItemToDataContentConverter" />
+            <converters:HeaderHeightConverter x:Key="HeightConverter" />
+            <converters:HeaderWidthConverter x:Key="WidthConverter" />
         </ControlTheme.Resources>
         <Setter Property="Template">
-            <ControlTemplate>
-                <ContentControl Content="{Binding Path=TabCollection.SelectedItem, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TabItemToDataContentConverter}}" />
+            <ControlTemplate TargetType="tab:TabContainer">
+                <DockPanel>
+                    <tab:TabHeader Width="{TemplateBinding HeaderWidth,
+                                                           Converter={StaticResource WidthConverter}}"
+                                   Height="{TemplateBinding HeaderHeight,
+                                                            Converter={StaticResource HeightConverter}}"
+                                   BorderThickness="0,0,0,2"
+                                   DisplayType="{TemplateBinding DisplayType}"
+                                   DockPanel.Dock="{TemplateBinding TabStripPlacement}"
+                                   IsCloseable="{TemplateBinding IsHeaderCloseable}"
+                                   IsVisible="{TemplateBinding IsHeaderVisible}"
+                                   TabCollection="{TemplateBinding TabCollection}" />
+                    <tab:TabBody TabCollection="{TemplateBinding TabCollection}" />
+                </DockPanel>
             </ControlTemplate>
         </Setter>
     </ControlTheme>

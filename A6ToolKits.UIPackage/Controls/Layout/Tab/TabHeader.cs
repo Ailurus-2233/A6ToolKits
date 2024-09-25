@@ -8,8 +8,8 @@ namespace A6ToolKits.UIPackage.Controls.Layout.Tab;
 
 public class TabHeader : TemplatedControl
 {
-    public static readonly StyledProperty<TabItemCollection> TabCollectionProperty =
-        AvaloniaProperty.Register<TabHeader, TabItemCollection>(nameof(TabCollection));
+    public static readonly StyledProperty<TabCollection> TabCollectionProperty =
+        AvaloniaProperty.Register<TabHeader, TabCollection>(nameof(TabCollection));
 
     public static readonly StyledProperty<Orientation> OrientationProperty =
         AvaloniaProperty.Register<TabHeader, Orientation>(nameof(Orientation));
@@ -19,11 +19,14 @@ public class TabHeader : TemplatedControl
 
     public static readonly StyledProperty<string> PromptLinePositionProperty =
         AvaloniaProperty.Register<TabHeader, string>(nameof(PromptLinePosition), "Bottom");
-    
+
     public static readonly StyledProperty<string> DisplayTypeProperty =
         AvaloniaProperty.Register<TabHeader, string>(nameof(DisplayType), "Text");
+    
+    public static readonly StyledProperty<bool> IsCloseableProperty =
+        AvaloniaProperty.Register<TabHeader, bool>(nameof(IsCloseable), true);
 
-    public TabItemCollection TabCollection
+    public TabCollection TabCollection
     {
         get => GetValue(TabCollectionProperty);
         set => SetValue(TabCollectionProperty, value);
@@ -51,5 +54,11 @@ public class TabHeader : TemplatedControl
     {
         get => GetValue(DisplayTypeProperty);
         set => SetValue(DisplayTypeProperty, value);
+    }
+    
+    public bool IsCloseable
+    {
+        get => GetValue(IsCloseableProperty);
+        set => SetValue(IsCloseableProperty, value);
     }
 }

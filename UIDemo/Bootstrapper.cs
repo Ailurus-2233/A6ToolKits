@@ -16,7 +16,7 @@ public class Bootstrapper : BaseBootstrapper<BaseApp, Window>
     public override void OnCompleted()
     {
         MainWindow = ModuleLoader.TryGetModule<LayoutModule>(out var layoutModule)
-            ? layoutModule?.WindowLayout?.WindowContainer
+            ? layoutModule?.WindowLayout?.DefaultWindow
             : new Window();
         var current = Application.Current;
         if (current != null) current.RequestedThemeVariant = ThemeVariant.Dark;

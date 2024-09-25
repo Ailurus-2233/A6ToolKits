@@ -1,5 +1,4 @@
-﻿using A6ToolKits.Layout.Container;
-using A6ToolKits.Layout.Controls;
+﻿using A6ToolKits.Layout.Controls;
 using A6ToolKits.Layout.Enums;
 using Avalonia.Media;
 using Avalonia.Styling;
@@ -16,22 +15,22 @@ public class WindowLayout
     /// <summary>
     ///     窗口容器，用于实现具体的布局设置
     /// </summary>
-    public DefaultWindow WindowContainer { get; } = new();
+    public DefaultWindow DefaultWindow { get; } = new();
 
     /// <summary>
     ///     顶部面板，是菜单、工具栏、大图标工具栏的容器
     /// </summary>
-    public HeaderBar HeaderBar => WindowContainer.HeaderBar;
+    public HeaderBar HeaderBar => DefaultWindow.HeaderBar;
 
     /// <summary>
     ///     状态栏，用于展示一些状态信息，位置在窗口底部，包括左侧、中间、右侧
     /// </summary>
-    public StatusBar StatusBar => WindowContainer.StatusBar;
+    public StatusBar StatusBar => DefaultWindow.StatusBar;
 
     /// <summary>
     ///     主面板，用于展示页面，位置在窗口中间
     /// </summary>
-    public MainPanel MainPanel => WindowContainer.MainPanel;
+    public MainPanel MainPanel => DefaultWindow.MainPanel;
 
     /// <summary>
     ///     页面容器，用于展示页面，位置在窗口中间
@@ -48,8 +47,8 @@ public class WindowLayout
     /// </summary>
     public double Width
     {
-        get => WindowContainer.Width;
-        set => WindowContainer.Width = value;
+        get => DefaultWindow.Width;
+        set => DefaultWindow.Width = value;
     }
 
     /// <summary>
@@ -57,8 +56,8 @@ public class WindowLayout
     /// </summary>
     public double Height
     {
-        get => WindowContainer.Height;
-        set => WindowContainer.Height = value;
+        get => DefaultWindow.Height;
+        set => DefaultWindow.Height = value;
     }
 
     /// <summary>

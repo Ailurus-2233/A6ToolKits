@@ -27,7 +27,7 @@
                                                 Icon="{Binding Icon}"
                                                 IconSize="{Binding Path=IconSize, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
                                                 IsChecked="{Binding IsSelected}"
-                                                IsCloseable="{Binding Path=TabCollection.IsCloseable, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
+                                                IsCloseable="{Binding Path=IsCloseable, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
                                                 PromptLinePosition="{Binding Path=PromptLinePosition, RelativeSource={RelativeSource AncestorType=tab:TabHeader}}"
                                                 ToolTip="{Binding ToolTip}" />
                         </DataTemplate>

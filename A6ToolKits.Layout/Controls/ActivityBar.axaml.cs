@@ -2,9 +2,9 @@
 
 namespace A6ToolKits.Layout.Controls;
 
-public partial class LeftToolBar : UserControl
+public partial class ActivityBar : UserControl
 {
-    public LeftToolBar()
+    public ActivityBar()
     {
         InitializeComponent();
     }
