@@ -1,5 +1,5 @@
-﻿using A6ToolKits.Attributes;
-using A6ToolKits.InstanceCreator;
+﻿using A6ToolKits.Common.Attributes.MVVM;
+using A6ToolKits.Helper.Instance;
 using A6ToolKits.Module;
 using A6ToolKits.MVVM.Helper;
 
@@ -14,7 +14,7 @@ public class MVVMModule : ModuleBase
     /// <summary>
     ///     实例创建器，用于模块内部创建实例
     /// </summary>
-    public override IInstanceCreator? Creator { get; set; } = IoC.Instance;
+    public override IInstanceHelper? Creator { get; set; } = IoC.Instance;
 
     /// <summary>
     ///     模块名称

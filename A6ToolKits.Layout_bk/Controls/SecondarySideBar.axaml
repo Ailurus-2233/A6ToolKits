@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="A6ToolKits.Layout.Controls.SecondarySideBar"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:tab="clr-namespace:A6ToolKits.UIPackage.Controls.Layout.Tab;assembly=A6ToolKits.UIPackage"
+             xmlns:tabControl="clr-namespace:A6ToolKits.UIPackage.Controls.TabControl;assembly=A6ToolKits.UIPackage"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             Background="Chocolate"
+             mc:Ignorable="d">
+    <DockPanel>
+        <Grid DockPanel.Dock="Top">
+            <tabControl:TabHeader x:Name="SecondaryTabHeader" />
+        </Grid>
+        <tabControl:TabBody x:Name="SecondaryTabBody" />
+    </DockPanel>
+</UserControl>

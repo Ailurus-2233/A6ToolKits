@@ -31,7 +31,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\A6ToolKits.Database\A6ToolKits.Database.csproj"/>
-        <ProjectReference Include="..\A6ToolKits.Layout\A6ToolKits.Layout.csproj"/>
+        <ProjectReference Include="..\A6ToolKits.Layout_bk\A6ToolKits.Layout_bk.csproj" />
         <ProjectReference Include="..\A6ToolKits.MVVM\A6ToolKits.MVVM.csproj"/>
         <ProjectReference Include="..\A6ToolKits.System\A6ToolKits.System.csproj"/>
         <ProjectReference Include="..\A6ToolKits.UIPackage\A6ToolKits.UIPackage.csproj"/>

@@ -18,7 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\A6ToolKits.Layout\A6ToolKits.Layout.csproj" />
+      <ProjectReference Include="..\A6ToolKits.Layout_bk\A6ToolKits.Layout_bk.csproj" />
       <ProjectReference Include="..\A6ToolKits.UIPackage\A6ToolKits.UIPackage.csproj" />
     </ItemGroup>
 

@@ -1,5 +1,5 @@
 ﻿using A6ToolKits.Helper.Assembly;
-using A6ToolKits.InstanceCreator;
+using A6ToolKits.Helper.Instance;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace A6ToolKits.MVVM;
@@ -8,7 +8,7 @@ namespace A6ToolKits.MVVM;
 ///     基于 Microsoft.Extensions.DependencyInjection 的 IoC 容器封装类
 ///     可以通过 IoC.Add 方法注册类型到 IoC 容器中, 通过 IoC.Get 方法获取类型的实例
 /// </summary>
-public sealed class IoC : IInstanceCreator
+public sealed class IoC : IInstanceHelper
 {
     private readonly ServiceCollection _service = [];
 

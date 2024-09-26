@@ -14,6 +14,11 @@
     <ItemGroup>
         <UpToDateCheckInput Remove="Layout\Styles\LayoutItem.axaml"/>
         <UpToDateCheckInput Remove="LayoutControls\Resources\CloseButtonResources.axaml" />
+        <UpToDateCheckInput Remove="Styles\Layout\Tab\TabBodyTheme.axaml" />
+        <UpToDateCheckInput Remove="Styles\Layout\Tab\TabContainerTheme.axaml" />
+        <UpToDateCheckInput Remove="Styles\Layout\Tab\TabControlThemes.axaml" />
+        <UpToDateCheckInput Remove="Styles\Layout\Tab\TabHeaderTheme.axaml" />
+        <UpToDateCheckInput Remove="Styles\Layout\Tab\TabRadioButtonTheme.axaml" />
     </ItemGroup>
 
     <ItemGroup>
@@ -40,6 +45,11 @@
       <AdditionalFiles Remove="UIStyles\**" />
       <AdditionalFiles Include="Resources\Icons\IconResources.axaml" />
       <AdditionalFiles Include="Styles\Simple\Buttons\CloseButtonTheme.axaml" />
+      <AdditionalFiles Include="Styles\TabControl\TabBodyTheme.axaml" />
+      <AdditionalFiles Include="Styles\TabControl\TabContainerTheme.axaml" />
+      <AdditionalFiles Include="Styles\TabControl\TabControlThemes.axaml" />
+      <AdditionalFiles Include="Styles\TabControl\TabHeaderTheme.axaml" />
+      <AdditionalFiles Include="Styles\TabControl\TabRadioButtonTheme.axaml" />
     </ItemGroup>
 
     <ItemGroup>

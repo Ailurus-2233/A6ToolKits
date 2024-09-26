@@ -1,6 +1,5 @@
-using A6ToolKits.Attributes;
-using A6ToolKits.InstanceCreator;
-using A6ToolKits.Layout.Helper;
+﻿using A6ToolKits.Common.Attributes.MVVM;
+using A6ToolKits.Helper.Instance;
 using A6ToolKits.Module;
 using Serilog;
 
@@ -15,12 +14,12 @@ public class LayoutModule : ModuleBase
     /// <summary>
     ///     实例创建器，用于模块内部创建实例
     /// </summary>
-    public override IInstanceCreator? Creator { get; set; } = new BaseInstanceCreator();
+    public override IInstanceHelper? Creator { get; set; } = new BaseInstanceHelper();
 
     /// <summary>
     ///     模块名称
     /// </summary>
-    public override string ModuleName { get; set; } = "A6ToolKits.Layout";
+    public override string ModuleName { get; set; } = "A6ToolKits.Layout_bk";
 
     /// <summary>
     ///     模块版本
@@ -32,13 +31,8 @@ public class LayoutModule : ModuleBase
     /// </summary>
     public override string ModuleDescription { get; set; } =
         "Add Layout capabilities to A6ToolKits to automatically load layout for main window";
-
-    /// <summary>
-    ///     窗口布局
-    /// </summary>
-    public WindowLayout? WindowLayout { get; set; }
-
-
+    
+    
     /// <summary>
     ///     初始化布局模块，加载布局配置文件
     /// </summary>
@@ -48,11 +42,6 @@ public class LayoutModule : ModuleBase
     protected override void Initialize()
     {
         Log.Information("Load layout from configuration file");
-        LayoutGenerateHelper.Creator = Creator;
-        WindowLayout = LayoutGenerateHelper.LoadLayout();
-        if (WindowLayout == null)
-            throw new Exception("Failed to load layout configuration");
-
         Log.Information("Load layout success");
     }
 }

@@ -1,4 +1,4 @@
-﻿using A6ToolKits.InstanceCreator;
+﻿using A6ToolKits.Helper.Instance;
 using A6ToolKits.Module;
 using Avalonia;
 using Avalonia.Markup.Xaml.Styling;
@@ -7,7 +7,7 @@ namespace A6ToolKits.UIPackage;
 
 public class UIPackageModule : ModuleBase
 {
-    public override IInstanceCreator? Creator { get; set; } = new BaseInstanceCreator();
+    public override IInstanceHelper? Creator { get; set; } = new BaseInstanceHelper();
     public override string ModuleName { get; set; } = "A6ToolKits.UIPackage";
     public override string ModuleVersion { get; set; } = "1.0.0";
 

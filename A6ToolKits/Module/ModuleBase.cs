@@ -1,5 +1,5 @@
 ﻿using System;
-using A6ToolKits.InstanceCreator;
+using A6ToolKits.Helper.Instance;
 using A6ToolKits.Module.Exceptions;
 using Serilog;
 
@@ -13,7 +13,7 @@ public abstract class ModuleBase
     /// <summary>
     ///     实例创建器，用于模块内部创建实例
     /// </summary>
-    public abstract IInstanceCreator? Creator { get; set; }
+    public abstract IInstanceHelper? Creator { get; set; }
 
     /// <summary>
     ///     模块名称

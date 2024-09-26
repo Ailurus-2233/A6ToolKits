@@ -2,78 +2,13 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <LangVersion>12</LangVersion>
+        <LangVersion>default</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <WarningLevel>4</WarningLevel>
-        <DocumentationFile>bin\Debug\A6ToolKits.Layout.xml</DocumentationFile>
-    </PropertyGroup>
-
     <ItemGroup>
-        <ProjectReference Include="..\A6ToolKits.UIPackage\A6ToolKits.UIPackage.csproj" />
-        <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Compile Update="Common\Controls\WindowContainer.axaml.cs">
-            <DependentUpon>WindowContainer.axaml</DependentUpon>
-            <SubType>Code</SubType>
-        </Compile>
-        <Compile Update="Container\Controls\Sidebar\RightItemBar.axaml.cs">
-          <DependentUpon>AuxiliarySidebar.axaml</DependentUpon>
-          <SubType>Code</SubType>
-        </Compile>
-        <Compile Update="Container\Controls\Sidebar\BottomItemBar.axaml.cs">
-          <DependentUpon>BottomSideBar.axaml</DependentUpon>
-          <SubType>Code</SubType>
-        </Compile>
-        <Compile Update="Container\Controls\Sidebar\LeftItemBar.axaml.cs">
-          <DependentUpon>MainSidebar.axaml</DependentUpon>
-          <SubType>Code</SubType>
-        </Compile>
-        <Compile Update="Controls\DefaultWindow.axaml.cs">
-          <DependentUpon>DefaultWindow.axaml</DependentUpon>
-          <SubType>Code</SubType>
-        </Compile>
-        <Compile Update="Controls\PanelBar.axaml.cs">
-          <DependentUpon>PanelBar.axaml</DependentUpon>
-          <SubType>Code</SubType>
-        </Compile>
-        <Compile Update="Controls\PrimarySideBar.axaml.cs">
-          <DependentUpon>PrimarySideBar.axaml</DependentUpon>
-          <SubType>Code</SubType>
-        </Compile>
-        <Compile Update="Controls\SecondarySideBar.axaml.cs">
-          <DependentUpon>SecondarySideBar.axaml</DependentUpon>
-          <SubType>Code</SubType>
-        </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-        <AvaloniaResource Include="Assets\**"/>
-    </ItemGroup>
-
-    <ItemGroup>
-      <UpToDateCheckInput Remove="Container\Controls\HeaderBar.axaml" />
-      <UpToDateCheckInput Remove="Container\Controls\LeftToolBar.axaml" />
-      <UpToDateCheckInput Remove="Container\Controls\MainPanel.axaml" />
-      <UpToDateCheckInput Remove="Container\Controls\StatusBar.axaml" />
-      <UpToDateCheckInput Remove="Container\Controls\TabBar\BottomTabBar.axaml" />
-      <UpToDateCheckInput Remove="Container\Controls\TabBar\LeftTabBar.axaml" />
-      <UpToDateCheckInput Remove="Container\Controls\TabBar\RightTabBar.axaml" />
-      <UpToDateCheckInput Remove="Default\AboutPageView.axaml" />
-      <UpToDateCheckInput Remove="Default\DefaultPageView.axaml" />
-      <UpToDateCheckInput Remove="Assets\next.png" />
-      <UpToDateCheckInput Remove="Assets\prev.png" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <AdditionalFiles Include="Controls\HeaderBar.axaml" />
-      <AdditionalFiles Include="Controls\MainPanel.axaml" />
-      <AdditionalFiles Include="Controls\StatusBar.axaml" />
+      <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj" />
     </ItemGroup>
 
 </Project>

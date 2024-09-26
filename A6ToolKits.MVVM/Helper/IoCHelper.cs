@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using A6ToolKits.Attributes;
+using A6ToolKits.Common.Attributes.MVVM;
 using A6ToolKits.Helper.Assembly;
 using Avalonia.Controls;
 

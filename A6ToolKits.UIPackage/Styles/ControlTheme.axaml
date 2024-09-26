@@ -3,6 +3,6 @@
     <!--  Add Resources Here  -->
     <ResourceDictionary.MergedDictionaries>
         <ResourceInclude Source="Simple/SimpleControlThemes.axaml" />
-        <ResourceInclude Source="Layout/LayoutControlThemes.axaml" />
+        <ResourceInclude Source="TabControl/TabControlThemes.axaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

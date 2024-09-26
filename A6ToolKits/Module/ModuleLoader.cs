@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml;
 using A6ToolKits.Helper.Config;
-using A6ToolKits.InstanceCreator;
+using A6ToolKits.Helper.Instance;
 using Serilog;
 
 namespace A6ToolKits.Module;
@@ -13,7 +13,7 @@ namespace A6ToolKits.Module;
 public static class ModuleLoader
 {
     private static List<ModuleBase> Modules { get; } = [];
-    private static IInstanceCreator? Creator { get; set; } = new BaseInstanceCreator();
+    private static IInstanceHelper? Creator { get; set; } = new BaseInstanceHelper();
 
     /// <summary>
     ///     尝试获取模块，会从当前已加载的模块中查找是否存在指定类型的模块
@@ -54,7 +54,7 @@ public static class ModuleLoader
         moduleConfigs.Remove(mvvm!);
 
         // 最后加载 LayoutModule
-        var layout = moduleConfigs.Find(m => string.Equals(m.Name, "A6ToolKits.Layout", StringComparison.Ordinal));
+        var layout = moduleConfigs.Find(m => string.Equals(m.Name, "A6ToolKits.Layout_bk", StringComparison.Ordinal));
         moduleConfigs.Remove(layout!);
 
         foreach (var module in moduleConfigs)

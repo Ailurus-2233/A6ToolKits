@@ -1,0 +1,40 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:models="clr-namespace:A6ToolKits.UIPackage.Controls.TabControl.Models"
+                    xmlns:tabControl="clr-namespace:A6ToolKits.UIPackage.Controls.TabControl">
+    <!--  Add Resources Here  -->
+    <ControlTheme x:Key="{x:Type tabControl:TabHeader}"
+                  TargetType="tabControl:TabHeader">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ItemsControl Width="{TemplateBinding Width}"
+                              Height="{TemplateBinding Height}"
+                              ItemsSource="{Binding Path=TabCollection.Items, RelativeSource={RelativeSource TemplatedParent}}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                        VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                        Orientation="{TemplateBinding Orientation}" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="models:TabItem">
+                            <tabControl:TabRadioButton CloseCommand="{Binding DeleteTabItem}"
+                                                       Command="{Binding SelectTabItem}"
+                                                       DisplayType="{Binding Path=DisplayType, RelativeSource={RelativeSource AncestorType=tabControl:TabHeader}}"
+                                                       FontSize="{Binding Path=FontSize, RelativeSource={RelativeSource AncestorType=tabControl:TabHeader}}"
+                                                       GroupName="{Binding GroupName}"
+                                                       Header="{Binding Header}"
+                                                       Icon="{Binding Icon}"
+                                                       IconSize="{Binding Path=IconSize, RelativeSource={RelativeSource AncestorType=tabControl:TabHeader}}"
+                                                       IsChecked="{Binding IsSelected}"
+                                                       IsCloseable="{Binding Path=IsCloseable, RelativeSource={RelativeSource AncestorType=tabControl:TabHeader}}"
+                                                       PromptLinePosition="{Binding Path=PromptLinePosition, RelativeSource={RelativeSource AncestorType=tabControl:TabHeader}}"
+                                                       ToolTip="{Binding ToolTip}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

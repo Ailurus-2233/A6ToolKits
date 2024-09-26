@@ -3,6 +3,7 @@ using System.Diagnostics;
 using A6ToolKits.Bootstrapper.Extensions;
 using A6ToolKits.Helper;
 using A6ToolKits.Helper.Assembly;
+using A6ToolKits.Helper.Logger;
 using A6ToolKits.Module;
 using Avalonia;
 using Avalonia.Controls;

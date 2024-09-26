@@ -42,4 +42,8 @@
         <None Remove="default_config.xml"/>
         <Resource Include="default_config.xml"/>
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Common\" />
+    </ItemGroup>
 </Project>

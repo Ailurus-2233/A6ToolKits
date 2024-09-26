@@ -7,8 +7,8 @@
                 Target="A6ToolKits.MVVM.MVVMModule"/>
         <Module Name="A6ToolKits.UIPackage" Version="1.0.0" Assembly="A6ToolKits.UIPackage.dll"
                 Target="A6ToolKits.UIPackage.UIPackageModule"/>
-        <Module Name="A6ToolKits.Layout" Version="1.0.0" Assembly="A6ToolKits.Layout.dll"
-                Target="A6ToolKits.Layout.LayoutModule"/>
+        <Module Name="A6ToolKits.Layout_bk" Version="1.0.0" Assembly="A6ToolKits.Layout_bk.dll"
+                Target="A6ToolKits.Layout_bk.LayoutModule"/>
     </LoadModules>
 
     <!-- if use layout module, you can define layout configuration here -->

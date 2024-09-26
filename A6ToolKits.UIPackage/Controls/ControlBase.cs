@@ -1,12 +1,13 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Avalonia.Controls.Primitives;
 
 namespace A6ToolKits.UIPackage.Controls;
 
 /// <summary>
 /// 
 /// </summary>
-public abstract class ControlBase : INotifyPropertyChanged
+public abstract class ControlBase : TemplatedControl, INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
 

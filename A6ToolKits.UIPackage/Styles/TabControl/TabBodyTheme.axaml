@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:A6ToolKits.UIPackage.Styles.Tab.Converters"
+                    xmlns:tabControl="clr-namespace:A6ToolKits.UIPackage.Controls.TabControl">
+    <ControlTheme x:Key="{x:Type tabControl:TabBody}"
+                  TargetType="tabControl:TabBody">
+        <ControlTheme.Resources>
+            <converters:TabItemToDataContentConverter x:Key="TabItemToDataContentConverter" />
+        </ControlTheme.Resources>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ContentControl Content="{Binding Path=TabCollection.SelectedItem, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource TabItemToDataContentConverter}}" />
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>
