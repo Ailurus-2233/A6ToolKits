@@ -4,7 +4,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 
-namespace A6ToolKits.Behaviors;
+namespace A6ToolKits.Common.Behaviors;
 
 /// <summary>
 ///     用户控件行为
