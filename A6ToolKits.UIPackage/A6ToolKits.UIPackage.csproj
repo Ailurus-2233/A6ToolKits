@@ -44,7 +44,6 @@
       <AdditionalFiles Remove="UIControls\**" />
       <AdditionalFiles Remove="UIStyles\**" />
       <AdditionalFiles Include="Resources\Icons\IconResources.axaml" />
-      <AdditionalFiles Include="Styles\Simple\Buttons\CloseButtonTheme.axaml" />
       <AdditionalFiles Include="Styles\TabControl\TabBodyTheme.axaml" />
       <AdditionalFiles Include="Styles\TabControl\TabContainerTheme.axaml" />
       <AdditionalFiles Include="Styles\TabControl\TabControlThemes.axaml" />

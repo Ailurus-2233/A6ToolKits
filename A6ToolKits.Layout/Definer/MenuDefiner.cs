@@ -1,8 +1,10 @@
 ﻿using System.Reflection;
 using A6ToolKits.Common.Action;
 using A6ToolKits.Common.Attributes.Layout;
+using A6ToolKits.Helper.Resource;
 using A6ToolKits.Layout.Definer.Interfaces;
 using Avalonia.Controls;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 
 namespace A6ToolKits.Layout.Definer;
 
@@ -16,7 +18,10 @@ public abstract class MenuDefiner : IDefiner<Menu>
     /// </returns>
     public Menu Build()
     {
-        var menu = new Menu();
+        var item = new MenuItem
+        {
+            Icon = ResourceHelper.LoadImage("MenuIcon")
+        };
         var groups = GetMenuGroups();
 
         foreach (var group in groups)
@@ -27,9 +32,13 @@ public abstract class MenuDefiner : IDefiner<Menu>
             };
             var dict = Generate(1, group);
             AddResult(menuItem, dict);
-            menu.Items.Add(menuItem);
+            item.Items.Add(menuItem);
         }
-        return menu;
+
+        var result = new Menu();
+        result.Items.Add(item);
+        
+        return result;
     }
 
     private Dictionary<int, List<MenuItem>> Generate(int index, IGrouping<string?, PropertyInfo> group)

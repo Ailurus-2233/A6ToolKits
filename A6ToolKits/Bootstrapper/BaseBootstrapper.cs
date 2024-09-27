@@ -26,7 +26,6 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper
     where TApplication : Application, new()
     where TWindow : Window, new()
 {
-    private AppBuilder? _builder;
     private ClassicDesktopStyleApplicationLifetime? _lifetime;
     private string[] _runArgs = [];
 
@@ -38,7 +37,7 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper
     /// <summary>
     ///     构造器，用于子类进行扩展修改
     /// </summary>
-    public AppBuilder? AppBuilder => _builder;
+    private AppBuilder? AppBuilder { get; set; }
 
     /// <summary>
     ///     加载步骤1-初始化：在应用启动前需要进行的一些配置，这里进行了程序集加载和
@@ -81,17 +80,17 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper
     {
         // 如果是 Debug 模式，则启用Avalonia的日志记录
         if (Debugger.IsAttached)
-            _builder = AppBuilder
+            AppBuilder = AppBuilder
                 .Configure<TApplication>()
                 .UsePlatformDetect()
                 .LogToTrace();
         else
-            _builder = AppBuilder
+            AppBuilder = AppBuilder
                 .Configure<TApplication>()
                 .UsePlatformDetect();
 
-        _lifetime = LifetimeExtensions.PrepareLifetime(_builder, _runArgs, null);
-        _builder.SetupWithLifetime(_lifetime);
+        _lifetime = LifetimeExtensions.PrepareLifetime(AppBuilder, _runArgs, null);
+        AppBuilder.SetupWithLifetime(_lifetime);
     }
 
     /// <summary>
@@ -110,7 +109,14 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper
         _lifetime.Start(_runArgs);
     }
 
-
+    /// <summary>
+    ///     停止应用程序
+    /// </summary>
+    public void StopApplication()
+    {
+        _lifetime?.Shutdown();
+    }
+    
     /// <summary>
     ///     应用的启动方法，会依次调用 Initialize、Configure 和 OnCompleted 方法
     /// </summary>

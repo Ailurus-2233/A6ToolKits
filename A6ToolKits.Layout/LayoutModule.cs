@@ -34,6 +34,12 @@ public class LayoutModule : ModuleBase
     
     
     /// <summary>
+    ///     基于配置文件生成的窗口布局
+    /// </summary>
+    public LayoutWindow LayoutWindow { get; set; }
+    
+    
+    /// <summary>
     ///     初始化布局模块，加载布局配置文件
     /// </summary>
     /// <exception cref="Exception">
@@ -42,6 +48,8 @@ public class LayoutModule : ModuleBase
     protected override void Initialize()
     {
         Log.Information("Load layout from configuration file");
+        Generator.Creator = Creator;
+        LayoutWindow = Generator.GenerateLayout();
         Log.Information("Load layout success");
     }
 }

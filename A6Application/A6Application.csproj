@@ -31,6 +31,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\A6ToolKits.Database\A6ToolKits.Database.csproj"/>
+        <ProjectReference Include="..\A6ToolKits.Layout\A6ToolKits.Layout.csproj" />
         <ProjectReference Include="..\A6ToolKits.Layout_bk\A6ToolKits.Layout_bk.csproj" />
         <ProjectReference Include="..\A6ToolKits.MVVM\A6ToolKits.MVVM.csproj"/>
         <ProjectReference Include="..\A6ToolKits.System\A6ToolKits.System.csproj"/>
@@ -53,6 +54,6 @@
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="cd $(TargetDir)&#xA;C:/Users/WZY/scoop/apps/git/2.45.2/git-bash.exe ./after_build.sh" />
+      <Exec Command="cd $(TargetDir)&#xA;%GIT_INSTALL_ROOT%/git-bash.exe ./after_build.sh" />
     </Target>
 </Project>

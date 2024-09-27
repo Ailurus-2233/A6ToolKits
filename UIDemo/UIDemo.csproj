@@ -18,12 +18,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\A6ToolKits.Layout_bk\A6ToolKits.Layout_bk.csproj" />
+      <ProjectReference Include="..\A6ToolKits.Layout\A6ToolKits.Layout.csproj" />
+      <ProjectReference Include="..\A6ToolKits.MVVM\A6ToolKits.MVVM.csproj" />
       <ProjectReference Include="..\A6ToolKits.UIPackage\A6ToolKits.UIPackage.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <None Include="config.xml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="after_build.sh">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>
@@ -39,4 +43,8 @@
       <AdditionalFiles Include="Default\AboutPageView.axaml" />
       <AdditionalFiles Include="Default\DefaultPageView.axaml" />
     </ItemGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+      <Exec Command="cd $(TargetDir)&#xA;%GIT_INSTALL_ROOT%/git-bash.exe ./after_build.sh" />
+    </Target>
 </Project>

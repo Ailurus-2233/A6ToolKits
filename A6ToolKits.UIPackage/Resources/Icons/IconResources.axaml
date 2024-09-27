@@ -3,5 +3,9 @@
     <!--  Add Resources Here  -->
     <ResourceDictionary.MergedDictionaries>
         <ResourceInclude Source="./Base/CloseIconResource.axaml" />
+        <ResourceInclude Source="./Base/MenuIconResource.axaml" />
+        <ResourceInclude Source="./Base/MaximizeIconResource.axaml" />
+        <ResourceInclude Source="./Base/WindowIconResource.axaml" />
+        <ResourceInclude Source="./Base/MinusIconResource.axaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

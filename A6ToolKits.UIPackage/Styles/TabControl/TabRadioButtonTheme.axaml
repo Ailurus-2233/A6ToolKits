@@ -26,11 +26,12 @@
                                    IsVisible="{Binding Path=IsHeaderVisible, RelativeSource={RelativeSource TemplatedParent}}"
                                    Text="{TemplateBinding Header}"
                                    TextAlignment="Center" />
-                        <buttons:CloseButton Padding="2"
-                                             Command="{TemplateBinding CloseCommand}"
-                                             IconSize="{TemplateBinding IconSize}"
-                                             IsIconVisible="False"
-                                             IsVisible="{TemplateBinding IsCloseable}" />
+                        <buttons:IconButton Padding="2"
+                                            Command="{TemplateBinding CloseCommand}"
+                                            Icon="{DynamicResource CloseIcon}"
+                                            IconSize="{TemplateBinding IconSize}"
+                                            IsIconVisible="False"
+                                            IsVisible="{TemplateBinding IsCloseable}" />
                     </StackPanel>
                     <ToolTip.Tip>
                         <TextBlock Text="{TemplateBinding ToolTip}" />
@@ -44,7 +45,7 @@
             <Style Selector="^ /template/ Border">
                 <Setter Property="BorderBrush" Value="{Binding Path=PromptLineColor, RelativeSource={RelativeSource TemplatedParent}}" />
             </Style>
-            <Style Selector="^ /template/ buttons|CloseButton">
+            <Style Selector="^ /template/ buttons|IconButton">
                 <Setter Property="IsIconVisible" Value="True" />
             </Style>
         </Style>
@@ -54,7 +55,7 @@
             <Style Selector="^ /template/ Border">
                 <Setter Property="BorderBrush" Value="{Binding Path=PromptLineColor, RelativeSource={RelativeSource TemplatedParent}}" />
             </Style>
-            <Style Selector="^ /template/ buttons|CloseButton">
+            <Style Selector="^ /template/ buttons|IconButton">
                 <Setter Property="IsIconVisible" Value="True" />
             </Style>
         </Style>

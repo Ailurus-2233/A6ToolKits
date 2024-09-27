@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  Add Resources Here  -->
+    <DrawingImage x:Key="MinusIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.ClipGeometry>
+                    M0,0 V1024 H1024 V0 H0 Z
+                </DrawingGroup.ClipGeometry>
+                <GeometryDrawing Brush="#FF8A8AA3">
+                    <GeometryDrawing.Geometry>
+                        F1
+                        M1024,1024z
+                        M0,0z
+                        M213.333333,522.666667A32,32,0,0,1,245.333333,490.666667L778.666667,490.666667A32,32,0,0,1,778.666667,554.666667L245.333333,554.666667A32,32,0,0,1,213.333333,522.666667z
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+</ResourceDictionary>

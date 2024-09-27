@@ -14,23 +14,11 @@
                 Target="A6ToolKits.MVVM.MVVMModule"/>
         <Module Name="A6ToolKits.UIPackage" Version="1.0.0" Assembly="A6ToolKits.UIPackage.dll"
                 Target="A6ToolKits.UIPackage.UIPackageModule"/>
-        <Module Name="A6ToolKits.Layout_bk" Version="1.0.0" Assembly="A6ToolKits.Layout_bk.dll"
-                Target="A6ToolKits.Layout_bk.LayoutModule"/>
+        <Module Name="A6ToolKits.Layout" Version="1.0.0" Assembly="A6ToolKits.Layout_bk.dll"
+                Target="A6ToolKits.Layout.LayoutModule"/>
     </LoadModules>
 
     <!-- if use layout module, you can define layout configuration here -->
-    <Layout Name="A6Application" Type="Window" Height="450" Width="600" BackgroundColor="#181818" PrimaryColor="#3377D2"
-            Alignment="Right" ShowToolBar="False">
-        <Menu Height="30" Target="A6ToolKits.Layout_bk.Default.DefaultMenu" Assembly="A6ToolKits.Layout_bk.dll"/>
-        <ButtonBar Height="30" Target="A6ToolKits.Layout_bk.Default.DefaultButtonBar" Assembly="A6ToolKits.Layout_bk.dll"/>
-        <Items>
-            <Item Position="Left" Target="A6ToolKits.Layout_bk.Default.LeftItemView" Assembly="A6ToolKits.Layout_bk.dll"/>
-        </Items>
-
-        <Pages>
-            <Page Target="A6ToolKits.Layout_bk.Default.DefaultPageView" Assembly="A6ToolKits.Layout_bk.dll" Default="True"/>
-        </Pages>
-
-        <StatusBar Height="30" Target="A6ToolKits.Layout_bk.Default.DefaultStatusBar" Assembly="A6ToolKits.Layout_bk.dll"/>
-    </Layout>
+    <Layout Type="Window" Height="450" Width="600" BackgroundColor="#181818" PrimaryColor="#3377D2" 
+            Assembly="A6ToolKits.Layout.dll" Target="A6ToolKits.Layout.Definer.LayoutDefiner" />
 </Configuration>

@@ -12,14 +12,14 @@ public abstract class PageDefiner : IDefiner<Grid>
 
     public LayoutAlignment Alignment { get; set; } = LayoutAlignment.Right;
 
-    private readonly Grid _page = new Grid();
-    private readonly GridSplitter _leftSplitter = new GridSplitter();
-    private readonly GridSplitter _rightSplitter = new GridSplitter();
-    private readonly GridSplitter _bottomSplitter = new GridSplitter();
+    private readonly Grid _page = new();
+    private readonly GridSplitter _leftSplitter = new();
+    private readonly GridSplitter _rightSplitter = new();
+    private readonly GridSplitter _bottomSplitter = new();
     
-    public double LeftWidth { get; set; } = 200;
-    public double RightWidth { get; set; } = 200;
-    public double BottomHeight { get; set; } = 200;
+    protected double LeftWidth { get; set; } = 0;
+    protected double RightWidth { get; set; } = 0;
+    protected double BottomHeight { get; set; } = 0;
 
     public Grid Build()
     {
