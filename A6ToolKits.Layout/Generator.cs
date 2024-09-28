@@ -1,6 +1,8 @@
 ﻿using A6ToolKits.Helper.Config;
 using A6ToolKits.Helper.Instance;
 using A6ToolKits.Layout.Definer;
+using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Platform;
 
 namespace A6ToolKits.Layout;
@@ -12,7 +14,7 @@ public static class Generator
     /// </summary>
     public static IInstanceHelper? Creator { private get; set; }
     
-    public static LayoutWindow GenerateLayout()
+    public static Window GenerateLayout()
     {
         var layoutConfigItem = ConfigHelper.GetElements("Layout")?.Item(0);
         if (layoutConfigItem == null)
@@ -31,17 +33,8 @@ public static class Generator
         if (!IsLayoutDefiner(layout.GetType()))
             throw new Exception("Layout must be a subclass of LayoutDefiner.");
 
-        var window = new LayoutWindow();
-
-        if (configItem.Height != null) window.Height = double.Parse(configItem.Height);
-        if (configItem.Width != null) window.Width = double.Parse(configItem.Width);
-
-        window.ExtendClientAreaToDecorationsHint = true;
-        window.ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
-        window.ExtendClientAreaTitleBarHeightHint = -1;
+        var window = layout.Build();
         
-        window.Content = layout.Build();
-
         return window;
     }
     

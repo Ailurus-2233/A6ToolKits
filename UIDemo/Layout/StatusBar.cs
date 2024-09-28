@@ -11,13 +11,7 @@ public class StatusBar : StatusBarDefiner
     {
         Text = "欢迎使用 A6ToolKits 框架"
     };
-
-    [StatusBar("Center")]
-    public TextBlock Center { get; } = new()
-    {
-        Text = "这是中间的状态栏"
-    };
-
+    
     [StatusBar("Right")]
     public TextBlock Right { get; } = new()
     {

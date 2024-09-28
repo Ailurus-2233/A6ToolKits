@@ -27,6 +27,8 @@
         <None Update="config.xml">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <AvaloniaResource Remove="bin\**" />
+        <None Remove="bin\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -51,6 +53,23 @@
 
     <ItemGroup>
         <DocFileItem Remove="bin\Debug\A6Application.xml"/>
+        <DocFileItem Remove="bin\Debug\A6Application.xml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AvaloniaXaml Remove="bin\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="bin\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="bin\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Remove="bin\**" />
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">

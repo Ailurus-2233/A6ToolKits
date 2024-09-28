@@ -6,11 +6,10 @@
             <SolidColorBrush x:Key="SimpleIconBrush">#FF000000</SolidColorBrush>
         </ResourceDictionary>
         <ResourceDictionary x:Key="Dark">
-            <SolidColorBrush x:Key="SimpleIconBrush">#FFFFFFFF</SolidColorBrush>
+            <SolidColorBrush x:Key="SimpleIconBrush">#FF000000</SolidColorBrush>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
 
-    <SolidColorBrush x:Key="ButtonPointOverBrush"
-                     Color="#30CCCCCC" />
+    <SolidColorBrush x:Key="ButtonPointOverBrush" Color="#30CCCCCC" />
 </ResourceDictionary>

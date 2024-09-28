@@ -26,11 +26,6 @@ public enum StatusPosition
     Left,
 
     /// <summary>
-    ///     状态栏中间
-    /// </summary>
-    Center,
-
-    /// <summary>
     ///     状态栏右侧
     /// </summary>
     Right

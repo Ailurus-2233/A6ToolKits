@@ -3,6 +3,7 @@ using A6ToolKits.Common.Attributes.Layout;
 using A6ToolKits.Layout.Definer.Interfaces;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Layout;
 
 namespace A6ToolKits.Layout.Definer;
 
@@ -12,7 +13,6 @@ public abstract class StatusBarDefiner : IDefiner<DockPanel>
     {
         var result = new DockPanel();
         var left = GenerateStatusBar(StatusPosition.Left);
-        var center = GenerateStatusBar(StatusPosition.Center);
         var right = GenerateStatusBar(StatusPosition.Right);
 
         DockPanel.SetDock(left, Dock.Left);
@@ -20,8 +20,7 @@ public abstract class StatusBarDefiner : IDefiner<DockPanel>
 
         result.Children.Add(left);
         result.Children.Add(right);
-        result.Children.Add(center);
-
+        
         return result;
     }
 
@@ -59,6 +58,22 @@ public abstract class StatusBarDefiner : IDefiner<DockPanel>
             });
         }
 
+        switch (position)
+        {
+            case StatusPosition.Left:
+                result.SetValue(Layoutable.HorizontalAlignmentProperty, HorizontalAlignment.Left);
+                result.Margin = new Thickness(8, 0, 0, 0);
+                break;
+            case StatusPosition.Right:
+                result.SetValue(Layoutable.HorizontalAlignmentProperty, HorizontalAlignment.Right);
+                result.Margin = new Thickness(0, 0, 8, 0);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(position), position, null);
+        }
+        
+        result.SetValue(Layoutable.VerticalAlignmentProperty, VerticalAlignment.Center);
+        
         result.Children.RemoveAt(result.Children.Count - 1);
         return result;
     }

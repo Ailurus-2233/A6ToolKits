@@ -1,6 +1,8 @@
 ﻿using A6ToolKits.Common.Attributes.MVVM;
 using A6ToolKits.Helper.Instance;
 using A6ToolKits.Module;
+using Avalonia;
+using Avalonia.Controls;
 using Serilog;
 
 namespace A6ToolKits.Layout;
@@ -19,7 +21,7 @@ public class LayoutModule : ModuleBase
     /// <summary>
     ///     模块名称
     /// </summary>
-    public override string ModuleName { get; set; } = "A6ToolKits.Layout_bk";
+    public override string ModuleName { get; set; } = "A6ToolKits.Layout";
 
     /// <summary>
     ///     模块版本
@@ -36,7 +38,7 @@ public class LayoutModule : ModuleBase
     /// <summary>
     ///     基于配置文件生成的窗口布局
     /// </summary>
-    public LayoutWindow LayoutWindow { get; set; }
+    public Window? Window { get; private set; }
     
     
     /// <summary>
@@ -47,9 +49,7 @@ public class LayoutModule : ModuleBase
     /// </exception>
     protected override void Initialize()
     {
-        Log.Information("Load layout from configuration file");
         Generator.Creator = Creator;
-        LayoutWindow = Generator.GenerateLayout();
-        Log.Information("Load layout success");
+        Window = Generator.GenerateLayout();
     }
 }

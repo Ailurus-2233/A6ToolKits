@@ -6,6 +6,9 @@ using Avalonia.Media;
 
 namespace A6ToolKits.Common.Action.CommonActions;
 
+/// <summary>
+///     最小化动作
+/// </summary>
 public class MinusAction : ActionBase
 {
     /// <inheritdoc />

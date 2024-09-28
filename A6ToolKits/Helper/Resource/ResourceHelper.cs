@@ -1,5 +1,6 @@
 ﻿using System;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Media;
 
 namespace A6ToolKits.Helper.Resource;
@@ -21,14 +22,14 @@ public static class ResourceHelper
     /// <exception cref="Exception"></exception>
     public static DrawingImage LoadImage(string key)
     {
-        var target = Application.Current?.Resources[key];
-        if (target is DrawingImage image)
+        try
         {
+            var image = (DrawingImage) Application.Current?.FindResource(key)!;
             return image;
         }
-        else
+        catch (Exception e)
         {
-            throw new Exception("Error: Resource not found.");
+            throw new Exception($"Picture load error. Key:{key}", e);
         }
     }
 }

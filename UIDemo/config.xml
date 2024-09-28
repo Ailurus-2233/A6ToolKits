@@ -19,6 +19,5 @@
     </LoadModules>
 
     <!-- if use layout module, you can define layout configuration here -->
-    <Layout Type="Window" Height="450" Width="600" BackgroundColor="#181818" PrimaryColor="#3377D2"
-            Assembly="UIDemo.dll" Target="UIDemo.Layout.MainLayout" />
+    <Layout Assembly="UIDemo.dll" Target="UIDemo.Layout.MainLayout" />
 </Configuration>

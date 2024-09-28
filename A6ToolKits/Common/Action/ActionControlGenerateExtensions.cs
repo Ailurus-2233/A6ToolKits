@@ -56,10 +56,15 @@ public static class ActionControlGenerateExtensions
         var button = new Button();
         button.Click += (_, _) => action.Run();
         action.CanRunChanged += (_, _) => button.IsEnabled = action.CanRun;
-        button.VerticalAlignment = VerticalAlignment.Stretch;
+        button.IsEnabled = action.CanRun;
         button.SetTemplate(action, type);
         button.Margin = new Thickness(5);
         button.Padding = new Thickness(0);
+        
+        button.VerticalAlignment = VerticalAlignment.Center;
+        button.HorizontalAlignment = HorizontalAlignment.Center;
+        button.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+        button.VerticalContentAlignment = VerticalAlignment.Stretch;
 
         // 增加 ToolTip
         var toolTip = new ToolTip
@@ -101,13 +106,10 @@ public static class ActionControlGenerateExtensions
         {
             case ButtonType.Icon:
                 button.Content = image;
-                button.Loaded += (_, _) =>
+                button.PropertyChanged += (_, args) =>
                 {
-                    var bounds = button.Bounds;
-                    button.Width = bounds.Height;
-                    button.Height = bounds.Height;
-                    image.Width = bounds.Height - 2;
-                    image.Height = bounds.Height - 2;
+                    if (args.Property.Name is "Bounds" or "IsEnabled" or "IsVisible")
+                        button.SetButtonSize(image);
                 };
                 break;
             case ButtonType.IconAndText:
@@ -121,13 +123,10 @@ public static class ActionControlGenerateExtensions
                 break;
             case ButtonType.Initials:
                 button.Content = initials;
-                button.Loaded += (_, _) =>
+                button.PropertyChanged += (_, args) =>
                 {
-                    var bounds = button.Bounds;
-                    button.Width = bounds.Height;
-                    button.Height = bounds.Height;
-                    var fontSize = button.CalculateFontSize();
-                    initials.FontSize = fontSize;
+                    if (args.Property.Name is "Bounds" or "IsEnabled" or "IsVisible")
+                        button.SetButtonSize(initials);
                 };
                 break;
             case ButtonType.Text:
@@ -135,6 +134,24 @@ public static class ActionControlGenerateExtensions
                 button.Content = textBlock;
                 break;
         }
+    }
+
+    private static void SetButtonSize(this Button button, Image image)
+    {
+        var bounds = button.Bounds;
+        button.Width = bounds.Height;
+        button.Height = bounds.Height;
+        image.Width = bounds.Height - 2;
+        image.Height = bounds.Height - 2;
+    }
+
+    private static void SetButtonSize(this Button button, TextBlock initials)
+    {
+        var bounds = button.Bounds;
+        button.Width = bounds.Height;
+        button.Height = bounds.Height;
+        var fontSize = button.CalculateFontSize();
+        initials.FontSize = fontSize;
     }
 
     /// <summary>

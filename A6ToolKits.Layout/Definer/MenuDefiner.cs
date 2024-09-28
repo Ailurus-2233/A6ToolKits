@@ -3,8 +3,10 @@ using A6ToolKits.Common.Action;
 using A6ToolKits.Common.Attributes.Layout;
 using A6ToolKits.Helper.Resource;
 using A6ToolKits.Layout.Definer.Interfaces;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml.MarkupExtensions;
+using Avalonia.Styling;
 
 namespace A6ToolKits.Layout.Definer;
 
@@ -20,7 +22,11 @@ public abstract class MenuDefiner : IDefiner<Menu>
     {
         var item = new MenuItem
         {
-            Icon = ResourceHelper.LoadImage("MenuIcon")
+            Header = new Image()
+            {
+                Source = ResourceHelper.LoadImage("MenuIcon"),
+            },
+            Padding = new Thickness(0)
         };
         var groups = GetMenuGroups();
 

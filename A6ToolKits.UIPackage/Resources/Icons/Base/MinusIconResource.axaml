@@ -7,7 +7,7 @@
                 <DrawingGroup.ClipGeometry>
                     M0,0 V1024 H1024 V0 H0 Z
                 </DrawingGroup.ClipGeometry>
-                <GeometryDrawing Brush="#FF8A8AA3">
+                <GeometryDrawing Brush="{DynamicResource SimpleIconBrush}">
                     <GeometryDrawing.Geometry>
                         F1
                         M1024,1024z

@@ -34,7 +34,7 @@ public abstract class ActionBase : IAction
     /// <summary>
     ///     动作是否可以执行
     /// </summary>
-    public bool CanRun
+    public virtual bool CanRun
     {
         get => _canRun;
         set

@@ -8,6 +8,7 @@ using A6ToolKits.Module;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Styling;
 using Serilog;
 using LogEventLevel = Serilog.Events.LogEventLevel;
 
@@ -28,6 +29,11 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper
 {
     private ClassicDesktopStyleApplicationLifetime? _lifetime;
     private string[] _runArgs = [];
+    
+    /// <summary>
+    ///    主题设置，默认为 Dark
+    /// </summary>
+    public virtual ThemeVariant Theme { get; set; } = ThemeVariant.Light;
 
     /// <summary>
     ///     主窗体对象，通过修改此属性可以设置主窗体，但已经显示的窗体无法修改
@@ -88,9 +94,10 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper
             AppBuilder = AppBuilder
                 .Configure<TApplication>()
                 .UsePlatformDetect();
-
+        
         _lifetime = LifetimeExtensions.PrepareLifetime(AppBuilder, _runArgs, null);
         AppBuilder.SetupWithLifetime(_lifetime);
+        if (Application.Current != null) Application.Current.RequestedThemeVariant = Theme;
     }
 
     /// <summary>
@@ -101,10 +108,15 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper
     {
         if (_lifetime == null) return;
         MainWindow ??= new TWindow();
+        MainWindow.RequestedThemeVariant = Theme;
         _lifetime.MainWindow = MainWindow;
-
         Log.Information("Finish Configuring Application.");
 
+        if (Debugger.IsAttached)
+        {
+            MainWindow.AttachDevTools();
+        }
+        
         Log.Information("Starting Application...");
         _lifetime.Start(_runArgs);
     }
