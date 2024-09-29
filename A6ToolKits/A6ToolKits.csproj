@@ -12,6 +12,7 @@
         <FileVersion>1.0.0</FileVersion>
         <PackageIcon>A6ToolKits.png</PackageIcon>
         <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <Version>0.1.0</Version>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
         <DocumentationFile>bin\Debug\A6ToolKits.xml</DocumentationFile>

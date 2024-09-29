@@ -7,6 +7,18 @@ namespace A6ToolKits.Module;
 /// </summary>
 public class ModuleConfigItem : ConfigItemBase
 {
+    public ModuleConfigItem()
+    {
+    }
+
+    public ModuleConfigItem(string name, string version, string assembly, string target)
+    {
+        Name = name;
+        Version = version;
+        Assembly = assembly;
+        Target = target;
+    }
+
     /// <summary>
     ///     模块名称，用于对照模块是否加载正确
     /// </summary>

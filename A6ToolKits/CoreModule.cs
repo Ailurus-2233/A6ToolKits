@@ -7,8 +7,8 @@ namespace A6ToolKits;
 /// <summary>
 ///     核心模块
 /// </summary>
-[AutoRegister(typeof(BaseModule), RegisterType.Singleton)]
-public class BaseModule : ModuleBase
+[AutoRegister(typeof(CoreModule), RegisterType.Singleton)]
+public class CoreModule : ModuleBase
 {
     /// <summary>
     ///     实例创建器，用于模块内部创建实例
@@ -18,7 +18,7 @@ public class BaseModule : ModuleBase
     /// <summary>
     ///     模块名称
     /// </summary>
-    public override string ModuleName { get; set; } = "A6ToolKits.Root";
+    public override string ModuleName { get; set; } = "A6ToolKits.Core";
 
     /// <summary>
     ///     模块版本

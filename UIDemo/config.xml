@@ -8,16 +8,16 @@
     </Libraries>
     
     <!-- List of modules that are automatically loaded -->
-    <LoadModules>
-        <Module Name="A6ToolKits.Root" Version="1.0.0" Assembly="A6ToolKits.dll" Target="A6ToolKits.BaseModule"/>
+    <Modules>
+        <Module Name="A6ToolKits.Core" Version="1.0.0" Assembly="A6ToolKits.dll" Target="A6ToolKits.CoreModule"/>
         <Module Name="A6ToolKits.MVVM" Version="1.0.0" Assembly="A6ToolKits.MVVM.dll"
                 Target="A6ToolKits.MVVM.MVVMModule"/>
         <Module Name="A6ToolKits.UIPackage" Version="1.0.0" Assembly="A6ToolKits.UIPackage.dll"
                 Target="A6ToolKits.UIPackage.UIPackageModule"/>
         <Module Name="A6ToolKits.Layout" Version="1.0.0" Assembly="A6ToolKits.Layout.dll"
                 Target="A6ToolKits.Layout.LayoutModule"/>
-    </LoadModules>
-
+    </Modules>
+    
     <!-- if use layout module, you can define layout configuration here -->
     <Layout Assembly="UIDemo.dll" Target="UIDemo.Layout.MainLayout" />
 </Configuration>

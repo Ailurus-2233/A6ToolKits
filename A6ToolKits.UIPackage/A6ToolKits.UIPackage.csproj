@@ -5,6 +5,9 @@
         <LangVersion>12</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageIcon>A6ToolKits.png</PackageIcon>
+        <Version>0.1.0</Version>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -59,6 +62,10 @@
     <ItemGroup>
       <None Remove="UIControls\**" />
       <None Remove="UIStyles\**" />
+      <None Update="A6ToolKits.png">
+        <Pack>True</Pack>
+        <PackagePath></PackagePath>
+      </None>
     </ItemGroup>
 
 </Project>
