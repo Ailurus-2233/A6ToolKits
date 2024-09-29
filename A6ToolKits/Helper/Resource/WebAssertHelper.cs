@@ -6,6 +6,9 @@ using Avalonia.Media.Imaging;
 
 namespace A6ToolKits.Helper.Resource;
 
+/// <summary>
+///     Web资源帮助类
+/// </summary>
 public class WebAssertHelper
 {
     

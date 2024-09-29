@@ -10,6 +10,8 @@
         <Description>快速搭建 Avalonia 复杂桌面应用程序的开发框架</Description>
         <AssemblyVersion>1.0.0</AssemblyVersion>
         <FileVersion>1.0.0</FileVersion>
+        <PackageIcon>A6ToolKits.png</PackageIcon>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
         <DocumentationFile>bin\Debug\A6ToolKits.xml</DocumentationFile>
@@ -27,23 +29,18 @@
         <PackageReference Include="DynamicData" Version="9.0.4"/>
         <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0"/>
     </ItemGroup>
-
+    
     <ItemGroup>
-        <UpToDateCheckInput Remove="Command\Styles\CommandButton.axaml"/>
-        <UpToDateCheckInput Remove="Action\Controls\ActionButton.axaml"/>
-        <UpToDateCheckInput Remove="Action\Controls\ActionMenuItem.axaml"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Remove="after_build.sh"/>
+        <None Include="..\Resources\Icon\A6ToolKits.png">
+          <Pack>True</Pack>
+          <PackagePath>\</PackagePath>
+          <Link>A6ToolKits.png</Link>
+        </None>
         <Resource Include="after_build.sh">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Resource>
-        <None Remove="default_config.xml"/>
         <Resource Include="default_config.xml"/>
+        <None Include="readme.md" Pack="true" PackagePath="\" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Common\" />
-    </ItemGroup>
+    
 </Project>

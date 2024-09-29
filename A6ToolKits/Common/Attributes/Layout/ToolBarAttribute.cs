@@ -5,8 +5,16 @@ namespace A6ToolKits.Common.Attributes.Layout;
 /// <summary>
 ///     工具栏属性，标记到一个 ActionBase 的属性上，用于生成 ToolBar 中的按钮
 /// </summary>
-/// <param name="group"></param>
-/// <param name="position"></param>
+/// <param name="group">
+///     分组，生成 ToolBar 时，根据分组将按钮放置到对应的位置
+/// </param>
+/// <param name="type">
+///     类型，生成 ToolBar 时，对应按钮的类型
+/// </param>
+/// <param name="position">
+///     位置，生成 ToolBar 时，根据位置将按钮放置到对应的位置，默认为左侧
+///     TODO 目前只能在左侧放置，右侧暂未实现
+/// </param>
 [AttributeUsage(AttributeTargets.Property)]
 public class ToolBarAttribute(int group, string type, string position = "Left")
     : Attribute
