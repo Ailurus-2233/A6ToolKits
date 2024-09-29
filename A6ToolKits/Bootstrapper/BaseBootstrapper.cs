@@ -33,7 +33,7 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper
     /// <summary>
     ///    主题设置，默认为 Dark
     /// </summary>
-    public virtual ThemeVariant Theme { get; set; } = ThemeVariant.Light;
+    protected virtual ThemeVariant Theme { get; set; } = ThemeVariant.Light;
 
     /// <summary>
     ///     主窗体对象，通过修改此属性可以设置主窗体，但已经显示的窗体无法修改

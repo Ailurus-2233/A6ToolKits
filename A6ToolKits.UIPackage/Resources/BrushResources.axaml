@@ -6,7 +6,7 @@
             <SolidColorBrush x:Key="SimpleIconBrush">#FF000000</SolidColorBrush>
         </ResourceDictionary>
         <ResourceDictionary x:Key="Dark">
-            <SolidColorBrush x:Key="SimpleIconBrush">#FF000000</SolidColorBrush>
+            <SolidColorBrush x:Key="SimpleIconBrush">#FFFFFFFF</SolidColorBrush>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 

@@ -24,8 +24,24 @@ public static class ResourceHelper
     {
         try
         {
-            var image = (DrawingImage) Application.Current?.FindResource(key)!;
+            var image = (DrawingImage)Application.Current?.FindResource(key)!;
             return image;
+        }
+        catch (Exception e)
+        {
+            throw new Exception($"Picture load error. Key:{key}", e);
+        }
+    }
+
+
+    public static T LoadResource<T>(string key)
+    {
+        try
+        {
+            var app = Application.Current;
+            var theme = app?.ActualThemeVariant;
+            var resource = (T)Application.Current?.FindResource(theme, key)!;
+            return resource;
         }
         catch (Exception e)
         {
