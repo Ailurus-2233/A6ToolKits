@@ -7,6 +7,13 @@ rm -rf $debug_dir/dll
 mkdir -p $relase_dir/dll
 mkdir -p $debug_dir/dll
 
+if [ ! -d $relase_dir/nupkg ]; then
+    mkdir -p $relase_dir/nupkg
+fi
+
+if [ ! -d $debug_dir/nupkg ]; then
+    mkdir -p $debug_dir/nupkg
+fi
 
 
 projects=(
