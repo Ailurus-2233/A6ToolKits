@@ -5,14 +5,16 @@
         <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Title>A6 桌面应用开发工具包</Title>
+        <Title>A6 桌面应用开发工具包 - 核心模块</Title>
         <Authors>Ailurus2233</Authors>
-        <Description>快速搭建 Avalonia 复杂桌面应用程序的开发框架</Description>
-        <AssemblyVersion>1.0.0</AssemblyVersion>
-        <FileVersion>1.0.0</FileVersion>
+        <Description>A6ToolKits 是一个快速搭建 Avalonia 桌面应用程序的开发框架，这个库是其运行的核心依赖库，其他的模块都依赖此库进行加载和初始化</Description>
+        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <FileVersion>0.1.0.0</FileVersion>
         <PackageIcon>A6ToolKits.png</PackageIcon>
-        <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <Version>0.1.0</Version>
+        <RootNamespace>A6ToolKits</RootNamespace>
+        <NeutralLanguage>zh-Hans</NeutralLanguage>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
         <DocumentationFile>bin\Debug\A6ToolKits.xml</DocumentationFile>
@@ -30,15 +32,15 @@
         <PackageReference Include="DynamicData" Version="9.0.4"/>
         <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0"/>
     </ItemGroup>
-    
+
     <ItemGroup>
         <Resource Include="default_config.xml"/>
         <None Include="..\Resources\Icon\A6ToolKits.png">
-          <Pack>True</Pack>
-          <PackagePath></PackagePath>
-          <Link>A6ToolKits.png</Link>
+            <Pack>True</Pack>
+            <PackagePath />
+            <Link>A6ToolKits.png</Link>
         </None>
-        <None Include="readme.md" Pack="true" PackagePath="\" />
+        <None Include="README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
-    
+
 </Project>

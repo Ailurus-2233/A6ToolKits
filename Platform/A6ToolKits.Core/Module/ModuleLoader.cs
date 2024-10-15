@@ -54,7 +54,7 @@ public static class ModuleLoader
         moduleConfigs.Remove(mvvm!);
 
         // 最后加载 LayoutModule
-        var layout = moduleConfigs.Find(m => string.Equals(m.Name, "A6ToolKits.Layout_bk", StringComparison.Ordinal));
+        var layout = moduleConfigs.Find(m => string.Equals(m.Name, "A6ToolKits.Layout", StringComparison.Ordinal));
         moduleConfigs.Remove(layout!);
 
         foreach (var module in moduleConfigs)
@@ -106,7 +106,7 @@ public static class ModuleLoader
         instance.Creator = Creator;
         instance.LoadModule();
 
-        if (instance.ModuleVersion != module.Version)
+        if (instance.ModuleVersion != module.Version && !string.IsNullOrEmpty(module.Version))
             Log.Error("Module {0} version mismatch: {1} != {2}", module.Name, instance.ModuleVersion, module.Version);
 
         Modules.Add(instance);

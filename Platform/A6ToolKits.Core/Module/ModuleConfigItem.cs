@@ -7,10 +7,28 @@ namespace A6ToolKits.Module;
 /// </summary>
 public class ModuleConfigItem : ConfigItemBase
 {
+    /// <summary>
+    ///    空构造函数
+    /// </summary>
     public ModuleConfigItem()
     {
     }
 
+    /// <summary>
+    ///    构造函数
+    /// </summary>
+    /// <param name="name">
+    ///     模块名称
+    /// </param>
+    /// <param name="version">
+    ///     模块版本
+    /// </param>
+    /// <param name="assembly">
+    ///     模块所在程序集
+    /// </param>
+    /// <param name="target">
+    ///     目标模块类
+    /// </param>
     public ModuleConfigItem(string name, string version, string assembly, string target)
     {
         Name = name;

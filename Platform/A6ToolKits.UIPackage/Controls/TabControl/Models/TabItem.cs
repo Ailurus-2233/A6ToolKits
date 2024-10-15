@@ -9,7 +9,7 @@ public class TabItem : ControlBase
     private IImage? _icon;
     private string? _toolTip;
     private bool? _isSelected;
-    private ContentControl? _content;
+    private ContentControl _content = null!;
     private string? _groupName;
 
     public static event EventHandler<string>? Selected; 

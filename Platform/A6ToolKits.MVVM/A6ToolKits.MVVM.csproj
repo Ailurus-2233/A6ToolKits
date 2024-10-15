@@ -7,6 +7,7 @@
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageIcon>A6ToolKits.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <Version>0.1.0</Version>
     </PropertyGroup>
 
@@ -16,7 +17,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj"/>
+        <ProjectReference Include="..\A6ToolKits.Core\A6ToolKits.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -29,15 +30,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="A6ToolKits.png">
-        <Pack>True</Pack>
-        <PackagePath></PackagePath>
-      </None>
-      <None Include="..\Resources\Icon\A6ToolKits.png">
-        <Pack>True</Pack>
-        <PackagePath></PackagePath>
-        <Link>A6ToolKits.png</Link>
-      </None>
+        <None Include="..\Resources\Icon\A6ToolKits.png">
+            <Pack>True</Pack>
+            <PackagePath />
+            <Link>A6ToolKits.png</Link>
+        </None>
+        <None Include="README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
 </Project>

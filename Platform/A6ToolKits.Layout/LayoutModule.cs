@@ -14,32 +14,9 @@ namespace A6ToolKits.Layout;
 public class LayoutModule : ModuleBase
 {
     /// <summary>
-    ///     实例创建器，用于模块内部创建实例
-    /// </summary>
-    public override IInstanceHelper? Creator { get; set; } = new BaseInstanceHelper();
-
-    /// <summary>
-    ///     模块名称
-    /// </summary>
-    public override string ModuleName { get; set; } = "A6ToolKits.Layout";
-
-    /// <summary>
-    ///     模块版本
-    /// </summary>
-    public override string ModuleVersion { get; set; } = "1.0.0";
-
-    /// <summary>
-    ///     模块描述
-    /// </summary>
-    public override string ModuleDescription { get; set; } =
-        "Add Layout capabilities to A6ToolKits to automatically load layout for main window";
-    
-    
-    /// <summary>
     ///     基于配置文件生成的窗口布局
     /// </summary>
     public Window? Window { get; private set; }
-    
     
     /// <summary>
     ///     初始化布局模块，加载布局配置文件

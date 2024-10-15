@@ -5,18 +5,18 @@ using Avalonia.Controls.Primitives;
 namespace A6ToolKits.UIPackage.Controls;
 
 /// <summary>
-/// 
+///     控件基类，实现了INotifyPropertyChanged接口
 /// </summary>
 public abstract class ControlBase : TemplatedControl, INotifyPropertyChanged
 {
-    public event PropertyChangedEventHandler? PropertyChanged;
+    public new event PropertyChangedEventHandler? PropertyChanged;
 
-    public void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    public bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
     {
         if (EqualityComparer<T>.Default.Equals(field, value)) return false;
         field = value;

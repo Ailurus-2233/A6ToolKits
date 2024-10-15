@@ -32,10 +32,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="bin\Debug\net8.0\config.xml"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <None Update="Assets\avalonia-logo.ico">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
@@ -48,28 +44,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <AvaloniaXaml Remove="bin\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Remove="bin\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <EmbeddedResource Remove="bin\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <AdditionalFiles Remove="bin\**" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\..\Platform\A6ToolKits.Database\A6ToolKits.Database.csproj" />
       <ProjectReference Include="..\..\Platform\A6ToolKits.Layout\A6ToolKits.Layout.csproj" />
       <ProjectReference Include="..\..\Platform\A6ToolKits.MVVM\A6ToolKits.MVVM.csproj" />
       <ProjectReference Include="..\..\Platform\A6ToolKits.System\A6ToolKits.System.csproj" />
       <ProjectReference Include="..\..\Platform\A6ToolKits.UIPackage\A6ToolKits.UIPackage.csproj" />
-      <ProjectReference Include="..\..\Platform\A6ToolKits\A6ToolKits.csproj" />
+      <ProjectReference Include="..\..\Platform\A6ToolKits.Core\A6ToolKits.Core.csproj" />
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">

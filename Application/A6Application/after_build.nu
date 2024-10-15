@@ -26,7 +26,7 @@ mv *.dll ($target_dir + "/third-party")
 
 # The necessary DLL files need to be moved to the root directory
 let dlls = [
-    "/a6toolkits/A6ToolKits.dll",
+    "/a6toolkits/A6ToolKits.Core.dll",
     "/avalonia/Avalonia.Base.dll",
     "/avalonia/Avalonia.Controls.dll",
     "/third-party/A6Application.dll",

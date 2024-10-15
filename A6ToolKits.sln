@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIDemo", "Application\UIDem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A6Application", "Application\A6Application\A6Application.csproj", "{9EE55C2A-55B1-498D-BAA3-76E446EA7C7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A6ToolKits", "Platform\A6ToolKits\A6ToolKits.csproj", "{DD6E67DE-4B0A-474B-9E08-FC13A04DA416}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A6ToolKits.Core", "Platform\A6ToolKits.Core\A6ToolKits.Core.csproj", "{DD6E67DE-4B0A-474B-9E08-FC13A04DA416}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A6ToolKits.Database", "Platform\A6ToolKits.Database\A6ToolKits.Database.csproj", "{FED1FC85-DF46-489E-84C3-256CF4901903}"
 EndProject

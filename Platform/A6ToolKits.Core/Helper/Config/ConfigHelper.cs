@@ -19,10 +19,10 @@ public static class ConfigHelper
 
     private static List<ModuleConfigItem> DefaultModules { get; } =
     [
-        new("A6ToolKits.Core", "1.0.0", "A6ToolKits.dll", "A6ToolKits.CoreModule"),
-        new("A6ToolKits.MVVM", "1.0.0", "A6ToolKits.MVVM.dll", "A6ToolKits.MVVM.MVVMModule"),
-        new("A6ToolKits.Layout", "1.0.0", "A6ToolKits.Layout.dll", "A6ToolKits.Layout.LayoutModule"),
-        new("A6ToolKits.UIPackage", "1.0.0", "A6ToolKits.UIPackage.dll", "A6ToolKits.UIPackage.UIPackageModule")
+        new("A6ToolKits.Core", "", "A6ToolKits.Core.dll", "A6ToolKits.CoreModule"),
+        new("A6ToolKits.MVVM", "", "A6ToolKits.MVVM.dll", "A6ToolKits.MVVM.MVVMModule"),
+        new("A6ToolKits.Layout", "", "A6ToolKits.Layout.dll", "A6ToolKits.Layout.LayoutModule"),
+        new("A6ToolKits.UIPackage", "", "A6ToolKits.UIPackage.dll", "A6ToolKits.UIPackage.UIPackageModule")
     ];
 
     /// <summary>

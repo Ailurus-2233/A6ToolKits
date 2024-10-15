@@ -78,7 +78,7 @@ public class TabCollection : ControlBase
         UpdateGroupName(items, groupName);
     }
 
-    private static void UpdateGroupName(IList<TabItem> items, string groupName)
+    private static void UpdateGroupName(IList<TabItem> items, string? groupName)
     {
         foreach (var item in items)
         {
