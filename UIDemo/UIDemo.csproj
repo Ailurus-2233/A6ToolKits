@@ -27,7 +27,7 @@
       <None Include="config.xml">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="after_build.sh">
+      <None Update="after_build.nu">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>
@@ -45,6 +45,6 @@
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="cd $(TargetDir)&#xA;bash ./after_build.sh" />
+      <Exec Command="cd $(TargetDir)&#xA;nu ./after_build.nu" />
     </Target>
 </Project>

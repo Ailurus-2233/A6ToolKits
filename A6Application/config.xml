@@ -8,29 +8,16 @@
     </Libraries>
 
     <!-- List of modules that are automatically loaded -->
-    <LoadModules>
-        <Module Name="A6ToolKits.Root" Version="1.0.0" Assembly="A6ToolKits.dll" Target="A6ToolKits.Module.BaseModule"/>
+    <Modules>
+        <Module Name="A6ToolKits.Core" Version="1.0.0" Assembly="A6ToolKits.dll" Target="A6ToolKits.CoreModule"/>
         <Module Name="A6ToolKits.MVVM" Version="1.0.0" Assembly="A6ToolKits.MVVM.dll"
                 Target="A6ToolKits.MVVM.MVVMModule"/>
         <Module Name="A6ToolKits.UIPackage" Version="1.0.0" Assembly="A6ToolKits.UIPackage.dll"
                 Target="A6ToolKits.UIPackage.UIPackageModule"/>
-        <Module Name="A6ToolKits.Layout_bk" Version="1.0.0" Assembly="A6ToolKits.Layout_bk.dll"
-                Target="A6ToolKits.Layout_bk.LayoutModule"/>
-    </LoadModules>
+        <Module Name="A6ToolKits.Layout" Version="1.0.0" Assembly="A6ToolKits.Layout.dll"
+                Target="A6ToolKits.Layout.LayoutModule"/>
+    </Modules>
 
     <!-- if use layout module, you can define layout configuration here -->
-    <Layout Name="A6Application" Type="Window" Height="450" Width="600" BackgroundColor="#181818" PrimaryColor="#3377D2" 
-            Alignment="Right">
-        <Menu Height="30" Target="A6ToolKits.Layout_bk.Default.DefaultMenu" Assembly="A6ToolKits.Layout_bk.dll"/>
-        <ButtonBar Type="Icon" Height="30" Target="A6ToolKits.Layout_bk.Default.DefaultButtonBar"
-                 Assembly="A6ToolKits.Layout_bk.dll"/>
-        <Pages>
-            <Page Name="DefaultPage" Target="A6ToolKits.Layout_bk.Default.DefaultPageView" Assembly="A6ToolKits.Layout_bk.dll"
-                  Default="True"/>
-        </Pages>
-        <StatusBar Height="30" Target="A6ToolKits.Layout_bk.Default.DefaultStatusBar" Assembly="A6ToolKits.Layout_bk.dll"/>
-        <Items>
-            <Item Position="Left" Target="A6ToolKits.Layout_bk.Default.LeftItemView" Assembly="A6ToolKits.Layout_bk.dll"/>
-        </Items>
-    </Layout>
+    <Layout Assembly="UIDemo.dll" Target="UIDemo.Layout.MainLayout" />
 </Configuration>

@@ -21,14 +21,14 @@
 
     <ItemGroup>
         <AvaloniaResource Include="Assets\**"/>
-        <None Update="after_build.sh">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
         <None Update="config.xml">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <AvaloniaResource Remove="bin\**" />
         <None Remove="bin\**" />
+        <None Update="after_build.nu">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
@@ -72,6 +72,6 @@
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="cd $(TargetDir)&#xA;bash ./after_build.sh" />
+      <Exec Command="cd $(TargetDir)&#xA;nu ./after_build.nu&#xA;" />
     </Target>
 </Project>
