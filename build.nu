@@ -1,4 +1,5 @@
 # build script for A6Toolkits
+cd Platform
 
 # build all projects
 dotnet build -c Release --no-restore
@@ -6,13 +7,13 @@ dotnet build -c Debug --no-restore
 
 # Define target directories
 let root_dir = pwd
-let target_dir = $root_dir + "/Output"
+let target_dir = $root_dir + "/../Output"
 let release_dir = $target_dir + "/release"
 let debug_dir = $target_dir + "/debug"
 
 # Remove existing dll directories
-rm -r -f ($release_dir + "/dll")
-rm -r -f ($debug_dir + "/dll")
+rm -rf ($release_dir + "/dll")
+rm -rf ($debug_dir + "/dll")
 
 # Create new dll directories
 mkdir ($release_dir + "/dll")

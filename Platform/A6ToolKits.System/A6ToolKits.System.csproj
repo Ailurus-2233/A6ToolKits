@@ -5,6 +5,7 @@
         <LangVersion>12</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>A6ToolKit.System</RootNamespace>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageIcon>A6ToolKits.png</PackageIcon>
         <Version>0.1.0</Version>
@@ -12,7 +13,6 @@
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
         <WarningLevel>4</WarningLevel>
-        <DocumentationFile>bin\Debug\A6ToolKits.MVVM.xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
@@ -20,18 +20,14 @@
     </ItemGroup>
 
     <ItemGroup>
-        <UpToDateCheckInput Remove="Starter\MainPage\MainWindow.axaml"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.0"/>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0"/>
-    </ItemGroup>
-
-    <ItemGroup>
       <None Update="A6ToolKits.png">
         <Pack>True</Pack>
         <PackagePath></PackagePath>
+      </None>
+      <None Include="..\Resources\Icon\A6ToolKits.png">
+        <Pack>True</Pack>
+        <PackagePath></PackagePath>
+        <Link>A6ToolKits.png</Link>
       </None>
     </ItemGroup>
 

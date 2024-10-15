@@ -32,15 +32,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\A6ToolKits.Database\A6ToolKits.Database.csproj"/>
-        <ProjectReference Include="..\A6ToolKits.Layout\A6ToolKits.Layout.csproj" />
-        <ProjectReference Include="..\A6ToolKits.MVVM\A6ToolKits.MVVM.csproj"/>
-        <ProjectReference Include="..\A6ToolKits.System\A6ToolKits.System.csproj"/>
-        <ProjectReference Include="..\A6ToolKits.UIPackage\A6ToolKits.UIPackage.csproj"/>
-        <ProjectReference Include="..\A6ToolKits\A6ToolKits.csproj"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <Content Include="bin\Debug\net8.0\config.xml"/>
     </ItemGroup>
 
@@ -52,6 +43,7 @@
 
     <ItemGroup>
         <DocFileItem Remove="bin\Debug\A6Application.xml"/>
+        <DocFileItem Remove="bin\Debug\A6Application.xml" />
         <DocFileItem Remove="bin\Debug\A6Application.xml" />
     </ItemGroup>
 
@@ -69,6 +61,15 @@
 
     <ItemGroup>
       <AdditionalFiles Remove="bin\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Platform\A6ToolKits.Database\A6ToolKits.Database.csproj" />
+      <ProjectReference Include="..\..\Platform\A6ToolKits.Layout\A6ToolKits.Layout.csproj" />
+      <ProjectReference Include="..\..\Platform\A6ToolKits.MVVM\A6ToolKits.MVVM.csproj" />
+      <ProjectReference Include="..\..\Platform\A6ToolKits.System\A6ToolKits.System.csproj" />
+      <ProjectReference Include="..\..\Platform\A6ToolKits.UIPackage\A6ToolKits.UIPackage.csproj" />
+      <ProjectReference Include="..\..\Platform\A6ToolKits\A6ToolKits.csproj" />
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">

@@ -32,15 +32,12 @@
     </ItemGroup>
     
     <ItemGroup>
+        <Resource Include="default_config.xml"/>
         <None Include="..\Resources\Icon\A6ToolKits.png">
           <Pack>True</Pack>
-          <PackagePath>\</PackagePath>
+          <PackagePath></PackagePath>
           <Link>A6ToolKits.png</Link>
         </None>
-        <Resource Include="after_build.sh">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="default_config.xml"/>
         <None Include="readme.md" Pack="true" PackagePath="\" />
     </ItemGroup>
     
