@@ -27,6 +27,7 @@ public sealed class MaximizeAction : ActionBase
     public override Task Run()
     {
         _window.WindowState = WindowState.Maximized;
+        _window.SystemDecorations = SystemDecorations.BorderOnly;
         return Task.CompletedTask;
     }
 

@@ -1,6 +1,5 @@
-﻿using System.Drawing;
-using A6ToolKits.Layout.Definer;
-using Avalonia.Styling;
+﻿using A6ToolKits.Layout.Definer;
+using Avalonia.Media;
 
 namespace UIDemo.Layout;
 
@@ -15,7 +14,7 @@ public class MainLayout: LayoutDefiner
     public override double StatusBarHeight { get; set; } = 30;
     public override string Title { get; set; } = "UIDemo";
     
-    public override Color PrimaryColor { get; set; }
+    public override Color PrimaryColor { get; set; } = Color.Parse("#FF0000");
     public override double WindowHeight { get; set; } = 600;
     public override double WindowWidth { get; set; } = 800;
 }

@@ -1,14 +1,12 @@
-﻿using System.Drawing;
-using A6ToolKits.Common.Action;
+﻿using A6ToolKits.Common.Action;
 using A6ToolKits.Common.Action.CommonActions;
 using A6ToolKits.Common.Attributes.Layout;
 using A6ToolKits.Layout.Definer.Interfaces;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
+using Avalonia.Media;
 using Avalonia.Platform;
-using Avalonia.Styling;
-using DynamicData;
 
 namespace A6ToolKits.Layout.Definer;
 
@@ -42,12 +40,6 @@ public abstract class LayoutDefiner : IDefiner<Window>
         _window.ExtendClientAreaToDecorationsHint = true;
         _window.ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.OSXThickTitleBar;
         _window.ExtendClientAreaTitleBarHeightHint = -1;
-
-        _window.PropertyChanged += (sender, args) =>
-        {
-            if (args.Property.Name != "WindowState") return;
-            _window.Padding = _window.WindowState == WindowState.Maximized ? new Thickness(10) : new Thickness(0);
-        };
 
         _window.Height = WindowHeight;
         _window.Width = WindowWidth;
@@ -91,6 +83,8 @@ public abstract class LayoutDefiner : IDefiner<Window>
 
         _window.Content = grid;
 
+        _window.BorderThickness = new Thickness(1);
+        _window.CornerRadius = new CornerRadius(5);
         return _window;
     }
 
