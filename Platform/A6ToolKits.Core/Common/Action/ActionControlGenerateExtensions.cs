@@ -78,7 +78,7 @@ public static class ActionControlGenerateExtensions
 
     private static void SetTemplate(this Button button, ActionBase action, ButtonType type)
     {
-        // 设置水平剧中
+        // 设置水平居中
         button.HorizontalAlignment = HorizontalAlignment.Center;
 
         var image = new Image
@@ -158,7 +158,7 @@ public static class ActionControlGenerateExtensions
     ///     根据高度计算字体大小，使字符刚好可以填充按钮
     /// </summary>
     /// <param name="button"> 按钮 </param>
-    /// <returns></returns>
+    /// <returns> 字体大小 </returns>
     private static double CalculateFontSize(this Button button)
     {
         if (button.Content is not TextBlock text || text.Text == null) return double.NaN;
