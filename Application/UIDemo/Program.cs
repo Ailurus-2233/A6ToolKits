@@ -18,7 +18,7 @@ internal static class Program
     
     // 用于开发工具加载虚拟界面
     public static AppBuilder BuildAvaloniaApp()
-        => AppBuilder.Configure<BaseApp>()
+        => AppBuilder.Configure<App>()
             .UsePlatformDetect()
             .WithInterFont()
             .LogToTrace();

@@ -2,6 +2,7 @@
 using A6ToolKits.Bootstrapper;
 using A6ToolKits.Layout;
 using A6ToolKits.MVVM;
+using Avalonia;
 using Avalonia.Controls;
 
 namespace A6Application;
@@ -9,7 +10,7 @@ namespace A6Application;
 /// <summary>
 ///     启动类
 /// </summary>
-public class AppBootstrapper : BaseBootstrapper<BaseApp, Window>
+public class AppBootstrapper : BaseBootstrapper<Application, Window>
 {
     /// <summary>
     ///     重写完成方法，在完成时设置主窗体
