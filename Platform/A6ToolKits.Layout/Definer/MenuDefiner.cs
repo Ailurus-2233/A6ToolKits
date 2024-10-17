@@ -12,6 +12,8 @@ namespace A6ToolKits.Layout.Definer;
 
 public abstract class MenuDefiner : IDefiner<Menu>
 {
+    public MenuType MenuType { get; set; }
+    
     /// <summary>
     ///     根据属性中的 MenuAttribute 生成菜单项
     /// </summary>
@@ -20,14 +22,8 @@ public abstract class MenuDefiner : IDefiner<Menu>
     /// </returns>
     public Menu Build()
     {
-        var item = new MenuItem
-        {
-            Header = new Image()
-            {
-                Source = ResourceHelper.LoadImage("MenuIcon"),
-            },
-            Padding = new Thickness(0)
-        };
+
+        var menuList = new List<MenuItem>();
         var groups = GetMenuGroups();
 
         foreach (var group in groups)
@@ -38,12 +34,28 @@ public abstract class MenuDefiner : IDefiner<Menu>
             };
             var dict = Generate(1, group);
             AddResult(menuItem, dict);
-            item.Items.Add(menuItem);
+            menuList.Add(menuItem);
         }
 
         var result = new Menu();
-        result.Items.Add(item);
+        if (MenuType == MenuType.Icon) 
+        {
+            var item = new MenuItem
+            {
+                Header = new Image()
+                {
+                    Source = ResourceHelper.LoadImage("MenuIcon"),
+                },
+                Padding = new Thickness(0)
+            };
+            menuList.ForEach(menuItem => item.Items.Add(menuItem));
+            result.Items.Add(item);
+        }
         
+        if (MenuType == MenuType.Row) 
+        {
+            menuList.ForEach(menuItem => result.Items.Add(menuItem));
+        }
         return result;
     }
 
@@ -107,4 +119,19 @@ public abstract class MenuDefiner : IDefiner<Menu>
         });
         menuItem.Items.RemoveAt(menuItem.Items.Count - 1);
     }
+}
+
+/// <summary>
+///     菜单样式的类型
+/// </summary>
+public enum MenuType 
+{
+    /// <summary>
+    ///     可以点击的图标，点击后显示一级菜单
+    /// </summary>
+    Icon,
+    /// <summary>
+    ///     一级菜单平铺为一行
+    /// </summary>
+    Row
 }

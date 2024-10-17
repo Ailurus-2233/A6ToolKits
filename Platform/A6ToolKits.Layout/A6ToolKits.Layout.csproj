@@ -11,6 +11,11 @@
         <Version>0.1.0</Version>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DocumentationFile>bin\Debug\A6ToolKits.Layout.xml</DocumentationFile>
+      <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+
     <ItemGroup>
         <ProjectReference Include="..\A6ToolKits.Core\A6ToolKits.Core.csproj" />
     </ItemGroup>

@@ -10,51 +10,67 @@ using Avalonia.Platform;
 
 namespace A6ToolKits.Layout.Definer;
 
-public abstract class LayoutDefiner : IDefiner<Window>
-{
+public abstract class LayoutDefiner : IDefiner<Window> {
     private readonly Window _window = new();
-
-    public abstract MenuDefiner MenuDefiner { get; set; }
-
-    public abstract ToolBarDefiner ToolBarDefiner { get; set; }
-
+    public abstract TopBarDefiner TopBarDefiner { get; set; }
     public abstract StatusBarDefiner StatusBarDefiner { get; set; }
 
     public abstract PageDefiner PageDefiner { get; set; }
 
-    public abstract double HeaderHeight { get; set; }
+    public Control TopContainer { get; set; }
 
-    public abstract double ToolBarHeight { get; set; }
+    public Control BottomContainer { get; set; }
+
+    public Control CenterContainer { get; set; }
 
     public abstract double StatusBarHeight { get; set; }
 
     public abstract string Title { get; set; }
-    
+
     public abstract Color PrimaryColor { get; set; }
-    
+
     public abstract double WindowHeight { get; set; }
     public abstract double WindowWidth { get; set; }
 
-    public Window Build()
-    {
-        _window.ExtendClientAreaToDecorationsHint = true;
+    public abstract TopBarType TopBarType { get; set; }
+
+    /// <summary>
+    ///     根据定义器生成自定义窗口
+    /// </summary>
+    /// <returns>
+    ///     最终展示的窗口
+    /// </returns>
+    /// <exception cref="IndexOutOfRangeException">
+    ///    未知的 HeaderBarType 类型
+    /// </exception>
+    public Window Build() {
+        switch (TopBarType) {
+            case TopBarType.Default:
+                _window.ExtendClientAreaToDecorationsHint = false;
+                _window.ExtendClientAreaTitleBarHeightHint = 0;
+                break;
+            case TopBarType.Defined:
+            case TopBarType.Custom:
+                _window.ExtendClientAreaToDecorationsHint = true;
+                _window.ExtendClientAreaTitleBarHeightHint = -1;
+                break;
+            default:
+                throw new IndexOutOfRangeException("未知的 TopBarType 类型");
+        }
         _window.ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.OSXThickTitleBar;
-        _window.ExtendClientAreaTitleBarHeightHint = -1;
 
         _window.Height = WindowHeight;
         _window.Width = WindowWidth;
 
-        var grid = new Grid
-        {
-            Name = "MainGrid",
-            RowDefinitions = new RowDefinitions($"Auto,Auto,*,Auto,{StatusBarHeight}")
+        var grid = new Grid {
+            Name = DefinerResources.MainGridName,
+            RowDefinitions = new RowDefinitions("Auto,Auto,*,Auto,Auto")
         };
-
-        var topContainer = BuildTopContainer();
+        
+        var topContainer = TopBarDefiner.Build();
         Grid.SetRow(topContainer, 0);
 
-        var splitLine1 = new Separator
-        {
+        var splitLine1 = new Separator {
             Width = double.NaN,
             Height = 1,
             Margin = new Thickness(0)
@@ -64,8 +80,7 @@ public abstract class LayoutDefiner : IDefiner<Window>
         var page = PageDefiner.Build();
         Grid.SetRow(page, 2);
 
-        var splitLine2 = new Separator
-        {
+        var splitLine2 = new Separator {
             Width = double.NaN,
             Height = 1,
             Margin = new Thickness(0)
@@ -86,112 +101,5 @@ public abstract class LayoutDefiner : IDefiner<Window>
         _window.BorderThickness = new Thickness(1);
         _window.CornerRadius = new CornerRadius(5);
         return _window;
-    }
-
-    private Grid BuildHeaderBar()
-    {
-        var result = new Grid
-        {
-            ColumnDefinitions = new ColumnDefinitions("*,*,*")
-        };
-
-        var left = new StackPanel()
-        {
-            Orientation = Orientation.Horizontal
-        };
-        var menu = MenuDefiner.Build();
-        menu.Height = HeaderHeight - 2;
-        menu.Width = HeaderHeight - 2;
-        menu.Padding = new Thickness(5);
-        left.Children.Add(menu);
-        Grid.SetColumn(left, 0);
-        result.Children.Add(left);
-
-        var right = new StackPanel
-        {
-            Orientation = Orientation.Horizontal,
-            HorizontalAlignment = HorizontalAlignment.Right,
-            VerticalAlignment = VerticalAlignment.Center
-        };
-
-        var minusButton = new MinusAction().GenerateButton(ButtonType.Icon);
-        var closeButton = new CloseAction().GenerateButton(ButtonType.Icon);
-        var maximizeAction = new MaximizeAction(_window);
-        var maximizeButton = maximizeAction.GenerateButton(ButtonType.Icon);
-        var windowAction = new WindowAction(_window);
-        var windowButton = windowAction.GenerateButton(ButtonType.Icon);
-
-        minusButton.Height = HeaderHeight - 8;
-        minusButton.Margin = new Thickness(4);
-        closeButton.Height = HeaderHeight - 8;
-        closeButton.Margin = new Thickness(4);
-        maximizeButton.Height = HeaderHeight - 8;
-        maximizeButton.Margin = new Thickness(4);
-        windowButton.Height = HeaderHeight - 8;
-        windowButton.Margin = new Thickness(4);
-
-        right.Children.Add(minusButton);
-        right.Children.Add(maximizeButton);
-        right.Children.Add(windowButton);
-        right.Children.Add(closeButton);
-
-        Grid.SetColumn(right, 2);
-        result.Children.Add(right);
-
-        maximizeButton.IsVisible = maximizeButton.IsEnabled;
-        maximizeAction.CanRunChanged += (_, _) =>
-        {
-            maximizeButton.IsVisible = maximizeButton.IsEnabled;
-            maximizeButton.Height = HeaderHeight - 8;
-            maximizeButton.Margin = new Thickness(4);
-        };
-
-        windowButton.IsVisible = windowButton.IsEnabled;
-        windowAction.CanRunChanged += (_, _) =>
-        {
-            windowButton.IsVisible = windowButton.IsEnabled;
-            windowButton.Height = HeaderHeight - 8;
-            windowButton.Margin = new Thickness(4);
-        };
-
-        var title = new TextBlock
-        {
-            Text = Title,
-            VerticalAlignment = VerticalAlignment.Center,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            IsEnabled = false
-        };
-        title.SetValue(Visual.ZIndexProperty, -1);
-        Grid.SetColumn(title, 1);
-        result.Children.Add(title);
-
-        return result;
-    }
-
-    private Grid BuildTopContainer()
-    {
-        var result = new Grid
-        {
-            RowDefinitions = new RowDefinitions($"{HeaderHeight},Auto,{ToolBarHeight}")
-        };
-
-        var headerBar = BuildHeaderBar();
-        Grid.SetRow(headerBar, 0);
-        result.Children.Add(headerBar);
-
-        var splitLine = new Separator
-        {
-            Width = double.NaN,
-            Height = 1,
-            Margin = new Thickness(0)
-        };
-        Grid.SetRow(splitLine, 1);
-        result.Children.Add(splitLine);
-
-        var toolBar = ToolBarDefiner.Build();
-        Grid.SetRow(toolBar, 2);
-        result.Children.Add(toolBar);
-
-        return result;
     }
 }
