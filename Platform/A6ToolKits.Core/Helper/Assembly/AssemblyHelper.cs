@@ -97,4 +97,29 @@ public static class AssemblyHelper
         });
         return result;
     }
+    
+    /// <summary>
+    ///     获取所有包含指定特性的类型
+    /// </summary>
+    /// <typeparam name="T">
+    ///     特性类型
+    /// </typeparam>
+    /// <returns>
+    ///     返回包含指定特性的类型
+    /// </returns>
+    public static List<Type> GetTypeWithAttribute<T>() where T : Attribute
+    {
+        var result = new List<Type>();
+        AssemblyPaths.ForEach(path =>
+        {
+            var files = Directory.GetFiles(path, "*.dll");
+            foreach (var file in files)
+            {
+                var assembly = SysAssembly.LoadFrom(file);
+                var types = assembly.GetTypes();
+                result.AddRange(types.Where(t => t.GetCustomAttribute<T>() != null));
+            }
+        });
+        return result;
+    }
 }

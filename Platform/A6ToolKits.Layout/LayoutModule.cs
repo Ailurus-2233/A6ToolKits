@@ -1,9 +1,7 @@
 ﻿using A6ToolKits.Common.Attributes.MVVM;
-using A6ToolKits.Helper.Instance;
+using A6ToolKits.Layout.Generator;
 using A6ToolKits.Module;
-using Avalonia;
 using Avalonia.Controls;
-using Serilog;
 
 namespace A6ToolKits.Layout;
 
@@ -16,17 +14,22 @@ public class LayoutModule : ModuleBase
     /// <summary>
     ///     基于配置文件生成的窗口布局
     /// </summary>
-    public Window? Window { get; private set; }
-    
+    public Window? Window => WindowGenerator.Window;
+
     /// <summary>
     ///     初始化布局模块，加载布局配置文件
     /// </summary>
-    /// <exception cref="Exception">
-    ///     布局加载失败
-    /// </exception>
     protected override void Initialize()
     {
-        Generator.Creator = Creator;
-        Window = Generator.GenerateLayout();
+        WindowGenerator.Creator = Creator;
+        WindowGenerator.GenerateWindow();
+    }
+
+    /// <summary>
+    ///     重新生成窗口
+    /// </summary>
+    public void RegenerateWindow()
+    {
+        WindowGenerator.GenerateWindow();
     }
 }

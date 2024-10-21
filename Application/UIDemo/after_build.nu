@@ -35,7 +35,7 @@ let dlls = [
 ]
 
 for dll in $dlls {
-    cp ($target_dir + $dll) .
+    mv ($target_dir + $dll) .
 }
 
 rm -f after_build.nu

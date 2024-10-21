@@ -63,9 +63,9 @@ public abstract class MenuDefiner : IDefiner<Menu>
     {
         var dict = new Dictionary<int, List<MenuItem>>();
 
-        var properties = group.Where(p => p.GetCustomAttribute<MenuAttribute>()?.Path.Length == index);
-        var groups = group.Where(p => p.GetCustomAttribute<MenuAttribute>()?.Path.Length > index)
-            .GroupBy(p => p.GetCustomAttribute<MenuAttribute>()?.Path[index].ItemName);
+        var properties = group.Where(p => p.GetCustomAttribute<MenuActionAttribute>()?.Path.Length == index);
+        var groups = group.Where(p => p.GetCustomAttribute<MenuActionAttribute>()?.Path.Length > index)
+            .GroupBy(p => p.GetCustomAttribute<MenuActionAttribute>()?.Path[index].ItemName);
 
         foreach (var next in groups)
         {
@@ -77,7 +77,7 @@ public abstract class MenuDefiner : IDefiner<Menu>
             var children = Generate(index + 1, next);
             AddResult(menuItem, children);
 
-            var key = next.First().GetCustomAttribute<MenuAttribute>()?.Path[index - 1].Order;
+            var key = next.First().GetCustomAttribute<MenuActionAttribute>()?.Path[index - 1].Order;
             if (key == null) continue;
             AddKeyValue(key.Value, menuItem);
         }
@@ -86,7 +86,7 @@ public abstract class MenuDefiner : IDefiner<Menu>
         {
             if (property.GetValue(this) is not ActionBase temp) continue;
             var menuItem = temp.GenerateMenuItem();
-            var key = property.GetCustomAttribute<MenuAttribute>()?.Path[index - 1].Order;
+            var key = property.GetCustomAttribute<MenuActionAttribute>()?.Path[index - 1].Order;
             if (key == null) continue;
             AddKeyValue(key.Value, menuItem);
         }
@@ -106,8 +106,8 @@ public abstract class MenuDefiner : IDefiner<Menu>
 
     private IEnumerable<IGrouping<string, PropertyInfo>> GetMenuGroups()
     {
-        var menuProperties = GetType().GetProperties().Where(p => p.GetCustomAttribute<MenuAttribute>() != null);
-        return menuProperties.GroupBy(p => p.GetCustomAttribute<MenuAttribute>()!.Path[0].ItemName);
+        var menuProperties = GetType().GetProperties().Where(p => p.GetCustomAttribute<MenuActionAttribute>() != null);
+        return menuProperties.GroupBy(p => p.GetCustomAttribute<MenuActionAttribute>()!.Path[0].ItemName);
     }
 
     private static void AddResult(MenuItem menuItem, Dictionary<int, List<MenuItem>> children)

@@ -18,8 +18,8 @@ public abstract class ToolBarDefiner : IDefiner<StackPanel>
         {
             Orientation = Orientation.Horizontal
         };
-        var properties = GetType().GetProperties().Where(p => p.GetCustomAttribute<ToolBarAttribute>() != null);
-        var groups = properties.GroupBy(p => p.GetCustomAttribute<ToolBarAttribute>()?.Group);
+        var properties = GetType().GetProperties().Where(p => p.GetCustomAttribute<ToolBarActionAttribute>() != null);
+        var groups = properties.GroupBy(p => p.GetCustomAttribute<ToolBarActionAttribute>()?.Group);
 
         foreach (var group in groups)
         {

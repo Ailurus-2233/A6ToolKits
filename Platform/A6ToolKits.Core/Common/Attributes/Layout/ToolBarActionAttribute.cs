@@ -15,8 +15,8 @@ namespace A6ToolKits.Common.Attributes.Layout;
 ///     位置，生成 ToolBar 时，根据位置将按钮放置到对应的位置，默认为左侧
 ///     TODO 目前只能在左侧放置，右侧暂未实现
 /// </param>
-[AttributeUsage(AttributeTargets.Property)]
-public class ToolBarAttribute(int group, string type, string position = "Left")
+[AttributeUsage(AttributeTargets.Class, Inherited = false)]
+public class ToolBarActionAttribute(int group, string type, string position = "Left")
     : Attribute
 {
     /// <summary>

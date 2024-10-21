@@ -6,7 +6,7 @@ namespace A6ToolKits.Common.Attributes.Layout;
 ///     状态栏属性，标记到一个 UserControl 的属性上，用于生成 StatusBar
 /// </summary>
 /// <param name="position"></param>
-[AttributeUsage(AttributeTargets.Property)]
+[AttributeUsage(AttributeTargets.Class, Inherited = false)]
 public class StatusBarAttribute(string position) : Attribute
 {
     /// <summary>

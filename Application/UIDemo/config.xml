@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Configuration>
-    <!-- The path to load assemblies  -->
+    <!-- The path to load assemblies, like the path of the third-party libraries -->
     <Libraries>
         <Path Path="./Libraries/a6toolkits"/>
         <Path Path="./Libraries/avalonia"/>
         <Path Path="./Libraries/third-party"/>
     </Libraries>
-    
+
     <!-- List of modules that are automatically loaded -->
     <Modules>
         <Module Name="A6ToolKits.Core" Assembly="A6ToolKits.Core.dll" Target="A6ToolKits.CoreModule"/>
         <Module Name="A6ToolKits.MVVM" Assembly="A6ToolKits.MVVM.dll" Target="A6ToolKits.MVVM.MVVMModule"/>
-        <Module Name="A6ToolKits.UIPackage" Assembly="A6ToolKits.UIPackage.dll" Target="A6ToolKits.UIPackage.UIPackageModule"/>        
+        <Module Name="A6ToolKits.UIPackage" Assembly="A6ToolKits.UIPackage.dll"
+                Target="A6ToolKits.UIPackage.UIPackageModule"/>
         <Module Name="A6ToolKits.Layout" Assembly="A6ToolKits.Layout.dll" Target="A6ToolKits.Layout.LayoutModule"/>
     </Modules>
-    
-    <!-- if use layout module, you can define layout configuration here -->
-    <Layout Assembly="UIDemo.dll" Target="UIDemo.Layout.MainLayout" />
+
+    <!-- If you use layout module, the following configuration item will be used to generate a window -->
+    <Window Title="UIDemo" BorderStyle="A6ToolKits" Width="800" Height="600" PrimaryColor="#A6E3A1" />
 </Configuration>
