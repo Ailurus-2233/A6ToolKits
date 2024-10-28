@@ -5,8 +5,8 @@ using Avalonia.Media;
 
 namespace UIDemo.Layout.Actions;
 
-// [MenuAction("文件:1")]
-// [ToolBarAction(1, "Initials")]
+[MenuAction("文件:1")]
+[ToolBarAction(1, "Initials")]
 public class OpenFile : ActionBase
 {
     public override string? Name { get; init; } = "打开文件";

@@ -14,7 +14,7 @@ namespace A6ToolKits.Layout.Controls;
 /// <summary>
 ///     标题栏
 /// </summary>
-public class HeaderBar : UserControl
+public class HeaderBar_bk : UserControl
 {
     private bool _isDragging;
     private Point _startPosition;
@@ -40,7 +40,7 @@ public class HeaderBar : UserControl
     /// <summary>
     ///     标题栏构造函数
     /// </summary>
-    public HeaderBar(Control leftControl, Control centerControl, Control? rightControl)
+    public HeaderBar_bk(Control leftControl, Control centerControl, Control? rightControl)
     {
         HeaderBarBorder = new Border
         {

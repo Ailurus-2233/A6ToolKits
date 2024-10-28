@@ -1,0 +1,14 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="A6ToolKits.Layout.Controls.StatusBar">
+    <DockPanel x:Name="StatusBarPanel">
+        <StackPanel x:Name="LeftStatusBar" DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Left"
+                    Margin="3,0,0,0" />
+        <StackPanel x:Name="RightStatusBar" DockPanel.Dock="Right" VerticalAlignment="Center"
+                    HorizontalAlignment="Right" Margin="0,0,3,0" />
+        <StackPanel x:Name="CenterStatusBar" VerticalAlignment="Center" HorizontalAlignment="Center" />
+    </DockPanel>
+</UserControl>

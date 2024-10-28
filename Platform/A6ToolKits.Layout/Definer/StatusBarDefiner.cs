@@ -42,7 +42,7 @@ public abstract class StatusBarDefiner : IDefiner<DockPanel>
 
         var properties = GetType().GetProperties().Where(p =>
         {
-            var attr = p.GetCustomAttribute<StatusBarAttribute>();
+            var attr = p.GetCustomAttribute<StatusBarItemAttribute>();
             return attr != null && attr.Position == position;
         });
 

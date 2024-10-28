@@ -17,5 +17,5 @@
     </Modules>
 
     <!-- If you use layout module, the following configuration item will be used to generate a window -->
-    <Window Title="UIDemo" BorderStyle="A6ToolKits" Width="800" Height="600" PrimaryColor="#A6E3A1" />
+    <Window Title="UIDemo" BorderStyle="Origin" Width="800" Height="600" PrimaryColor="#A6E3A1" BackgroundColor="#FFFFFF" />
 </Configuration>

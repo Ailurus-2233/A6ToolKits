@@ -5,8 +5,8 @@ using Avalonia.Media;
 
 namespace UIDemo.Layout.Actions;
 
-// [MenuAction("文件:0")]
-// [ToolBarAction(0, "Initials")]
+[MenuAction("文件:0")]
+[ToolBarAction(0, "Initials")]
 public class NewFolder : ActionBase
 {
     public override string? Name { get; init; } = "新建文件夹";

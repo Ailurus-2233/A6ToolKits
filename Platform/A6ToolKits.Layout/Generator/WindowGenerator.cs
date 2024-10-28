@@ -1,7 +1,9 @@
 ﻿using A6ToolKits.Helper.Config;
 using A6ToolKits.Helper.Instance;
-using A6ToolKits.Layout.ControlGenerator.Enums;
+using A6ToolKits.Layout.Controls;
 using A6ToolKits.Layout.Controls.Container;
+using A6ToolKits.Layout.Controls.LayoutWindow;
+using A6ToolKits.Layout.Generator.Enums;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
@@ -33,78 +35,13 @@ internal static class WindowGenerator
         var configItem = new LayoutConfigItem();
         configItem.GenerateFromXmlNode(layoutConfigItem);
         configItem.SetToResources();
-
-        Window = new Window
+        
+        Window = WindowConfig.BorderStyle switch
         {
-            Title = WindowConfig.Title,
-            Height = WindowConfig.Height,
-            Width = WindowConfig.Width,
-            Background = Brushes.Transparent,
+            WindowBorderType.Origin => new OriginWindow(),
+            WindowBorderType.Default => new DefaultWindow(),
+            WindowBorderType.None => new NoneBorderWindow(),
+            _ => throw new IndexOutOfRangeException("未知的 TopBarType 类型")
         };
-
-        switch (WindowConfig.BorderStyle) {
-            case WindowBorderType.Default:
-                Window.ExtendClientAreaToDecorationsHint = false;
-                Window.ExtendClientAreaTitleBarHeightHint = 0;
-                break;
-            case WindowBorderType.A6ToolKits:
-            case WindowBorderType.None:
-                Window.ExtendClientAreaToDecorationsHint = true;
-                Window.ExtendClientAreaTitleBarHeightHint = -1;
-                Window.SystemDecorations = SystemDecorations.None;
-                break;
-            default:
-                throw new IndexOutOfRangeException("未知的 TopBarType 类型");
-        }
-        
-        var grid = new Grid {
-            RowDefinitions = new RowDefinitions("Auto,Auto,*,Auto,Auto")
-        };
-        var windowBorder = new Border
-        {
-            Background = Brushes.White,
-            Child = grid,
-            BorderBrush = new SolidColorBrush(WindowConfig.PrimaryColor),
-            BorderThickness = new Thickness(1),
-            CornerRadius = new CornerRadius(5)
-        };
-
-        var topContainer = Creator?.GetOrCreateInstance<TopContainer>();
-        var mainContainer = Creator?.GetOrCreateInstance<MainContainer>();
-        var bottomContainer = Creator?.GetOrCreateInstance<BottomContainer>();
-        
-        topContainer?.GenerateTopContainer();
-        topContainer?.SetValue(StyledElement.NameProperty, "TopContainer");
-        mainContainer?.GenerateMainContainer();
-        mainContainer?.SetValue(StyledElement.NameProperty, "MainContainer");
-        bottomContainer?.GenerateBottomContainer();
-        bottomContainer?.SetValue(StyledElement.NameProperty, "BottomContainer");
-        
-        Grid.SetRow(topContainer!, 0);
-        Grid.SetRow(mainContainer!, 2);
-        Grid.SetRow(bottomContainer!, 4);
-        
-        var splitLine1 = new Separator {
-            Width = double.NaN,
-            Height = 1,
-            Margin = new Thickness(0)
-        };
-        
-        var splitLine2 = new Separator {
-            Width = double.NaN,
-            Height = 1,
-            Margin = new Thickness(0)
-        };
-        
-        Grid.SetRow(splitLine1, 1);
-        Grid.SetRow(splitLine2, 3);
-        
-        grid.Children.Add(topContainer!);
-        grid.Children.Add(splitLine1);
-        grid.Children.Add(mainContainer!);
-        grid.Children.Add(splitLine2);
-        grid.Children.Add(bottomContainer!);
-        
-        Window.Content = windowBorder;
     }
 }

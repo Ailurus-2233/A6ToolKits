@@ -3,7 +3,7 @@ using Avalonia.Controls;
 
 namespace UIDemo.Layout.StatusBars;
 
-[StatusBar("Left")]
+[StatusBarItem(StatusPosition.Left, 0)]
 public partial class LeftStatusBar : UserControl
 {
     public LeftStatusBar()

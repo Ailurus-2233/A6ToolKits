@@ -1,4 +1,4 @@
-﻿namespace A6ToolKits.Layout.ControlGenerator.Enums;
+﻿namespace A6ToolKits.Layout.Generator.Enums;
 
 /// <summary>
 ///     菜单类型

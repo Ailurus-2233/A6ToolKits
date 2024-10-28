@@ -1,7 +1,9 @@
-﻿using A6ToolKits.Common.Attributes.MVVM;
+﻿using A6ToolKits.Bootstrapper;
+using A6ToolKits.Common.Attributes.MVVM;
 using A6ToolKits.Layout.Generator;
 using A6ToolKits.Module;
 using Avalonia.Controls;
+using Avalonia.Styling;
 
 namespace A6ToolKits.Layout;
 
@@ -23,6 +25,14 @@ public class LayoutModule : ModuleBase
     {
         WindowGenerator.Creator = Creator;
         WindowGenerator.GenerateWindow();
+        var controller = BootstrapperService.Instance.ApplicationController;
+        if (controller != null)
+        {
+            controller.Window = WindowGenerator.Window;
+            controller.Theme = ThemeVariant.Light;
+        }
+        else
+            throw new NullReferenceException("BootstrapperService.Instance.ApplicationController is null");
     }
 
     /// <summary>

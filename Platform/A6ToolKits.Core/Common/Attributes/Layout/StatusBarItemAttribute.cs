@@ -7,12 +7,17 @@ namespace A6ToolKits.Common.Attributes.Layout;
 /// </summary>
 /// <param name="position"></param>
 [AttributeUsage(AttributeTargets.Class, Inherited = false)]
-public class StatusBarAttribute(string position) : Attribute
+public class StatusBarItemAttribute(StatusPosition position, int order) : Attribute
 {
     /// <summary>
     ///     状态栏位置，生成 StatusBar 时，根据位置将控件放置到对应的位置
     /// </summary>
-    public StatusPosition Position { get; set; } = Enum.Parse<StatusPosition>(position);
+    public StatusPosition Position { get; set; } = position;
+    
+    /// <summary>
+    ///     序列
+    /// </summary>
+    public int Order { get; set; } = order;
 }
 
 /// <summary>
@@ -28,5 +33,10 @@ public enum StatusPosition
     /// <summary>
     ///     状态栏右侧
     /// </summary>
-    Right
+    Right,
+    
+    /// <summary>
+    ///     状态栏中间
+    /// </summary>
+    Center,
 }

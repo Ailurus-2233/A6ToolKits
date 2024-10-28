@@ -1,7 +1,7 @@
 ﻿using A6ToolKits.Helper.Config;
 using A6ToolKits.Layout.ControlGenerator;
-using A6ToolKits.Layout.ControlGenerator.Enums;
 using A6ToolKits.Layout.Generator;
+using A6ToolKits.Layout.Generator.Enums;
 using Avalonia.Media;
 
 namespace A6ToolKits.Layout;
@@ -36,38 +36,22 @@ public class LayoutConfigItem : ConfigItemBase
     /// </summary>
     public string PrimaryColor { get; set; } = "";
 
+    /// <summary>
+    ///     窗口背景色
+    /// </summary>
+    public string BackgroundColor { get; set; } = "";
+
     internal void SetToResources()
     {
-        if (!string.IsNullOrWhiteSpace(Title))
-        {
-            WindowConfig.Title = Title;
-        }
-
-        if (!string.IsNullOrWhiteSpace(Width))
-        {
-            WindowConfig.Width = double.Parse(Width);
-        }
-
-        if (!string.IsNullOrWhiteSpace(Height))
-        {
-            WindowConfig.Height = double.Parse(Height);
-        }
-
-        if (!string.IsNullOrWhiteSpace(PrimaryColor))
-        {
-            WindowConfig.PrimaryColor = Color.Parse(PrimaryColor);
-        }
-
-        if (!string.IsNullOrWhiteSpace(BorderStyle))
-        {
-            try
-            {
-                WindowConfig.BorderStyle = Enum.Parse<WindowBorderType>(BorderStyle);
-            }
-            catch
-            {
-                WindowConfig.BorderStyle = WindowBorderType.Default;
-            }
-        }
+        WindowConfig.Title = !string.IsNullOrEmpty(Title) ? Title : string.Empty;
+        WindowConfig.Width = !string.IsNullOrEmpty(Width) ? double.Parse(Width) : 0;
+        WindowConfig.Height = !string.IsNullOrEmpty(Height) ? double.Parse(Height) : 0;
+        WindowConfig.PrimaryColor =
+            Color.TryParse(PrimaryColor, out var primaryColor) ? primaryColor : Colors.CornflowerBlue;
+        WindowConfig.BackgroundColor =
+            Color.TryParse(BackgroundColor, out var backgroundColor) ? backgroundColor : Colors.Wheat;
+        WindowConfig.BorderStyle = Enum.TryParse<WindowBorderType>(BorderStyle, out var borderStyle)
+            ? borderStyle
+            : WindowBorderType.Default;
     }
 }

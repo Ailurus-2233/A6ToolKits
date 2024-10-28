@@ -29,4 +29,19 @@
         <None Include="README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="Controls\LayoutWindow\DefaultWindow.axaml.cs">
+        <DependentUpon>CustomWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Controls\LayoutWindow\OriginWindow.axaml.cs">
+        <DependentUpon>DefaultWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Controls\StatusBar.axaml.cs">
+        <DependentUpon>StatusBar.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
+
 </Project>

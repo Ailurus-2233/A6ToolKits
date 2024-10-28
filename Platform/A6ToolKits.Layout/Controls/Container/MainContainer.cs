@@ -5,12 +5,8 @@ namespace A6ToolKits.Layout.Controls.Container;
 /// <summary>
 ///     主容器
 /// </summary>
-[AutoRegister(typeof(TopContainer), RegisterType.Singleton)]
-public class MainContainer: UserControl
+[AutoRegister(typeof(MainContainer), RegisterType.Singleton)]
+public sealed class MainContainer: UserControl
 {
-
-    public void GenerateMainContainer()
-    {
-        
-    }
+    
 }
