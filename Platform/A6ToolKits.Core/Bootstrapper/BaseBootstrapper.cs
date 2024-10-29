@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using A6ToolKits.Bootstrapper.Extensions;
 using A6ToolKits.Bootstrapper.Interfaces;
-using A6ToolKits.Helper;
 using A6ToolKits.Helper.Assembly;
 using A6ToolKits.Helper.Logger;
 using A6ToolKits.Module;
@@ -24,56 +23,29 @@ namespace A6ToolKits.Bootstrapper;
 /// <typeparam name="TWindow">
 ///     主窗体类型，指定一个 Window 类型作为主窗体
 /// </typeparam>
-public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, IApplicationController
+public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, IBootstrapperController
     where TApplication : Application, new()
     where TWindow : Window, new()
 {
-    private ThemeVariant _theme = ThemeVariant.Default;
-
-    /// <summary>
-    ///    主题设置，默认为 Dark
-    /// </summary>
-    public ThemeVariant Theme
-    {
-        get => _theme;
-        set
-        {
-            if (value == _theme) return;
-            _theme = value;
-            if (MainWindow != null)
-                MainWindow.RequestedThemeVariant = _theme;
-
-        }
-    }
-
     /// <summary>
     ///     主窗体对象，通过修改此属性可以设置主窗体，但已经显示的窗体无法修改
     /// </summary>
-    public TWindow? MainWindow { get; set; }
+    private TWindow? _mainWindow;
 
-    /// <summary>
-    ///     通用窗口接口
-    /// </summary>
-    public Window? Window
-    {
-        get => MainWindow;
-        set => MainWindow = (TWindow?)value;
-    }
-    
     /// <summary>
     ///     构造器，用于子类进行扩展修改
     /// </summary>
-    public AppBuilder? AppBuilder { get; set; }
-    
+    private AppBuilder? _appBuilder;
+
     /// <summary>
     ///     执行 Avalonia 应用的参数
     /// </summary>
-    public string[]? RunArguments { get; set; }
-    
+    private string[]? _runArguments;
+
     /// <summary>
     ///     Avalonia 桌面应用的生命周期 
     /// </summary>
-    public ClassicDesktopStyleApplicationLifetime? ApplicationLifetime { get; set; }
+    private ClassicDesktopStyleApplicationLifetime? _lifetime;
 
     /// <summary>
     ///     加载步骤1-初始化：在应用启动前需要进行的一些配置，这里进行了程序集加载和
@@ -81,19 +53,10 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, IApplicati
     /// </summary>
     public virtual void Initialize()
     {
-        BootstrapperService.Instance.ApplicationController = this;
-        // 加载程序集
         AssemblyHelper.LoadAssemblyPath();
-        AppDomain.CurrentDomain.AssemblyResolve += AssemblyHelper.OnResolveAssembly;
-
-        // 初始化日志记录器
         LoggerHelper.InitializeConsoleLogger(LogEventLevel.Verbose);
-
-        Log.Information($"Initializing Application: {MainWindow?.Title ?? "A6ToolKits Application"}");
-
-        // 自动加载配置文件中Assembly路径
-        Log.Information("Loading Assembly Path from configuration file");
-
+        CoreService.Instance.Initialize(this);
+        Log.Information($"Initializing Application: {_mainWindow?.Title ?? "A6ToolKits Application"}");
         Log.Information("Finish Initializing Application.");
     }
 
@@ -106,8 +69,6 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, IApplicati
     {
         Log.Information("Configuring Application: Config Avalonia builder & lifetime");
         AvaloniaConfigure();
-        // 加载模块
-        ModuleLoader.LoadModules();
     }
 
     /// <summary>
@@ -117,17 +78,17 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, IApplicati
     {
         // 如果是 Debug 模式，则启用Avalonia的日志记录
         if (Debugger.IsAttached)
-            AppBuilder = AppBuilder
+            _appBuilder = AppBuilder
                 .Configure<TApplication>()
                 .UsePlatformDetect()
                 .LogToTrace();
         else
-            AppBuilder = AppBuilder
+            _appBuilder = AppBuilder
                 .Configure<TApplication>()
                 .UsePlatformDetect();
-        
-        ApplicationLifetime = LifetimeExtensions.PrepareLifetime(AppBuilder, RunArguments ?? [], null);
-        AppBuilder.SetupWithLifetime(ApplicationLifetime);
+
+        _lifetime = LifetimeExtensions.PrepareLifetime(_appBuilder, _runArguments ?? [], null);
+        _appBuilder.SetupWithLifetime(_lifetime);
     }
 
     /// <summary>
@@ -136,19 +97,17 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, IApplicati
     /// </summary>
     public virtual void OnCompleted()
     {
-        if (ApplicationLifetime == null) return;
-        MainWindow ??= new TWindow();
-        MainWindow.RequestedThemeVariant = Theme;
-        ApplicationLifetime.MainWindow = MainWindow;
+        if (_lifetime == null) return;
+        _mainWindow ??= new TWindow();
+        _lifetime.MainWindow = _mainWindow;
         Log.Information("Finish Configuring Application.");
-
         if (Debugger.IsAttached)
         {
-            MainWindow.AttachDevTools();
+            _mainWindow.AttachDevTools();
         }
-        
+
         Log.Information("Starting Application...");
-        ApplicationLifetime.Start(RunArguments ?? []);
+        _lifetime.Start(_runArguments ?? []);
     }
 
     /// <summary>
@@ -164,9 +123,47 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, IApplicati
     /// </summary>
     public virtual void StopApplication()
     {
-        ApplicationLifetime?.Shutdown();
+        _lifetime?.Shutdown();
     }
-    
+
+    /// <summary>
+    ///     获取主要窗口
+    /// </summary>
+    /// <returns>
+    ///     如果内部窗口字段不为空，则返回内部窗口，否则返回一个新的窗口
+    /// </returns>
+    public Window GetMainWindow() => _mainWindow ??= new TWindow();
+
+    /// <summary>
+    ///     设置主要窗口，仅在初始化之前可以设置
+    /// </summary>
+    /// <param name="mainWindow">
+    ///     输入的主要窗口
+    /// </param>
+    public void SetupMainWindow(Window mainWindow)
+    {
+        if (_mainWindow != null) 
+            throw new InvalidOperationException("The main window already set.");
+        if (mainWindow is TWindow window)
+            _mainWindow = window;
+        else
+            throw new InvalidOperationException("The main window is not of type TWindow.");
+    }
+
+    /// <summary>
+    ///     设置应用的主题
+    /// </summary>
+    /// <param name="theme">
+    ///     输入的主题：Light,Dark,Default
+    /// </param>
+    public void SetupTheme(ThemeVariant theme)
+    {
+        if (_mainWindow != null)
+            _mainWindow.RequestedThemeVariant = theme;
+        if (Application.Current != null) 
+            Application.Current.RequestedThemeVariant = theme;
+    }
+
     /// <summary>
     ///     应用的启动方法，会依次调用 Initialize、Configure 和 OnCompleted 方法
     /// </summary>
@@ -175,7 +172,7 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, IApplicati
     /// </param>
     public void Run(string[] args)
     {
-        RunArguments = args;
+        _runArguments = args;
         Initialize();
         Configure();
         OnCompleted();

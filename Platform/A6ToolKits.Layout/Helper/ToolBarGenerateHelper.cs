@@ -5,13 +5,17 @@ using A6ToolKits.Helper.Assembly;
 using A6ToolKits.Layout.Generator;
 using Avalonia;
 using Avalonia.Controls;
+
 namespace A6ToolKits.Layout.Helper;
 
 /// <summary>
 ///     工具栏生成工具
 /// </summary>
-public static class ToolBarGenerateHelper
+internal static class ToolBarGenerateHelper
 {
+    private static WindowConfig _config { get; set; } = WindowConfig.Instance;
+    private static WindowGenerator _generator { get; set; } = WindowGenerator.Instance;
+
     /// <summary>
     ///     获取所有有ToolBar属性的ActionBase类
     /// </summary>
@@ -37,11 +41,11 @@ public static class ToolBarGenerateHelper
         var result = new List<Button>();
         types.ForEach(type =>
         {
-            var obj = WindowGenerator.Creator?.CreateInstance(type);
+            var obj = _generator.Creator?.Create(type);
             if (obj is not ActionBase action) return;
             var buttonType = action.Icon == null ? ButtonType.Initials : ButtonType.Icon;
             var button = action.GenerateButton(buttonType);
-            button.Height = WindowConfig.ToolBarHeight - 5;
+            button.Height = _config.ToolBarHeight - 5;
             button.Margin = new Thickness(3, 1, 0, 1);
             result.Add(button);
         });
@@ -70,7 +74,7 @@ public static class ToolBarGenerateHelper
                 Margin = new Thickness(1, 2)
             });
         });
-        
+
         if (result.Count > 0)
             result.RemoveAt(result.Count - 1);
 

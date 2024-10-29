@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Xml;
 using A6ToolKits.Helper.Config;
+using Serilog;
 using SysAssembly = System.Reflection.Assembly;
 
 namespace A6ToolKits.Helper.Assembly;
@@ -78,6 +79,8 @@ public static class AssemblyHelper
             if (item.Path != null)
                 AssemblyPaths.Add(item.Path);
         }
+        AppDomain.CurrentDomain.AssemblyResolve += OnResolveAssembly;
+        Log.Information("Loading Assembly Path from configuration file");
     }
 
     /// <summary>

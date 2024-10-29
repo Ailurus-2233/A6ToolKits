@@ -1,5 +1,6 @@
 ﻿using System;
-namespace A6ToolKits.Common.Exceptions;
+
+namespace A6ToolKits.Exceptions;
 
 /// <summary>
 ///     属性未找到时所抛出的异常

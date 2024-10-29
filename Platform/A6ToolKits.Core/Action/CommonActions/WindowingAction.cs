@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using A6ToolKits.Bootstrapper;
 using A6ToolKits.Helper.Resource;
 using Avalonia;
 using Avalonia.Controls;
@@ -10,10 +11,8 @@ namespace A6ToolKits.Common.Action.CommonActions;
 /// <summary>
 ///     窗口化动作
 /// </summary>
-public sealed class WindowAction : ActionBase
+public sealed class WindowingAction : ActionBase
 {
-    private readonly Window _window;
-    
     /// <inheritdoc />
     public override string? Name { get; init; } = "窗口化";
 
@@ -26,16 +25,19 @@ public sealed class WindowAction : ActionBase
     /// <inheritdoc />
     public override Task Run()
     {
-        _window.WindowState = WindowState.Normal;
+        var window = CoreService.Instance.Controller?.GetMainWindow();
+        if (window is null) return Task.CompletedTask;
+        window.WindowState = WindowState.Normal;
         return Task.CompletedTask;
     }
     
     /// <summary>
     ///   构造函数
     /// </summary>
-    public WindowAction(Window window)
+    public WindowingAction()
     {
-        _window = window;
+        var window = CoreService.Instance.Controller?.GetMainWindow();
+        if (window is null) return;
         CanRun = window.WindowState != WindowState.Normal;
         window.PropertyChanged += (sender, args) =>
         {

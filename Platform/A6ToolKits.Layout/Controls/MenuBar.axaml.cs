@@ -23,6 +23,6 @@ public partial class MenuBar : UserControl
         var menuItems = MenuBarGenerateHelper.GenerateMenuItems();
         menuItems.ForEach(menuItem => Menu.Items.Add(menuItem));
 
-        Menu.Height = menuItems.Count == 0 ? 0 : WindowConfig.MenuHeight;
+        Menu.Height = menuItems.Count == 0 ? 0 : WindowConfig.Instance.MenuHeight;
     }
 }

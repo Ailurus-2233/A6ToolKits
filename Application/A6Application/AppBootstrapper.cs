@@ -12,14 +12,5 @@ namespace A6Application;
 /// </summary>
 public class AppBootstrapper : BaseBootstrapper<Application, Window>
 {
-    /// <summary>
-    ///     重写完成方法，在完成时设置主窗体
-    /// </summary>
-    public override void OnCompleted()
-    {
-        if (IoC.TryGet<LayoutModule>(out var layoutModule))
-            MainWindow = layoutModule?.Window;
-        // MainWindow = IoC.Get<MainWindow>();
-        base.OnCompleted();
-    }
+
 }

@@ -1,5 +1,6 @@
 ﻿using System;
-namespace A6ToolKits.Common.Exceptions;
+
+namespace A6ToolKits.Exceptions;
 
 /// <summary>
 ///     用于映射是无法找到目标类所抛出的异常

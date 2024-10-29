@@ -1,13 +1,18 @@
-﻿using A6ToolKits.Helper.Instance;
-using A6ToolKits.Module;
+﻿using A6ToolKits.Module;
 using Avalonia;
 using Avalonia.Markup.Xaml.Styling;
 
 namespace A6ToolKits.UIPackage;
 
+/// <summary>
+///     UIPackage 模块
+/// </summary>
 public class UIPackageModule : ModuleBase
 {
-    protected override void Initialize()
+    /// <summary>
+    ///     构造函数
+    /// </summary>
+    public override void Initialize()
     {
         // var styleUri = new Uri("avares://A6ToolKits.UIPackage/UIPackageStyles.axaml");
         // var style = new StyleInclude(styleUri)

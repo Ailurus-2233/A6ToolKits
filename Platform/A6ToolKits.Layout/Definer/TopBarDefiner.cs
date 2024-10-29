@@ -113,11 +113,11 @@ public abstract class TopBarDefiner : IDefiner<Grid> {
             VerticalAlignment = VerticalAlignment.Center
         };
 
-        var minusButton = new MinusAction().GenerateButton(ButtonType.Icon);
+        var minusButton = new MinimizeAction().GenerateButton(ButtonType.Icon);
         var closeButton = new CloseAction().GenerateButton(ButtonType.Icon);
         var maximizeAction = new MaximizeAction(Window);
         var maximizeButton = maximizeAction.GenerateButton(ButtonType.Icon);
-        var windowAction = new WindowAction(Window);
+        var windowAction = new WindowingAction(Window);
         var windowButton = windowAction.GenerateButton(ButtonType.Icon);
 
         minusButton.Height = HeaderHeight - 8;

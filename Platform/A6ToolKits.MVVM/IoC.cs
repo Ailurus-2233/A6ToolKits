@@ -1,5 +1,5 @@
 ﻿using A6ToolKits.Helper.Assembly;
-using A6ToolKits.Helper.Instance;
+using A6ToolKits.Instance;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace A6ToolKits.MVVM;
@@ -8,7 +8,7 @@ namespace A6ToolKits.MVVM;
 ///     基于 Microsoft.Extensions.DependencyInjection 的 IoC 容器封装类
 ///     可以通过 IoC.Add 方法注册类型到 IoC 容器中, 通过 IoC.Get 方法获取类型的实例
 /// </summary>
-public sealed class IoC : IInstanceHelper
+public sealed class IoC : IInstanceCreator
 {
     private readonly ServiceCollection _service = [];
 
@@ -292,10 +292,10 @@ public sealed class IoC : IInstanceHelper
     /// <returns>
     ///     返回类型的实例，如果创建失败则返回 null
     /// </returns>
-    public object? CreateInstance(string type, string? assembly = null)
+    public object? Create(string type, string? assembly = null)
     {
         var target = assembly == null ? Type.GetType(type) : AssemblyHelper.LoadType(type, assembly);
-        return target == null ? null : CreateInstance(target);
+        return target == null ? null : this.Create(target);
     }
 
     /// <summary>
@@ -310,10 +310,10 @@ public sealed class IoC : IInstanceHelper
     /// <returns>
     ///     返回类型的实例，如果创建失败则返回 null
     /// </returns>
-    public object? GetOrCreateInstance(string type, string? assembly = null)
+    public object? GetOrCreate(string type, string? assembly = null)
     {
         var targetType = assembly == null ? Type.GetType(type) : AssemblyHelper.LoadType(type, assembly);
-        return targetType == null ? null : GetOrCreateInstance(targetType);
+        return targetType == null ? null : GetOrCreate(targetType);
     }
 
 
@@ -326,7 +326,7 @@ public sealed class IoC : IInstanceHelper
     /// <returns>
     ///     返回创建的实例
     /// </returns>
-    public TService CreateInstance<TService>() where TService : class
+    public TService Create<TService>() where TService : class
     {
         return ActivatorUtilities.CreateInstance<TService>(ServiceProvider);
     }
@@ -340,9 +340,9 @@ public sealed class IoC : IInstanceHelper
     /// <returns>
     ///     返回类型的实例，如果创建失败则返回 null
     /// </returns>
-    public TService? GetOrCreateInstance<TService>() where TService : class
+    public TService? GetOrCreate<TService>() where TService : class
     {
-        return TryGet<TService>(out var result) ? result : CreateInstance<TService>();
+        return TryGet<TService>(out var result) ? result : this.Create<TService>();
     }
 
     /// <summary>
@@ -354,7 +354,7 @@ public sealed class IoC : IInstanceHelper
     /// <returns>
     ///     返回创建的实例
     /// </returns>
-    public object CreateInstance(Type type)
+    public object Create(Type type)
     {
         return ActivatorUtilities.CreateInstance(ServiceProvider, type);
     }
@@ -368,9 +368,9 @@ public sealed class IoC : IInstanceHelper
     /// <returns>
     ///     返回类型的实例，如果创建失败则返回 null
     /// </returns>
-    public object? GetOrCreateInstance(Type type)
+    public object? GetOrCreate(Type type)
     {
-        return TryGet(type, out var result) ? result : CreateInstance(type);
+        return TryGet(type, out var result) ? result : this.Create(type);
     }
 
     /// <summary>
@@ -387,7 +387,7 @@ public sealed class IoC : IInstanceHelper
     /// </returns>
     public static object? Create(string type, string? assembly = null)
     {
-        return Instance.CreateInstance(type, assembly);
+        return Instance.Create(type, assembly);
     }
 
     /// <summary>
@@ -401,7 +401,7 @@ public sealed class IoC : IInstanceHelper
     /// </returns>
     public static TService Create<TService>() where TService : class
     {
-        return Instance.CreateInstance<TService>();
+        return Instance.Create<TService>();
     }
 
 
@@ -416,7 +416,7 @@ public sealed class IoC : IInstanceHelper
     /// </returns>
     public static object Create(Type type)
     {
-        return Instance.CreateInstance(type);
+        return Instance.Create(type);
     }
 
     #endregion

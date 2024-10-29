@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using A6ToolKits.Common.Attributes.Layout;
-using A6ToolKits.Common.Exceptions;
+using A6ToolKits.Exceptions;
 using A6ToolKits.Helper.Assembly;
 using A6ToolKits.Layout.Generator;
 using Avalonia.Controls;
@@ -9,8 +9,11 @@ namespace A6ToolKits.Layout.Helper;
 /// <summary>
 ///     状态栏生成工具类
 /// </summary>
-public static class StatusBarGenerateHelper
+internal static class StatusBarGenerateHelper
 {
+    private static WindowConfig _config { get; set; } = WindowConfig.Instance;
+    private static WindowGenerator _generator { get; set; } = WindowGenerator.Instance;
+    
     /// <summary>
     ///     获取所有有StatusBar属性的ActionBase类
     /// </summary>
@@ -51,7 +54,7 @@ public static class StatusBarGenerateHelper
         
         types.ForEach(type =>
         {
-            var obj = WindowGenerator.Creator?.CreateInstance(type);
+            var obj = _generator.Creator?.Create(type);
             if (obj is not Control control) return;
             result.Add(control);
         });

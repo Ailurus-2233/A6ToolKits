@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using A6ToolKits.Common.Action;
 using A6ToolKits.Common.Attributes.Layout;
-using A6ToolKits.Common.Exceptions;
+using A6ToolKits.Exceptions;
 using A6ToolKits.Helper.Assembly;
 using A6ToolKits.Layout.Generator;
 using Avalonia.Controls;
@@ -10,8 +10,11 @@ namespace A6ToolKits.Layout.Helper;
 /// <summary>
 ///     菜单生成工具
 /// </summary>
-public static class MenuBarGenerateHelper
+internal static class MenuBarGenerateHelper
 {
+    private static WindowConfig _config { get; set; } = WindowConfig.Instance;
+    private static WindowGenerator _generator { get; set; } = WindowGenerator.Instance;
+    
     /// <summary>
     ///     获取所有有MenuAction属性的ActionBase类
     /// </summary>
@@ -92,7 +95,7 @@ public static class MenuBarGenerateHelper
         foreach (var type in types)
         {
             if (!typeof(ActionBase).IsAssignableFrom(type)) continue;
-            var obj = WindowGenerator.Creator?.CreateInstance(type);
+            var obj = _generator.Creator?.Create(type);
             if (obj is not ActionBase temp) continue;
             var menuItem = temp.GenerateMenuItem();
             var key = GetMenuActionAttribute(type).Path[level - 1].Order;

@@ -3,6 +3,7 @@ using A6ToolKits.Layout.ControlGenerator;
 using A6ToolKits.Layout.Generator;
 using A6ToolKits.Layout.Generator.Enums;
 using Avalonia.Media;
+using Avalonia.Styling;
 
 namespace A6ToolKits.Layout;
 
@@ -43,15 +44,23 @@ public class LayoutConfigItem : ConfigItemBase
 
     internal void SetToResources()
     {
-        WindowConfig.Title = !string.IsNullOrEmpty(Title) ? Title : string.Empty;
-        WindowConfig.Width = !string.IsNullOrEmpty(Width) ? double.Parse(Width) : 0;
-        WindowConfig.Height = !string.IsNullOrEmpty(Height) ? double.Parse(Height) : 0;
-        WindowConfig.PrimaryColor =
-            Color.TryParse(PrimaryColor, out var primaryColor) ? primaryColor : Colors.CornflowerBlue;
-        WindowConfig.BackgroundColor =
-            Color.TryParse(BackgroundColor, out var backgroundColor) ? backgroundColor : Colors.Wheat;
-        WindowConfig.BorderStyle = Enum.TryParse<WindowBorderType>(BorderStyle, out var borderStyle)
+        var config = WindowConfig.Instance;
+        config.Title = !string.IsNullOrEmpty(Title) ? Title : string.Empty;
+        config.Width = !string.IsNullOrEmpty(Width) ? double.Parse(Width) : 0;
+        config.Height = !string.IsNullOrEmpty(Height) ? double.Parse(Height) : 0;
+        config.PrimaryColor =
+            Color.TryParse(PrimaryColor, out var primaryColor)
+                ? Color.FromRgb(primaryColor.R, primaryColor.G, primaryColor.B)
+                : Colors.CornflowerBlue;
+        config.BackgroundColor =
+            Color.TryParse(BackgroundColor, out var backgroundColor)
+                ? Color.FromRgb(backgroundColor.R, backgroundColor.G, backgroundColor.B)
+                : Colors.Wheat;
+        config.BorderStyle = Enum.TryParse<WindowBorderType>(BorderStyle, out var borderStyle)
             ? borderStyle
             : WindowBorderType.Default;
+
+        var brightness = 0.299 * backgroundColor.R + 0.587 * backgroundColor.G + 0.114 * backgroundColor.B;
+        config.Theme = brightness > 128 ? ThemeVariant.Light : ThemeVariant.Dark;
     }
 }

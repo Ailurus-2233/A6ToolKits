@@ -28,6 +28,6 @@ public partial class OriginWindow : WindowBase
 
     private void InitBorder()
     {
-        MainBorder.Background = new SolidColorBrush(WindowConfig.BackgroundColor);
+        MainBorder.Background = new SolidColorBrush(WindowConfig.Instance.BackgroundColor);
     }
 }

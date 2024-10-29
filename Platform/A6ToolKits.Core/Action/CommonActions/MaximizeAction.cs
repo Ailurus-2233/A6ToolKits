@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using A6ToolKits.Bootstrapper;
 using A6ToolKits.Helper.Resource;
 using Avalonia;
 using Avalonia.Controls;
@@ -12,7 +13,7 @@ namespace A6ToolKits.Common.Action.CommonActions;
 /// </summary>
 public sealed class MaximizeAction : ActionBase
 {
-    private readonly Window _window;
+    private static Window? _window => CoreService.Instance.Controller?.GetMainWindow();
     
     /// <inheritdoc />
     public override string? Name { get; init; } = "最大化";
@@ -26,6 +27,7 @@ public sealed class MaximizeAction : ActionBase
     /// <inheritdoc />
     public override Task Run()
     {
+        if (_window is null) return Task.CompletedTask;
         _window.WindowState = WindowState.Maximized;
         return Task.CompletedTask;
     }
@@ -33,15 +35,15 @@ public sealed class MaximizeAction : ActionBase
     /// <summary>
     ///    构造函数
     /// </summary>
-    public MaximizeAction(Window window)
+    public MaximizeAction()
     {
-        _window = window;
-        CanRun = window.WindowState != WindowState.Maximized;
-        window.PropertyChanged += (sender, args) =>
+        if (_window == null) return;
+        CanRun = _window.WindowState != WindowState.Maximized;
+        _window.PropertyChanged += (sender, args) =>
         {
-            if (args.Property.Name == nameof(window.WindowState))
+            if (args.Property.Name == nameof(_window.WindowState))
             {
-                CanRun = window.WindowState != WindowState.Maximized;
+                CanRun = _window.WindowState != WindowState.Maximized;
             }
         };
     }

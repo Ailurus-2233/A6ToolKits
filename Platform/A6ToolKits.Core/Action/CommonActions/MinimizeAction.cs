@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using A6ToolKits.Bootstrapper;
 using A6ToolKits.Helper.Resource;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -9,7 +10,7 @@ namespace A6ToolKits.Common.Action.CommonActions;
 /// <summary>
 ///     最小化动作
 /// </summary>
-public class MinusAction : ActionBase
+public class MinimizeAction : ActionBase
 {
     /// <inheritdoc />
     public override string? Name { get; init; } = "最小化";
@@ -23,8 +24,7 @@ public class MinusAction : ActionBase
     /// <inheritdoc />
     public override Task Run()
     {
-        var lifetime = Application.Current?.ApplicationLifetime as ClassicDesktopStyleApplicationLifetime;
-        var window = lifetime?.MainWindow;
+        var window = CoreService.Instance.Controller?.GetMainWindow();
         if (window == null) return Task.CompletedTask;
         window.WindowState = Avalonia.Controls.WindowState.Minimized;
         return Task.CompletedTask;

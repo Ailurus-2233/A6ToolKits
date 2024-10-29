@@ -14,11 +14,12 @@ public abstract class WindowBase : Window
     /// </summary>
     protected WindowBase()
     {
-        Title = WindowConfig.Title;
-        Height = WindowConfig.Height;
-        Width = WindowConfig.Width;
+        var config = WindowConfig.Instance;
+        Title = config.Title;
+        Height = config.Height;
+        Width = config.Width;
         Background = Brushes.Transparent;
-        WindowState = WindowConfig.WindowType switch
+        WindowState = config.WindowType switch
         {
             WindowType.Default => WindowState.Normal,
             WindowType.Maximized => WindowState.Maximized,

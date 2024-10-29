@@ -23,6 +23,6 @@ public partial class ToolBar : UserControl
 
         var items = ToolBarGenerateHelper.GenerateToolBarItems();
         items.ForEach(item => ToolBarPanel.Children.Add(item));
-        ToolBarPanel.Height = items.Count == 0 ? 0 : WindowConfig.ToolBarHeight;
+        ToolBarPanel.Height = items.Count == 0 ? 0 : WindowConfig.Instance.ToolBarHeight;
     }
 }

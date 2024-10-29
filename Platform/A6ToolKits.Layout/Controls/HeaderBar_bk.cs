@@ -122,11 +122,11 @@ public class HeaderBar_bk : UserControl
         if (_window == null) FindWindow();
         var menuHeight = WindowConfig.MenuHeight;
 
-        var minusButton = new MinusAction().GenerateButton(ButtonType.Icon);
+        var minusButton = new MinimizeAction().GenerateButton(ButtonType.Icon);
         var closeButton = new CloseAction().GenerateButton(ButtonType.Icon);
         var maximizeAction = new MaximizeAction(_window!);
         var maximizeButton = maximizeAction.GenerateButton(ButtonType.Icon);
-        var windowAction = new WindowAction(_window!);
+        var windowAction = new WindowingAction(_window!);
         var windowButton = windowAction.GenerateButton(ButtonType.Icon);
 
         minusButton.Height = menuHeight - 8;

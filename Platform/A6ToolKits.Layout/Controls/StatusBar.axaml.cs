@@ -28,6 +28,6 @@ public partial class StatusBar : UserControl
         center.ForEach(item => CenterStatusBar.Children.Add(item));
         
         var count = left.Count + right.Count + center.Count;
-        StatusBarPanel.Height = count == 0 ? 0 : WindowConfig.StatusBarHeight;
+        StatusBarPanel.Height = count == 0 ? 0 : WindowConfig.Instance.StatusBarHeight;
     }
 }

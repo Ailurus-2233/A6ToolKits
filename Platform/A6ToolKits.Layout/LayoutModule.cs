@@ -13,33 +13,21 @@ namespace A6ToolKits.Layout;
 [AutoRegister(typeof(LayoutModule), RegisterType.Singleton)]
 public class LayoutModule : ModuleBase
 {
-    /// <summary>
-    ///     基于配置文件生成的窗口布局
-    /// </summary>
-    public Window? Window => WindowGenerator.Window;
-
+    private WindowGenerator _generator => WindowGenerator.Instance;
+    private CoreService _bootService => CoreService.Instance;
+    
     /// <summary>
     ///     初始化布局模块，加载布局配置文件
     /// </summary>
-    protected override void Initialize()
+    public override void Initialize()
     {
-        WindowGenerator.Creator = Creator;
-        WindowGenerator.GenerateWindow();
-        var controller = BootstrapperService.Instance.ApplicationController;
+        var controller = _bootService.Controller;
         if (controller != null)
         {
-            controller.Window = WindowGenerator.Window;
-            controller.Theme = ThemeVariant.Light;
+            controller.SetupMainWindow(_generator.GenerateWindow());
+            controller.SetupTheme(ThemeVariant.Light);
         }
         else
             throw new NullReferenceException("BootstrapperService.Instance.ApplicationController is null");
-    }
-
-    /// <summary>
-    ///     重新生成窗口
-    /// </summary>
-    public void RegenerateWindow()
-    {
-        WindowGenerator.GenerateWindow();
     }
 }
