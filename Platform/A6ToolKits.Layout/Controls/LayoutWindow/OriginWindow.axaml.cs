@@ -14,15 +14,6 @@ public partial class OriginWindow : WindowBase
     public OriginWindow()
     {
         InitializeComponent();
-        if (MenuBar.Menu.Height == 0)
-            MenuBarSeparator.Height = 0;
-        
-        if (ToolBar.ToolBarPanel.Height == 0)
-            ToolBarSeparator.Height = 0;
-        
-        if (StatusBar.StatusBarPanel.Height == 0)
-            StatusBarSeparator.Height = 0;
-        
         WindowBorder.Background = new SolidColorBrush(WindowConfig.Instance.BackgroundColor);
     }
 }

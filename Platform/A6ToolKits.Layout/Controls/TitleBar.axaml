@@ -5,12 +5,16 @@
              xmlns:controls="clr-namespace:A6ToolKits.Layout.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="A6ToolKits.Layout.Controls.TitleBar">
-    <Grid ColumnDefinitions="*,*,*">
-        <controls:MenuIcon Grid.Column="0" x:Name="MenuIcon" />
-        <TextBlock Grid.Column="1" x:Name="Title" />
-        <StackPanel Grid.Column="2" x:Name="ControlBar"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center" />
-    </Grid>
+    <Border x:Name="TitleBarBorder" CornerRadius="5 5 0 0" BorderThickness="0">
+        <Grid ColumnDefinitions="*,*,*">
+            <controls:MenuIcon Grid.Column="0" x:Name="MenuIcon" />
+            <TextBlock Grid.Column="1" x:Name="Title" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center" 
+                       FontWeight="SemiBold"/>
+            <StackPanel Grid.Column="2" x:Name="ControlBar"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center" />
+        </Grid>
+    </Border>
 </UserControl>

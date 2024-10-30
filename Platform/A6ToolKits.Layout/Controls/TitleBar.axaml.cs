@@ -4,6 +4,7 @@ using A6ToolKits.Layout.Controls.WindowActions;
 using A6ToolKits.Layout.Generator;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Media;
 
 namespace A6ToolKits.Layout.Controls;
 
@@ -18,49 +19,52 @@ public partial class TitleBar : UserControl
     public TitleBar()
     {
         InitializeComponent();
+        Title.Text = WindowConfig.Instance.Title;
+        TitleBarBorder.Background = new SolidColorBrush(WindowConfig.Instance.PrimaryColor);
+        Height = WindowConfig.Instance.TitleBarHeight;
+        TitleBarBorder.Padding = new Thickness(0 ,3);
         BuildWindowControlPanel();
     }
     
     private void BuildWindowControlPanel()
     {
         var config = WindowConfig.Instance;
-        var height = config.TitleBarHeight;
-
+    
         var minusButton = new MinimizeAction().GenerateButton(ButtonType.Icon);
         var closeButton = new CloseAction().GenerateButton(ButtonType.Icon);
         var maximizeAction = new MaximizeAction();
         var maximizeButton = maximizeAction.GenerateButton(ButtonType.Icon);
         var windowAction = new WindowingAction();
         var windowButton = windowAction.GenerateButton(ButtonType.Icon);
-
-        minusButton.Height = height - 8;
-        minusButton.Margin = new Thickness(4);
-        closeButton.Height = height - 8;
-        closeButton.Margin = new Thickness(4);
-        maximizeButton.Height = height - 8;
-        maximizeButton.Margin = new Thickness(4);
-        windowButton.Height = height - 8;
-        windowButton.Margin = new Thickness(4);
-
+        
         ControlBar.Children.Add(minusButton);
         ControlBar.Children.Add(maximizeButton);
         ControlBar.Children.Add(windowButton);
         ControlBar.Children.Add(closeButton);
-
+    
+        SetButtonStyle(minusButton);
+        SetButtonStyle(closeButton);
+        SetButtonStyle(maximizeButton);
+        SetButtonStyle(windowButton);
+        
         maximizeButton.IsVisible = maximizeButton.IsEnabled;
         maximizeAction.CanRunChanged += (_, _) =>
         {
             maximizeButton.IsVisible = maximizeButton.IsEnabled;
-            maximizeButton.Height = height - 8;
-            maximizeButton.Margin = new Thickness(4);
+            SetButtonStyle(maximizeButton);
         };
-
+    
         windowButton.IsVisible = windowButton.IsEnabled;
         windowAction.CanRunChanged += (_, _) =>
         {
             windowButton.IsVisible = windowButton.IsEnabled;
-            windowButton.Height = height - 8;
-            windowButton.Margin = new Thickness(4);
+            SetButtonStyle(windowButton);
         };
+    }
+
+    private void SetButtonStyle(Button button)
+    {
+        button.Background = new SolidColorBrush(Colors.Transparent);
+        button.BorderBrush = new SolidColorBrush(Colors.Transparent);
     }
 }

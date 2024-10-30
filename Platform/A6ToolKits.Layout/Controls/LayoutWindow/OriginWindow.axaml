@@ -4,21 +4,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:container="clr-namespace:A6ToolKits.Layout.Controls.Container"
         xmlns:controls="clr-namespace:A6ToolKits.Layout.Controls"
-        xmlns:layoutWindow="clr-namespace:A6ToolKits.Layout.Controls.LayoutWindow"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="A6ToolKits.Layout.Controls.LayoutWindow.OriginWindow"
-        ExtendClientAreaChromeHints="Default"
-        ExtendClientAreaToDecorationsHint="False"
-        ExtendClientAreaTitleBarHeightHint="0">
+        x:Class="A6ToolKits.Layout.Controls.LayoutWindow.OriginWindow">
     <Border x:Name="WindowBorder">
-        <Grid RowDefinitions="Auto,Auto,Auto,Auto,*,Auto,Auto">
+        <Grid RowDefinitions="Auto,Auto,*,Auto">
             <controls:MenuBar x:Name="MenuBar" Grid.Row="0"/>
-            <Separator x:Name="MenuBarSeparator" Grid.Row="1" Height="1" Margin="0" />
-            <controls:ToolBar x:Name="ToolBar" Grid.Row="2"/>
-            <Separator x:Name="ToolBarSeparator"  Grid.Row="3" Height="1" Margin="0" />
-            <container:MainContainer x:Name="MainContainer" Grid.Row="4" />
-            <Separator x:Name="StatusBarSeparator"  Grid.Row="5" Height="1" Margin="0" />
-            <controls:StatusBar x:Name="StatusBar" Grid.Row="6" />
+            <controls:ToolBar x:Name="ToolBar" Grid.Row="1"/>
+            <container:MainContainer x:Name="MainContainer" Grid.Row="2" />
+            <controls:StatusBar x:Name="StatusBar" Grid.Row="3" />
         </Grid>
     </Border>
 </Window>

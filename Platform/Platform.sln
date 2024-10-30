@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A6ToolKits", "A6ToolKits\A6ToolKits.csproj", "{06F66211-C37D-475B-B7BB-F9BD01FFD7AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A6ToolKits.Core", "A6ToolKits.Core\A6ToolKits.Core.csproj", "{06F66211-C37D-475B-B7BB-F9BD01FFD7AD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A6ToolKits.Database", "A6ToolKits.Database\A6ToolKits.Database.csproj", "{555BCB76-DB09-4802-8E54-0983034B6FB8}"
 EndProject

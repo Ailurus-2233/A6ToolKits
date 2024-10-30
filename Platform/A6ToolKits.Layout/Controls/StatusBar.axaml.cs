@@ -3,6 +3,8 @@ using A6ToolKits.Common.Attributes.MVVM;
 using A6ToolKits.Layout.Generator;
 using A6ToolKits.Layout.Helper;
 using Avalonia.Controls;
+using Avalonia.Media;
+
 namespace A6ToolKits.Layout.Controls;
 
 /// <summary>
@@ -29,5 +31,9 @@ public partial class StatusBar : UserControl
         
         var count = left.Count + right.Count + center.Count;
         StatusBarPanel.Height = count == 0 ? 0 : WindowConfig.Instance.StatusBarHeight;
+
+        StatusBarBorder.Background = new SolidColorBrush(WindowConfig.Instance.TertiaryColor);
+        StatusBarBorder.BorderBrush = new SolidColorBrush(WindowConfig.Instance.PrimaryColor);
+        Height = WindowConfig.Instance.StatusBarHeight;
     }
 }

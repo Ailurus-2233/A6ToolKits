@@ -4,6 +4,7 @@ using A6ToolKits.Layout.Helper;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 
 namespace A6ToolKits.Layout.Controls;
 
@@ -21,8 +22,13 @@ public partial class MenuBar : UserControl
         InitializeComponent();
 
         var menuItems = MenuBarGenerateHelper.GenerateMenuItems();
-        menuItems.ForEach(menuItem => Menu.Items.Add(menuItem));
+        menuItems.ForEach(menuItem =>
+        {
+            Menu.Items.Add(menuItem);
+            menuItem.Height = WindowConfig.Instance.MenuHeight;
+        });
 
         Menu.Height = menuItems.Count == 0 ? 0 : WindowConfig.Instance.MenuHeight;
+        MenuBarBorder.Background = new SolidColorBrush(WindowConfig.Instance.TertiaryColor);
     }
 }

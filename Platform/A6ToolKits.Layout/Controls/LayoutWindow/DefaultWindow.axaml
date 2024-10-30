@@ -7,17 +7,16 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="A6ToolKits.Layout.Controls.LayoutWindow.DefaultWindow"
         ExtendClientAreaToDecorationsHint="True"
-        ExtendClientAreaChromeHints="Default"
-        SystemDecorations="None">
-    <Border x:Name="WindowBorder" BorderThickness="1" CornerRadius="10">
-        <Grid RowDefinitions="Auto,Auto,Auto,Auto,*,Auto,Auto">
+        ExtendClientAreaChromeHints="NoChrome"
+        SystemDecorations="BorderOnly"
+        Background="Transparent"
+        BorderBrush="Transparent">
+    <Border x:Name="WindowBorder" BorderThickness="1" CornerRadius="5">
+        <Grid RowDefinitions="Auto,Auto,*,Auto,Auto">
             <controls:TitleBar x:Name="TitleBar" Grid.Row="0"/>
-            <Separator x:Name="TitleBarSeparator" Grid.Row="1" Height="1" Margin="0" />
-            <controls:ToolBar x:Name="ToolBar" Grid.Row="2"/>
-            <Separator x:Name="ToolBarSeparator"  Grid.Row="3" Height="1" Margin="0" />
-            <container:MainContainer x:Name="MainContainer" Grid.Row="4" />
-            <Separator x:Name="StatusBarSeparator"  Grid.Row="5" Height="1" Margin="0" />
-            <controls:StatusBar x:Name="StatusBar" Grid.Row="6" />
+            <controls:ToolBar x:Name="ToolBar" Grid.Row="1"/>
+            <container:MainContainer x:Name="MainContainer" Grid.Row="2" />
+            <controls:StatusBar x:Name="StatusBar" Grid.Row="3" />
         </Grid>
     </Border>
 </Window>

@@ -1,5 +1,6 @@
 ﻿using A6ToolKits.Action;
 using A6ToolKits.Resource;
+using Avalonia.Controls;
 using Avalonia.Media;
 
 namespace A6ToolKits.Layout.Controls.WindowActions;
@@ -23,7 +24,7 @@ public class MinimizeAction : ActionBase
     {
         var window = CoreService.Instance.Controller?.GetMainWindow();
         if (window == null) return Task.CompletedTask;
-        window.WindowState = Avalonia.Controls.WindowState.Minimized;
+        window.WindowState = WindowState.Minimized;
         return Task.CompletedTask;
     }
 }

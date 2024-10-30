@@ -1,4 +1,5 @@
 ﻿using A6ToolKits.Common.Attributes.MVVM;
+using A6ToolKits.Layout.Generator;
 using A6ToolKits.Layout.Helper;
 using Avalonia.Controls;
 
@@ -18,6 +19,10 @@ public partial class MenuIcon : UserControl
         InitializeComponent();
 
         var menuItems = MenuBarGenerateHelper.GenerateMenuItems();
-        menuItems.ForEach(menuItem => MenuButton.Items.Add(menuItem));
+        menuItems.ForEach(menuItem =>
+        {
+            MenuButton.Items.Add(menuItem);
+            menuItem.Height = WindowConfig.Instance.MenuHeight;
+        });
     }
 }

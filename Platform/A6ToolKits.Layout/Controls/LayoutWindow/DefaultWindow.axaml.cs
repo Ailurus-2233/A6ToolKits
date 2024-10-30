@@ -1,5 +1,7 @@
 ﻿using A6ToolKits.Layout.Generator;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Media;
 
 namespace A6ToolKits.Layout.Controls.LayoutWindow;
@@ -7,7 +9,7 @@ namespace A6ToolKits.Layout.Controls.LayoutWindow;
 /// <summary>
 ///     默认窗口结构
 /// </summary>
-public partial class DefaultWindow : Window
+public partial class DefaultWindow : WindowBase
 {
     /// <summary>
     ///     构造函数
@@ -15,13 +17,18 @@ public partial class DefaultWindow : Window
     public DefaultWindow()
     {
         InitializeComponent();
-
-        if (ToolBar.ToolBarPanel.Height == 0)
-            ToolBarSeparator.Height = 0;
-
-        if (StatusBar.StatusBarPanel.Height == 0)
-            StatusBarSeparator.Height = 0;
-
+        
         WindowBorder.Background = new SolidColorBrush(WindowConfig.Instance.BackgroundColor);
+        WindowBorder.BorderBrush = new SolidColorBrush(WindowConfig.Instance.PrimaryColor);
+
+        TitleBar.PointerPressed += TitleBar_PointerPressed;
+    }
+    
+    private void TitleBar_PointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
+        {
+            BeginMoveDrag(e);
+        }
     }
 }

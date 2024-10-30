@@ -4,5 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="A6ToolKits.Layout.Controls.MenuBar">
-    <Menu x:Name="Menu" Margin="5,0" />
+    <Border x:Name="MenuBarBorder">
+        <Menu x:Name="Menu" Margin="5,0" />
+    </Border>
 </UserControl>

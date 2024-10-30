@@ -4,11 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="A6ToolKits.Layout.Controls.StatusBar">
-    <DockPanel x:Name="StatusBarPanel">
-        <StackPanel x:Name="LeftStatusBar" DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Left"
-                    Margin="3,0,0,0" />
-        <StackPanel x:Name="RightStatusBar" DockPanel.Dock="Right" VerticalAlignment="Center"
-                    HorizontalAlignment="Right" Margin="0,0,3,0" />
-        <StackPanel x:Name="CenterStatusBar" VerticalAlignment="Center" HorizontalAlignment="Center" />
-    </DockPanel>
+    <Border x:Name="StatusBarBorder" BorderThickness="0 1 0 0">
+        <DockPanel x:Name="StatusBarPanel">
+            <StackPanel x:Name="LeftStatusBar" DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Left"
+                        Margin="3,0,0,0" />
+            <StackPanel x:Name="RightStatusBar" DockPanel.Dock="Right" VerticalAlignment="Center"
+                        HorizontalAlignment="Right" Margin="0,0,3,0" />
+            <StackPanel x:Name="CenterStatusBar" VerticalAlignment="Center" HorizontalAlignment="Center" />
+        </DockPanel>
+    </Border>
 </UserControl>

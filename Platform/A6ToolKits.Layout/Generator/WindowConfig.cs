@@ -64,7 +64,8 @@ internal class WindowConfig
     ///     窗口重点色
     /// </summary>
     public Color PrimaryColor { get; set; } = Colors.CornflowerBlue;
-
+    public Color SecondaryColor => Color.FromArgb(100, PrimaryColor.R, PrimaryColor.G, PrimaryColor.B);
+    public Color TertiaryColor => Color.FromArgb(50, PrimaryColor.R, PrimaryColor.G, PrimaryColor.B);
     /// <summary>
     ///     窗口背景色
     /// </summary>

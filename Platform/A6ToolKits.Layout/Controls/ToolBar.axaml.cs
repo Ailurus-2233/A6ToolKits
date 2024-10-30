@@ -4,6 +4,7 @@ using A6ToolKits.Layout.Helper;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 using DynamicData;
 
 namespace A6ToolKits.Layout.Controls;
@@ -22,7 +23,40 @@ public partial class ToolBar : UserControl
         InitializeComponent();
 
         var items = ToolBarGenerateHelper.GenerateToolBarItems();
-        items.ForEach(item => ToolBarPanel.Children.Add(item));
-        ToolBarPanel.Height = items.Count == 0 ? 0 : WindowConfig.Instance.ToolBarHeight;
+        if (items.Count == 0)
+        {
+            ToolBarPanel.Height = 0;
+            ToolBarBorder.BorderThickness = new Thickness(0);
+        }
+        else
+        {
+            items.ForEach(item =>
+            {
+                ToolBarPanel.Children.Add(item);
+                if (item is Button button)
+                    SetButtonStyle(button);
+                if (item is Separator separator)
+                    SetSeparatorStyle(separator);
+            });
+            ToolBarPanel.Height = WindowConfig.Instance.ToolBarHeight;
+            ToolBarBorder.Background = new SolidColorBrush(WindowConfig.Instance.TertiaryColor);
+            ToolBarBorder.BorderBrush = new SolidColorBrush(WindowConfig.Instance.PrimaryColor);
+        }
+    }
+
+    private void SetButtonStyle(Button button)
+    {
+        button.BorderThickness = new Thickness(0);
+        button.Background = new SolidColorBrush(Colors.Transparent);
+        button.Margin = new Thickness(2, 0, 0, 0);
+        button.Height = WindowConfig.Instance.ToolBarHeight - 4;
+    }
+
+    private void SetSeparatorStyle(Separator separator)
+    {
+        separator.Background = new SolidColorBrush(WindowConfig.Instance.SecondaryColor);
+        var height = WindowConfig.Instance.ToolBarHeight - 15 > 5 ? WindowConfig.Instance.ToolBarHeight - 15 : 5;
+        separator.Margin = new Thickness(2, 0, 0, 0);
+        separator.Height = height;
     }
 }

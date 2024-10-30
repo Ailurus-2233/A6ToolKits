@@ -45,8 +45,6 @@ internal static class ToolBarGenerateHelper
             if (obj is not ActionBase action) return;
             var buttonType = action.Icon == null ? ButtonType.Initials : ButtonType.Icon;
             var button = action.GenerateButton(buttonType);
-            button.Height = _config.ToolBarHeight - 5;
-            button.Margin = new Thickness(3, 1, 0, 1);
             result.Add(button);
         });
         return result;
@@ -71,13 +69,11 @@ internal static class ToolBarGenerateHelper
             {
                 Width = 1,
                 Height = double.NaN,
-                Margin = new Thickness(1, 2)
             });
         });
 
         if (result.Count > 0)
             result.RemoveAt(result.Count - 1);
-
         return result;
     }
 }
