@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Avalonia.Media;
 
-namespace A6ToolKits.Common.Action;
+namespace A6ToolKits.Action;
 
 /// <summary>
 ///     基于 IAction 接口的抽象类，提供了一些默认实现

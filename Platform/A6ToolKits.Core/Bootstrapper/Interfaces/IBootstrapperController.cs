@@ -1,4 +1,7 @@
-﻿using Avalonia;
+﻿using System;
+using System.Collections.Generic;
+using A6ToolKits.Module;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Styling;
@@ -41,4 +44,10 @@ public interface IBootstrapperController
     ///     主题
     /// </param>
     public void SetupTheme(ThemeVariant theme);
+
+    /// <summary>
+    ///     获取需要加载的模块
+    /// </summary>
+    /// <returns></returns>
+    public List<Type> LoadModules();
 }

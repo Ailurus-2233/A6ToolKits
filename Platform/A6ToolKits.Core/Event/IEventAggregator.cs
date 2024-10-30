@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace A6ToolKits.Common.Event;
+namespace A6ToolKits.Event;
 
 /// <summary>
 ///     事件聚合器接口

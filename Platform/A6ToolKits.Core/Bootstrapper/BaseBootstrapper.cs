@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using A6ToolKits.Assembly;
 using A6ToolKits.Bootstrapper.Extensions;
 using A6ToolKits.Bootstrapper.Interfaces;
-using A6ToolKits.Helper.Assembly;
-using A6ToolKits.Helper.Logger;
+using A6ToolKits.Event;
+using A6ToolKits.Logger;
 using A6ToolKits.Module;
 using Avalonia;
 using Avalonia.Controls;
@@ -23,7 +25,7 @@ namespace A6ToolKits.Bootstrapper;
 /// <typeparam name="TWindow">
 ///     主窗体类型，指定一个 Window 类型作为主窗体
 /// </typeparam>
-public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, IBootstrapperController
+public abstract class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, IBootstrapperController
     where TApplication : Application, new()
     where TWindow : Window, new()
 {
@@ -54,10 +56,8 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, IBootstrap
     public virtual void Initialize()
     {
         AssemblyHelper.LoadAssemblyPath();
+        AvaloniaConfigure();
         LoggerHelper.InitializeConsoleLogger(LogEventLevel.Verbose);
-        CoreService.Instance.Initialize(this);
-        Log.Information($"Initializing Application: {_mainWindow?.Title ?? "A6ToolKits Application"}");
-        Log.Information("Finish Initializing Application.");
     }
 
     /// <summary>
@@ -67,8 +67,7 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, IBootstrap
     /// </summary>
     public virtual void Configure()
     {
-        Log.Information("Configuring Application: Config Avalonia builder & lifetime");
-        AvaloniaConfigure();
+        CoreService.Instance.Initialize(this);
     }
 
     /// <summary>
@@ -100,13 +99,11 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, IBootstrap
         if (_lifetime == null) return;
         _mainWindow ??= new TWindow();
         _lifetime.MainWindow = _mainWindow;
-        Log.Information("Finish Configuring Application.");
         if (Debugger.IsAttached)
         {
             _mainWindow.AttachDevTools();
         }
-
-        Log.Information("Starting Application...");
+        CoreService.Instance.EventAggregator?.Publish(new BootFinishedEvent());
         _lifetime.Start(_runArguments ?? []);
     }
 
@@ -115,7 +112,6 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, IBootstrap
     /// </summary>
     public virtual void OnFinished()
     {
-        Log.Information("Application Stopped.");
     }
 
     /// <summary>
@@ -163,6 +159,14 @@ public class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, IBootstrap
         if (Application.Current != null) 
             Application.Current.RequestedThemeVariant = theme;
     }
+
+    /// <summary>
+    ///     获取需要加载的模块
+    /// </summary>
+    /// <returns>
+    ///     模块列表
+    /// </returns>
+    public abstract List<Type> LoadModules();
 
     /// <summary>
     ///     应用的启动方法，会依次调用 Initialize、Configure 和 OnCompleted 方法

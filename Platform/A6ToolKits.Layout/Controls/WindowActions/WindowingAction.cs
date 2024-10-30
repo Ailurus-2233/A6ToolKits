@@ -1,12 +1,10 @@
-﻿using System.Threading.Tasks;
-using A6ToolKits.Bootstrapper;
-using A6ToolKits.Helper.Resource;
-using Avalonia;
+﻿using A6ToolKits.Action;
+using A6ToolKits.Event;
+using A6ToolKits.Resource;
 using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Media;
 
-namespace A6ToolKits.Common.Action.CommonActions;
+namespace A6ToolKits.Layout.Controls.WindowActions;
 
 /// <summary>
 ///     窗口化动作
@@ -36,15 +34,18 @@ public sealed class WindowingAction : ActionBase
     /// </summary>
     public WindowingAction()
     {
-        var window = CoreService.Instance.Controller?.GetMainWindow();
-        if (window is null) return;
-        CanRun = window.WindowState != WindowState.Normal;
-        window.PropertyChanged += (sender, args) =>
+        CoreService.Instance.EventAggregator?.Subscribe<BootFinishedEvent>(e =>
         {
-            if (args.Property.Name == nameof(window.WindowState))
+            if (CoreService.Instance.Controller == null) return;
+            var window = CoreService.Instance.Controller.GetMainWindow();
+            CanRun = window.WindowState != WindowState.Normal;
+            window.PropertyChanged += (sender, args) =>
             {
-                CanRun = window.WindowState != WindowState.Normal;
-            }
-        };
+                if (args.Property.Name == nameof(window.WindowState))
+                {
+                    CanRun = window.WindowState != WindowState.Normal;
+                }
+            };
+        });
     }
 }

@@ -1,4 +1,4 @@
-﻿using A6ToolKits.Helper.Config;
+﻿using A6ToolKits.Config;
 using A6ToolKits.Instance;
 using A6ToolKits.Layout.Controls;
 using A6ToolKits.Layout.Controls.Container;
@@ -7,6 +7,8 @@ using A6ToolKits.Layout.Generator.Enums;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
+using DefaultWindow = A6ToolKits.Layout.Controls.LayoutWindow.DefaultWindow;
+
 namespace A6ToolKits.Layout.Generator;
 
 /// <summary>
@@ -27,11 +29,11 @@ internal class WindowGenerator
     public static WindowGenerator Instance => lazy.Value;
     
     private static WindowConfig _config => WindowConfig.Instance;
-    
+
     /// <summary>
     ///     实例创建器，用于初始化布局过程中控件实例的创建
     /// </summary>
-    public IInstanceCreator? Creator { get; set; }
+    public IInstanceCreator? Creator { get; set; } = CoreService.Instance.Creator;
     
     /// <summary>
     ///     生成一个窗口

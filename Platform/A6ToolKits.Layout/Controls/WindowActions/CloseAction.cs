@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
-using A6ToolKits.Helper.Resource;
+﻿using A6ToolKits.Action;
+using A6ToolKits.Resource;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Media;
 
-namespace A6ToolKits.Common.Action.CommonActions;
+namespace A6ToolKits.Layout.Controls.WindowActions;
 
 /// <summary>
 ///     关闭程序动作
@@ -23,8 +23,8 @@ public class CloseAction : ActionBase
     /// <inheritdoc />
     public override Task Run()
     {
-        var lifetime = Application.Current?.ApplicationLifetime as ClassicDesktopStyleApplicationLifetime;
-        lifetime?.Shutdown();
+        var controller = CoreService.Instance.Controller;
+        controller?.StopApplication();
         return Task.CompletedTask;
     }
 }

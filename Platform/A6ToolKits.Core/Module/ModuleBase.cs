@@ -2,16 +2,20 @@
 using System.Linq;
 using System.Reflection;
 using A6ToolKits.Common.Attributes.MVVM;
-using A6ToolKits.Module.Exceptions;
+using A6ToolKits.Exceptions;
 using Serilog;
 
 namespace A6ToolKits.Module;
 
 /// <summary>
-///     一个模块接口，用于记录模块的信息
+///     一个模块基类，用于记录模块的信息
 /// </summary>
 public abstract class ModuleBase:IModule
 {
+    /// <summary>
+    ///     模块名称
+    /// </summary>
+    public abstract string Name { get; }
 
     /// <summary>
     ///     构造函数
@@ -35,9 +39,9 @@ public abstract class ModuleBase:IModule
     public void LoadModule()
     {
         try {
-            Log.Information($"Loading module {GetType().Name}");
+            Log.Information($"Loading module {Name}");
             Initialize();
-            Log.Information($"Module {GetType().Name} loaded successfully");
+            Log.Information($"Module {Name} loaded successfully");
         }
         catch (Exception e)
         {

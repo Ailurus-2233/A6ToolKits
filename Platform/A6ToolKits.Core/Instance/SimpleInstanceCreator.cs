@@ -1,5 +1,5 @@
 ﻿using System;
-using A6ToolKits.Helper.Assembly;
+using A6ToolKits.Assembly;
 
 namespace A6ToolKits.Instance;
 
@@ -35,12 +35,11 @@ public sealed class SimpleInstanceCreator : IInstanceCreator
     /// <returns>
     ///     返回类型的实例，如果创建失败则返回 null
     /// </returns>
-    public T? Create<T>()
-        where T : class
+    public T? Create<T>() where T : class
     {
         return Create(typeof(T)) as T;
     }
-    
+
     /// <summary>
     ///     创建指定类型的实例
     /// </summary>
@@ -50,9 +49,9 @@ public sealed class SimpleInstanceCreator : IInstanceCreator
     /// <returns></returns>
     public object? Create(Type type)
     {
-        return Activator.CreateInstance(type, false);
+        return Activator.CreateInstance(type, true);
     }
-    
+
     /// <summary>
     ///     创建指定类型的实例
     /// </summary>

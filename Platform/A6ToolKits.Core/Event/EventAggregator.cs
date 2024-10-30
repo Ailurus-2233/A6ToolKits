@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using A6ToolKits.Common.Attributes.MVVM;
 
-namespace A6ToolKits.Common.Event;
+namespace A6ToolKits.Event;
 
 /// <summary>
 ///     事件聚合器
 /// </summary>
-[AutoRegister(typeof(IEventAggregator), RegisterType.Singleton)]
 public class EventAggregator: IEventAggregator
 {
     private readonly Dictionary<Type, List<object>> _subscribers = new Dictionary<Type, List<object>>();

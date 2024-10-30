@@ -10,12 +10,16 @@ namespace A6ToolKits.Layout;
 /// <summary>
 ///     布局模块，如果加载该模块将会基于配置文件自动加载窗口
 /// </summary>
-[AutoRegister(typeof(LayoutModule), RegisterType.Singleton)]
-public class LayoutModule : ModuleBase
+public sealed class LayoutModule : ModuleBase
 {
     private WindowGenerator _generator => WindowGenerator.Instance;
     private CoreService _bootService => CoreService.Instance;
     
+    /// <summary>
+    ///     模块名称
+    /// </summary>
+    public override string Name =>"A6ToolKits.LayoutModule";
+
     /// <summary>
     ///     初始化布局模块，加载布局配置文件
     /// </summary>

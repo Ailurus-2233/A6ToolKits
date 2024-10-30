@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using A6ToolKits.Bootstrapper;
 using A6ToolKits.Bootstrapper.Interfaces;
+using A6ToolKits.Event;
 using A6ToolKits.Instance;
 
 namespace A6ToolKits;
@@ -11,30 +12,36 @@ namespace A6ToolKits;
 /// </summary>
 public class CoreService
 {
-    private static readonly Lazy<CoreService> _instance = new(() => new CoreService());
+    private static readonly Lazy<CoreService> instance = new(() => new CoreService());
 
     private CoreService()
-    { }
+    {
+    }
 
     /// <summary>
     ///     启动服务实例
     /// </summary>
-    public static CoreService Instance => _instance.Value;
-    
+    public static CoreService Instance => instance.Value;
+
     /// <summary>
     ///     应用控制器
     /// </summary>
     public IBootstrapperController? Controller { get; set; }
-    
-    /// <summary>
-    ///     服务字典，通过服务类获取对应的实例
-    /// </summary>
-    public Dictionary<Type, object>? Services { get; set; }
 
     /// <summary>
-    ///     实例创建工具
+    ///     实例创建器
     /// </summary>
     public IInstanceCreator? Creator { get; set; }
+
+    /// <summary>
+    ///     核心模块
+    /// </summary>
+    public CoreModule? CoreModule { get; set; }
+
+    /// <summary>
+    ///     事件聚合器
+    /// </summary>
+    public IEventAggregator? EventAggregator { get; set; }
 
     /// <summary>
     ///     初始化CoreService
@@ -44,8 +51,9 @@ public class CoreService
     /// </param>
     public void Initialize(IBootstrapperController controller)
     {
-        Services = new Dictionary<Type, object>();
-        Creator = new SimpleInstanceCreator();
         Controller = controller;
+        EventAggregator = new EventAggregator();
+        Creator = new SimpleInstanceCreator();
+        CoreModule = new CoreModule();
     }
 }

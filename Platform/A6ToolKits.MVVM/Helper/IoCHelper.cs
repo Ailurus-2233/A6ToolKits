@@ -1,7 +1,8 @@
 ﻿using System.Reflection;
+using A6ToolKits.Assembly;
 using A6ToolKits.Common.Attributes.MVVM;
-using A6ToolKits.Helper.Assembly;
 using Avalonia.Controls;
+using SysAssembly = System.Reflection.Assembly;
 
 namespace A6ToolKits.MVVM.Helper;
 
@@ -16,12 +17,12 @@ public static class IoCHelper
     /// </summary>
     public static void AutoRegisterAll()
     {
-        var assembly = Assembly.GetEntryAssembly();
+        var assembly = SysAssembly.GetEntryAssembly();
         if (assembly == null) return;
         AutoRegister(assembly);
 
         var assemblies = AssemblyHelper.GetAllAssemblies();
-        foreach (var loadedAssembly in assemblies.Select(Assembly.Load)) AutoRegister(loadedAssembly);
+        foreach (var loadedAssembly in assemblies.Select(SysAssembly.Load)) AutoRegister(loadedAssembly);
     }
 
     /// <summary>
@@ -30,7 +31,7 @@ public static class IoCHelper
     /// <param name="assembly">
     ///     程序集
     /// </param>
-    public static void AutoRegister(Assembly assembly)
+    public static void AutoRegister(SysAssembly assembly)
     {
         var serviceTypes =
             assembly.GetTypes().Where(type => type.GetCustomAttributes<AutoRegisterAttribute>().Any());

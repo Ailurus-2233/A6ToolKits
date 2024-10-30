@@ -1,13 +1,9 @@
-﻿using A6ToolKits.Bootstrapper;
-using A6ToolKits.Common.Action;
-using A6ToolKits.Common.Action.CommonActions;
+﻿using A6ToolKits.Action;
 using A6ToolKits.Common.Attributes.Layout;
+using A6ToolKits.Layout.Controls.WindowActions;
 using A6ToolKits.Layout.Generator;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Layout;
-using Avalonia.Markup.Xaml;
-using Avalonia.VisualTree;
 
 namespace A6ToolKits.Layout.Controls;
 
@@ -22,6 +18,7 @@ public partial class TitleBar : UserControl
     public TitleBar()
     {
         InitializeComponent();
+        BuildWindowControlPanel();
     }
     
     private void BuildWindowControlPanel()

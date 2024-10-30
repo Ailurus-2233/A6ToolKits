@@ -23,11 +23,6 @@ public partial class OriginWindow : WindowBase
         if (StatusBar.StatusBarPanel.Height == 0)
             StatusBarSeparator.Height = 0;
         
-        InitBorder();
-    }
-
-    private void InitBorder()
-    {
-        MainBorder.Background = new SolidColorBrush(WindowConfig.Instance.BackgroundColor);
+        WindowBorder.Background = new SolidColorBrush(WindowConfig.Instance.BackgroundColor);
     }
 }

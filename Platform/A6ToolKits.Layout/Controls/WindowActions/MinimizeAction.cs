@@ -1,11 +1,8 @@
-﻿using System.Threading.Tasks;
-using A6ToolKits.Bootstrapper;
-using A6ToolKits.Helper.Resource;
-using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
+﻿using A6ToolKits.Action;
+using A6ToolKits.Resource;
 using Avalonia.Media;
 
-namespace A6ToolKits.Common.Action.CommonActions;
+namespace A6ToolKits.Layout.Controls.WindowActions;
 
 /// <summary>
 ///     最小化动作

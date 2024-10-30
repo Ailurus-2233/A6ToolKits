@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace A6ToolKits.Common.Event;
+namespace A6ToolKits.Event;
 
 /// <summary>
 ///     启动完成事件

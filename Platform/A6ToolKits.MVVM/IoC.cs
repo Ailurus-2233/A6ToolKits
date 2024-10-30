@@ -1,33 +1,10 @@
-﻿using A6ToolKits.Helper.Assembly;
-using A6ToolKits.Instance;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace A6ToolKits.MVVM;
+﻿namespace A6ToolKits.MVVM;
 
 /// <summary>
-///     基于 Microsoft.Extensions.DependencyInjection 的 IoC 容器封装类
-///     可以通过 IoC.Add 方法注册类型到 IoC 容器中, 通过 IoC.Get 方法获取类型的实例
+///     静态IoC类，提供了一些通用的方法给外部
 /// </summary>
-public sealed class IoC : IInstanceCreator
+public static class IoC
 {
-    private readonly ServiceCollection _service = [];
-
-    static IoC()
-    {
-    }
-
-    private IoC()
-    {
-    }
-
-    /// <summary>
-    /// </summary>
-    public static IoC Instance { get; } = new();
-
-    private static ServiceProvider ServiceProvider => GetServiceProvider();
-
-    private static ServiceCollection Services => Instance._service;
-
     #region Register
 
     /// <summary>
@@ -38,8 +15,7 @@ public sealed class IoC : IInstanceCreator
     /// </param>
     public static void Add(Type type)
     {
-        Instance.IsLegal(type, null);
-        Services.AddTransient(type);
+        MVVMCreator.Instance.Add(type);
     }
 
     /// <summary>
@@ -53,8 +29,7 @@ public sealed class IoC : IInstanceCreator
     /// </param>
     public static void Add(Type serviceType, Type implementationType)
     {
-        Instance.IsLegal(serviceType, implementationType);
-        Services.AddTransient(serviceType, implementationType);
+        MVVMCreator.Instance.Add(serviceType, implementationType);
     }
 
     /// <summary>
@@ -65,7 +40,7 @@ public sealed class IoC : IInstanceCreator
     /// </typeparam>
     public static void Add<TService>() where TService : class
     {
-        Services.AddTransient<TService>();
+        MVVMCreator.Instance.Add(typeof(TService));
     }
 
     /// <summary>
@@ -80,7 +55,7 @@ public sealed class IoC : IInstanceCreator
     public static void Add<TService, TImplementation>()
         where TService : class where TImplementation : class, TService
     {
-        Services.AddTransient<TService, TImplementation>();
+        MVVMCreator.Instance.Add(typeof(TService), typeof(TImplementation));
     }
 
     /// <summary>
@@ -91,8 +66,7 @@ public sealed class IoC : IInstanceCreator
     /// </param>
     public static void AddSingleton(Type type)
     {
-        Instance.IsLegal(type, null);
-        Services.AddSingleton(type);
+        MVVMCreator.Instance.AddSingleton(type);
     }
 
     /// <summary>
@@ -106,8 +80,7 @@ public sealed class IoC : IInstanceCreator
     /// </param>
     public static void AddSingleton(Type serviceType, Type implementationType)
     {
-        Instance.IsLegal(serviceType, implementationType);
-        Services.AddSingleton(serviceType, implementationType);
+        MVVMCreator.Instance.AddSingleton(serviceType, implementationType);
     }
 
     /// <summary>
@@ -116,13 +89,12 @@ public sealed class IoC : IInstanceCreator
     /// <param name="type">
     ///     可以是类、接口、抽象类
     /// </param>
-    /// <param name="instance">
+    /// <param name="obj">
     ///     具体实例，必须是type的实例
     /// </param>
-    public static void AddSingleton(Type type, object instance)
+    public static void AddSingleton(Type type, object obj)
     {
-        Instance.IsLegal(type, instance);
-        Services.AddSingleton(type, instance);
+        MVVMCreator.Instance.AddSingleton(type, obj);
     }
 
     /// <summary>
@@ -133,21 +105,21 @@ public sealed class IoC : IInstanceCreator
     /// </typeparam>
     public static void AddSingleton<TService>() where TService : class
     {
-        Services.AddSingleton<TService>();
+        MVVMCreator.Instance.AddSingleton(typeof(TService));
     }
 
     /// <summary>
     ///     注册一个单例到 IoC 容器中
     /// </summary>
-    /// <param name="service">
+    /// <param name="obj">
     ///     一个具体实例
     /// </param>
     /// <typeparam name="TService">
     ///     一个可以实例化的类型
     /// </typeparam>
-    public static void AddSingleton<TService>(TService service) where TService : class
+    public static void AddSingleton<TService>(TService obj) where TService : class
     {
-        Services.AddSingleton(service);
+        MVVMCreator.Instance.AddSingleton(typeof(TService), obj);
     }
 
     /// <summary>
@@ -162,7 +134,7 @@ public sealed class IoC : IInstanceCreator
     public static void AddSingleton<TService, TImplementation>()
         where TService : class where TImplementation : class, TService
     {
-        Services.AddSingleton<TService, TImplementation>();
+        MVVMCreator.Instance.AddSingleton(typeof(TService), typeof(TImplementation));
     }
 
     /// <summary>
@@ -180,7 +152,7 @@ public sealed class IoC : IInstanceCreator
     public static void AddSingleton<TService, TImplementation>(TImplementation implementation)
         where TService : class where TImplementation : class, TService
     {
-        Services.AddSingleton<TService>(implementation);
+        MVVMCreator.Instance.AddSingleton(typeof(TService), implementation);
     }
 
     /// <summary>
@@ -194,7 +166,7 @@ public sealed class IoC : IInstanceCreator
     /// </typeparam>
     public static void AddByFactory<TService>(Func<IServiceProvider, TService> factory) where TService : class
     {
-        Services.AddTransient(factory);
+        MVVMCreator.Instance.AddByFactory<TService>(factory);
     }
 
     /// <summary>
@@ -208,7 +180,7 @@ public sealed class IoC : IInstanceCreator
     /// </typeparam>
     public static void AddSingletonByFactory<TService>(Func<IServiceProvider, TService> factory) where TService : class
     {
-        Services.AddSingleton(factory);
+        MVVMCreator.Instance.AddByFactory<TService>(factory);
     }
 
     #endregion
@@ -226,7 +198,7 @@ public sealed class IoC : IInstanceCreator
     /// </returns>
     public static TService Get<TService>() where TService : class
     {
-        return ServiceProvider.GetRequiredService<TService>();
+        return MVVMCreator.Instance.Get<TService>();
     }
 
     /// <summary>
@@ -238,10 +210,9 @@ public sealed class IoC : IInstanceCreator
     /// <returns>
     ///     返回类型的实例，如果获取失败则返回 null
     /// </returns>
-    public static bool TryGet<TService>(out TService? service) where TService : class
+    public static bool TryGet<TService>(out TService? obj) where TService : class
     {
-        service = ServiceProvider.GetService<TService>();
-        return service != null;
+        return MVVMCreator.Instance.TryGet(out obj);
     }
 
     /// <summary>
@@ -255,7 +226,7 @@ public sealed class IoC : IInstanceCreator
     /// </returns>
     public static object Get(Type serviceType)
     {
-        return ServiceProvider.GetRequiredService(serviceType);
+        return MVVMCreator.Instance.Get(serviceType);
     }
 
     /// <summary>
@@ -264,16 +235,15 @@ public sealed class IoC : IInstanceCreator
     /// <param name="type">
     ///     需要从 IoC 容器中获取的类型
     /// </param>
-    /// <param name="service">
+    /// <param name="obj">
     ///     返回类型的实例
     /// </param>
     /// <returns>
     ///     如果获取成功则返回 true
     /// </returns>
-    public static bool TryGet(Type type, out object? service)
+    public static bool TryGet(Type type, out object? obj)
     {
-        service = ServiceProvider.GetService(type);
-        return service != null;
+        return MVVMCreator.Instance.TryGet(type, out obj);
     }
 
     #endregion
@@ -292,103 +262,28 @@ public sealed class IoC : IInstanceCreator
     /// <returns>
     ///     返回类型的实例，如果创建失败则返回 null
     /// </returns>
-    public object? Create(string type, string? assembly = null)
-    {
-        var target = assembly == null ? Type.GetType(type) : AssemblyHelper.LoadType(type, assembly);
-        return target == null ? null : this.Create(target);
-    }
-
-    /// <summary>
-    ///     从 IoC 容器获取指定类型的实例，如果不存在则创建一个新的实例
-    /// </summary>
-    /// <param name="type">
-    ///     类型名称
-    /// </param>
-    /// <param name="assembly">
-    ///     类型所在的程序集名称，如果为 null 则从当前程序集中查找
-    /// </param>
-    /// <returns>
-    ///     返回类型的实例，如果创建失败则返回 null
-    /// </returns>
-    public object? GetOrCreate(string type, string? assembly = null)
-    {
-        var targetType = assembly == null ? Type.GetType(type) : AssemblyHelper.LoadType(type, assembly);
-        return targetType == null ? null : GetOrCreate(targetType);
-    }
-
-
-    /// <summary>
-    ///     基于 IoC 中的注册信息创建一个实例
-    /// </summary>
-    /// <typeparam name="TService">
-    ///     需要创建的类型
-    /// </typeparam>
-    /// <returns>
-    ///     返回创建的实例
-    /// </returns>
-    public TService Create<TService>() where TService : class
-    {
-        return ActivatorUtilities.CreateInstance<TService>(ServiceProvider);
-    }
-
-    /// <summary>
-    ///     从 IoC 容器获取指定类型的实例，如果不存在则创建一个新的实例
-    /// </summary>
-    /// <typeparam name="TService">
-    ///     类型
-    /// </typeparam>
-    /// <returns>
-    ///     返回类型的实例，如果创建失败则返回 null
-    /// </returns>
-    public TService? GetOrCreate<TService>() where TService : class
-    {
-        return TryGet<TService>(out var result) ? result : this.Create<TService>();
-    }
-
-    /// <summary>
-    ///     基于 IoC 中的注册信息创建一个实例
-    /// </summary>
-    /// <param name="type">
-    ///     需要创建的类型
-    /// </param>
-    /// <returns>
-    ///     返回创建的实例
-    /// </returns>
-    public object Create(Type type)
-    {
-        return ActivatorUtilities.CreateInstance(ServiceProvider, type);
-    }
-
-    /// <summary>
-    ///     从 IoC 容器获取指定类型的实例，如果不存在则创建一个新的实例
-    /// </summary>
-    /// <param name="type">
-    ///     指定类型
-    /// </param>
-    /// <returns>
-    ///     返回类型的实例，如果创建失败则返回 null
-    /// </returns>
-    public object? GetOrCreate(Type type)
-    {
-        return TryGet(type, out var result) ? result : this.Create(type);
-    }
-
-    /// <summary>
-    ///     基于 IoC 中的注册信息创建一个实例
-    /// </summary>
-    /// <param name="type">
-    ///     类型名称
-    /// </param>
-    /// <param name="assembly">
-    ///     类型所在的程序集名称，如果为 null 则从当前程序集中查找
-    /// </param>
-    /// <returns>
-    ///     返回类型的实例，如果创建失败则返回 null
-    /// </returns>
     public static object? Create(string type, string? assembly = null)
     {
-        return Instance.Create(type, assembly);
+        return MVVMCreator.Instance.Create(type, assembly);
     }
+
+    /// <summary>
+    ///     从 IoC 容器获取指定类型的实例，如果不存在则创建一个新的实例
+    /// </summary>
+    /// <param name="type">
+    ///     类型名称
+    /// </param>
+    /// <param name="assembly">
+    ///     类型所在的程序集名称，如果为 null 则从当前程序集中查找
+    /// </param>
+    /// <returns>
+    ///     返回类型的实例，如果创建失败则返回 null
+    /// </returns>
+    public static object? GetOrCreate(string type, string? assembly = null)
+    {
+        return MVVMCreator.Instance.GetOrCreate(type, assembly);
+    }
+
 
     /// <summary>
     ///     基于 IoC 中的注册信息创建一个实例
@@ -401,9 +296,22 @@ public sealed class IoC : IInstanceCreator
     /// </returns>
     public static TService Create<TService>() where TService : class
     {
-        return Instance.Create<TService>();
+        return MVVMCreator.Instance.Create<TService>();
     }
 
+    /// <summary>
+    ///     从 IoC 容器获取指定类型的实例，如果不存在则创建一个新的实例
+    /// </summary>
+    /// <typeparam name="TService">
+    ///     类型
+    /// </typeparam>
+    /// <returns>
+    ///     返回类型的实例，如果创建失败则返回 null
+    /// </returns>
+    public static TService? GetOrCreate<TService>() where TService : class
+    {
+        return MVVMCreator.Instance.GetOrCreate<TService>();
+    }
 
     /// <summary>
     ///     基于 IoC 中的注册信息创建一个实例
@@ -416,70 +324,21 @@ public sealed class IoC : IInstanceCreator
     /// </returns>
     public static object Create(Type type)
     {
-        return Instance.Create(type);
-    }
-
-    #endregion
-
-    #region private methods
-
-    /// <summary>
-    ///     获取 ServiceProvider 实例
-    /// </summary>
-    /// <returns></returns>
-    private static ServiceProvider GetServiceProvider()
-    {
-        return Services.BuildServiceProvider();
+        return MVVMCreator.Instance.Create(type);
     }
 
     /// <summary>
-    ///     检查 IoC 注册的类型是否合法
-    /// </summary>
-    /// <param name="serviceType">
-    ///     基类、接口、抽象类
-    /// </param>
-    /// <param name="implementationType">
-    ///     实现类
-    /// </param>
-    /// <returns>
-    ///     如果注册的类型合法则返回 true
-    /// </returns>
-    /// <exception cref="ArgumentException">
-    ///     当注册的类型不合法时抛出异常
-    /// </exception>
-    private void IsLegal(Type serviceType, Type? implementationType)
-    {
-        if (serviceType is { IsInterface: false, IsAbstract: false, IsClass: false })
-            throw new ArgumentException("Service type must be a base class or interface or abstract class");
-
-        if (implementationType == null) return;
-
-        if (!implementationType.IsClass || implementationType.IsAbstract)
-            throw new ArgumentException("Implementation type must be a non-abstract class");
-
-        if (!serviceType.IsAssignableFrom(implementationType))
-            throw new ArgumentException("Implementation type must be assignable to service type");
-    }
-
-    /// <summary>
-    ///     检查 IoC 注册单例实例时是否合法
+    ///     从 IoC 容器获取指定类型的实例，如果不存在则创建一个新的实例
     /// </summary>
     /// <param name="type">
-    ///     需要注册的类型
-    /// </param>
-    /// <param name="instance">
-    ///     具体实例
+    ///     指定类型
     /// </param>
     /// <returns>
-    ///     如果注册的类型合法则返回 true
+    ///     返回类型的实例，如果创建失败则返回 null
     /// </returns>
-    /// <exception cref="ArgumentException">
-    ///     当注册的类型不合法时抛出异常
-    /// </exception>
-    private void IsLegal(Type type, object instance)
+    public static object? GetOrCreate(Type type)
     {
-        if (!type.IsInstanceOfType(instance))
-            throw new ArgumentException("Instance must be an instance of type");
+        return MVVMCreator.Instance.GetOrCreate(type);
     }
 
     #endregion
