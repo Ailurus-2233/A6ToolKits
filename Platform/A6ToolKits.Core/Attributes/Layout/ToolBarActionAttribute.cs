@@ -70,9 +70,4 @@ public enum ButtonType
     ///     图标和文字
     /// </summary>
     IconAndText,
-
-    /// <summary>
-    ///     首字母
-    /// </summary>
-    Initials
 }

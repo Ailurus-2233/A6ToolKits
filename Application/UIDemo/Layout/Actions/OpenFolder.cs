@@ -7,7 +7,7 @@ namespace UIDemo.Layout.Actions;
 
 [MenuAction("文件:1")]
 [ToolBarAction(1, "Initials")]
-public class OpenFolder : ActionBase
+public class OpenFolder : AsyncCommandBase
 {
     public override string? Name { get; init; } = "打开文件夹";
     

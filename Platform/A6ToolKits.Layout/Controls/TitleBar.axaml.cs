@@ -1,6 +1,6 @@
-﻿using A6ToolKits.Action;
+﻿using A6ToolKits.Commands;
 using A6ToolKits.Common.Attributes.Layout;
-using A6ToolKits.Layout.Controls.WindowActions;
+using A6ToolKits.Layout.Controls.ControlCommand;
 using A6ToolKits.Layout.Generator;
 using Avalonia;
 using Avalonia.Controls;
@@ -30,41 +30,14 @@ public partial class TitleBar : UserControl
     {
         var config = WindowConfig.Instance;
     
-        var minusButton = new MinimizeAction().GenerateButton(ButtonType.Icon);
-        var closeButton = new CloseAction().GenerateButton(ButtonType.Icon);
-        var maximizeAction = new MaximizeAction();
-        var maximizeButton = maximizeAction.GenerateButton(ButtonType.Icon);
-        var windowAction = new WindowingAction();
-        var windowButton = windowAction.GenerateButton(ButtonType.Icon);
-        
-        ControlBar.Children.Add(minusButton);
-        ControlBar.Children.Add(maximizeButton);
-        ControlBar.Children.Add(windowButton);
-        ControlBar.Children.Add(closeButton);
-    
-        SetButtonStyle(minusButton);
-        SetButtonStyle(closeButton);
-        SetButtonStyle(maximizeButton);
-        SetButtonStyle(windowButton);
-        
-        maximizeButton.IsVisible = maximizeButton.IsEnabled;
-        maximizeAction.CanRunChanged += (_, _) =>
-        {
-            maximizeButton.IsVisible = maximizeButton.IsEnabled;
-            SetButtonStyle(maximizeButton);
-        };
-    
-        windowButton.IsVisible = windowButton.IsEnabled;
-        windowAction.CanRunChanged += (_, _) =>
-        {
-            windowButton.IsVisible = windowButton.IsEnabled;
-            SetButtonStyle(windowButton);
-        };
-    }
+        var minusAction = new MinimizeCommandHandler();
+        var closeAction = new CloseCommandHandler();
+        var maximizeAction = new MaximizeCommandHandler();
+        var windowAction = new WindowCommandHandler();
 
-    private void SetButtonStyle(Button button)
-    {
-        button.Background = new SolidColorBrush(Colors.Transparent);
-        button.BorderBrush = new SolidColorBrush(Colors.Transparent);
+        MinusButton = minusAction.GenerateButton<MinimizeCommandDefinition>(ButtonType.Icon);
+        CloseButton = closeAction.GenerateButton<CloseCommandDefinition>(ButtonType.Icon);
+        MaximizeButton = maximizeAction.GenerateButton<MaximizeCommandDefinition>(ButtonType.Icon);
+        WindowButton = windowAction.GenerateButton<WindowCommandDefinition>(ButtonType.Icon);
     }
 }

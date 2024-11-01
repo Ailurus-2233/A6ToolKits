@@ -21,11 +21,11 @@ public static class ResourceHelper
     ///     返回图片
     /// </returns>
     /// <exception cref="Exception"></exception>
-    public static DrawingImage LoadImage(string key)
+    public static IImage LoadImage(string key)
     {
         try
         {
-            var image = (DrawingImage)Application.Current?.FindResource(key)!;
+            var image = (IImage)Application.Current?.FindResource(key)!;
             return image;
         }
         catch (Exception e)

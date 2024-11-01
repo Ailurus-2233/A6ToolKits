@@ -6,7 +6,7 @@ namespace UIDemo.Layout.Actions;
 
 [MenuAction("文件:0")]
 [ToolBarAction(0, "Initials")]
-public class NewFile : ActionBase
+public class NewFile : AsyncCommandBase
 {
     public override string? Name { get; init; } = "新建文件";
     

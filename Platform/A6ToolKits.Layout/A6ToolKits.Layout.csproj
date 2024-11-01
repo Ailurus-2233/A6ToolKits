@@ -44,4 +44,8 @@
       </Compile>
     </ItemGroup>
 
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Controls\Styles\MenuItemStyle.axaml" />
+    </ItemGroup>
+
 </Project>

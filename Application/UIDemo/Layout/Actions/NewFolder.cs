@@ -7,7 +7,7 @@ namespace UIDemo.Layout.Actions;
 
 [MenuAction("文件:0")]
 [ToolBarAction(0, "Initials")]
-public class NewFolder : ActionBase
+public class NewFolder : AsyncCommandBase
 {
     public override string? Name { get; init; } = "新建文件夹";
     

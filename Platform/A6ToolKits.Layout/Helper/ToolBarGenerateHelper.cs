@@ -42,7 +42,7 @@ internal static class ToolBarGenerateHelper
         types.ForEach(type =>
         {
             var obj = _generator.Creator?.Create(type);
-            if (obj is not ActionBase action) return;
+            if (obj is not AsyncCommandBase action) return;
             var buttonType = action.Icon == null ? ButtonType.Initials : ButtonType.Icon;
             var button = action.GenerateButton(buttonType);
             result.Add(button);
