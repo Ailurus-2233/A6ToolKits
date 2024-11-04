@@ -35,6 +35,10 @@
       <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.4" />
     </ItemGroup>
 
+    <ItemGroup>
+        <AvaloniaResource Include="Resources\Icons\**" />
+    </ItemGroup>
+
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
       <Exec Command="cd $(TargetDir)&#xA;nu ./after_build.nu" />
     </Target>

@@ -1,8 +1,7 @@
 ﻿using System.Reflection;
-using A6ToolKits.Action;
 using A6ToolKits.Assembly;
 using A6ToolKits.Commands;
-using A6ToolKits.Commands.Interfaces;
+using A6ToolKits.Commands.ControlGenerators;
 using A6ToolKits.Common.Attributes.Layout;
 using A6ToolKits.Exceptions;
 using A6ToolKits.Layout.Generator;
@@ -96,10 +95,13 @@ internal static class MenuBarGenerateHelper
 
         foreach (var type in types)
         {
-            if (type.FindInterfaces((t, _) => t == typeof(ICommandHandler), null).Length == 0) continue;
+            // 判断 type 是否是 CommandBase 的子类
+            if (!typeof(CommandBase).IsAssignableFrom(type)) 
+                throw new GenerateTypeNotEqualException(type.ToString(), typeof(CommandBase).ToString());
             var obj = _generator.Creator?.Create(type);
-            if (obj is not ICommandHandler temp) continue;
-            var menuItem = temp.GenerateMenuItem(type);
+            if (obj is not CommandBase temp) continue;
+            var menuItemType = type.GetMenuActionAttribute().Type;
+            var menuItem = temp.GenerateMenuItem(menuItemType, _config.MenuHeight);
             var key = GetMenuActionAttribute(type).Path[level - 1].Order;
             AddKeyValue(key, menuItem);
         }

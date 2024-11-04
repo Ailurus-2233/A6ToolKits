@@ -12,11 +12,15 @@ public class MenuActionAttribute : Attribute
     /// <summary>
     ///     构造函数
     /// </summary>
+    /// <param name="type">
+    ///     菜单项类型
+    /// </param>
     /// <param name="path">
     ///     菜单路径，格式为 "Group:Order"，如 "File:1"
     /// </param>
-    public MenuActionAttribute(params string[] path)
+    public MenuActionAttribute(MenuItemType type, params string[] path)
     {
+        Type = type;
         Path = path.Select(p =>
         {
             var split = p.Split(':');
@@ -28,6 +32,8 @@ public class MenuActionAttribute : Attribute
     ///     菜单路径，生成 MenuItem 时，根据路径将 MenuItem 放置到对应的位置
     /// </summary>
     public GroupInfo[] Path { get; set; }
+    
+    public MenuItemType Type { get; set; }
 }
 
 /// <summary>
@@ -50,4 +56,19 @@ public readonly struct GroupInfo(string itemName, int itemValue)
     ///     菜单排序值
     /// </summary>
     public int Order { get; } = itemValue;
+}
+
+/// <summary>
+///     菜单项类型
+/// </summary>
+public enum MenuItemType
+{
+    /// <summary>
+    ///     纯文本菜单
+    /// </summary>
+    Text,
+    /// <summary>
+    ///     图标菜单
+    /// </summary>
+    IconAndText
 }

@@ -22,10 +22,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.1.4" />
-        <PackageReference Include="Avalonia.Desktop" Version="11.1.4" />
+        <PackageReference Include="Avalonia" Version="11.2.0" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.2.0" />
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
         <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.4" />
+        <PackageReference Include="Avalonia.Svg" Version="11.2.0" />
         <PackageReference Include="Avalonia.Xaml.Behaviors" Version="11.1.0.4" />
         <PackageReference Include="DynamicData" Version="9.0.4"/>
         <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0"/>
@@ -39,6 +40,10 @@
             <Link>A6ToolKits.png</Link>
         </None>
         <None Include="README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Commands\Interfaces\" />
     </ItemGroup>
 
 </Project>

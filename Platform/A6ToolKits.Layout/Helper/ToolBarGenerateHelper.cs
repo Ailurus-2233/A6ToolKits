@@ -1,9 +1,11 @@
 ﻿using System.Reflection;
-using A6ToolKits.Action;
 using A6ToolKits.Assembly;
+using A6ToolKits.Attributes.Layout;
+using A6ToolKits.Commands;
+using A6ToolKits.Commands.ControlGenerators;
 using A6ToolKits.Common.Attributes.Layout;
+using A6ToolKits.Exceptions;
 using A6ToolKits.Layout.Generator;
-using Avalonia;
 using Avalonia.Controls;
 
 namespace A6ToolKits.Layout.Helper;
@@ -15,6 +17,20 @@ internal static class ToolBarGenerateHelper
 {
     private static WindowConfig _config { get; set; } = WindowConfig.Instance;
     private static WindowGenerator _generator { get; set; } = WindowGenerator.Instance;
+    
+    /// <summary>
+    ///     获取类的 MenuActionAttribute 属性
+    /// </summary>
+    /// <param name="type" cerf="Type"> 目标类 </param>
+    /// <returns cref="MenuActionAttribute"> MenuActionAttribute 对象 </returns>
+    /// <exception cref="TypeNotFoundException"> </exception>
+    public static ToolBarActionAttribute GetToolBarActionAttribute(this Type type)
+    {
+        ArgumentNullException.ThrowIfNull(type);
+        var attribute = type.GetCustomAttribute<ToolBarActionAttribute>();
+        if (attribute == null) throw new AttributeNotFoundException(type, typeof(ToolBarActionAttribute));
+        return attribute;
+    }
 
     /// <summary>
     ///     获取所有有ToolBar属性的ActionBase类
@@ -41,10 +57,12 @@ internal static class ToolBarGenerateHelper
         var result = new List<Button>();
         types.ForEach(type =>
         {
+            if (!typeof(CommandBase).IsAssignableFrom(type)) 
+                throw new GenerateTypeNotEqualException(type.ToString(), typeof(CommandBase).ToString());
             var obj = _generator.Creator?.Create(type);
-            if (obj is not AsyncCommandBase action) return;
-            var buttonType = action.Icon == null ? ButtonType.Initials : ButtonType.Icon;
-            var button = action.GenerateButton(buttonType);
+            if (obj is not CommandBase action) return;
+            var buttonType = type.GetToolBarActionAttribute().Type;
+            var button = action.GenerateButton(buttonType, _config.ToolBarHeight);
             result.Add(button);
         });
         return result;

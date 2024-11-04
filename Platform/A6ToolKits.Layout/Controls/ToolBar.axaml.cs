@@ -47,8 +47,8 @@ public partial class ToolBar : UserControl
     private void SetButtonStyle(Button button)
     {
         button.BorderThickness = new Thickness(0);
-        button.Background = new SolidColorBrush(Colors.Transparent);
-        button.Margin = new Thickness(2, 0, 0, 0);
+        button.Background = new SolidColorBrush(WindowConfig.Instance.TertiaryColor);
+        button.Margin = new Thickness(5, 0, 0, 0);
         button.Height = WindowConfig.Instance.ToolBarHeight - 4;
     }
 
@@ -56,7 +56,7 @@ public partial class ToolBar : UserControl
     {
         separator.Background = new SolidColorBrush(WindowConfig.Instance.SecondaryColor);
         var height = WindowConfig.Instance.ToolBarHeight - 15 > 5 ? WindowConfig.Instance.ToolBarHeight - 15 : 5;
-        separator.Margin = new Thickness(2, 0, 0, 0);
+        separator.Margin = new Thickness(5, 0, 0, 0);
         separator.Height = height;
     }
 }

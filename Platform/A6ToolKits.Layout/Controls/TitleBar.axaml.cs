@@ -1,5 +1,8 @@
-﻿using A6ToolKits.Commands;
+﻿using A6ToolKits.Attributes.Layout;
+using A6ToolKits.Commands;
+using A6ToolKits.Commands.ControlGenerators;
 using A6ToolKits.Common.Attributes.Layout;
+using A6ToolKits.Event;
 using A6ToolKits.Layout.Controls.ControlCommand;
 using A6ToolKits.Layout.Generator;
 using Avalonia;
@@ -29,15 +32,50 @@ public partial class TitleBar : UserControl
     private void BuildWindowControlPanel()
     {
         var config = WindowConfig.Instance;
+        var height = config.TitleBarHeight;
     
-        var minusAction = new MinimizeCommandHandler();
-        var closeAction = new CloseCommandHandler();
-        var maximizeAction = new MaximizeCommandHandler();
-        var windowAction = new WindowCommandHandler();
+        var minusAction = new MinimizeCommand();
+        var closeAction = new CloseCommand();
+        var maximizeAction = new MaximizeCommand();
+        var windowAction = new WindowCommand();
 
-        MinusButton = minusAction.GenerateButton<MinimizeCommandDefinition>(ButtonType.Icon);
-        CloseButton = closeAction.GenerateButton<CloseCommandDefinition>(ButtonType.Icon);
-        MaximizeButton = maximizeAction.GenerateButton<MaximizeCommandDefinition>(ButtonType.Icon);
-        WindowButton = windowAction.GenerateButton<WindowCommandDefinition>(ButtonType.Icon);
+        MinusButton.Content = minusAction.GenerateButton(ButtonType.Icon, height);
+        CloseButton.Content = closeAction.GenerateButton(ButtonType.Icon, height);
+        MaximizeButton.Content = maximizeAction.GenerateButton(ButtonType.Icon, height);
+        WindowButton.Content = windowAction.GenerateButton(ButtonType.Icon, height);
+
+        CoreService.Instance.EventAggregator?.Subscribe<BootFinishedEvent>(_ =>
+        {
+            var window = CoreService.Instance.Controller?.GetMainWindow();
+            window?.GetObservable(Window.WindowStateProperty).Subscribe(state =>
+            {
+                switch (state)
+                {
+                    case WindowState.Maximized:
+                        MaximizeButton.IsVisible = false;
+                        WindowButton.IsVisible = true;
+                        break;
+                    case WindowState.Normal:
+                        MaximizeButton.IsVisible = true;
+                        WindowButton.IsVisible = false;
+                        break;
+                    case WindowState.Minimized:
+                    case WindowState.FullScreen:
+                    default:
+                        break;
+                }
+            });
+            if (window?.WindowState == WindowState.Maximized)
+            {
+                MaximizeButton.IsVisible = false;
+                WindowButton.IsVisible = true;
+            }
+
+            if (window?.WindowState == WindowState.Normal)
+            {
+                MaximizeButton.IsVisible = true;
+                WindowButton.IsVisible = false;
+            }
+        });
     }
 }

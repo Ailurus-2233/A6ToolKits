@@ -1,6 +1,6 @@
 using System;
 
-namespace A6ToolKits.Common.Attributes.Layout;
+namespace A6ToolKits.Attributes.Layout;
 
 /// <summary>
 ///     工具栏属性，标记到一个 ActionBase 的属性上，用于生成 ToolBar 中的按钮
@@ -16,7 +16,7 @@ namespace A6ToolKits.Common.Attributes.Layout;
 ///     TODO 目前只能在左侧放置，右侧暂未实现
 /// </param>
 [AttributeUsage(AttributeTargets.Class, Inherited = false)]
-public class ToolBarActionAttribute(int group, string type, string position = "Left")
+public class ToolBarActionAttribute(int group, ButtonType type, ToolBarPosition position = ToolBarPosition.Left)
     : Attribute
 {
     /// <summary>
@@ -27,12 +27,12 @@ public class ToolBarActionAttribute(int group, string type, string position = "L
     /// <summary>
     ///     位置，生成 ToolBar 时，根据位置将按钮放置到对应的位置
     /// </summary>
-    public ToolBarPosition Position { get; set; } = Enum.Parse<ToolBarPosition>(position);
+    public ToolBarPosition Position { get; set; } = position;
     
     /// <summary>
     ///     类型，生成 ToolBar 时，对应按钮的类型
     /// </summary>
-    public ButtonType Type { get; set; } = Enum.Parse<ButtonType>(type);
+    public ButtonType Type { get; set; } = type;
 }
 
 /// <summary>

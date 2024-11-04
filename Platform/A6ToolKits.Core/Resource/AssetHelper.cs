@@ -2,15 +2,17 @@
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
+using Avalonia.Svg;
 
 namespace A6ToolKits.Resource;
 
 /// <summary>
 ///     资源帮助类
 /// </summary>
-public static class AssertHelper
+public static class AssetHelper
 {
     /// <summary>
     ///     从 Avalonia应用资源 中加载图片
@@ -21,12 +23,32 @@ public static class AssertHelper
     /// <returns>
     ///     返回图片
     /// </returns>
-    public static Bitmap LoadImage(Uri resourceUri)
+    public static IImage LoadImage(Uri resourceUri)
     {
-        return new Bitmap(AssetLoader.Open(resourceUri));
+        using var stream = AssetLoader.Open(resourceUri);
+        if (stream == null)
+            throw new FileNotFoundException($"Resource '{resourceUri}' not found.");
+        return new Bitmap(stream);
     }
-    
-    
+
+    /// <summary>
+    ///     从 Avalonia应用资源 中加载 SVG 图片
+    /// </summary>
+    /// <param name="resourceUri">
+    ///     资源 URI
+    /// </param>
+    /// <returns>
+    ///     返回图片
+    /// </returns>
+    public static IImage LoadSvgImage(Uri resourceUri)
+    {
+        using var stream = AssetLoader.Open(resourceUri);
+        if (stream == null)
+            throw new FileNotFoundException($"Resource '{resourceUri}' not found.");
+        return new SvgImage { Source = SvgSource.Load(stream) };
+    }
+
+
     /// <summary>
     ///     从 网络地址 加载图片
     /// </summary>
