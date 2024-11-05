@@ -1,28 +1,30 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:converters1="clr-namespace:A6ToolKits.UIPackage.Styles.Tab.Converters"
-                    xmlns:tabControl="clr-namespace:A6ToolKits.UIPackage.Controls.TabControl">
+                    xmlns:tabControl="clr-namespace:A6ToolKits.UIPackage.Controls.TabControl"
+                    xmlns:converters="clr-namespace:A6ToolKits.UIPackage.Styles.TabControl.Converters">
     <ControlTheme x:Key="{x:Type tabControl:TabContainer}"
                   TargetType="tabControl:TabContainer">
         <ControlTheme.Resources>
-            <converters1:HeaderHeightConverter x:Key="HeightConverter" />
-            <converters1:HeaderWidthConverter x:Key="WidthConverter" />
+            <converters:HeaderHeightConverter x:Key="HeightConverter" />
+            <converters:HeaderWidthConverter x:Key="WidthConverter" />
         </ControlTheme.Resources>
         <Setter Property="Template">
             <ControlTemplate TargetType="tabControl:TabContainer">
                 <DockPanel>
-                    <Grid Width="{Binding HeaderWidth, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource WidthConverter}}"
-                          Height="{Binding RelativeSource={RelativeSource AncestorType=tabControl:TabContainer}, Converter={StaticResource HeightConverter}}"
-                          DockPanel.Dock="{TemplateBinding TabStripPlacement}"
-                          IsVisible="{TemplateBinding IsHeaderVisible}">
-                        <tabControl:TabHeader Width="{Binding Width, RelativeSource={RelativeSource AncestorType=Grid}}"
-                                              Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Grid}}"
-                                              BorderThickness="0,0,0,2"
-                                              DisplayType="{TemplateBinding DisplayType}"
-                                              FontSize="{TemplateBinding HeaderFontSize}"
-                                              IconSize="{TemplateBinding HeaderIconSize}"
-                                              IsCloseable="{TemplateBinding IsHeaderCloseable}"
-                                              TabCollection="{TemplateBinding TabCollection}" />
+                    <Grid
+                        Width="{Binding HeaderWidth, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource WidthConverter}}"
+                        Height="{Binding RelativeSource={RelativeSource AncestorType=tabControl:TabContainer}, Converter={StaticResource HeightConverter}}"
+                        DockPanel.Dock="{TemplateBinding TabStripPlacement}"
+                        IsVisible="{TemplateBinding IsHeaderVisible}">
+                        <tabControl:TabHeader
+                            Width="{Binding Width, RelativeSource={RelativeSource AncestorType=Grid}}"
+                            Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Grid}}"
+                            BorderThickness="0,0,0,2"
+                            DisplayType="{TemplateBinding DisplayType}"
+                            FontSize="{TemplateBinding HeaderFontSize}"
+                            IconSize="{TemplateBinding HeaderIconSize}"
+                            IsCloseable="{TemplateBinding IsHeaderCloseable}"
+                            TabCollection="{TemplateBinding TabCollection}" />
                     </Grid>
                     <tabControl:TabBody TabCollection="{TemplateBinding TabCollection}" />
                 </DockPanel>

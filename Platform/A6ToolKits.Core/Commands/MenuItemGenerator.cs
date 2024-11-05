@@ -6,7 +6,7 @@ using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Layout;
 
-namespace A6ToolKits.Commands.ControlGenerators;
+namespace A6ToolKits.Commands;
 
 /// <summary>
 ///     MenuItem 生成器
@@ -52,13 +52,13 @@ public static class MenuItemGenerator
         };
 
         var menuItem = new MenuItem();
-        
+
         menuItem.Bind(InputElement.IsEnabledProperty, enableBinding);
         menuItem.Bind(Visual.IsVisibleProperty, visibilityBinding);
 
-        var grid = new Grid()
+        var grid = new Grid
         {
-            ColumnDefinitions = new ColumnDefinitions( "Auto,*"),
+            ColumnDefinitions = new ColumnDefinitions("Auto,*"),
             HorizontalAlignment = HorizontalAlignment.Left,
             VerticalAlignment = VerticalAlignment.Center
         };
@@ -71,7 +71,7 @@ public static class MenuItemGenerator
         textBlock.Bind(TextBlock.TextProperty, nameBinding);
         textBlock.Margin = new Thickness(10, 0, 0, 0);
         Grid.SetColumn(textBlock, 1);
-        
+
         switch (type)
         {
             case MenuItemType.Text:
@@ -90,7 +90,7 @@ public static class MenuItemGenerator
         var toolTip = new ToolTip();
         toolTip.Bind(ContentControl.ContentProperty, toolTipBinding);
         ToolTip.SetTip(menuItem, toolTip);
-        
+
         menuItem.Click += (_, _) =>
         {
             command.Run().Wait();

@@ -1,4 +1,5 @@
-﻿using A6ToolKits.Common.Attributes.Layout;
+﻿using A6ToolKits.Attributes.Layout;
+using A6ToolKits.Common.Attributes.Layout;
 using A6ToolKits.Common.Attributes.MVVM;
 using A6ToolKits.Layout.Generator;
 using A6ToolKits.Layout.Helper;
@@ -28,7 +29,7 @@ public partial class StatusBar : UserControl
 
         var center = StatusBarGenerateHelper.GenerateStatusBarItems(StatusPosition.Center);
         center.ForEach(item => CenterStatusBar.Children.Add(item));
-        
+
         var count = left.Count + right.Count + center.Count;
         StatusBarPanel.Height = count == 0 ? 0 : WindowConfig.Instance.StatusBarHeight;
 

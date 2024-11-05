@@ -25,6 +25,7 @@
 ```
 
 其中值得注意的是 `BorderStyle`，这个有三种值可以填入，`Default`、`Origin`、`None`:
+
 1. `Default` 是这个包定义的一种窗体结构，他去掉了 Avalonia 原生的窗口栏，并以包中 `HeaderBar` 控件来代替
 2. `Origin` 是原生 Avalonia 的窗口栏
 3. `None` 则是完全没有 HeaderBar，窗口中只有一个 `MainRegion` 对象交给开发者来编辑其中的内容
@@ -33,7 +34,8 @@
 
 ### 3 获取 Window 对象
 
-当然如果您对自动生成的窗口有自己的想法，需要对他进行微调，你可以通过如下代码来获取当前的窗体对象，如果您导入了 `MVVMModule` 也可以通过 `IoC.Get<LayoutModule>()` 来获取模块实例并获得窗体对象。 
+当然如果您对自动生成的窗口有自己的想法，需要对他进行微调，你可以通过如下代码来获取当前的窗体对象，如果您导入了 `MVVMModule`
+也可以通过 `IoC.Get<LayoutModule>()` 来获取模块实例并获得窗体对象。
 
 ```csharp
 ModuleLoader.TryGetModule<LayoutModule>(out var layoutModule);

@@ -6,7 +6,7 @@ using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Media;
 
-namespace A6ToolKits.Commands.ControlGenerators;
+namespace A6ToolKits.Commands;
 
 /// <summary>
 ///     Button 生成器
@@ -56,7 +56,7 @@ public static class ButtonGenerator
         button.SetTemplate(command, type);
         button.Height = height;
         button.Background = Brushes.Transparent;
-        
+
         return button;
     }
 

@@ -12,40 +12,40 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <DocumentationFile>bin\Debug\A6ToolKits.Layout.xml</DocumentationFile>
-      <WarningLevel>4</WarningLevel>
+        <DocumentationFile>bin\Debug\A6ToolKits.Layout.xml</DocumentationFile>
+        <WarningLevel>4</WarningLevel>
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\A6ToolKits.Core\A6ToolKits.Core.csproj" />
+        <ProjectReference Include="..\A6ToolKits.Core\A6ToolKits.Core.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
         <None Include="..\Resources\Icon\A6ToolKits.png">
             <Pack>True</Pack>
-            <PackagePath />
+            <PackagePath/>
             <Link>A6ToolKits.png</Link>
         </None>
         <None Include="README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Controls\LayoutWindow\DefaultWindow.axaml.cs">
-        <DependentUpon>CustomWindow.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="Controls\LayoutWindow\OriginWindow.axaml.cs">
-        <DependentUpon>DefaultWindow.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="Controls\StatusBar.axaml.cs">
-        <DependentUpon>StatusBar.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
+        <Compile Update="Controls\LayoutWindow\DefaultWindow.axaml.cs">
+            <DependentUpon>CustomWindow.axaml</DependentUpon>
+            <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Controls\LayoutWindow\OriginWindow.axaml.cs">
+            <DependentUpon>DefaultWindow.axaml</DependentUpon>
+            <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Controls\StatusBar.axaml.cs">
+            <DependentUpon>StatusBar.axaml</DependentUpon>
+            <SubType>Code</SubType>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>
-      <UpToDateCheckInput Remove="Controls\Styles\MenuItemStyle.axaml" />
+        <UpToDateCheckInput Remove="Controls\Styles\MenuItemStyle.axaml"/>
     </ItemGroup>
 
 </Project>

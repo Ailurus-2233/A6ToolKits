@@ -1,8 +1,7 @@
 ﻿using System.Reflection;
-using A6ToolKits.Assembly;
+using A6ToolKits.AssemblyPath;
 using A6ToolKits.Attributes.Layout;
 using A6ToolKits.Commands;
-using A6ToolKits.Commands.ControlGenerators;
 using A6ToolKits.Common.Attributes.Layout;
 using A6ToolKits.Exceptions;
 using A6ToolKits.Layout.Generator;
@@ -15,9 +14,9 @@ namespace A6ToolKits.Layout.Helper;
 /// </summary>
 internal static class ToolBarGenerateHelper
 {
-    private static WindowConfig _config { get; set; } = WindowConfig.Instance;
+    private static WindowConfig _config { get; } = WindowConfig.Instance;
     private static WindowGenerator _generator { get; set; } = WindowGenerator.Instance;
-    
+
     /// <summary>
     ///     获取类的 MenuActionAttribute 属性
     /// </summary>
@@ -37,7 +36,7 @@ internal static class ToolBarGenerateHelper
     /// </summary>
     public static List<IGrouping<int?, Type>> GetToolBarGroup()
     {
-        var types = AssemblyHelper.GetTypeWithAttribute<ToolBarActionAttribute>();
+        var types = AssemblyPathHelper.GetTypeWithAttribute<ToolBarActionAttribute>();
         var groups = types.GroupBy(t => t.GetCustomAttribute<ToolBarActionAttribute>()?.Group)
             .OrderBy(group => group.Key).ToList();
         return groups;
@@ -57,9 +56,9 @@ internal static class ToolBarGenerateHelper
         var result = new List<Button>();
         types.ForEach(type =>
         {
-            if (!typeof(CommandBase).IsAssignableFrom(type)) 
+            if (!typeof(CommandBase).IsAssignableFrom(type))
                 throw new GenerateTypeNotEqualException(type.ToString(), typeof(CommandBase).ToString());
-            var obj = _generator.Creator?.Create(type);
+            var obj = IoC.Create(type);
             if (obj is not CommandBase action) return;
             var buttonType = type.GetToolBarActionAttribute().Type;
             var button = action.GenerateButton(buttonType, _config.ToolBarHeight);
@@ -83,10 +82,10 @@ internal static class ToolBarGenerateHelper
         {
             var buttons = GenerateButtons(group.ToList());
             result.AddRange(buttons);
-            result.Add(new Separator()
+            result.Add(new Separator
             {
                 Width = 1,
-                Height = double.NaN,
+                Height = double.NaN
             });
         });
 

@@ -13,8 +13,8 @@
         BorderBrush="Transparent">
     <Border x:Name="WindowBorder" BorderThickness="1" CornerRadius="5">
         <Grid RowDefinitions="Auto,Auto,*,Auto,Auto">
-            <controls:TitleBar x:Name="TitleBar" Grid.Row="0"/>
-            <controls:ToolBar x:Name="ToolBar" Grid.Row="1"/>
+            <controls:TitleBar x:Name="TitleBar" Grid.Row="0" />
+            <controls:ToolBar x:Name="ToolBar" Grid.Row="1" />
             <container:MainContainer x:Name="MainContainer" Grid.Row="2" />
             <controls:StatusBar x:Name="StatusBar" Grid.Row="3" />
         </Grid>

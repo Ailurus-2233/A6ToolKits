@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using A6ToolKits.Common.Attributes.MVVM;
 
-namespace A6ToolKits.Event;
+namespace A6ToolKits.Events;
 
 /// <summary>
 ///     事件聚合器
 /// </summary>
-public class EventAggregator: IEventAggregator
+[AutoRegister(typeof(IEventAggregator), RegisterType.Singleton)]
+public sealed class EventAggregator : IEventAggregator
 {
-    private readonly Dictionary<Type, List<object>> _subscribers = new Dictionary<Type, List<object>>();
-    
+    private readonly Dictionary<Type, List<object>> _subscribers = new();
+
     /// <summary>
     ///     订阅事件
     /// </summary>
@@ -22,10 +23,7 @@ public class EventAggregator: IEventAggregator
     /// </typeparam>
     public void Subscribe<TEvent>(Action<TEvent> action) where TEvent : IEvent
     {
-        if (!_subscribers.ContainsKey(typeof(TEvent)))
-        {
-            _subscribers[typeof(TEvent)] = [];
-        }
+        if (!_subscribers.ContainsKey(typeof(TEvent))) _subscribers[typeof(TEvent)] = [];
         _subscribers[typeof(TEvent)].Add(action);
     }
 
@@ -40,10 +38,7 @@ public class EventAggregator: IEventAggregator
     /// </typeparam>
     public void Unsubscribe<TEvent>(Action<TEvent> action) where TEvent : IEvent
     {
-        if (_subscribers.ContainsKey(typeof(TEvent)))
-        {
-            _subscribers[typeof(TEvent)].Remove(action);
-        }
+        if (_subscribers.ContainsKey(typeof(TEvent))) _subscribers[typeof(TEvent)].Remove(action);
     }
 
     /// <summary>
@@ -58,9 +53,6 @@ public class EventAggregator: IEventAggregator
     public void Publish<TEvent>(TEvent eventToPublish) where TEvent : IEvent
     {
         if (!_subscribers.ContainsKey(eventToPublish.GetType())) return;
-        foreach (var subscriber in _subscribers[eventToPublish.GetType()])
-        {
-            ((Action<TEvent>)subscriber)(eventToPublish);
-        }
+        foreach (var subscriber in _subscribers[eventToPublish.GetType()]) ((Action<TEvent>)subscriber)(eventToPublish);
     }
 }

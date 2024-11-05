@@ -33,10 +33,7 @@ public static class ConfigHelper
         {
             if (!File.Exists(ConfigPath))
             {
-                if (!File.Exists(DefaultConfig))
-                {
-                    GenerateDefaultConfigFile();
-                }
+                if (!File.Exists(DefaultConfig)) GenerateDefaultConfigFile();
 
                 File.Copy(DefaultConfig, ConfigPath);
             }

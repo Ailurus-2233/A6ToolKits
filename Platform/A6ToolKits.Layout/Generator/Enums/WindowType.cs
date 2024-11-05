@@ -9,10 +9,12 @@ public enum WindowType
     ///     默认窗口
     /// </summary>
     Default,
+
     /// <summary>
     ///     最大化
     /// </summary>
     Maximized,
+
     /// <summary>
     ///     全屏
     /// </summary>

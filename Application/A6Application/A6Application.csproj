@@ -46,8 +46,6 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Platform\A6ToolKits.Database\A6ToolKits.Database.csproj" />
       <ProjectReference Include="..\..\Platform\A6ToolKits.Layout\A6ToolKits.Layout.csproj" />
-      <ProjectReference Include="..\..\Platform\A6ToolKits.MVVM\A6ToolKits.MVVM.csproj" />
-      <ProjectReference Include="..\..\Platform\A6ToolKits.System\A6ToolKits.System.csproj" />
       <ProjectReference Include="..\..\Platform\A6ToolKits.UIPackage\A6ToolKits.UIPackage.csproj" />
       <ProjectReference Include="..\..\Platform\A6ToolKits.Core\A6ToolKits.Core.csproj" />
     </ItemGroup>

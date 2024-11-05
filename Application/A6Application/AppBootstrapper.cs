@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using A6ToolKits;
 using A6ToolKits.Bootstrapper;
-using A6ToolKits.Layout;
-using A6ToolKits.MVVM;
 using Avalonia;
 using Avalonia.Controls;
 

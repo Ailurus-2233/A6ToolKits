@@ -30,12 +30,13 @@ public class TabRadioButton : RadioButton
 
     public static readonly StyledProperty<string> PromptLinePositionProperty =
         AvaloniaProperty.Register<TabRadioButton, string>(nameof(PromptLinePosition), "Default");
-    
+
     public static readonly StyledProperty<string> DisplayTypeProperty =
         AvaloniaProperty.Register<TabRadioButton, string>(nameof(DisplayType), "IconAndText");
-    
-    public static readonly StyledProperty<ICommand> CloseCommandProperty = 
-        AvaloniaProperty.Register<TabRadioButton, ICommand>(nameof (CloseCommand), enableDataValidation: true);
+
+    public static readonly StyledProperty<ICommand> CloseCommandProperty =
+        AvaloniaProperty.Register<TabRadioButton, ICommand>(nameof(CloseCommand), enableDataValidation: true);
+
     public IImage? Icon
     {
         get => GetValue(IconProperty);
@@ -77,7 +78,7 @@ public class TabRadioButton : RadioButton
         get => GetValue(PromptLinePositionProperty);
         set => SetValue(PromptLinePositionProperty, PromptLinePositions.Contains(value) ? value : "Default");
     }
-    
+
     public string DisplayType
     {
         get => GetValue(DisplayTypeProperty);
@@ -101,11 +102,11 @@ public class TabRadioButton : RadioButton
             };
         }
     }
-    
+
     public bool IsIconVisible => DisplayType is "Icon" or "IconAndText";
-    
+
     public bool IsHeaderVisible => DisplayType is "Text" or "IconAndText";
-    
+
     public ICommand CloseCommand
     {
         get => GetValue(CloseCommandProperty);

@@ -64,8 +64,10 @@ internal class WindowConfig
     ///     窗口重点色
     /// </summary>
     public Color PrimaryColor { get; set; } = Colors.CornflowerBlue;
+
     public Color SecondaryColor => Color.FromArgb(100, PrimaryColor.R, PrimaryColor.G, PrimaryColor.B);
     public Color TertiaryColor => Color.FromArgb(50, PrimaryColor.R, PrimaryColor.G, PrimaryColor.B);
+
     /// <summary>
     ///     窗口背景色
     /// </summary>
@@ -85,7 +87,7 @@ internal class WindowConfig
     ///     工具栏高度
     /// </summary>
     public double ToolBarHeight { get; set; } = 30;
-    
+
     /// <summary>
     ///     标题栏高度，仅在 Default 布局下生效
     /// </summary>

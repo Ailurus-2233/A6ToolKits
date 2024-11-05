@@ -1,8 +1,8 @@
-﻿using A6ToolKits.Commands;
+﻿using A6ToolKits.Bootstrapper.Interfaces;
+using A6ToolKits.Commands;
 using A6ToolKits.Resource;
 using Avalonia.Controls;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
 
 namespace A6ToolKits.Layout.Controls.ControlCommand;
 
@@ -12,9 +12,10 @@ public sealed class MinimizeCommand : CommandBase
     public override string? Name { get; } = "最小化";
     public override string? ToolTip { get; } = "最小化";
     public override IImage Image { get; } = ResourceHelper.LoadImage("MinusIcon");
+
     public override Task Run()
     {
-        var window = CoreService.Instance.Controller?.GetMainWindow();
+        var window = IoC.GetInstance<IApplicationController>()?.GetMainWindow();
         if (window == null) return Task.CompletedTask;
         window.WindowState = WindowState.Minimized;
         return Task.CompletedTask;

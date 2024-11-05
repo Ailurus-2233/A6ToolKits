@@ -32,7 +32,10 @@ public class MenuActionAttribute : Attribute
     ///     菜单路径，生成 MenuItem 时，根据路径将 MenuItem 放置到对应的位置
     /// </summary>
     public GroupInfo[] Path { get; set; }
-    
+
+    /// <summary>
+    ///     菜单项类型
+    /// </summary>
     public MenuItemType Type { get; set; }
 }
 
@@ -67,6 +70,7 @@ public enum MenuItemType
     ///     纯文本菜单
     /// </summary>
     Text,
+
     /// <summary>
     ///     图标菜单
     /// </summary>

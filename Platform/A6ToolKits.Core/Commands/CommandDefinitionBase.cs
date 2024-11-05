@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using A6ToolKits.Common;
-using Avalonia.Controls;
+﻿using A6ToolKits.Common;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
 
 namespace A6ToolKits.Commands;
 
 /// <summary>
 ///     Command 属性定义基类
 /// </summary>
-public abstract class CommandDefinitionBase : PropertyChangedBase
+public abstract class CommandDefinitionBase : ViewModelBase
 {
     /// <summary>
     ///     Command 名称

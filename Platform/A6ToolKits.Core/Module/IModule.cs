@@ -9,7 +9,7 @@ public interface IModule
     ///     模块初始化
     /// </summary>
     protected void Initialize();
-    
+
     /// <summary>
     ///     模块加载流程
     /// </summary>

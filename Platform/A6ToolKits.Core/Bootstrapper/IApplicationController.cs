@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using A6ToolKits.Module;
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Styling;
 
 namespace A6ToolKits.Bootstrapper.Interfaces;
@@ -11,7 +8,7 @@ namespace A6ToolKits.Bootstrapper.Interfaces;
 /// <summary>
 ///     一些 Avalonia 应用控制的接口
 /// </summary>
-public interface IBootstrapperController
+public interface IApplicationController
 {
     /// <summary>
     ///     应用的启动方法
@@ -36,7 +33,7 @@ public interface IBootstrapperController
     ///     主窗口
     /// </param>
     public void SetupMainWindow(Window mainWindow);
-    
+
     /// <summary>
     ///     设置主应用的主题
     /// </summary>

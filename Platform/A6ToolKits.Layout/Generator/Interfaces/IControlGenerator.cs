@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+
 namespace A6ToolKits.Layout.ControlGenerator.Interfaces;
 
 /// <summary>

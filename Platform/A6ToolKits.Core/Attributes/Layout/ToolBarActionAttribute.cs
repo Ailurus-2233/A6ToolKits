@@ -28,7 +28,7 @@ public class ToolBarActionAttribute(int group, ButtonType type, ToolBarPosition 
     ///     位置，生成 ToolBar 时，根据位置将按钮放置到对应的位置
     /// </summary>
     public ToolBarPosition Position { get; set; } = position;
-    
+
     /// <summary>
     ///     类型，生成 ToolBar 时，对应按钮的类型
     /// </summary>
@@ -69,5 +69,5 @@ public enum ButtonType
     /// <summary>
     ///     图标和文字
     /// </summary>
-    IconAndText,
+    IconAndText
 }

@@ -1,4 +1,5 @@
-﻿using A6ToolKits.Module;
+﻿using A6ToolKits.Common.Attributes.MVVM;
+using A6ToolKits.Module;
 using Avalonia;
 using Avalonia.Markup.Xaml.Styling;
 
@@ -7,12 +8,13 @@ namespace A6ToolKits.UIPackage;
 /// <summary>
 ///     UIPackage 模块
 /// </summary>
+[AutoRegister(typeof(UIPackageModule), RegisterType.Singleton)]
 public sealed class UIPackageModule : ModuleBase
 {
     /// <summary>
     ///     模块名称
     /// </summary>
-    public override string Name => "A6ToolKits.UIPackage";
+    protected override string Name => "A6ToolKits.UIPackage";
 
     /// <summary>
     ///     构造函数
@@ -25,7 +27,7 @@ public sealed class UIPackageModule : ModuleBase
         //     Source = styleUri
         // };
         // Application.Current?.Styles.Add(style);
-        
+
         var resUri = new Uri("avares://A6ToolKits.UIPackage/UIPackageResources.axaml");
         var resource = new ResourceInclude(resUri)
         {

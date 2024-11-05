@@ -1,8 +1,7 @@
 ﻿using A6ToolKits.Attributes.Layout;
+using A6ToolKits.Bootstrapper.Interfaces;
 using A6ToolKits.Commands;
-using A6ToolKits.Commands.ControlGenerators;
-using A6ToolKits.Common.Attributes.Layout;
-using A6ToolKits.Event;
+using A6ToolKits.Events;
 using A6ToolKits.Layout.Controls.ControlCommand;
 using A6ToolKits.Layout.Generator;
 using Avalonia;
@@ -25,15 +24,15 @@ public partial class TitleBar : UserControl
         Title.Text = WindowConfig.Instance.Title;
         TitleBarBorder.Background = new SolidColorBrush(WindowConfig.Instance.PrimaryColor);
         Height = WindowConfig.Instance.TitleBarHeight;
-        TitleBarBorder.Padding = new Thickness(0 ,3);
+        TitleBarBorder.Padding = new Thickness(0, 3);
         BuildWindowControlPanel();
     }
-    
+
     private void BuildWindowControlPanel()
     {
         var config = WindowConfig.Instance;
         var height = config.TitleBarHeight;
-    
+
         var minusAction = new MinimizeCommand();
         var closeAction = new CloseCommand();
         var maximizeAction = new MaximizeCommand();
@@ -44,9 +43,9 @@ public partial class TitleBar : UserControl
         MaximizeButton.Content = maximizeAction.GenerateButton(ButtonType.Icon, height);
         WindowButton.Content = windowAction.GenerateButton(ButtonType.Icon, height);
 
-        CoreService.Instance.EventAggregator?.Subscribe<BootFinishedEvent>(_ =>
+        IoC.GetInstance<IEventAggregator>()?.Subscribe<BootFinishedEvent>(_ =>
         {
-            var window = CoreService.Instance.Controller?.GetMainWindow();
+            var window = IoC.GetInstance<IApplicationController>()?.GetMainWindow();
             window?.GetObservable(Window.WindowStateProperty).Subscribe(state =>
             {
                 switch (state)

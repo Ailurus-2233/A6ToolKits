@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace A6ToolKits.Common.Attributes.Layout;
+namespace A6ToolKits.Attributes.Layout;
 
 /// <summary>
 ///     状态栏属性，标记到一个 UserControl 的属性上，用于生成 StatusBar
@@ -13,7 +13,7 @@ public class StatusBarItemAttribute(StatusPosition position, int order) : Attrib
     ///     状态栏位置，生成 StatusBar 时，根据位置将控件放置到对应的位置
     /// </summary>
     public StatusPosition Position { get; set; } = position;
-    
+
     /// <summary>
     ///     序列
     /// </summary>
@@ -34,9 +34,9 @@ public enum StatusPosition
     ///     状态栏右侧
     /// </summary>
     Right,
-    
+
     /// <summary>
     ///     状态栏中间
     /// </summary>
-    Center,
+    Center
 }

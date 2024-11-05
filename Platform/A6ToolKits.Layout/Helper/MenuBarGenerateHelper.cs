@@ -1,11 +1,11 @@
 ﻿using System.Reflection;
-using A6ToolKits.Assembly;
+using A6ToolKits.AssemblyPath;
 using A6ToolKits.Commands;
-using A6ToolKits.Commands.ControlGenerators;
 using A6ToolKits.Common.Attributes.Layout;
 using A6ToolKits.Exceptions;
 using A6ToolKits.Layout.Generator;
 using Avalonia.Controls;
+
 namespace A6ToolKits.Layout.Helper;
 
 /// <summary>
@@ -13,9 +13,9 @@ namespace A6ToolKits.Layout.Helper;
 /// </summary>
 internal static class MenuBarGenerateHelper
 {
-    private static WindowConfig _config { get; set; } = WindowConfig.Instance;
+    private static WindowConfig _config { get; } = WindowConfig.Instance;
     private static WindowGenerator _generator { get; set; } = WindowGenerator.Instance;
-    
+
     /// <summary>
     ///     获取所有有MenuAction属性的ActionBase类
     /// </summary>
@@ -24,7 +24,7 @@ internal static class MenuBarGenerateHelper
     /// </returns>
     public static List<IGrouping<string, Type>> GetMenuItemGroup()
     {
-        var types = AssemblyHelper.GetTypeWithAttribute<MenuActionAttribute>();
+        var types = AssemblyPathHelper.GetTypeWithAttribute<MenuActionAttribute>();
         var group = types.GroupBy(t => GetMenuActionAttribute(t).Path[0].ItemName);
         var result = group.OrderBy(g => GetMenuActionAttribute(g.First()).Path[0].Order).ToList();
         return result;
@@ -96,9 +96,9 @@ internal static class MenuBarGenerateHelper
         foreach (var type in types)
         {
             // 判断 type 是否是 CommandBase 的子类
-            if (!typeof(CommandBase).IsAssignableFrom(type)) 
+            if (!typeof(CommandBase).IsAssignableFrom(type))
                 throw new GenerateTypeNotEqualException(type.ToString(), typeof(CommandBase).ToString());
-            var obj = _generator.Creator?.Create(type);
+            var obj = IoC.Create(type);
             if (obj is not CommandBase temp) continue;
             var menuItemType = type.GetMenuActionAttribute().Type;
             var menuItem = temp.GenerateMenuItem(menuItemType, _config.MenuHeight);
@@ -115,6 +115,7 @@ internal static class MenuBarGenerateHelper
                 list = [];
                 dict[key] = list;
             }
+
             list.Add(value);
         }
     }
@@ -135,7 +136,7 @@ internal static class MenuBarGenerateHelper
         {
             var menuItem = new MenuItem
             {
-                Header = group.Key,
+                Header = group.Key
             };
             var dict = GenerateChildren(1, group);
             menuItem.AddChildren(dict);

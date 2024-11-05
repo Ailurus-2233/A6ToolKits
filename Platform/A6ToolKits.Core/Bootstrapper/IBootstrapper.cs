@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace A6ToolKits.Bootstrapper.Interfaces;
+﻿namespace A6ToolKits.Bootstrapper.Interfaces;
 
 /// <summary>
 ///     启动器接口
@@ -11,12 +9,12 @@ public interface IBootstrapper
     ///     加载步骤1-初始化：在应用启动前需要进行的一些配置
     /// </summary>
     public void Initialize();
-    
+
     /// <summary>
     ///     加载步骤2-配置：在初始化完成后，需要进行的一些配置
     /// </summary>
     public void Configure();
-    
+
     /// <summary>
     ///     加载步骤3-完成：在配置完成后，需要进行的一些操作
     /// </summary>

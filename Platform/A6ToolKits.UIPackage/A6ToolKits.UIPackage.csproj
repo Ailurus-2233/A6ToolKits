@@ -17,7 +17,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\A6ToolKits.Core\A6ToolKits.Core.csproj" />
+        <ProjectReference Include="..\A6ToolKits.Core\A6ToolKits.Core.csproj"/>
     </ItemGroup>
 
     <ItemGroup>

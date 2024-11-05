@@ -3,9 +3,7 @@ using A6ToolKits.Layout.Generator;
 using A6ToolKits.Layout.Helper;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using Avalonia.Media;
-using DynamicData;
 
 namespace A6ToolKits.Layout.Controls;
 

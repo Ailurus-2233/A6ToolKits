@@ -2,6 +2,7 @@
 using A6ToolKits.Layout.Generator.Enums;
 using Avalonia.Controls;
 using Avalonia.Media;
+
 namespace A6ToolKits.Layout.Controls.LayoutWindow;
 
 /// <summary>
@@ -10,7 +11,7 @@ namespace A6ToolKits.Layout.Controls.LayoutWindow;
 public abstract class WindowBase : Window
 {
     /// <summary>
-    ///    窗口基类构造函数
+    ///     窗口基类构造函数
     /// </summary>
     protected WindowBase()
     {

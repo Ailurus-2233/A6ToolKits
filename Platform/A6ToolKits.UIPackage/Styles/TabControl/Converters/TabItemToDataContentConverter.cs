@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Data.Converters;
 using TabItem = A6ToolKits.UIPackage.Controls.TabControl.Models.TabItem;
 
-namespace A6ToolKits.UIPackage.Styles.Tab.Converters;
+namespace A6ToolKits.UIPackage.Styles.TabControl.Converters;
 
 public class TabItemToDataContentConverter : IValueConverter
 {
@@ -12,7 +12,7 @@ public class TabItemToDataContentConverter : IValueConverter
         return value switch
         {
             TabItem tabItem => tabItem.Content,
-            _ => new TextBlock() { Text = "Empty" }
+            _ => new TextBlock { Text = "Empty" }
         };
     }
 

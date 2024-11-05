@@ -1,21 +1,17 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using A6ToolKits.Attributes.Layout;
-using A6ToolKits.Commands.ControlGenerators;
 using A6ToolKits.Common.Attributes.Layout;
 using Avalonia.Controls;
-using Avalonia.Media;
 
 namespace A6ToolKits.Commands;
 
 /// <summary>
-/// 
 /// </summary>
 public abstract class CommandBase : CommandDefinitionBase, ICommandHandler
 {
-    private bool _visible = true;
     private bool _enable = true;
-    
+    private bool _visible = true;
+
     /// <summary>
     ///     是否可见
     /// </summary>
@@ -24,7 +20,7 @@ public abstract class CommandBase : CommandDefinitionBase, ICommandHandler
         get => _visible;
         set => SetField(ref _visible, value);
     }
-    
+
     /// <summary>
     ///     是否可用
     /// </summary>
@@ -37,7 +33,9 @@ public abstract class CommandBase : CommandDefinitionBase, ICommandHandler
     /// <summary>
     ///     更新 Command
     /// </summary>
-    public void Update() { }
+    public void Update()
+    {
+    }
 
     /// <summary>
     ///     异步运行 Command

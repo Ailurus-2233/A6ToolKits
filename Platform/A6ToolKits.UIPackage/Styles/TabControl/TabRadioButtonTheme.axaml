@@ -43,7 +43,8 @@
         <Style Selector="^:checked">
             <Setter Property="Background" Value="{DynamicResource ButtonPointOverBrush}" />
             <Style Selector="^ /template/ Border">
-                <Setter Property="BorderBrush" Value="{Binding Path=PromptLineColor, RelativeSource={RelativeSource TemplatedParent}}" />
+                <Setter Property="BorderBrush"
+                        Value="{Binding Path=PromptLineColor, RelativeSource={RelativeSource TemplatedParent}}" />
             </Style>
             <Style Selector="^ /template/ buttons|IconButton">
                 <Setter Property="IsIconVisible" Value="True" />
@@ -53,7 +54,8 @@
         <Style Selector="^:pointerover">
             <Setter Property="Background" Value="{DynamicResource ButtonPointOverBrush}" />
             <Style Selector="^ /template/ Border">
-                <Setter Property="BorderBrush" Value="{Binding Path=PromptLineColor, RelativeSource={RelativeSource TemplatedParent}}" />
+                <Setter Property="BorderBrush"
+                        Value="{Binding Path=PromptLineColor, RelativeSource={RelativeSource TemplatedParent}}" />
             </Style>
             <Style Selector="^ /template/ buttons|IconButton">
                 <Setter Property="IsIconVisible" Value="True" />

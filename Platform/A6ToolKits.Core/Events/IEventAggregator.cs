@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace A6ToolKits.Event;
+namespace A6ToolKits.Events;
 
 /// <summary>
 ///     事件聚合器接口
@@ -17,8 +17,8 @@ public interface IEventAggregator
     ///     事件类型
     /// </typeparam>
     void Subscribe<TEvent>(Action<TEvent> action) where TEvent : IEvent;
-    
-    
+
+
     /// <summary>
     ///     取消订阅
     /// </summary>
@@ -29,8 +29,8 @@ public interface IEventAggregator
     ///     事件类型
     /// </typeparam>
     void Unsubscribe<TEvent>(Action<TEvent> action) where TEvent : IEvent;
-    
-    
+
+
     /// <summary>
     ///     发布事件
     /// </summary>

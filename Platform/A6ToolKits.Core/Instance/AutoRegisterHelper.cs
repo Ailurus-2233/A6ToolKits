@@ -1,15 +1,17 @@
-﻿using System.Reflection;
-using A6ToolKits.Assembly;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using A6ToolKits.AssemblyPath;
 using A6ToolKits.Common.Attributes.MVVM;
 using Avalonia.Controls;
-using SysAssembly = System.Reflection.Assembly;
 
-namespace A6ToolKits.MVVM.Helper;
+namespace A6ToolKits.Instance;
 
 /// <summary>
-///     IoC 帮助类
+///     自动注册帮助类
 /// </summary>
-public static class IoCHelper
+public static class AutoRegisterHelper
 {
     /// <summary>
     ///     从所有加载的程序集中查找带有 AutoRegisterAttribute 特性的类型并注册到 IoC 容器中
@@ -17,12 +19,12 @@ public static class IoCHelper
     /// </summary>
     public static void AutoRegisterAll()
     {
-        var assembly = SysAssembly.GetEntryAssembly();
+        var assembly = Assembly.GetEntryAssembly();
         if (assembly == null) return;
         AutoRegister(assembly);
 
-        var assemblies = AssemblyHelper.GetAllAssemblies();
-        foreach (var loadedAssembly in assemblies.Select(SysAssembly.Load)) AutoRegister(loadedAssembly);
+        var assemblies = AssemblyPathHelper.GetAllAssemblies();
+        foreach (var loadedAssembly in assemblies.Select(Assembly.Load)) AutoRegister(loadedAssembly);
     }
 
     /// <summary>
@@ -31,7 +33,7 @@ public static class IoCHelper
     /// <param name="assembly">
     ///     程序集
     /// </param>
-    public static void AutoRegister(SysAssembly assembly)
+    public static void AutoRegister(Assembly assembly)
     {
         var serviceTypes =
             assembly.GetTypes().Where(type => type.GetCustomAttributes<AutoRegisterAttribute>().Any());
@@ -62,12 +64,13 @@ public static class IoCHelper
             {
                 case RegisterType.Singleton:
                     var instance = IoC.Create(type);
+                    if (instance == null) continue;
                     InjectDependencies(instance);
-                    IoC.AddSingleton(type, instance);
+                    IoC.RegisterSingleton(interfaceType, instance);
                     break;
                 case RegisterType.Transient:
                 default:
-                    IoC.Add(interfaceType, type);
+                    IoC.Register(interfaceType, type);
                     break;
             }
         }
@@ -93,14 +96,15 @@ public static class IoCHelper
                 case RegisterType.Singleton:
                     if (IoC.Create(targetViewType) is not UserControl targetView) continue;
                     var viewModel = IoC.Create(type);
+                    if (viewModel == null) continue;
                     targetView.DataContext = viewModel;
-                    IoC.AddSingleton(type, viewModel);
-                    IoC.AddSingleton(targetViewType, targetView);
+                    IoC.RegisterSingleton(type, viewModel);
+                    IoC.RegisterSingleton(targetViewType, targetView);
                     break;
                 case RegisterType.Transient:
                 default:
-                    IoC.Add(targetViewType);
-                    IoC.Add(type);
+                    IoC.Register(targetViewType);
+                    IoC.Register(type);
                     break;
             }
         }
@@ -112,15 +116,17 @@ public static class IoCHelper
     /// <param name="target">
     ///     要注入依赖的对象
     /// </param>
-    public static void InjectDependencies(object target)
+    public static void InjectDependencies(object? target)
     {
+        if (target == null) return;
+
         var properties = target.GetType()
             .GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
         foreach (var property in properties)
         {
             if (!property.IsDefined(typeof(InjectAttribute), false)) continue;
-            var service = IoC.Get(property.PropertyType);
+            var service = IoC.GetInstance(property.PropertyType);
             if (property.GetValue(target) == null)
                 property.SetValue(target, service);
         }

@@ -3,11 +3,10 @@
 namespace A6ToolKits.Exceptions;
 
 /// <summary>
-///     生成时的异常 
+///     生成时的异常
 /// </summary>
-public class GenerateTypeNotEqualException: Exception
+public class GenerateTypeNotEqualException : Exception
 {
-    
     /// <summary>
     ///     生成类型不匹配
     /// </summary>
@@ -17,8 +16,8 @@ public class GenerateTypeNotEqualException: Exception
     /// <param name="targetType">
     ///     目标类型
     /// </param>
-    public GenerateTypeNotEqualException(string currentType, string targetType) : base($"生成类型不匹配，当前类型：{currentType}，目标类型：{targetType}")
+    public GenerateTypeNotEqualException(string currentType, string targetType) : base(
+        $"生成类型不匹配，当前类型：{currentType}，目标类型：{targetType}")
     {
-        
     }
 }

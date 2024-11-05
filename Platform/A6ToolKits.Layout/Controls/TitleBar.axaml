@@ -8,17 +8,17 @@
     <Border x:Name="TitleBarBorder" CornerRadius="5 5 0 0" BorderThickness="0">
         <Grid ColumnDefinitions="*,*,*">
             <controls:MenuIcon Grid.Column="0" x:Name="MenuIcon" />
-            <TextBlock Grid.Column="1" x:Name="Title" 
-                       HorizontalAlignment="Center" VerticalAlignment="Center" 
-                       FontWeight="SemiBold"/>
+            <TextBlock Grid.Column="1" x:Name="Title"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontWeight="SemiBold" />
             <Grid Grid.Column="2" x:Name="ControlBar"
                   HorizontalAlignment="Right"
                   VerticalAlignment="Center"
                   ColumnDefinitions="*,*,*">
                 <ContentControl Grid.Column="0" x:Name="MinusButton" />
-                <ContentControl Grid.Column="1" x:Name="MaximizeButton"/>
-                <ContentControl Grid.Column="1" x:Name="WindowButton"/>
-                <ContentControl Grid.Column="2" x:Name="CloseButton"/>
+                <ContentControl Grid.Column="1" x:Name="MaximizeButton" />
+                <ContentControl Grid.Column="1" x:Name="WindowButton" />
+                <ContentControl Grid.Column="2" x:Name="CloseButton" />
             </Grid>
         </Grid>
     </Border>

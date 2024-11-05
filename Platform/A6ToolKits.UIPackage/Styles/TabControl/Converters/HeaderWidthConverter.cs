@@ -3,7 +3,7 @@ using A6ToolKits.UIPackage.Controls.TabControl;
 using Avalonia.Controls;
 using Avalonia.Data.Converters;
 
-namespace A6ToolKits.UIPackage.Styles.Tab.Converters;
+namespace A6ToolKits.UIPackage.Styles.TabControl.Converters;
 
 public class HeaderWidthConverter : IValueConverter
 {

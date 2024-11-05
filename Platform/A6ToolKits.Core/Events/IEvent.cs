@@ -1,4 +1,4 @@
-﻿namespace A6ToolKits.Event;
+﻿namespace A6ToolKits.Events;
 
 /// <summary>
 ///     事件接口

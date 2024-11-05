@@ -1,4 +1,5 @@
-﻿using A6ToolKits.Commands;
+﻿using A6ToolKits.Bootstrapper.Interfaces;
+using A6ToolKits.Commands;
 using A6ToolKits.Resource;
 using Avalonia.Controls;
 using Avalonia.Media;
@@ -13,11 +14,12 @@ public sealed class WindowCommand : CommandBase
 
     /// <inheritdoc />
     public override string? ToolTip { get; } = "窗口化";
+
     public override IImage Image { get; } = ResourceHelper.LoadImage("WindowIcon");
 
     public override Task Run()
     {
-        var window = CoreService.Instance.Controller?.GetMainWindow();
+        var window = IoC.GetInstance<IApplicationController>()?.GetMainWindow();
         if (window is null) return Task.CompletedTask;
         window.WindowState = WindowState.Normal;
         return Task.CompletedTask;

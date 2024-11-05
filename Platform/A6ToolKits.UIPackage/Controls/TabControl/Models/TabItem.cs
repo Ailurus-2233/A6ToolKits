@@ -5,15 +5,12 @@ namespace A6ToolKits.UIPackage.Controls.TabControl.Models;
 
 public class TabItem : ControlBase
 {
-    private string? _header;
-    private IImage? _icon;
-    private string? _toolTip;
-    private bool? _isSelected;
     private ContentControl _content = null!;
     private string? _groupName;
-
-    public static event EventHandler<string>? Selected; 
-    public static event EventHandler<string>? Deleted;
+    private string? _header;
+    private IImage? _icon;
+    private bool? _isSelected;
+    private string? _toolTip;
 
     public string? Header
     {
@@ -44,22 +41,25 @@ public class TabItem : ControlBase
         get => _content;
         set => SetField(ref _content, value);
     }
-    
+
     public string? GroupName
     {
         get => _groupName;
         internal set => SetField(ref _groupName, value);
     }
 
+    public static event EventHandler<string>? Selected;
+    public static event EventHandler<string>? Deleted;
+
     public void SelectTabItem()
     {
-        if (GroupName != null) 
+        if (GroupName != null)
             Selected?.Invoke(this, GroupName);
     }
-    
+
     public void DeleteTabItem()
     {
-        if (GroupName != null) 
+        if (GroupName != null)
             Deleted?.Invoke(this, GroupName);
     }
 }

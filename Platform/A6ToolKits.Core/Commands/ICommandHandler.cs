@@ -11,7 +11,7 @@ public interface ICommandHandler
     ///     更新 Command
     /// </summary>
     void Update();
-    
+
     /// <summary>
     ///     异步运行 Command
     /// </summary>

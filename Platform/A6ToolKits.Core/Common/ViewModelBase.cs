@@ -1,30 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace A6ToolKits.Common;
 
 /// <summary>
 ///     属性变更基类
 /// </summary>
-public class PropertyChangedBase : INotifyPropertyChanged
+public class ViewModelBase : ObservableObject
 {
-    /// <summary>
-    ///     属性变更事件
-    /// </summary>
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    /// <summary>
-    ///     属性变更通知
-    /// </summary>
-    /// <param name="propertyName">
-    ///     属性名称
-    /// </param>
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
     /// <summary>
     ///     设置字段值
     /// </summary>

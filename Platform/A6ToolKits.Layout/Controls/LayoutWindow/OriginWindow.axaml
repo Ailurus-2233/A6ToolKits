@@ -8,8 +8,8 @@
         x:Class="A6ToolKits.Layout.Controls.LayoutWindow.OriginWindow">
     <Border x:Name="WindowBorder">
         <Grid RowDefinitions="Auto,Auto,*,Auto">
-            <controls:MenuBar x:Name="MenuBar" Grid.Row="0"/>
-            <controls:ToolBar x:Name="ToolBar" Grid.Row="1"/>
+            <controls:MenuBar x:Name="MenuBar" Grid.Row="0" />
+            <controls:ToolBar x:Name="ToolBar" Grid.Row="1" />
             <container:MainContainer x:Name="MainContainer" Grid.Row="2" />
             <controls:StatusBar x:Name="StatusBar" Grid.Row="3" />
         </Grid>

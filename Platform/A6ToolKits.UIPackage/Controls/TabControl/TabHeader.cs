@@ -1,6 +1,5 @@
 using A6ToolKits.UIPackage.Controls.TabControl.Models;
 using Avalonia;
-using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 
 namespace A6ToolKits.UIPackage.Controls.TabControl;
@@ -21,7 +20,7 @@ public class TabHeader : ControlBase
 
     public static readonly StyledProperty<string> DisplayTypeProperty =
         AvaloniaProperty.Register<TabHeader, string>(nameof(DisplayType), "Text");
-    
+
     public static readonly StyledProperty<bool> IsCloseableProperty =
         AvaloniaProperty.Register<TabHeader, bool>(nameof(IsCloseable), true);
 
@@ -54,7 +53,7 @@ public class TabHeader : ControlBase
         get => GetValue(DisplayTypeProperty);
         set => SetValue(DisplayTypeProperty, value);
     }
-    
+
     public bool IsCloseable
     {
         get => GetValue(IsCloseableProperty);

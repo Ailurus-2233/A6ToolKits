@@ -8,14 +8,14 @@ using A6ToolKits.Config;
 using Serilog;
 using SysAssembly = System.Reflection.Assembly;
 
-namespace A6ToolKits.Assembly;
+namespace A6ToolKits.AssemblyPath;
 
 /// <summary>
 ///     程序集帮助类
 /// </summary>
-public static class AssemblyHelper
+public static class AssemblyPathHelper
 {
-    private static List<string> AssemblyPaths { get; } = ["./"];
+    private static List<string> _assemblyPaths { get; } = ["./"];
 
     /// <summary>
     ///     根据程序集名称和类型名称加载类型
@@ -33,7 +33,7 @@ public static class AssemblyHelper
     {
         if (assembly == null) return Type.GetType(type);
         SysAssembly? sysAssembly = null;
-        AssemblyPaths.ForEach(path =>
+        _assemblyPaths.ForEach(path =>
         {
             var assemblyPath = Path.Combine(path, assembly);
             if (File.Exists(assemblyPath)) sysAssembly = SysAssembly.LoadFrom(assemblyPath);
@@ -58,7 +58,7 @@ public static class AssemblyHelper
     {
         var assemblyName = $"{new AssemblyName(args.Name).Name}.dll";
         SysAssembly? assembly = null;
-        AssemblyPaths.ForEach(path =>
+        _assemblyPaths.ForEach(path =>
         {
             var assemblyPath = Path.Combine(path, assemblyName);
             if (File.Exists(assemblyPath)) assembly = SysAssembly.LoadFrom(assemblyPath);
@@ -74,11 +74,12 @@ public static class AssemblyHelper
         var nodes = ConfigHelper.GetElements("Path");
         foreach (XmlNode node in nodes!)
         {
-            var item = new AssemblyConfigItem();
+            var item = new AssemblyPathConfigItem();
             item.GenerateFromXmlNode(node);
             if (item.Path != null)
-                AssemblyPaths.Add(item.Path);
+                _assemblyPaths.Add(item.Path);
         }
+
         AppDomain.CurrentDomain.AssemblyResolve += OnResolveAssembly;
         Log.Information("Loading Assembly Path from configuration file");
     }
@@ -92,7 +93,7 @@ public static class AssemblyHelper
     public static List<string> GetAllAssemblies()
     {
         var result = new List<string>();
-        AssemblyPaths.ForEach(path =>
+        _assemblyPaths.ForEach(path =>
         {
             var files = Directory.GetFiles(path, "*.dll");
             // 只存储名称，不记录路径和后缀
@@ -100,7 +101,7 @@ public static class AssemblyHelper
         });
         return result;
     }
-    
+
     /// <summary>
     ///     获取所有包含指定特性的类型
     /// </summary>
@@ -113,7 +114,7 @@ public static class AssemblyHelper
     public static List<Type> GetTypeWithAttribute<T>() where T : Attribute
     {
         var result = new List<Type>();
-        AssemblyPaths.ForEach(path =>
+        _assemblyPaths.ForEach(path =>
         {
             var files = Directory.GetFiles(path, "*.dll");
             foreach (var file in files)

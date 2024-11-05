@@ -9,10 +9,12 @@ public enum WindowBorderType
     ///     原生窗口类型
     /// </summary>
     Origin,
+
     /// <summary>
     ///     工具包定义窗口类型
     /// </summary>
     Default,
+
     /// <summary>
     ///     无边框窗口类型
     /// </summary>
