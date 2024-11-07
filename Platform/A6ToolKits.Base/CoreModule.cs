@@ -1,8 +1,8 @@
 ﻿using System;
-using A6ToolKits.Bootstrapper.Interfaces;
-using A6ToolKits.Common.Attributes.MVVM;
-using A6ToolKits.Module;
-using Serilog;
+using A6ToolKits.Bootstrapper;
+using A6ToolKits.Common.Attributes;
+using A6ToolKits.Common.Exceptions;
+using A6ToolKits.Modules;
 
 namespace A6ToolKits;
 
@@ -15,7 +15,7 @@ public class CoreModule : ModuleBase
     /// <summary>
     ///     模块名称
     /// </summary>
-    protected override string Name => "A6ToolKits.Core";
+    protected override string Name => "A6ToolKits.Base";
 
     /// <summary>
     ///     初始化，加载模块时执行的操作
@@ -27,8 +27,7 @@ public class CoreModule : ModuleBase
 
     private static void LoadModules()
     {
-        Log.Information("Start loading modules.");
-        var moduleList = IoC.GetInstance<IApplicationController>()?.LoadModules();
+        var moduleList = IoC.GetInstance<IModuleManager>()?.GetModulesType();
         if (moduleList is not { Count: > 0 }) return;
         // 最后加载 LayoutModule
         var layout = moduleList.Find(t => t.Name == "LayoutModule");
@@ -40,20 +39,13 @@ public class CoreModule : ModuleBase
             try
             {
                 // 判断 module 是否是 ModuleBase 的基类
-                if (module.IsSubclassOf(typeof(ModuleBase)))
-                {
-                    var target = IoC.GetInstance(module) as ModuleBase;
-                    target?.LoadModule();
-                }
-                else
-                {
-                    Log.Warning("Module {0} is not a subclass of ModuleBase", module.Name);
-                }
+                if (!module.IsSubclassOf(typeof(ModuleBase))) return;
+                var target = IoC.GetInstance(module) as ModuleBase;
+                target?.LoadModule();
             }
             catch (Exception e)
             {
-                Log.Error("Failed to load module {0}", module.Name);
-                Log.Error("Exception: {0}", e.Message);
+                throw new LoadModuleException(module.Name, e.StackTrace);
             }
         });
 

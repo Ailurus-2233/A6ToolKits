@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using A6ToolKits.AssemblyPath;
-using A6ToolKits.Bootstrapper.Extensions;
-using A6ToolKits.Bootstrapper.Interfaces;
-using A6ToolKits.Events;
-using A6ToolKits.Instance;
-using A6ToolKits.Logger;
+using A6ToolKits.Common.Events;
+using A6ToolKits.Container;
+using A6ToolKits.Helper.AssemblyManager;
+using A6ToolKits.LifetimeExtension;
+using A6ToolKits.Modules;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Styling;
-using LogEventLevel = Serilog.Events.LogEventLevel;
+
+// ReSharper disable UnusedType.Global
+// ReSharper disable UnusedMember.Global
+// ReSharper disable VirtualMemberNeverOverridden.Global
 
 namespace A6ToolKits.Bootstrapper;
 
@@ -24,7 +26,7 @@ namespace A6ToolKits.Bootstrapper;
 /// <typeparam name="TWindow">
 ///     主窗体类型，指定一个 Window 类型作为主窗体
 /// </typeparam>
-public abstract class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, IApplicationController
+public abstract class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, IWindowController, IModuleManager, IAssemblyManager
     where TApplication : Application, new()
     where TWindow : Window, new()
 {
@@ -98,12 +100,14 @@ public abstract class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, I
     }
 
     /// <summary>
-    ///     获取需要加载的模块
+    ///     需要加载的模块
     /// </summary>
-    /// <returns>
-    ///     模块列表
-    /// </returns>
-    public abstract List<Type> LoadModules();
+    protected abstract List<Type> ToLoadModules { get; }
+
+    /// <summary>
+    ///     Assembly 加载的路径
+    /// </summary>
+    protected List<string> ToLoadAssemblyPaths { get; } = ["./"];
 
     /// <summary>
     ///     应用的启动方法，会依次调用 Initialize、Configure 和 OnCompleted 方法
@@ -126,9 +130,9 @@ public abstract class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, I
     /// </summary>
     public virtual void Initialize()
     {
-        AssemblyPathHelper.LoadAssemblyPath();
+        LoadHelper.AssemblyPaths = ToLoadAssemblyPaths;
+        LoadHelper.ResolveAssembly();
         AvaloniaConfigure();
-        LoggerHelper.InitializeConsoleLogger(Debugger.IsAttached ? LogEventLevel.Verbose : LogEventLevel.Warning);
     }
 
     /// <summary>
@@ -138,8 +142,10 @@ public abstract class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, I
     /// </summary>
     public virtual void Configure()
     {
-        AutoRegisterHelper.AutoRegisterAll();
-        IoC.RegisterSingleton<IApplicationController>(this);
+        AutomaticRegister.AutoRegisterAll();
+        IoC.RegisterSingleton<IWindowController>(this);
+        IoC.RegisterSingleton<IModuleManager>(this);
+        IoC.RegisterSingleton<IAssemblyManager>(this);
         IoC.GetInstance<CoreModule>()?.LoadModule();
     }
 
@@ -180,7 +186,46 @@ public abstract class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, I
                 .Configure<TApplication>()
                 .UsePlatformDetect();
 
-        _lifetime = LifetimeExtensions.PrepareLifetime(_appBuilder, _runArguments ?? [], null);
+        _lifetime = DesktopLifetimeExtension.PrepareLifetime(_appBuilder, _runArguments ?? [], null);
         _appBuilder.SetupWithLifetime(_lifetime);
+    }
+
+    /// <summary>
+    ///     获取模块列表
+    /// </summary>
+    /// <returns>
+    ///     模块的类型列表
+    /// </returns>
+    public List<Type> GetModulesType()
+    {
+        return ToLoadModules;
+    }
+    
+    /// <summary>
+    ///     获取模块列表
+    /// </summary>
+    /// <returns>
+    ///     模块的类型列表
+    /// </returns>
+    public List<ModuleBase> GetLoadedModules()
+    {
+        var result = new List<ModuleBase>();
+        ToLoadModules.ForEach(type =>
+        {
+            if (IoC.GetInstance(type) is ModuleBase module)
+                result.Add(module);
+        });
+        return result;
+    }
+
+    /// <summary>
+    ///     获取程序集路径
+    /// </summary>
+    /// <returns>
+    ///     程序集路径列表
+    /// </returns>
+    public List<string> GetAssemblyPaths()
+    {
+        return ToLoadAssemblyPaths;
     }
 }

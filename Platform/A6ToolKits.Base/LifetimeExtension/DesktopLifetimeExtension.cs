@@ -3,12 +3,12 @@ using System.Reflection;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 
-namespace A6ToolKits.Bootstrapper.Extensions;
+namespace A6ToolKits.LifetimeExtension;
 
 /// <summary>
 ///     Avalonia 生命周期扩展，为了拆分始化过程中的一部分操作
 /// </summary>
-public static class LifetimeExtensions
+public static class DesktopLifetimeExtension
 {
     /// <summary>
     ///     订阅全局事件
