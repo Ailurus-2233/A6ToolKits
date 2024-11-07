@@ -1,4 +1,4 @@
-﻿using A6ToolKits.Common.Attributes.MVVM;
+﻿using A6ToolKits.Common.Attributes;
 using A6ToolKits.Layout.Generator;
 using A6ToolKits.Layout.Helper;
 using Avalonia;

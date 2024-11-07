@@ -1,5 +1,4 @@
-﻿using A6ToolKits.Attributes.Layout;
-using A6ToolKits.Common.Attributes.Layout;
+﻿using A6ToolKits.Common.Attributes;
 using Avalonia.Controls;
 
 namespace UIDemo.Layout.StatusBars;

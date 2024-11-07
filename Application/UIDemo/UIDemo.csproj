@@ -9,15 +9,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <None Include="config.xml">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="after_build.nu">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-    </ItemGroup>
-
-    <ItemGroup>
       <Compile Update="TabDemo\Tab1.axaml.cs">
         <DependentUpon>Tab1.axaml</DependentUpon>
         <SubType>Code</SubType>
@@ -27,19 +18,15 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Platform\A6ToolKits.Layout\A6ToolKits.Layout.csproj" />
       <ProjectReference Include="..\..\Platform\A6ToolKits.UIPackage\A6ToolKits.UIPackage.csproj" />
-      <ProjectReference Include="..\..\Platform\A6ToolKits.Core\A6ToolKits.Core.csproj" />
+      <ProjectReference Include="..\..\Platform\A6ToolKits.Base\A6ToolKits.Base.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.4" />
-      <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.4" />
+      <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.0" />
+      <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <AvaloniaResource Include="Resources\Icons\**" />
+        <AvaloniaResource Include="Assets\**" />
     </ItemGroup>
-
-    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="cd $(TargetDir)&#xA;nu ./after_build.nu" />
-    </Target>
 </Project>

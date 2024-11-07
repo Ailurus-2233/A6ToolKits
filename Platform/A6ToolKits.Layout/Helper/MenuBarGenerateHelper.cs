@@ -1,8 +1,9 @@
 ﻿using System.Reflection;
-using A6ToolKits.AssemblyPath;
-using A6ToolKits.Commands;
-using A6ToolKits.Common.Attributes.Layout;
-using A6ToolKits.Exceptions;
+using A6ToolKits.Command;
+using A6ToolKits.Common.Attributes;
+using A6ToolKits.Common.Exceptions;
+using A6ToolKits.Helper.AssemblyManager;
+using A6ToolKits.Helper.ControlGenerator;
 using A6ToolKits.Layout.Generator;
 using Avalonia.Controls;
 
@@ -24,7 +25,7 @@ internal static class MenuBarGenerateHelper
     /// </returns>
     public static List<IGrouping<string, Type>> GetMenuItemGroup()
     {
-        var types = AssemblyPathHelper.GetTypeWithAttribute<MenuActionAttribute>();
+        var types = LoadHelper.GetTypeWithAttribute<MenuActionAttribute>();
         var group = types.GroupBy(t => GetMenuActionAttribute(t).Path[0].ItemName);
         var result = group.OrderBy(g => GetMenuActionAttribute(g.First()).Path[0].Order).ToList();
         return result;
@@ -97,7 +98,7 @@ internal static class MenuBarGenerateHelper
         {
             // 判断 type 是否是 CommandBase 的子类
             if (!typeof(CommandBase).IsAssignableFrom(type))
-                throw new GenerateTypeNotEqualException(type.ToString(), typeof(CommandBase).ToString());
+                throw new IncorrectlyClassException(type, typeof(CommandBase));
             var obj = IoC.Create(type);
             if (obj is not CommandBase temp) continue;
             var menuItemType = type.GetMenuActionAttribute().Type;

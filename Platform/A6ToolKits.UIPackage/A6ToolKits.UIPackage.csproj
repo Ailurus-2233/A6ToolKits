@@ -17,10 +17,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\A6ToolKits.Core\A6ToolKits.Core.csproj"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <AdditionalFiles Include="Resources\Icons\IconResources.axaml"/>
         <AdditionalFiles Include="Styles\TabControl\TabBodyTheme.axaml"/>
         <AdditionalFiles Include="Styles\TabControl\TabContainerTheme.axaml"/>
@@ -36,6 +32,10 @@
             <Link>A6ToolKits.png</Link>
         </None>
         <None Include="README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\A6ToolKits.Framework\A6ToolKits.Framework.csproj" />
     </ItemGroup>
 
 </Project>

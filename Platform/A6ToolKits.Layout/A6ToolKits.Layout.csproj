@@ -17,10 +17,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\A6ToolKits.Core\A6ToolKits.Core.csproj"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <None Include="..\Resources\Icon\A6ToolKits.png">
             <Pack>True</Pack>
             <PackagePath/>
@@ -46,6 +42,10 @@
 
     <ItemGroup>
         <UpToDateCheckInput Remove="Controls\Styles\MenuItemStyle.axaml"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\A6ToolKits.Framework\A6ToolKits.Framework.csproj" />
     </ItemGroup>
 
 </Project>

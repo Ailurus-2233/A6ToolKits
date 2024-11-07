@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
-using A6ToolKits.AssemblyPath;
-using A6ToolKits.Attributes.Layout;
-using A6ToolKits.Commands;
-using A6ToolKits.Common.Attributes.Layout;
-using A6ToolKits.Exceptions;
+using A6ToolKits.Command;
+using A6ToolKits.Common.Attributes;
+using A6ToolKits.Common.Exceptions;
+using A6ToolKits.Helper.AssemblyManager;
+using A6ToolKits.Helper.ControlGenerator;
 using A6ToolKits.Layout.Generator;
 using Avalonia.Controls;
 
@@ -36,7 +36,7 @@ internal static class ToolBarGenerateHelper
     /// </summary>
     public static List<IGrouping<int?, Type>> GetToolBarGroup()
     {
-        var types = AssemblyPathHelper.GetTypeWithAttribute<ToolBarActionAttribute>();
+        var types = LoadHelper.GetTypeWithAttribute<ToolBarActionAttribute>();
         var groups = types.GroupBy(t => t.GetCustomAttribute<ToolBarActionAttribute>()?.Group)
             .OrderBy(group => group.Key).ToList();
         return groups;
@@ -57,7 +57,7 @@ internal static class ToolBarGenerateHelper
         types.ForEach(type =>
         {
             if (!typeof(CommandBase).IsAssignableFrom(type))
-                throw new GenerateTypeNotEqualException(type.ToString(), typeof(CommandBase).ToString());
+                throw new IncorrectlyClassException(type, typeof(CommandBase));
             var obj = IoC.Create(type);
             if (obj is not CommandBase action) return;
             var buttonType = type.GetToolBarActionAttribute().Type;

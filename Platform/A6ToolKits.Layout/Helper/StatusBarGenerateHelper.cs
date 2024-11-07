@@ -1,8 +1,7 @@
 ﻿using System.Reflection;
-using A6ToolKits.AssemblyPath;
-using A6ToolKits.Attributes.Layout;
-using A6ToolKits.Common.Attributes.Layout;
-using A6ToolKits.Exceptions;
+using A6ToolKits.Common.Attributes;
+using A6ToolKits.Common.Exceptions;
+using A6ToolKits.Helper.AssemblyManager;
 using A6ToolKits.Layout.Generator;
 using Avalonia.Controls;
 
@@ -22,7 +21,7 @@ internal static class StatusBarGenerateHelper
     /// <returns></returns>
     public static List<Type> GetStatusBarTypes(StatusPosition position)
     {
-        var types = AssemblyPathHelper.GetTypeWithAttribute<StatusBarItemAttribute>();
+        var types = LoadHelper.GetTypeWithAttribute<StatusBarItemAttribute>();
         return types.Where(t => t.GetStatusBarItemAttribute().Position == position).ToList();
     }
 

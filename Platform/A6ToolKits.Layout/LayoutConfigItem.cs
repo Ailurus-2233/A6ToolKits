@@ -1,4 +1,7 @@
-﻿using A6ToolKits.Config;
+﻿using System.Xml;
+using A6ToolKits.Common.Exceptions;
+using A6ToolKits.Config;
+using A6ToolKits.Helper.Configurator;
 using A6ToolKits.Layout.Generator;
 using A6ToolKits.Layout.Generator.Enums;
 using Avalonia.Media;
@@ -40,7 +43,7 @@ public class LayoutConfigItem : ConfigItemBase
     ///     窗口背景色
     /// </summary>
     public string BackgroundColor { get; set; } = "";
-
+    
     internal void SetToResources()
     {
         var config = WindowConfig.Instance;
@@ -61,5 +64,51 @@ public class LayoutConfigItem : ConfigItemBase
 
         var brightness = 0.299 * backgroundColor.R + 0.587 * backgroundColor.G + 0.114 * backgroundColor.B;
         config.Theme = brightness > 128 ? ThemeVariant.Light : ThemeVariant.Dark;
+    }
+
+    /// <summary>
+    ///     从配置文件中加载配置
+    /// </summary>
+    /// <exception cref="Exception">
+    ///     配置文件未找到
+    /// </exception>
+    public override void LoadConfig()
+    {
+        var layoutConfigItem = ConfigHelper.GetElements("Window")?.Item(0);
+        if (layoutConfigItem == null)
+            throw new ConfigLoadException(typeof(LayoutConfigItem));
+        GenerateFromXmlNode(layoutConfigItem);
+    }
+
+    /// <summary>
+    ///     创建基本的配置文件节点
+    /// </summary>
+    /// <returns>
+    ///     配置文件节点
+    /// </returns>
+    public override XmlElement CreateDefaultConfig()
+    {
+        var doc = ConfigHelper.GetDefaultConfig();
+        var result = doc.CreateElement("Window");
+        result.SetAttribute("Title", "A6ToolKit-Application");
+        result.SetAttribute("BorderStyle", "Default");
+        result.SetAttribute("Width", "800");
+        result.SetAttribute("Height", "600");
+        result.SetAttribute("PrimaryColor", "#6495ED");
+        result.SetAttribute("BackgroundColor", "#FFFFFF");
+        return result;
+    }
+
+    /// <summary>
+    ///     设置默认值
+    /// </summary>
+    public override void SetDefault()
+    {
+        Title = "A6ToolKit-Application";
+        BorderStyle = "Default";
+        Width = "800";
+        Height = "600";
+        PrimaryColor = "#6495ED";
+        BackgroundColor = "#FFFFFF";
     }
 }

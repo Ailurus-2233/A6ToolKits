@@ -10,7 +10,8 @@ namespace UIDemo;
 
 public class Bootstrapper : BaseBootstrapper<App, Window>
 {
-    public override List<Type> LoadModules() => [
+    protected override List<Type> ToLoadModules =>
+    [
         typeof(LayoutModule),
         typeof(UIPackageModule)
     ];

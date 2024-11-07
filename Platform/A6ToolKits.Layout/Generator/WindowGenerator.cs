@@ -1,4 +1,5 @@
 ﻿using A6ToolKits.Config;
+using A6ToolKits.Helper.Configurator;
 using A6ToolKits.Layout.Controls.LayoutWindow;
 using A6ToolKits.Layout.Generator.Enums;
 using Avalonia.Controls;
@@ -29,15 +30,9 @@ internal class WindowGenerator
     /// </summary>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-    internal Window GenerateWindow()
+    internal Window GenerateWindow(LayoutConfigItem item)
     {
-        var layoutConfigItem = ConfigHelper.GetElements("Window")?.Item(0);
-        if (layoutConfigItem == null)
-            throw new Exception("Layout config not found.");
-
-        var configItem = new LayoutConfigItem();
-        configItem.GenerateFromXmlNode(layoutConfigItem);
-        configItem.SetToResources();
+        item.SetToResources();
 
         Window result = _config.BorderStyle switch
         {

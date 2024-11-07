@@ -1,12 +1,16 @@
-﻿using A6ToolKits.Attributes.Layout;
-using A6ToolKits.Bootstrapper.Interfaces;
-using A6ToolKits.Commands;
-using A6ToolKits.Events;
+﻿using A6ToolKits.Bootstrapper;
+using A6ToolKits.Common.Attributes;
+using A6ToolKits.Common.Events;
+using A6ToolKits.Common.Exceptions;
+using A6ToolKits.Helper.ControlGenerator;
 using A6ToolKits.Layout.Controls.ControlCommand;
 using A6ToolKits.Layout.Generator;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
+
+// ReSharper disable InvertIf
+// ReSharper disable ConvertIfStatementToSwitchStatement
 
 namespace A6ToolKits.Layout.Controls;
 
@@ -45,36 +49,38 @@ public partial class TitleBar : UserControl
 
         IoC.GetInstance<IEventAggregator>()?.Subscribe<BootFinishedEvent>(_ =>
         {
-            var window = IoC.GetInstance<IApplicationController>()?.GetMainWindow();
-            window?.GetObservable(Window.WindowStateProperty).Subscribe(state =>
-            {
-                switch (state)
-                {
-                    case WindowState.Maximized:
-                        MaximizeButton.IsVisible = false;
-                        WindowButton.IsVisible = true;
-                        break;
-                    case WindowState.Normal:
-                        MaximizeButton.IsVisible = true;
-                        WindowButton.IsVisible = false;
-                        break;
-                    case WindowState.Minimized:
-                    case WindowState.FullScreen:
-                    default:
-                        break;
-                }
-            });
-            if (window?.WindowState == WindowState.Maximized)
-            {
+            var window = IoC.GetInstance<IWindowController>()?.GetMainWindow();
+            if (window == null) 
+                throw new WindowUninitializedException("Window is not initialized");
+            var observable = window.GetObservable(Window.WindowStateProperty);
+            observable.Subscribe(UpdateControlButton);
+            UpdateControlButton(window.WindowState);
+        });
+    }
+
+    /// <summary>
+    ///     更新控制按钮
+    /// </summary>
+    /// <param name="state">
+    ///     如果是最大化或全屏状态，则隐藏最大化按钮，显示还原按钮
+    ///     如果是正常状态，则显示最大化按钮，隐藏还原按钮
+    /// </param>
+    public void UpdateControlButton(WindowState state)
+    {
+        switch (state)
+        {
+            case WindowState.Maximized:
+            case WindowState.FullScreen:
                 MaximizeButton.IsVisible = false;
                 WindowButton.IsVisible = true;
-            }
-
-            if (window?.WindowState == WindowState.Normal)
-            {
+                break;
+            case WindowState.Normal:
                 MaximizeButton.IsVisible = true;
                 WindowButton.IsVisible = false;
-            }
-        });
+                break;
+            case WindowState.Minimized:
+            default:
+                break;
+        }
     }
 }

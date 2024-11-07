@@ -9,7 +9,7 @@
 
     <!-- List of modules that are automatically loaded -->
     <Modules>
-        <Module Name="A6ToolKits.Core" Assembly="A6ToolKits.Core.dll" Target="A6ToolKits.CoreModule"/>
+        <Module Name="A6ToolKits.Starter" Assembly="A6ToolKits.Starter.dll" Target="A6ToolKits.CoreModule"/>
         <Module Name="A6ToolKits.MVVM" Assembly="A6ToolKits.MVVM.dll" Target="A6ToolKits.MVVM.MVVMModule"/>
         <Module Name="A6ToolKits.UIPackage" Assembly="A6ToolKits.UIPackage.dll" Target="A6ToolKits.UIPackage.UIPackageModule"/>
         <Module Name="A6ToolKits.Layout" Assembly="A6ToolKits.Layout.dll" Target="A6ToolKits.Layout.LayoutModule"/>
