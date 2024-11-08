@@ -96,7 +96,7 @@ internal class WindowConfig
     /// <summary>
     ///     窗口图标
     /// </summary>
-    public Uri Icon { get; set; }
+    public Uri? Icon { get; set; }
 
     /// <summary>
     ///     应用主题

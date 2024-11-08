@@ -44,11 +44,11 @@ public class LayoutConfigItem : ConfigItemBase
     ///     窗口背景色
     /// </summary>
     public string BackgroundColor { get; set; } = "";
-    
+
     /// <summary>
     ///     窗口图标
     /// </summary>
-    public string Icon { get; set; }
+    public string Icon { get; set; } = "";
     
     internal void SetToResources()
     {
@@ -86,7 +86,7 @@ public class LayoutConfigItem : ConfigItemBase
             throw new ConfigLoadException(typeof(LayoutConfigItem));
         GenerateFromXmlNode(layoutConfigItem);
         var runAssembly = Assembly.GetEntryAssembly();
-        Icon = runAssembly == null ? "" : $"avares://{runAssembly.FullName.Split(',')[0]}/{Icon}";
+        Icon = runAssembly == null ? "" : $"avares://{runAssembly.FullName?.Split(',')[0]}/{Icon}";
     }
 
     /// <summary>

@@ -23,7 +23,7 @@ public static class AssetHelper
     /// <returns>
     ///     返回图片
     /// </returns>
-    public static IImage LoadImage(Uri resourceUri)
+    public static IImage LoadImage(Uri? resourceUri)
     {
         using var stream = AssetLoader.Open(resourceUri);
         if (stream == null)
@@ -43,7 +43,7 @@ public static class AssetHelper
     /// <returns>
     ///     返回是否加载成功
     /// </returns>
-    public static bool TryLoadImage(Uri resourceUri, out IImage? image)
+    public static bool TryLoadImage(Uri? resourceUri, out IImage? image)
     {
         try
         {
@@ -67,7 +67,7 @@ public static class AssetHelper
     /// <returns>
     ///     返回图片
     /// </returns>
-    public static IImage LoadSvgImage(Uri resourceUri)
+    public static IImage LoadSvgImage(Uri? resourceUri)
     {
         using var stream = AssetLoader.Open(resourceUri);
         if (stream == null)
@@ -85,7 +85,7 @@ public static class AssetHelper
     /// <returns>
     ///     返回图片的异步任务
     /// </returns>
-    public static async Task<Bitmap?> LoadFromWeb(Uri uri)
+    public static async Task<Bitmap?> LoadFromWeb(Uri? uri)
     {
         using var httpClient = new HttpClient();
         try
