@@ -29,6 +29,7 @@ public abstract class WindowBase : Window
             WindowType.FullScreen => WindowState.FullScreen,
             _ => throw new ArgumentOutOfRangeException()
         };
+        if (config.Icon == null) return;
         var image = AssetHelper.LoadImage(config.Icon);
         if (image is Bitmap bitmap)
             Icon = new WindowIcon(bitmap);

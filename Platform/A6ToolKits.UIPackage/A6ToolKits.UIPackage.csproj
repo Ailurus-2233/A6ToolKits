@@ -2,13 +2,20 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <LangVersion>12</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <LangVersion>default</LangVersion>
+        <Version>0.1.0</Version>
+        <AssemblyVersion>0.1.0</AssemblyVersion>
+        <FileVersion>0.1.0</FileVersion>
+        <Title>A6 应用开发工具包 - UI包</Title>
+        <Authors>Ailurus2233</Authors>
+        <Description>A6ToolKits 是一个快速搭建 Avalonia 桌面应用程序的开发框架，UIPackage 定义了一些控件和主题</Description>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageIcon>A6ToolKits.png</PackageIcon>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <Version>0.1.0</Version>
+        <NeutralLanguage>default</NeutralLanguage>
+
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -35,7 +42,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\A6ToolKits.Framework\A6ToolKits.Framework.csproj" />
+        <ProjectReference Include="..\A6ToolKits.Framework\A6ToolKits.Framework.csproj"/>
     </ItemGroup>
 
 </Project>

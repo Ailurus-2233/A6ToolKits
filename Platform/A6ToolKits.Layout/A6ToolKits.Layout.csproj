@@ -9,6 +9,12 @@
         <PackageIcon>A6ToolKits.png</PackageIcon>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <Version>0.1.0</Version>
+        <Title>A6 应用开发工具包 - 自动布局</Title>
+        <Authors>Ailurus2233</Authors>
+        <Description>A6ToolKits 是一个快速搭建 Avalonia 桌面应用程序的开发框架，自动布局模块通过配置文件自动生成一个Window，根据类的属性自动生成工具栏、菜单栏和状态栏</Description>
+        <AssemblyVersion>0.1.0</AssemblyVersion>
+        <FileVersion>0.1.0</FileVersion>
+        <NeutralLanguage>default</NeutralLanguage>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

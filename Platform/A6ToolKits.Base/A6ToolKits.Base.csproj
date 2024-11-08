@@ -2,19 +2,20 @@
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
         <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Title>A6 桌面应用开发工具包 - 核心模块</Title>
         <Authors>Ailurus2233</Authors>
-        <Description>A6ToolKits 是一个快速搭建 Avalonia 桌面应用程序的开发框架，这个库是其运行的核心依赖库，其他的模块都依赖此库进行加载和初始化</Description>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
-        <FileVersion>0.1.0.0</FileVersion>
+        <Description>A6ToolKits 是一个快速搭建 Avalonia 桌面应用程序的开发框架，核心模块是一个运行核心，它包含了引导器，模块加载器等</Description>
+        <AssemblyVersion>0.1.0</AssemblyVersion>
+        <FileVersion>0.1.0</FileVersion>
         <PackageIcon>A6ToolKits.png</PackageIcon>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <Version>0.1.0</Version>
         <RootNamespace>A6ToolKits</RootNamespace>
-        <NeutralLanguage>zh-Hans</NeutralLanguage>
+        <NeutralLanguage>default</NeutralLanguage>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
         <DocumentationFile>bin\Debug\A6ToolKits.xml</DocumentationFile>
