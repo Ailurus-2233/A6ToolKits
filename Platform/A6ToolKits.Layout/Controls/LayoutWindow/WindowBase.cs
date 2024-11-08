@@ -1,7 +1,9 @@
-﻿using A6ToolKits.Layout.Generator;
+﻿using A6ToolKits.Helper.Loader;
+using A6ToolKits.Layout.Generator;
 using A6ToolKits.Layout.Generator.Enums;
 using Avalonia.Controls;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
 
 namespace A6ToolKits.Layout.Controls.LayoutWindow;
 
@@ -27,5 +29,8 @@ public abstract class WindowBase : Window
             WindowType.FullScreen => WindowState.FullScreen,
             _ => throw new ArgumentOutOfRangeException()
         };
+        var image = AssetHelper.LoadImage(config.Icon);
+        if (image is Bitmap bitmap)
+            Icon = new WindowIcon(bitmap);
     }
 }

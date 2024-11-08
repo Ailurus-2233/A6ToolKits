@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.Reflection;
+using System.Xml;
 using A6ToolKits.Common.Exceptions;
 using A6ToolKits.Config;
 using A6ToolKits.Helper.Configurator;
@@ -44,6 +45,11 @@ public class LayoutConfigItem : ConfigItemBase
     /// </summary>
     public string BackgroundColor { get; set; } = "";
     
+    /// <summary>
+    ///     窗口图标
+    /// </summary>
+    public string Icon { get; set; }
+    
     internal void SetToResources()
     {
         var config = WindowConfig.Instance;
@@ -64,6 +70,7 @@ public class LayoutConfigItem : ConfigItemBase
 
         var brightness = 0.299 * backgroundColor.R + 0.587 * backgroundColor.G + 0.114 * backgroundColor.B;
         config.Theme = brightness > 128 ? ThemeVariant.Light : ThemeVariant.Dark;
+        config.Icon = new Uri(Icon);
     }
 
     /// <summary>
@@ -78,6 +85,8 @@ public class LayoutConfigItem : ConfigItemBase
         if (layoutConfigItem == null)
             throw new ConfigLoadException(typeof(LayoutConfigItem));
         GenerateFromXmlNode(layoutConfigItem);
+        var runAssembly = Assembly.GetEntryAssembly();
+        Icon = runAssembly == null ? "" : $"avares://{runAssembly.FullName.Split(',')[0]}/{Icon}";
     }
 
     /// <summary>
@@ -96,6 +105,7 @@ public class LayoutConfigItem : ConfigItemBase
         result.SetAttribute("Height", "600");
         result.SetAttribute("PrimaryColor", "#6495ED");
         result.SetAttribute("BackgroundColor", "#FFFFFF");
+        result.SetAttribute("Icon", "");
         return result;
     }
 
@@ -110,5 +120,6 @@ public class LayoutConfigItem : ConfigItemBase
         Height = "600";
         PrimaryColor = "#6495ED";
         BackgroundColor = "#FFFFFF";
+        Icon = "";
     }
 }

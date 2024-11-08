@@ -9,7 +9,6 @@ namespace A6ToolKits.Layout.Controls;
 /// <summary>
 ///     自动生成状态栏
 /// </summary>
-[AutoRegister(typeof(StatusBar), RegisterType.Singleton)]
 public partial class StatusBar : UserControl
 {
     /// <summary>

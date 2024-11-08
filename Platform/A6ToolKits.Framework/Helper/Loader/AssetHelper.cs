@@ -32,6 +32,33 @@ public static class AssetHelper
     }
 
     /// <summary>
+    ///     尝试从 Avalonia应用资源 中加载图片
+    /// </summary>
+    /// <param name="resourceUri">
+    ///     资源 URI
+    /// </param>
+    /// <param name="image">
+    ///     获得的图片
+    /// </param>
+    /// <returns>
+    ///     返回是否加载成功
+    /// </returns>
+    public static bool TryLoadImage(Uri resourceUri, out IImage? image)
+    {
+        try
+        {
+            var type = resourceUri.AbsoluteUri.Split('.').Last();
+            image = type == "svg" ? LoadSvgImage(resourceUri) : LoadImage(resourceUri);
+            return true;
+        }
+        catch (AssetNotFoundException)
+        {
+            image = null;
+            return false;
+        }
+    }
+
+    /// <summary>
     ///     从 Avalonia应用资源 中加载 SVG 图片
     /// </summary>
     /// <param name="resourceUri">

@@ -10,7 +10,6 @@ namespace A6ToolKits.Layout.Controls;
 /// <summary>
 ///     自动生成的工具栏
 /// </summary>
-[AutoRegister(typeof(ToolBar), RegisterType.Singleton)]
 public partial class ToolBar : UserControl
 {
     /// <summary>

@@ -9,7 +9,7 @@ namespace A6ToolKits.Layout.Generator;
 /// </summary>
 internal class WindowConfig
 {
-    private static readonly Lazy<WindowConfig> _lazy = new(() => new WindowConfig());
+    private static readonly Lazy<WindowConfig> lazy = new(() => new WindowConfig());
 
     private WindowConfig()
     {
@@ -18,7 +18,7 @@ internal class WindowConfig
     /// <summary>
     ///     窗口配置实例
     /// </summary>
-    public static WindowConfig Instance => _lazy.Value;
+    public static WindowConfig Instance => lazy.Value;
 
     /// <summary>
     ///     窗口标题
@@ -93,6 +93,10 @@ internal class WindowConfig
     /// </summary>
     public double TitleBarHeight { get; set; } = 30;
 
+    /// <summary>
+    ///     窗口图标
+    /// </summary>
+    public Uri Icon { get; set; }
 
     /// <summary>
     ///     应用主题

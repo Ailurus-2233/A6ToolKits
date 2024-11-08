@@ -29,4 +29,8 @@
     <ItemGroup>
         <AvaloniaResource Include="Assets\**" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="bin\Debug\net8.0\config.xml" />
+    </ItemGroup>
 </Project>

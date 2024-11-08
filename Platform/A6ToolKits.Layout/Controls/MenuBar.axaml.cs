@@ -9,7 +9,6 @@ namespace A6ToolKits.Layout.Controls;
 /// <summary>
 ///     自动生成的菜单栏控件
 /// </summary>
-[AutoRegister(typeof(MenuBar), RegisterType.Singleton)]
 public partial class MenuBar : UserControl
 {
     /// <summary>
