@@ -19,10 +19,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\A6ToolKits.Base\A6ToolKits.Base.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
         <None Include="..\Resources\Icon\A6ToolKits.png">
             <Pack>True</Pack>
             <PackagePath/>

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using A6ToolKits.AssemblyManager;
+using A6ToolKits.Common.Container;
 using A6ToolKits.Common.Events;
-using A6ToolKits.Container;
-using A6ToolKits.Helper.AssemblyManager;
+using A6ToolKits.Event;
 using A6ToolKits.LifetimeExtension;
 using A6ToolKits.Modules;
 using Avalonia;
@@ -26,7 +25,8 @@ namespace A6ToolKits.Bootstrapper;
 /// <typeparam name="TWindow">
 ///     主窗体类型，指定一个 Window 类型作为主窗体
 /// </typeparam>
-public abstract class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, IWindowController, IModuleManager, IAssemblyManager
+public abstract class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, IWindowController, IModuleManager,
+    IAssemblyManager
     where TApplication : Application, new()
     where TWindow : Window, new()
 {
@@ -49,6 +49,101 @@ public abstract class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, I
     ///     执行 Avalonia 应用的参数
     /// </summary>
     private string[]? _runArguments;
+
+    /// <summary>
+    ///     需要加载的模块
+    /// </summary>
+    protected abstract List<Type> ToLoadModules { get; }
+
+    /// <summary>
+    ///     Assembly 加载的路径
+    /// </summary>
+    protected List<string> ToLoadAssemblyPaths { get; } = ["./"];
+
+    /// <summary>
+    ///     获取程序集路径
+    /// </summary>
+    /// <returns>
+    ///     程序集路径列表
+    /// </returns>
+    public List<string> GetAssemblyPaths()
+    {
+        return ToLoadAssemblyPaths;
+    }
+
+    /// <summary>
+    ///     加载步骤1-初始化：在应用启动前需要进行的一些配置，这里进行了程序集加载和
+    ///     日志记录器的初始化，可以在子类中重写此方法以添加更多的初始化操作
+    /// </summary>
+    public virtual void Initialize()
+    {
+        LoadHelper.AssemblyPaths = ToLoadAssemblyPaths;
+        LoadHelper.ResolveAssembly();
+        AvaloniaConfigure();
+    }
+
+    /// <summary>
+    ///     加载步骤2-配置：在初始化完成后，需要进行的一些配置，这里进行了 Avalonia
+    ///     构建器的配置，配置完成后加载模块列表，可以在子类中重写此方法以添加更多的
+    ///     配置操作
+    /// </summary>
+    public virtual void Configure()
+    {
+        AutomaticRegister.AutoRegisterAll();
+        IoC.RegisterSingleton<IWindowController>(this);
+        IoC.RegisterSingleton<IModuleManager>(this);
+        IoC.RegisterSingleton<IAssemblyManager>(this);
+        IoC.GetInstance<CoreModule>()?.LoadModule();
+    }
+
+    /// <summary>
+    ///     加载步骤3-完成：在配置完成后，需要进行的一些操作，这里设置了主窗体对象，
+    ///     最好在子类中重写此方法以设置主窗体对象，后调用基类的此方法以启动应用程序
+    /// </summary>
+    public virtual void OnCompleted()
+    {
+        if (_lifetime == null) return;
+        _mainWindow ??= new TWindow();
+        _lifetime.MainWindow = _mainWindow;
+        if (Debugger.IsAttached) _mainWindow.AttachDevTools();
+        IoC.GetInstance<IEventAggregator>()?.Publish(new BootFinishedEvent());
+        _lifetime.Start(_runArguments ?? []);
+    }
+
+    /// <summary>
+    ///     结束步骤：在程序退出时，需要执行的一些操作，这里输出了程序结束的日志
+    /// </summary>
+    public virtual void OnFinished()
+    {
+    }
+
+    /// <summary>
+    ///     获取模块列表
+    /// </summary>
+    /// <returns>
+    ///     模块的类型列表
+    /// </returns>
+    public List<Type> GetModulesType()
+    {
+        return ToLoadModules;
+    }
+
+    /// <summary>
+    ///     获取模块列表
+    /// </summary>
+    /// <returns>
+    ///     模块的类型列表
+    /// </returns>
+    public List<IModule> GetLoadedModules()
+    {
+        var result = new List<IModule>();
+        ToLoadModules.ForEach(type =>
+        {
+            if (IoC.GetInstance(type) is IModule module)
+                result.Add(module);
+        });
+        return result;
+    }
 
     /// <summary>
     ///     停止应用程序
@@ -100,16 +195,6 @@ public abstract class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, I
     }
 
     /// <summary>
-    ///     需要加载的模块
-    /// </summary>
-    protected abstract List<Type> ToLoadModules { get; }
-
-    /// <summary>
-    ///     Assembly 加载的路径
-    /// </summary>
-    protected List<string> ToLoadAssemblyPaths { get; } = ["./"];
-
-    /// <summary>
     ///     应用的启动方法，会依次调用 Initialize、Configure 和 OnCompleted 方法
     /// </summary>
     /// <param name="args">
@@ -122,52 +207,6 @@ public abstract class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, I
         Configure();
         OnCompleted();
         OnFinished();
-    }
-
-    /// <summary>
-    ///     加载步骤1-初始化：在应用启动前需要进行的一些配置，这里进行了程序集加载和
-    ///     日志记录器的初始化，可以在子类中重写此方法以添加更多的初始化操作
-    /// </summary>
-    public virtual void Initialize()
-    {
-        LoadHelper.AssemblyPaths = ToLoadAssemblyPaths;
-        LoadHelper.ResolveAssembly();
-        AvaloniaConfigure();
-    }
-
-    /// <summary>
-    ///     加载步骤2-配置：在初始化完成后，需要进行的一些配置，这里进行了 Avalonia
-    ///     构建器的配置，配置完成后加载模块列表，可以在子类中重写此方法以添加更多的
-    ///     配置操作
-    /// </summary>
-    public virtual void Configure()
-    {
-        AutomaticRegister.AutoRegisterAll();
-        IoC.RegisterSingleton<IWindowController>(this);
-        IoC.RegisterSingleton<IModuleManager>(this);
-        IoC.RegisterSingleton<IAssemblyManager>(this);
-        IoC.GetInstance<CoreModule>()?.LoadModule();
-    }
-
-    /// <summary>
-    ///     加载步骤3-完成：在配置完成后，需要进行的一些操作，这里设置了主窗体对象，
-    ///     最好在子类中重写此方法以设置主窗体对象，后调用基类的此方法以启动应用程序
-    /// </summary>
-    public virtual void OnCompleted()
-    {
-        if (_lifetime == null) return;
-        _mainWindow ??= new TWindow();
-        _lifetime.MainWindow = _mainWindow;
-        if (Debugger.IsAttached) _mainWindow.AttachDevTools();
-        IoC.GetInstance<IEventAggregator>()?.Publish(new BootFinishedEvent());
-        _lifetime.Start(_runArguments ?? []);
-    }
-
-    /// <summary>
-    ///     结束步骤：在程序退出时，需要执行的一些操作，这里输出了程序结束的日志
-    /// </summary>
-    public virtual void OnFinished()
-    {
     }
 
     /// <summary>
@@ -188,44 +227,5 @@ public abstract class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, I
 
         _lifetime = DesktopLifetimeExtension.PrepareLifetime(_appBuilder, _runArguments ?? [], null);
         _appBuilder.SetupWithLifetime(_lifetime);
-    }
-
-    /// <summary>
-    ///     获取模块列表
-    /// </summary>
-    /// <returns>
-    ///     模块的类型列表
-    /// </returns>
-    public List<Type> GetModulesType()
-    {
-        return ToLoadModules;
-    }
-    
-    /// <summary>
-    ///     获取模块列表
-    /// </summary>
-    /// <returns>
-    ///     模块的类型列表
-    /// </returns>
-    public List<ModuleBase> GetLoadedModules()
-    {
-        var result = new List<ModuleBase>();
-        ToLoadModules.ForEach(type =>
-        {
-            if (IoC.GetInstance(type) is ModuleBase module)
-                result.Add(module);
-        });
-        return result;
-    }
-
-    /// <summary>
-    ///     获取程序集路径
-    /// </summary>
-    /// <returns>
-    ///     程序集路径列表
-    /// </returns>
-    public List<string> GetAssemblyPaths()
-    {
-        return ToLoadAssemblyPaths;
     }
 }

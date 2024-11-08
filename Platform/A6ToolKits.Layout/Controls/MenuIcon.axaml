@@ -9,7 +9,7 @@
         <Menu x:Name="Menu">
             <MenuItem x:Name="MenuButton" Padding="5">
                 <MenuItem.Header>
-                    <Image Source="{DynamicResource MenuIcon}" />
+                    <Image Source="{DynamicResource LayoutMenuIcon}" />
                 </MenuItem.Header>
             </MenuItem>
         </Menu>

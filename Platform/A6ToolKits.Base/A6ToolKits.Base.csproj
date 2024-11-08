@@ -1,26 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Title>A6 桌面应用开发工具包 - 核心模块</Title>
-        <Authors>Ailurus2233</Authors>
-        <Description>A6ToolKits 是一个快速搭建 Avalonia 桌面应用程序的开发框架，核心模块是一个运行核心，它包含了引导器，模块加载器等</Description>
+        <Nullable>enable</Nullable>
+        <RootNamespace>A6ToolKits</RootNamespace>
+        <LangVersion>default</LangVersion>
+        <Version>0.1.0</Version>
         <AssemblyVersion>0.1.0</AssemblyVersion>
         <FileVersion>0.1.0</FileVersion>
+        <Title>A6 应用开发工具包 - 应用框架</Title>
+        <Authors>Ailurus2233</Authors>
+        <Description>A6ToolKits 是一个快速搭建 Avalonia 桌面应用程序的开发框架，应用框架定义了应用的基本框架，以及接口、工具类等</Description>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageIcon>A6ToolKits.png</PackageIcon>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <Version>0.1.0</Version>
-        <RootNamespace>A6ToolKits</RootNamespace>
         <NeutralLanguage>default</NeutralLanguage>
     </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <DocumentationFile>bin\Debug\A6ToolKits.xml</DocumentationFile>
-        <WarningLevel>4</WarningLevel>
-    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="11.2.0"/>
+        <PackageReference Include="Avalonia.Desktop" Version="11.2.0"/>
+        <PackageReference Include="Avalonia.Diagnostics" Version="11.2.0"/>
+        <PackageReference Include="Avalonia.Svg" Version="11.2.0"/>
+        <PackageReference Include="Avalonia.Xaml.Behaviors" Version="11.2.0"/>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1"/>
+    </ItemGroup>
 
     <ItemGroup>
         <None Include="..\Resources\Icon\A6ToolKits.png">
@@ -29,10 +35,6 @@
             <Link>A6ToolKits.png</Link>
         </None>
         <None Include="README.md" Pack="true" PackagePath="\"/>
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\A6ToolKits.Framework\A6ToolKits.Framework.csproj" />
     </ItemGroup>
 
 </Project>

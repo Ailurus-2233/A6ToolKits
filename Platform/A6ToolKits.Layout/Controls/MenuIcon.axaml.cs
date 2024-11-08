@@ -1,5 +1,5 @@
 ﻿using A6ToolKits.Common.Attributes;
-using A6ToolKits.Helper.Loader;
+using A6ToolKits.Common.ResourceLoader;
 using A6ToolKits.Layout.Generator;
 using A6ToolKits.Layout.Helper;
 using Avalonia.Controls;

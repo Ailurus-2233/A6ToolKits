@@ -1,6 +1,7 @@
 ﻿using A6ToolKits.Bootstrapper;
 using A6ToolKits.Command;
-using A6ToolKits.Helper.Loader;
+using A6ToolKits.Common.Container;
+using A6ToolKits.Common.ResourceLoader;
 using Avalonia.Media;
 
 namespace A6ToolKits.Layout.Controls.ControlCommand;
@@ -10,7 +11,7 @@ public sealed class CloseCommand : CommandBase
 {
     public override string? Name { get; } = "关闭程序";
     public override string? ToolTip { get; } = "关闭程序";
-    public override IImage? Image { get; } = ResourceHelper.LoadImage("CloseIcon");
+    public override IImage? Image { get; } = ResourceHelper.LoadImage("LayoutCloseIcon");
 
     public override Task Run()
     {

@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Xml;
 using A6ToolKits.Common.Exceptions;
-using A6ToolKits.Config;
+using A6ToolKits.Configuration;
 using A6ToolKits.Helper.Configurator;
 using A6ToolKits.Layout.Generator;
 using A6ToolKits.Layout.Generator.Enums;

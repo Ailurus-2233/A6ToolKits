@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  Add Resources Here  -->
+    <DrawingImage x:Key="LayoutMenuIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V1024 H1024 V0 H0 Z">
+                <GeometryDrawing Brush="{DynamicResource LayoutIconBrush}">
+                    <GeometryDrawing.Geometry>
+                        F1 M1024,1024z
+                        M0,0z
+                        M170.666667,245.333333A32,32,0,0,1,202.666667,213.333333L821.333333,213.333333A32,32,0,0,1,821.333333,277.333333L202.666667,277.333333A32,32,0,0,1,170.666667,245.333333z
+                        M170.666667,512A32,32,0,0,1,202.666667,480L821.333333,480A32,32,0,0,1,821.333333,544L202.666667,544A32,32,0,0,1,170.666667,512z
+                        M170.666667,778.666667A32,32,0,0,1,202.666667,746.666667L821.333333,746.666667A32,32,0,0,1,821.333333,810.666667L202.666667,810.666667A32,32,0,0,1,170.666667,778.666667z
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+</ResourceDictionary>

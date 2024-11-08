@@ -6,30 +6,22 @@
 
 ## 模块说明
 
-1. `A6ToolKits.Core` 是整个项目的核心模块，提供了一些基础的功能和服务，包括：
+1. `A6ToolKits.Base` 定义了应用应用的基本框架与执行流程，还定义了常用的接口和工具，包括：
    - 启动引导 Bootstrapper
-   - 基本定义 Common（Action、Attribute、Behavior 等）
-   - 模块加载器 ModuleLoader
-   - 其他帮助类 Helper
-     - 程序集加载器 AssemblyHelper
-     - 配置文件管理器 ConfigHelper
-     - 日志记录器 LoggerHelper
-     - 资源管理器 ResourceHelper
-     - 实例管理器 InstanceHelper
-2. `A6ToolKits.Layout` 提供了一个简单的布局方案，可以用于快速构建界面布局。
-   - 定义者 Definer
-     - 布局定义器 LayoutDefiner
-     - 菜单定义器 MenuDefiner
-     - 状态栏定义器 StatusBarDefiner
-     - 工具栏定义器 ToolBarDefiner
-     - 页面定义器 PageDefiner
-   - 生成器 Generator
-3. `A6ToolKits.MVVM` 基于 CommunityToolkit.Mvvm 的 MVVM 框架，提供了一些基础的 MVVM 功能和服务。
-   - 基本定义 Common（ViewModelBase 等）
-   - IoC 服务
-4. `A6ToolKits.UIPackage` 开发过程中，所需要的一些简单控件与样式，后续会补充该模块内容
-5. `A6ToolKits.Database` 数据库操作模块，提供了一些基础的数据库操作功能和服务。
-6. `A6ToolKits.System` 系统操作模块，提供了一些基础的系统操作功能和服务。
+   - IoC 容器 Container
+   - 模块加载 ModuleLoader
+   - 命令生成工具 CommandGenerator
+   - 事件聚合器 EventAggregator
+   - 应用配置器 Configurator
+   - 资源加载器 ResourceLoader 
+2. `A6ToolKits.Layout` 提供了一个快速的桌面布局方案，可以通过属性快速的构建应用的MainWindow，包括：
+    - 窗口边框样式配置
+    - 标题栏配置
+    - 菜单栏配置
+    - 工具栏配置
+    - 状态栏配置
+3. `A6ToolKits.UIPackage` 开发过程中，所需要的一些简单控件与样式，后续会补充该模块内容
+4. `A6ToolKits.Database` 数据库操作模块，提供了一些基础的数据库操作功能和服务。
 
 ## 如何使用
 
@@ -40,17 +32,14 @@
 
 **模块开发状态** 
 
-- [x] `A6ToolKits.Core`
+- [x] `A6ToolKits.Base`
 - [x] `A6ToolKits.Layout`
-- [x] `A6ToolKits.MVVM`
 - [ ] `A6ToolKits.UIPackage`
 - [ ] `A6ToolKits.Database`
 - [ ] `A6ToolKits.System`
 
 **项目开发状态**
 - [ ] UIDemo
-- [ ] A6Application
-- [ ] A6SpendLog
 
 ## 开源许可证
 

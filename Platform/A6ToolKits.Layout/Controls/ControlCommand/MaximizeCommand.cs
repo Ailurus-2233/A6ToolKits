@@ -1,6 +1,7 @@
 ﻿using A6ToolKits.Bootstrapper;
 using A6ToolKits.Command;
-using A6ToolKits.Helper.Loader;
+using A6ToolKits.Common.Container;
+using A6ToolKits.Common.ResourceLoader;
 using Avalonia.Controls;
 using Avalonia.Media;
 
@@ -15,7 +16,7 @@ public sealed class MaximizeCommand : CommandBase
     /// <inheritdoc />
     public override string? ToolTip { get; } = "最大化";
 
-    public override IImage? Image { get; } = ResourceHelper.LoadImage("MaximizeIcon");
+    public override IImage? Image { get; } = ResourceHelper.LoadImage("LayoutMaximizeIcon");
 
     public override Task Run()
     {

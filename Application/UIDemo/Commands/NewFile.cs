@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using A6ToolKits.Command;
 using A6ToolKits.Common.Attributes;
-using A6ToolKits.Helper.Loader;
+using A6ToolKits.Common.ResourceLoader;
 using Avalonia.Media;
 
 namespace UIDemo.Commands;

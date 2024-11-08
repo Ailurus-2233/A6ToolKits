@@ -9,11 +9,13 @@
 
 ### 1 导入模块
 
-当您导入 `A6ToolKits.Layout` 模块后，您首先应该修改输出目录中的 config.xml 文件，在 `<Modules>` 节点中添加以下内容，以方便应用程序在启动时
-加载模块：
+当您导入 `A6ToolKits.Layout` 模块后，您需要在您定义的 `Bootstrapper` 中增加以下内容，用于在应用程序中启动这个模块：
 
-```xml
-<Module Name="A6ToolKits.Layout" Assembly="A6ToolKits.Layout.dll" Target="A6ToolKits.Layout.LayoutModule"/>
+```csharp
+protected override List<Type> ToLoadModules =>
+[
+    typeof(ILayoutModule),
+];
 ```
 
 ### 2 添加基本配置
@@ -21,7 +23,7 @@
 在配置文件 `config.xml` 的 `<Configuration>` 节点中，你需要添加一些基本配置，以便模块能够生成您所期望的窗口：
 
 ```xml
-<Window Title="UIDemo" BorderStyle="Origin" Width="800" Height="600" PrimaryColor="#A6E3A1" BackgroundColor="#FFFFFF" />
+<Window Title="UIDemo" BorderStyle="Origin" Width="800" Height="600" PrimaryColor="#A6E3A1" BackgroundColor="#FFFFFF" Icon="Assert/Icon.png" />
 ```
 
 其中值得注意的是 `BorderStyle`，这个有三种值可以填入，`Default`、`Origin`、`None`:
@@ -34,13 +36,7 @@
 
 ### 3 获取 Window 对象
 
-当然如果您对自动生成的窗口有自己的想法，需要对他进行微调，你可以通过如下代码来获取当前的窗体对象，如果您导入了 `MVVMModule`
-也可以通过 `IoC.Get<LayoutModule>()` 来获取模块实例并获得窗体对象。
-
-```csharp
-ModuleLoader.TryGetModule<LayoutModule>(out var layoutModule);
-var window = layoutModule.Window;
-```
+当然如果您对自动生成的窗口有自己的想法，需要对他进行微调，你可以通过如下代码来获取当前的窗体对象， `IoC.Get<IWindowController>().GetMainWindow`。
 
 > 注：自动生成的 Window 会自动赋值给 Bootstrapper 中的 MainWindow
 

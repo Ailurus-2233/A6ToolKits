@@ -1,6 +1,7 @@
 ﻿using A6ToolKits.Bootstrapper;
 using A6ToolKits.Command;
-using A6ToolKits.Helper.Loader;
+using A6ToolKits.Common.Container;
+using A6ToolKits.Common.ResourceLoader;
 using Avalonia.Controls;
 using Avalonia.Media;
 
@@ -11,7 +12,7 @@ public sealed class MinimizeCommand : CommandBase
 {
     public override string? Name { get; } = "最小化";
     public override string? ToolTip { get; } = "最小化";
-    public override IImage? Image { get; } = ResourceHelper.LoadImage("MinusIcon");
+    public override IImage? Image { get; } = ResourceHelper.LoadImage("LayoutMinusIcon");
 
     public override Task Run()
     {

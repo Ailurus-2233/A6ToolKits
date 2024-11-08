@@ -42,7 +42,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\A6ToolKits.Framework\A6ToolKits.Framework.csproj"/>
+        <ProjectReference Include="..\A6ToolKits.Base\A6ToolKits.Base.csproj" />
     </ItemGroup>
 
 </Project>

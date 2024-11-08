@@ -1,6 +1,7 @@
 ﻿using A6ToolKits.Bootstrapper;
 using A6ToolKits.Command;
-using A6ToolKits.Helper.Loader;
+using A6ToolKits.Common.Container;
+using A6ToolKits.Common.ResourceLoader;
 using Avalonia.Controls;
 using Avalonia.Media;
 
@@ -9,13 +10,11 @@ namespace A6ToolKits.Layout.Controls.ControlCommand;
 #pragma warning disable CS1591 // 缺少对公共可见类型或成员的 XML 注释
 public sealed class WindowCommand : CommandBase
 {
-    /// <inheritdoc />
     public override string? Name { get; } = "窗口化";
 
-    /// <inheritdoc />
     public override string? ToolTip { get; } = "窗口化";
 
-    public override IImage? Image { get; } = ResourceHelper.LoadImage("WindowIcon");
+    public override IImage? Image { get; } = ResourceHelper.LoadImage("LayoutWindowIcon");
 
     public override Task Run()
     {

@@ -1,5 +1,4 @@
-﻿using A6ToolKits.Config;
-using A6ToolKits.Helper.Configurator;
+﻿using A6ToolKits.Helper.Configurator;
 using A6ToolKits.Layout.Controls.LayoutWindow;
 using A6ToolKits.Layout.Generator.Enums;
 using Avalonia.Controls;

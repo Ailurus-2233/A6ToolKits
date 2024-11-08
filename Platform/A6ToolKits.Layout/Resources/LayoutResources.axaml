@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Add Resources Here -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceInclude Source="BrushResources.axaml" />
+        <ResourceInclude Source="CloseIconResource.axaml" />
+        <ResourceInclude Source="MenuIconResource.axaml" />
+        <ResourceInclude Source="MaximizeIconResource.axaml" />
+        <ResourceInclude Source="WindowIconResource.axaml" />
+        <ResourceInclude Source="MinusIconResource.axaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

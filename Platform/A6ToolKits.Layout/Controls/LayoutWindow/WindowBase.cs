@@ -1,4 +1,4 @@
-﻿using A6ToolKits.Helper.Loader;
+﻿using A6ToolKits.Common.ResourceLoader;
 using A6ToolKits.Layout.Generator;
 using A6ToolKits.Layout.Generator.Enums;
 using Avalonia.Controls;

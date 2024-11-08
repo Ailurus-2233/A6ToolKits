@@ -1,4 +1,5 @@
 ﻿using A6ToolKits.Common.Attributes;
+using A6ToolKits.Module;
 using A6ToolKits.Modules;
 using Avalonia;
 using Avalonia.Markup.Xaml.Styling;
@@ -8,14 +9,9 @@ namespace A6ToolKits.UIPackage;
 /// <summary>
 ///     UIPackage 模块
 /// </summary>
-[AutoRegister(typeof(UIPackageModule), RegisterType.Singleton)]
-public sealed class UIPackageModule : ModuleBase
+[AutoRegister(typeof(IUIPackageModule), RegisterType.Singleton)]
+public sealed class UIPackageModule : ModuleBase, IUIPackageModule
 {
-    /// <summary>
-    ///     模块名称
-    /// </summary>
-    protected override string Name => "A6ToolKits.UIPackage";
-
     /// <summary>
     ///     构造函数
     /// </summary>
