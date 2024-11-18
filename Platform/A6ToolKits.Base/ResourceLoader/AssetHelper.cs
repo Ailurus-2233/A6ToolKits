@@ -1,4 +1,5 @@
-﻿using A6ToolKits.Common.Exceptions;
+﻿using A6ToolKits.AssemblyManager.Exceptions;
+using A6ToolKits.ResourceLoader.Execptions;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
@@ -7,7 +8,7 @@ using Avalonia.Svg;
 // ReSharper disable UnusedType.Global
 // ReSharper disable UnusedMember.Global
 
-namespace A6ToolKits.Common.ResourceLoader;
+namespace A6ToolKits.ResourceLoader;
 
 /// <summary>
 ///     资源帮助类

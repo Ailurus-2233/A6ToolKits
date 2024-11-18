@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using A6ToolKits.AssemblyManager;
-using A6ToolKits.Common.Attributes;
+using A6ToolKits.Container.Attributes;
+using A6ToolKits.MVVM.Attributes;
 using Avalonia.Controls;
 
 // ReSharper disable UnusedType.Global

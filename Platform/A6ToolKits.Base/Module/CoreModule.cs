@@ -1,6 +1,6 @@
-﻿using A6ToolKits.Common.Attributes;
-using A6ToolKits.Common.Container;
+﻿using A6ToolKits.Common.Container;
 using A6ToolKits.Common.Exceptions;
+using A6ToolKits.Container.Attributes;
 using A6ToolKits.Module;
 using A6ToolKits.Modules;
 

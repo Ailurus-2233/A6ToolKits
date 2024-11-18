@@ -1,6 +1,6 @@
 ﻿using A6ToolKits.Bootstrapper;
-using A6ToolKits.Common.Attributes;
 using A6ToolKits.Common.Container;
+using A6ToolKits.Container.Attributes;
 using A6ToolKits.Layout.Generator;
 using A6ToolKits.Module;
 using Avalonia;

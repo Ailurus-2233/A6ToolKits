@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using A6ToolKits.AssemblyManager;
+using A6ToolKits.Bootstrapper.Events;
 using A6ToolKits.Common.Container;
-using A6ToolKits.Common.Events;
-using A6ToolKits.Event;
+using A6ToolKits.EventAggregator;
 using A6ToolKits.LifetimeExtension;
 using A6ToolKits.Modules;
 using Avalonia;

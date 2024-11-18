@@ -27,4 +27,8 @@
         <None Include="README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\A6ToolKits.Base\A6ToolKits.Base.csproj" />
+    </ItemGroup>
+
 </Project>
