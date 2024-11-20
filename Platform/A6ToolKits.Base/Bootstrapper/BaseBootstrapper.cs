@@ -4,6 +4,7 @@ using A6ToolKits.Bootstrapper.Events;
 using A6ToolKits.Common.Container;
 using A6ToolKits.EventAggregator;
 using A6ToolKits.LifetimeExtension;
+using A6ToolKits.Module;
 using A6ToolKits.Modules;
 using Avalonia;
 using Avalonia.Controls;
@@ -123,16 +124,16 @@ public abstract class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, I
     /// <returns>
     ///     模块的类型列表
     /// </returns>
-    public List<Type> GetModulesType()
+    public List<Type> GetToLoadModuleList()
     {
         return ToLoadModules;
     }
 
     /// <summary>
-    ///     获取模块列表
+    ///     获取已加载的模块列表
     /// </summary>
     /// <returns>
-    ///     模块的类型列表
+    ///     已加载的模块列表
     /// </returns>
     public List<IModule> GetLoadedModules()
     {

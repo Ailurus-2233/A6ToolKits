@@ -1,5 +1,5 @@
-﻿using A6ToolKits.Common.Exceptions;
-using A6ToolKits.Configuration;
+﻿using A6ToolKits.Configuration;
+using A6ToolKits.Module.Exceptions;
 using A6ToolKits.Modules;
 
 namespace A6ToolKits.Module;
@@ -7,12 +7,12 @@ namespace A6ToolKits.Module;
 /// <summary>
 ///     一个模块基类，用于记录模块的信息
 /// </summary>
-public abstract class ModuleBase<T> : ModuleBase where T : IConfigItem
+public abstract class ModuleBase<T> : ModuleBase where T : IConfigItem, new()
 {
     /// <summary>
     ///     模块配置
     /// </summary>
-    protected abstract T Config { get; }
+    protected T Config { get; } = new T();
 
     /// <summary>
     ///     加载模块

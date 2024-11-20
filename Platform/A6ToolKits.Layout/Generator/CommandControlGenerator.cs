@@ -9,11 +9,17 @@ using Avalonia.Media;
 
 namespace A6ToolKits.Layout.Generator;
 
+/// <summary>
+///     可执行命令的控件生成器
+/// </summary>
 public static class CommandControlGenerator
 {
     /// <summary>
     ///     生成一个可以运行命令的控件
     /// </summary>
+    /// <param name="command">
+    ///     CommandBase 对象
+    /// </param>
     /// <param name="commandControlType">
     ///     控件类型
     /// </param>

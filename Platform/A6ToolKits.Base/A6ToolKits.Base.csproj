@@ -18,6 +18,21 @@
         <NeutralLanguage>default</NeutralLanguage>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DebugType>full</DebugType>
+      <DocumentationFile>bin\Debug\A6ToolKits.Base.xml</DocumentationFile>
+      <WarningLevel>4</WarningLevel>
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+      <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+      <DebugType>none</DebugType>
+      <WarningLevel>4</WarningLevel>
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
     <ItemGroup>
         <PackageReference Include="Avalonia" Version="11.2.0"/>
         <PackageReference Include="Avalonia.Desktop" Version="11.2.0"/>

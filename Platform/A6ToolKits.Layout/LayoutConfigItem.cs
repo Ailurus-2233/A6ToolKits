@@ -1,8 +1,7 @@
 ﻿using System.Reflection;
 using System.Xml;
-using A6ToolKits.Common.Exceptions;
 using A6ToolKits.Configuration;
-using A6ToolKits.Helper.Configurator;
+using A6ToolKits.Configuration.Exceptions;
 using A6ToolKits.Layout.Generator;
 using A6ToolKits.Layout.Generator.Enums;
 using Avalonia.Media;
@@ -88,27 +87,7 @@ public class LayoutConfigItem : ConfigItemBase
         var runAssembly = Assembly.GetEntryAssembly();
         Icon = runAssembly == null ? "" : $"avares://{runAssembly.FullName?.Split(',')[0]}/{Icon}";
     }
-
-    /// <summary>
-    ///     创建基本的配置文件节点
-    /// </summary>
-    /// <returns>
-    ///     配置文件节点
-    /// </returns>
-    public override XmlElement CreateDefaultConfig()
-    {
-        var doc = ConfigHelper.GetDefaultConfig();
-        var result = doc.CreateElement("Window");
-        result.SetAttribute("Title", "A6ToolKit-Application");
-        result.SetAttribute("BorderStyle", "Default");
-        result.SetAttribute("Width", "800");
-        result.SetAttribute("Height", "600");
-        result.SetAttribute("PrimaryColor", "#6495ED");
-        result.SetAttribute("BackgroundColor", "#FFFFFF");
-        result.SetAttribute("Icon", "");
-        return result;
-    }
-
+    
     /// <summary>
     ///     设置默认值
     /// </summary>

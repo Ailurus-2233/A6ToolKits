@@ -18,11 +18,6 @@ public sealed class LayoutModule : ModuleBase<LayoutConfigItem>, ILayoutModule
     private static WindowGenerator _generator => WindowGenerator.Instance;
     
     /// <summary>
-    ///     Layout 模块的配置项
-    /// </summary>
-    protected override LayoutConfigItem Config { get; } = new();
-
-    /// <summary>
     ///     初始化布局模块，加载布局配置文件
     /// </summary>
     public override void Initialize()

@@ -1,7 +1,7 @@
 ﻿using A6ToolKits.Common.Container;
-using A6ToolKits.Common.Exceptions;
 using A6ToolKits.Container.Attributes;
 using A6ToolKits.Module;
+using A6ToolKits.Module.Exceptions;
 using A6ToolKits.Modules;
 using Avalonia;
 using Avalonia.Markup.Xaml.Styling;
@@ -25,7 +25,7 @@ public class CoreModule : ModuleBase
 
     private static void LoadModules()
     {
-        var moduleList = IoC.GetInstance<IModuleManager>()?.GetModulesType();
+        var moduleList = IoC.GetInstance<IModuleManager>()?.GetToLoadModuleList();
         if (moduleList is not { Count: > 0 }) return;
         // 最后加载 LayoutModule
         var layout = moduleList.Find(t => t.Name == "ILayoutModule");

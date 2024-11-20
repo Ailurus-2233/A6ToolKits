@@ -3,7 +3,7 @@
 // ReSharper disable UnusedType.Global
 // ReSharper disable UnusedMember.Global
 
-namespace A6ToolKits.Helper.Configurator;
+namespace A6ToolKits.Configuration;
 
 /// <summary>
 ///     配置帮助类，配置文件名称为 config.xml，如果配置文件不存在则从
@@ -26,6 +26,7 @@ public static class ConfigHelper
     /// </returns>
     public static XmlNodeList? GetElements(string elementName)
     {
+        // 如果配置文件不存在则从默认配置文件复制
         if (!File.Exists(ConfigPath))
         {
             if (!File.Exists(DefaultConfig))
@@ -33,6 +34,7 @@ public static class ConfigHelper
             File.Copy(DefaultConfig, ConfigPath);
         }
 
+        // 加载配置文件
         document.Load(ConfigPath);
         var root = document.DocumentElement;
         return root?.GetElementsByTagName(elementName);
@@ -47,6 +49,12 @@ public static class ConfigHelper
         doc.Save(DefaultConfig);
     }
 
+    /// <summary>
+    ///     添加配置项到默认配置文件
+    /// </summary>
+    /// <param name="node">
+    ///     配置项节点
+    /// </param>
     public static void AddXmlNodeToDefaultConfigFile(XmlElement node)
     {
         document.Load(DefaultConfig);
@@ -60,8 +68,15 @@ public static class ConfigHelper
         document.Save(DefaultConfig);
     }
 
+    /// <summary>
+    ///     获取默认配置文件
+    /// </summary>
+    /// <returns>
+    ///     默认配置文件
+    /// </returns>
     public static XmlDocument GetDefaultConfig()
     {
+        document.Load(DefaultConfig);
         return document;
     }
 }

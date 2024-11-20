@@ -1,48 +1,14 @@
 ﻿using System.Reflection;
-using System.Text;
 using System.Xml;
 using A6ToolKits.Database.Attributes;
-using A6ToolKits.Database.Enums;
-using A6ToolKits.Database.Exceptions;
 
-namespace A6ToolKits.Database;
+namespace A6ToolKits.Database.DataConverters;
 
 /// <summary>
-///     数据模型基类
+///     XML转换器
 /// </summary>
-public class DataModelBase : IData
+public static class XmlConverter
 {
-    private List<PropertyInfo> GetPrimaryKeys()
-    {
-        var temp = GetAllColumns();
-        return temp.Where(
-            p => p.GetCustomAttribute<PrimaryKeyAttribute>() != null).ToList();
-    }
-
-    private List<PropertyInfo> GetColumns()
-    {
-        return GetAllColumns().Where(
-            p => p.GetCustomAttribute<PrimaryKeyAttribute>() == null).ToList();
-    }
-
-    private List<PropertyInfo> GetAllColumns()
-    {
-        var temp = GetType().GetProperties().Where(
-            p => p.GetCustomAttribute<ColumnTypeAttribute>() != null).ToList();
-        var result = new List<PropertyInfo>();
-        foreach (var property in temp)
-        {
-            var columnType = property.GetCustomAttribute<ColumnTypeAttribute>();
-            if (columnType == null) continue;
-            var value = property.GetValue(this);
-            if (!columnType.TypeCheck(value))
-                throw new TypeInconsistentException(columnType.ColumnType, property.PropertyType);
-            result.Add(property);
-        }
-
-        return result;
-    }
-
     /// <summary>
     ///     转化为一个 <see cref="XmlElement" /> 对象，记录当前对象中所有
     ///     public 属性且包含列类型属性 <see cref="ColumnTypeAttribute"/>
@@ -52,17 +18,17 @@ public class DataModelBase : IData
     /// <returns>
     ///     转化后的 <see cref="XmlDocument" /> 对象
     /// </returns>
-    public XmlElement ToXml()
+    public static XmlElement ToXml(this FileDataModelBase data)
     {
         var xml = new XmlDocument();
-        var root = xml.CreateElement(GetType().Name);
-        var primaryKeys = GetPrimaryKeys();
+        var root = xml.CreateElement(data.GetType().Name);
+        var primaryKeys = data.GetPrimaryKeys();
         // 将主键添加到节点中
         var primaryKeyElement = xml.CreateElement("PrimaryKeys");
         foreach (var primaryKey in primaryKeys)
         {
             if (primaryKey.GetCustomAttribute<ColumnTypeAttribute>()!.IsXMLColumn()) continue;
-            var primaryKeyElementItem = CreateXmlElement(xml, primaryKey);
+            var primaryKeyElementItem = data.CreateXmlElement(xml, primaryKey);
             if (primaryKeyElementItem == null) continue;
             primaryKeyElement.AppendChild(primaryKeyElementItem);
         }
@@ -70,11 +36,11 @@ public class DataModelBase : IData
         root.AppendChild(primaryKeyElement);
 
         // 将非主键添加到节点中
-        var columns = GetColumns();
+        var columns = data.GetNonPrimaryKey();
         foreach (var column in columns)
         {
             if (column.GetCustomAttribute<ColumnTypeAttribute>()!.IsXMLColumn()) continue;
-            var columnElement = CreateXmlElement(xml, column);
+            var columnElement = data.CreateXmlElement(xml, column);
             if (columnElement == null) continue;
             root.AppendChild(columnElement);
         }
@@ -82,11 +48,11 @@ public class DataModelBase : IData
         return root;
     }
 
-    private XmlElement? CreateXmlElement(XmlDocument xml, PropertyInfo property)
+    private static XmlElement? CreateXmlElement(this FileDataModelBase data, XmlDocument xml, PropertyInfo property)
     {
         var columnType = property.GetCustomAttribute<ColumnTypeAttribute>();
         var element = xml.CreateElement(property.Name);
-        var value = property.GetValue(this);
+        var value = property.GetValue(data);
         element.SetAttribute("Type", columnType?.ColumnType.ToString());
         element.InnerText = value?.ToString() ?? string.Empty;
         return element;
@@ -95,12 +61,15 @@ public class DataModelBase : IData
     /// <summary>
     ///     从XML中加载数据，只支持声明的 String, Integer, Float, Boolean 类型的加载
     /// </summary>
+    /// <param name="data">
+    ///     数据对象
+    /// </param>
     /// <param name="xml">
     ///     XML数据
     /// </param>
-    public void FromXml(XmlElement xml)
+    public static void FromXml(this FileDataModelBase data, XmlElement xml)
     {
-        var properties = GetType().GetProperties();
+        var properties = data.GetType().GetProperties();
         foreach (var property in properties)
         {
             var columnType = property.GetCustomAttribute<ColumnTypeAttribute>();
@@ -112,32 +81,7 @@ public class DataModelBase : IData
             var value = element.InnerText;
             if (string.IsNullOrEmpty(value)) continue;
             if (property.CanWrite)
-                property.SetValue(this, Convert.ChangeType(value, property.PropertyType));
+                property.SetValue(data, Convert.ChangeType(value, property.PropertyType));
         }
-    }
-
-    public string ToJson()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void FromJson(string json)
-    {
-        throw new NotImplementedException();
-    }
-
-    public string GetCSVHeader()
-    {
-        throw new NotImplementedException();
-    }
-
-    public string ToCSVLine()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void FromCSVLine(string csvLine)
-    {
-        throw new NotImplementedException();
     }
 }

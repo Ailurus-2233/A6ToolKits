@@ -13,6 +13,18 @@ namespace A6ToolKits.MVVM;
 /// </summary>
 public class ViewModelBase : ObservableObject
 {
+    /// <summary>
+    ///     获取 TargetView
+    /// </summary>
+    /// <returns>
+    ///     TargetView
+    /// </returns>
+    /// <exception cref="NotHaveTargetViewProperty">
+    ///     当 ViewModel 不包含 TargetView 属性时抛出
+    /// </exception>
+    /// <exception cref="CanNotGetTargetViewException">
+    ///     当无法从容器中获取目标视图时抛出
+    /// </exception>
     protected Control GetView()
     {
         var targetType = GetType();

@@ -3,7 +3,12 @@
 /// <summary>
 ///     状态栏属性，标记到一个 UserControl 的属性上，用于生成 StatusBar
 /// </summary>
-/// <param name="position"></param>
+/// <param name="position">
+///     状态栏位置
+/// </param>
+/// <param  name="order">
+///     状态栏优先级
+/// </param>
 [AttributeUsage(AttributeTargets.Class, Inherited = false)]
 public class StatusBarItemAttribute(StatusPosition position, int order) : Attribute
 {
