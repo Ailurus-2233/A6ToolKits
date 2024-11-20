@@ -5,6 +5,7 @@ using A6ToolKits.Common.Exceptions;
 using A6ToolKits.EventAggregator;
 using A6ToolKits.Layout.Attributes;
 using A6ToolKits.Layout.Controls.ControlCommand;
+using A6ToolKits.Layout.Exceptions;
 using A6ToolKits.Layout.Generator;
 using Avalonia;
 using Avalonia.Controls;
@@ -52,7 +53,7 @@ public partial class TitleBar : UserControl
         {
             var window = IoC.GetInstance<IWindowController>()?.GetMainWindow();
             if (window == null) 
-                throw new WindowUninitializedException("Window is not initialized");
+                throw new WindowUninitializedException();
             var observable = window.GetObservable(Window.WindowStateProperty);
             observable.Subscribe(UpdateControlButton);
             UpdateControlButton(window.WindowState);

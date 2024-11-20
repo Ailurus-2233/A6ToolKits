@@ -22,13 +22,5 @@ public sealed class UIPackageModule : ModuleBase, IUIPackageModule
         //     Source = styleUri
         // };
         // Application.Current?.Styles.Add(style);
-
-        var resUri = new Uri("avares://A6ToolKits.UIPackage/UIPackageResources.axaml");
-        var resource = new ResourceInclude(resUri)
-        {
-            Source = resUri
-        };
-
-        Application.Current?.Resources.MergedDictionaries.Add(resource);
     }
 }

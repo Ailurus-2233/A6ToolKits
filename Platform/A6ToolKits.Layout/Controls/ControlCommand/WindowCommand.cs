@@ -14,7 +14,7 @@ public sealed class WindowCommand : CommandBase
 
     public override string? ToolTip { get; } = "窗口化";
 
-    public override IImage? Image { get; } = ResourceHelper.LoadImage("LayoutWindowIcon");
+    public override IImage? Image { get; } = ResourceHelper.LoadImage("WindowIcon");
 
     public override Task Run()
     {

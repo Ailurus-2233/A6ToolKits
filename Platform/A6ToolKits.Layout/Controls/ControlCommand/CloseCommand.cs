@@ -11,7 +11,7 @@ public sealed class CloseCommand : CommandBase
 {
     public override string? Name { get; } = "关闭程序";
     public override string? ToolTip { get; } = "关闭程序";
-    public override IImage? Image { get; } = ResourceHelper.LoadImage("LayoutCloseIcon");
+    public override IImage? Image { get; } = ResourceHelper.LoadImage("CloseIcon");
 
     public override Task Run()
     {

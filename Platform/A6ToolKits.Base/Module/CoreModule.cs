@@ -3,6 +3,8 @@ using A6ToolKits.Common.Exceptions;
 using A6ToolKits.Container.Attributes;
 using A6ToolKits.Module;
 using A6ToolKits.Modules;
+using Avalonia;
+using Avalonia.Markup.Xaml.Styling;
 
 namespace A6ToolKits;
 
@@ -17,6 +19,7 @@ public class CoreModule : ModuleBase
     /// </summary>
     public override void Initialize()
     {
+        LoadResources();
         LoadModules();
     }
 
@@ -48,5 +51,16 @@ public class CoreModule : ModuleBase
 
         var target = IoC.GetInstance(layout) as IModule;
         target?.LoadModule();
+    }
+
+    private static void LoadResources()
+    {
+        var resUri = new Uri("avares://A6ToolKits.Base/Resources.axaml");
+        var resource = new ResourceInclude(resUri)
+        {
+            Source = resUri
+        };
+
+        Application.Current?.Resources.MergedDictionaries.Add(resource);
     }
 }

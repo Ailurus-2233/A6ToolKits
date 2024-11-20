@@ -12,7 +12,7 @@ public sealed class MinimizeCommand : CommandBase
 {
     public override string? Name { get; } = "最小化";
     public override string? ToolTip { get; } = "最小化";
-    public override IImage? Image { get; } = ResourceHelper.LoadImage("LayoutMinusIcon");
+    public override IImage? Image { get; } = ResourceHelper.LoadImage("MinusIcon");
 
     public override Task Run()
     {

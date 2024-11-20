@@ -1,4 +1,6 @@
-﻿namespace A6ToolKits.Common.Exceptions;
+﻿using A6ToolKits.Common;
 
-public class WindowUninitializedException(string information, string? details = null)
-    : FrameworkExceptionBase(ErrorCode.RuntimeError, information, details);
+namespace A6ToolKits.Layout.Exceptions;
+
+public class WindowUninitializedException(string? details = null)
+    : FrameworkExceptionBase(ErrorCode.RuntimeError, "Window is not initialized", details);

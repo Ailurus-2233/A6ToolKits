@@ -24,15 +24,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include="Resources\Icons\IconResources.axaml"/>
-        <AdditionalFiles Include="Styles\TabControl\TabBodyTheme.axaml"/>
-        <AdditionalFiles Include="Styles\TabControl\TabContainerTheme.axaml"/>
-        <AdditionalFiles Include="Styles\TabControl\TabControlThemes.axaml"/>
-        <AdditionalFiles Include="Styles\TabControl\TabHeaderTheme.axaml"/>
-        <AdditionalFiles Include="Styles\TabControl\TabRadioButtonTheme.axaml"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <None Include="..\Resources\Icon\A6ToolKits.png">
             <Pack>True</Pack>
             <PackagePath/>
@@ -43,6 +34,20 @@
 
     <ItemGroup>
         <ProjectReference Include="..\A6ToolKits.Base\A6ToolKits.Base.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Resources\BrushResources.axaml" />
+      <UpToDateCheckInput Remove="Resources\Icons\Base\CloseIconResource.axaml" />
+      <UpToDateCheckInput Remove="Resources\Icons\Base\MaximizeIconResource.axaml" />
+      <UpToDateCheckInput Remove="Resources\Icons\Base\MenuIconResource.axaml" />
+      <UpToDateCheckInput Remove="Resources\Icons\Base\MinusIconResource.axaml" />
+      <UpToDateCheckInput Remove="Resources\Icons\Base\WindowIconResource.axaml" />
+      <UpToDateCheckInput Remove="Styles\ControlTheme.axaml" />
+      <UpToDateCheckInput Remove="Styles\Simple\Buttons\ButtonsThemes.axaml" />
+      <UpToDateCheckInput Remove="Styles\Simple\Buttons\IconButtonTheme.axaml" />
+      <UpToDateCheckInput Remove="Styles\Simple\IconTheme.axaml" />
+      <UpToDateCheckInput Remove="Styles\Simple\SimpleControlThemes.axaml" />
     </ItemGroup>
 
 </Project>

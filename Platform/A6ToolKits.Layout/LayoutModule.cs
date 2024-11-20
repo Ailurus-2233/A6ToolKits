@@ -27,7 +27,6 @@ public sealed class LayoutModule : ModuleBase<LayoutConfigItem>, ILayoutModule
     /// </summary>
     public override void Initialize()
     {
-        LoadResource();
         SetMainWindow();
     }
 
@@ -46,15 +45,5 @@ public sealed class LayoutModule : ModuleBase<LayoutConfigItem>, ILayoutModule
         {
             throw new NullReferenceException("Cannot get window controller");
         }
-    }
-
-    private void LoadResource()
-    {
-        var resUri = new Uri("avares://A6ToolKits.Layout/Resources/LayoutResources.axaml");
-        var resource = new ResourceInclude(resUri)
-        {
-            Source = resUri
-        };
-        Application.Current?.Resources.MergedDictionaries.Add(resource);
     }
 }

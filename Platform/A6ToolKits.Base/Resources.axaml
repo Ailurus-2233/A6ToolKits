@@ -7,9 +7,7 @@
 
         <!--  Resource  -->
         <ResourceInclude Source="Resources/BrushResources.axaml" />
-
-        <!--  Theme  -->
-        <ResourceInclude Source="Styles/ControlTheme.axaml" />
+        
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

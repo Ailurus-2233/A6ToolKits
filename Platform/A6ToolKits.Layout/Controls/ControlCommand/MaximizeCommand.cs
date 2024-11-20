@@ -16,7 +16,7 @@ public sealed class MaximizeCommand : CommandBase
     /// <inheritdoc />
     public override string? ToolTip { get; } = "最大化";
 
-    public override IImage? Image { get; } = ResourceHelper.LoadImage("LayoutMaximizeIcon");
+    public override IImage? Image { get; } = ResourceHelper.LoadImage("MaximizeIcon");
 
     public override Task Run()
     {

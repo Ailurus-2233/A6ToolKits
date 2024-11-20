@@ -1,8 +1,0 @@
-﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <!--  Add Resources Here  -->
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceInclude Source="Simple/SimpleControlThemes.axaml" />
-        <ResourceInclude Source="TabControl/TabControlThemes.axaml" />
-    </ResourceDictionary.MergedDictionaries>
-</ResourceDictionary>

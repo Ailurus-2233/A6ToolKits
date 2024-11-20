@@ -2,7 +2,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Avalonia.Controls.Primitives;
 
-namespace A6ToolKits.UIPackage.Controls;
+namespace A6ToolKits.Common;
 
 /// <summary>
 ///     控件基类，实现了INotifyPropertyChanged接口

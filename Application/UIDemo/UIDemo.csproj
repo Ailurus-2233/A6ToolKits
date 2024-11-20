@@ -17,7 +17,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Platform\A6ToolKits.Layout\A6ToolKits.Layout.csproj" />
-      <ProjectReference Include="..\..\Platform\A6ToolKits.UIPackage\A6ToolKits.UIPackage.csproj" />
     </ItemGroup>
 
     <ItemGroup>

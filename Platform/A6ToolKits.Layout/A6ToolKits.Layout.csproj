@@ -48,6 +48,13 @@
 
     <ItemGroup>
         <UpToDateCheckInput Remove="Controls\Styles\MenuItemStyle.axaml"/>
+        <UpToDateCheckInput Remove="Resources\BrushResources.axaml" />
+        <UpToDateCheckInput Remove="Resources\CloseIconResource.axaml" />
+        <UpToDateCheckInput Remove="Resources\LayoutResources.axaml" />
+        <UpToDateCheckInput Remove="Resources\MaximizeIconResource.axaml" />
+        <UpToDateCheckInput Remove="Resources\MenuIconResource.axaml" />
+        <UpToDateCheckInput Remove="Resources\MinusIconResource.axaml" />
+        <UpToDateCheckInput Remove="Resources\WindowIconResource.axaml" />
     </ItemGroup>
 
     <ItemGroup>
