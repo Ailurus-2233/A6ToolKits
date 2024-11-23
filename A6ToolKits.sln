@@ -4,7 +4,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platform", "Platform", "{720F7FB3-DA2E-4824-BA8F-6DA34EE85C7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIDemo", "Application\UIDemo\UIDemo.csproj", "{FF572AF3-57BE-4553-9E9B-17D5B1EAB8FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Application\Demo\Demo.csproj", "{FF572AF3-57BE-4553-9E9B-17D5B1EAB8FA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A6ToolKits.Database", "Platform\A6ToolKits.Database\A6ToolKits.Database.csproj", "{FED1FC85-DF46-489E-84C3-256CF4901903}"
 EndProject

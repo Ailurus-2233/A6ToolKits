@@ -14,7 +14,7 @@ public class NewFolder : CommandBase
 {
     public override string Name => "新建文件夹";
     public override string ToolTip => "新建文件夹";
-    public override IImage Image => AssetHelper.LoadSvgImage(new Uri("avares://UIDemo/Assets/Icons/folder-new.svg"));
+    public override IImage Image => AssetHelper.LoadSvgImage(new Uri("avares://Demo/Assets/Icons/folder-new.svg"));
     public override Task Run()
     {
         return Task.CompletedTask;
