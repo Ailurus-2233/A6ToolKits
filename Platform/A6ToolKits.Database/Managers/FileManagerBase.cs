@@ -7,7 +7,7 @@ namespace A6ToolKits.Database.Managers;
 /// <summary>
 ///     数据库管理器
 /// </summary>
-public abstract class FileManagerBase : IManager
+public abstract class FileManagerBase : IManager<FileDataModelBase>
 {
     /// <summary>
     ///     锁对象，在多线程环境下使用
@@ -24,14 +24,11 @@ public abstract class FileManagerBase : IManager
     /// </summary>
     /// <typeparam name="T">数据类型</typeparam>
     /// <returns>数据集的索引列表</returns>
-    protected IList<int> LoadIndex<T>() where T : IData
+    protected IList<int> LoadIndex<T>() where T : FileDataModelBase
     {
-        IList<T> dataset = Load<T>();
-        List<int> result = new();
-        foreach (T item in dataset)
-        {
-            result.Add(item.GetHashCode());
-        }
+        var dataset = Load<T>();
+        List<int> result = [];
+        result.AddRange(dataset.Select(item => item.GetHashCode()));
         return result;
     }
 
@@ -48,7 +45,7 @@ public abstract class FileManagerBase : IManager
     /// </summary>
     /// <param name="target">存储类型</param>
     /// <returns>文件名</returns>
-    protected abstract string GetFileName(Type target);
+    protected abstract string GetFilePath(Type target);
 
     /// <summary>
     ///     检查数据类型是否为 FileDataModelBase 的子类
@@ -57,43 +54,27 @@ public abstract class FileManagerBase : IManager
     /// <exception cref="InvalidDataModelException">如果数据类型不匹配</exception>
     protected static void CheckType(Type target)
     {
-        if (!target.IsAssignableFrom(typeof(FileDataModelBase)))
+        if (!typeof(FileDataModelBase).IsAssignableFrom(target))
         {
             throw new InvalidDataModelException(target);
         }
     }
 
-    /// <summary>
-    ///     加载 XML 文档
-    /// </summary>
-    /// <typeparam name="T">数据类型</typeparam>
-    /// <returns>XML 文档</returns>
-    /// <exception cref="InvalidDataModelException">如果数据类型不匹配</exception>
-    protected (XmlDocument, XmlElement) LoadDocument<T>() where T : IData
-    {
-        CheckType(typeof(T));
-        var type = typeof(T);
-        XmlDocument xml = new();
-        xml.Load(GetFileName(type));
-        var root = xml.DocumentElement ?? throw new DataNotExistException(GetFileName(type));
-        return (xml, root);
-    }
+    /// <inheritdoc/>
+    public abstract void Save<T>(IList<T> data, bool force = false) where T : FileDataModelBase;
+    /// <inheritdoc/>
+    public abstract void Add<T>(IList<T> data) where T : FileDataModelBase;
+    /// <inheritdoc/>
+    public abstract IList<T> Load<T>() where T : FileDataModelBase;
+    /// <inheritdoc/>
+    public abstract void Delete<T>(IList<T> target) where T : FileDataModelBase;
+    /// <inheritdoc/>
+    public abstract void Update<T>(IList<T> target) where T : FileDataModelBase;
 
     /// <inheritdoc/>
-    public abstract void Save<T>(IList<T> data, bool force = false) where T : IData;
+    public void Add<T>(params T[] data) where T : FileDataModelBase => Add(data.ToList());
     /// <inheritdoc/>
-    public abstract void Add<T>(IList<T> data) where T : IData;
+    public void Delete<T>(params T[] target) where T : FileDataModelBase => Delete(target.ToList());
     /// <inheritdoc/>
-    public abstract IList<T> Load<T>() where T : IData;
-    /// <inheritdoc/>
-    public abstract void Delete<T>(IList<T> target) where T : IData;
-    /// <inheritdoc/>
-    public abstract void Update<T>(IList<T> target) where T : IData;
-
-    /// <inheritdoc/>
-    public void Add<T>(params T[] data) where T : IData => Add(data);
-    /// <inheritdoc/>
-    public void Delete<T>(params T[] target) where T : IData => Delete(target);
-    /// <inheritdoc/>
-    public void Update<T>(params T[] data) where T : IData => Update(data);
+    public void Update<T>(params T[] data) where T : FileDataModelBase => Update(data.ToList());
 }

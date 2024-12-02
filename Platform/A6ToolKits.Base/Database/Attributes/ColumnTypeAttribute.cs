@@ -72,44 +72,56 @@ public class ColumnTypeAttribute(string name, ColumnType columnType, int dataLen
 
     private readonly Dictionary<ColumnType, List<Type>> _availableTypes = new()
     {
-        {ColumnType.XML_STRING, [typeof(string)] },
-        {ColumnType.XML_INTEGER, [typeof(byte), typeof(short), typeof(int), typeof(long), typeof(sbyte), typeof(ushort), typeof(uint), typeof(ulong)] },
-        {ColumnType.XML_FLOAT, [typeof(float), typeof(double)] },
-        {ColumnType.XML_BOOLEAN, [typeof(bool)] },
-        
-        {ColumnType.SQLITE_NULL, [] },
-        {ColumnType.SQLITE_INTEGER, [typeof(byte), typeof(short), typeof(int), typeof(long), typeof(sbyte), typeof(ushort), typeof(uint), typeof(ulong)] },
-        {ColumnType.SQLITE_REAL, [typeof(float), typeof(double)] },
-        {ColumnType.SQLITE_TEXT, [typeof(string)] },
-        {ColumnType.SQLITE_BLOB, [typeof(byte[]), typeof(sbyte[])] },
-        
-        {ColumnType.MYSQL_TINYINT, [typeof(sbyte)] },
-        {ColumnType.MYSQL_SMALLINT, [typeof(short)] },
-        {ColumnType.MYSQL_MEDIUMINT, [typeof(int)] },
-        {ColumnType.MYSQL_INT, [typeof(int)] },
-        {ColumnType.MYSQL_BIGINT, [typeof(long)] },
-        {ColumnType.MYSQL_FLOAT, [typeof(float)] },
-        {ColumnType.MYSQL_DOUBLE, [typeof(double)] },
-        {ColumnType.MYSQL_DECIMAL, [typeof(decimal)] },
-        {ColumnType.MYSQL_DATE, [typeof(DateTime)] },
-        {ColumnType.MYSQL_TIME, [typeof(TimeSpan)] },
-        {ColumnType.MYSQL_YEAR, [typeof(int)] },
-        {ColumnType.MYSQL_DATETIME, [typeof(DateTime)] },
-        {ColumnType.MYSQL_TIMESTAMP, [typeof(DateTime)] },
-        {ColumnType.MYSQL_CHAR, [typeof(string)] },
-        {ColumnType.MYSQL_VARCHAR, [typeof(string)] },
-        {ColumnType.MYSQL_TINYTEXT, [typeof(string)] },
-        {ColumnType.MYSQL_TEXT, [typeof(string)] },
-        {ColumnType.MYSQL_MEDIUMTEXT, [typeof(string)] },
-        {ColumnType.MYSQL_LONGTEXT, [typeof(string)] },
-        {ColumnType.MYSQL_BINARY, [typeof(byte[]), typeof(sbyte[])] },
-        {ColumnType.MYSQL_VARBINARY, [typeof(byte[]), typeof(sbyte[])] },
-        {ColumnType.MYSQL_TINYBLOB, [typeof(byte[]), typeof(sbyte[])] },
-        {ColumnType.MYSQL_BLOB, [typeof(byte[]), typeof(sbyte[])] },
-        {ColumnType.MYSQL_MEDIUMBLOB, [typeof(byte[]), typeof(sbyte[])] },
-        {ColumnType.MYSQL_LONGBLOB, [typeof(byte[]), typeof(sbyte[])] },
-        {ColumnType.MYSQL_BOOLEAN, [typeof(bool)] },
-        {ColumnType.MYSQL_JSON, [typeof(string)] },
+        { ColumnType.XML_STRING, [typeof(string), typeof(char)] },
+        {
+            ColumnType.XML_INTEGER,
+            [
+                typeof(byte), typeof(short), typeof(int), typeof(long), typeof(sbyte), typeof(ushort), typeof(uint),
+                typeof(ulong)
+            ]
+        },
+        { ColumnType.XML_FLOAT, [typeof(float), typeof(double)] },
+        { ColumnType.XML_BOOLEAN, [typeof(bool)] },
+
+        { ColumnType.SQLITE_NULL, [] },
+        {
+            ColumnType.SQLITE_INTEGER,
+            [
+                typeof(byte), typeof(short), typeof(int), typeof(long), typeof(sbyte), typeof(ushort), typeof(uint),
+                typeof(ulong)
+            ]
+        },
+        { ColumnType.SQLITE_REAL, [typeof(float), typeof(double)] },
+        { ColumnType.SQLITE_TEXT, [typeof(string)] },
+        { ColumnType.SQLITE_BLOB, [typeof(byte[]), typeof(sbyte[])] },
+
+        { ColumnType.MYSQL_TINYINT, [typeof(sbyte)] },
+        { ColumnType.MYSQL_SMALLINT, [typeof(short)] },
+        { ColumnType.MYSQL_MEDIUMINT, [typeof(int)] },
+        { ColumnType.MYSQL_INT, [typeof(int)] },
+        { ColumnType.MYSQL_BIGINT, [typeof(long)] },
+        { ColumnType.MYSQL_FLOAT, [typeof(float)] },
+        { ColumnType.MYSQL_DOUBLE, [typeof(double)] },
+        { ColumnType.MYSQL_DECIMAL, [typeof(decimal)] },
+        { ColumnType.MYSQL_DATE, [typeof(DateTime)] },
+        { ColumnType.MYSQL_TIME, [typeof(TimeSpan)] },
+        { ColumnType.MYSQL_YEAR, [typeof(int)] },
+        { ColumnType.MYSQL_DATETIME, [typeof(DateTime)] },
+        { ColumnType.MYSQL_TIMESTAMP, [typeof(DateTime)] },
+        { ColumnType.MYSQL_CHAR, [typeof(string)] },
+        { ColumnType.MYSQL_VARCHAR, [typeof(string)] },
+        { ColumnType.MYSQL_TINYTEXT, [typeof(string)] },
+        { ColumnType.MYSQL_TEXT, [typeof(string)] },
+        { ColumnType.MYSQL_MEDIUMTEXT, [typeof(string)] },
+        { ColumnType.MYSQL_LONGTEXT, [typeof(string)] },
+        { ColumnType.MYSQL_BINARY, [typeof(byte[]), typeof(sbyte[])] },
+        { ColumnType.MYSQL_VARBINARY, [typeof(byte[]), typeof(sbyte[])] },
+        { ColumnType.MYSQL_TINYBLOB, [typeof(byte[]), typeof(sbyte[])] },
+        { ColumnType.MYSQL_BLOB, [typeof(byte[]), typeof(sbyte[])] },
+        { ColumnType.MYSQL_MEDIUMBLOB, [typeof(byte[]), typeof(sbyte[])] },
+        { ColumnType.MYSQL_LONGBLOB, [typeof(byte[]), typeof(sbyte[])] },
+        { ColumnType.MYSQL_BOOLEAN, [typeof(bool)] },
+        { ColumnType.MYSQL_JSON, [typeof(string)] },
     };
 
     /// <summary>

@@ -12,8 +12,7 @@ public static class XmlConverter
     /// <summary>
     ///     转化为一个 <see cref="XmlElement" /> 对象，记录当前对象中所有
     ///     public 属性且包含列类型属性 <see cref="ColumnTypeAttribute"/>
-    ///     的值，除了带有 <see cref="ExcludeAttribute" /> 的属性，根据
-    ///     列类型属性的值进行转换，不考虑复杂类型的存储
+    ///     的值，根据列类型属性的值进行转换，不考虑复杂类型的存储
     /// </summary>
     /// <returns>
     ///     转化后的 <see cref="XmlDocument" /> 对象
@@ -27,7 +26,7 @@ public static class XmlConverter
         var primaryKeyElement = xml.CreateElement("PrimaryKeys");
         foreach (var primaryKey in primaryKeys)
         {
-            if (primaryKey.GetCustomAttribute<ColumnTypeAttribute>()!.IsXMLColumn()) continue;
+            if (!primaryKey.GetCustomAttribute<ColumnTypeAttribute>()!.IsXMLColumn()) continue;
             var primaryKeyElementItem = data.CreateXmlElement(xml, primaryKey);
             if (primaryKeyElementItem == null) continue;
             primaryKeyElement.AppendChild(primaryKeyElementItem);
@@ -39,7 +38,7 @@ public static class XmlConverter
         var columns = data.GetNonPrimaryKey();
         foreach (var column in columns)
         {
-            if (column.GetCustomAttribute<ColumnTypeAttribute>()!.IsXMLColumn()) continue;
+            if (!column.GetCustomAttribute<ColumnTypeAttribute>()!.IsXMLColumn()) continue;
             var columnElement = data.CreateXmlElement(xml, column);
             if (columnElement == null) continue;
             root.AppendChild(columnElement);
@@ -75,9 +74,9 @@ public static class XmlConverter
             var columnType = property.GetCustomAttribute<ColumnTypeAttribute>();
             if (columnType == null || !columnType.IsXMLColumn()) continue;
 
-            var element = xml.SelectSingleNode(property.Name);
+            var xmlNodeList = xml.GetElementsByTagName(property.Name);
+            var element = xmlNodeList[0];
             if (element == null) continue;
-
             var value = element.InnerText;
             if (string.IsNullOrEmpty(value)) continue;
             if (property.CanWrite)

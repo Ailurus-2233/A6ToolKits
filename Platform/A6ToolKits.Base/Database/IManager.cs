@@ -5,7 +5,7 @@ namespace A6ToolKits.Database;
 /// <summary>
 ///     数据库管理器
 /// </summary>
-public interface IManager
+public interface IManager<BaseDataModel> where BaseDataModel : IData
 {
     /// <summary>
     ///     将数据保存到数据库，如果数据已经存在，
@@ -17,7 +17,7 @@ public interface IManager
     /// <param name="data">
     ///     数据列表
     /// </param>
-    void Save<T>(IList<T> data, bool force = false) where T : IData;
+    void Save<T>(IList<T> data, bool force = false) where T : BaseDataModel;
 
     /// <summary>
     ///     增加数据，如果数据已经存在，则抛出异常
@@ -25,7 +25,7 @@ public interface IManager
     /// <param name="data">
     ///     数据列表
     /// </param>
-    void Add<T>(IList<T> data) where T : IData;
+    void Add<T>(IList<T> data) where T : BaseDataModel;
 
     /// <summary>
     ///     增加数据，如果数据已经存在，则抛出异常
@@ -33,7 +33,7 @@ public interface IManager
     /// <param name="data">
     ///     数据列表
     /// </param>
-    void Add<T>(params T[] data) where T : IData;
+    void Add<T>(params T[] data) where T : BaseDataModel;
 
     /// <summary>
     ///     从数据库中加载数据
@@ -41,7 +41,7 @@ public interface IManager
     /// <returns>
     ///     加载的数据列表
     /// </returns>
-    IList<T> Load<T>() where T : IData;
+    IList<T> Load<T>() where T : BaseDataModel;
 
 
     /// <summary>
@@ -50,7 +50,7 @@ public interface IManager
     /// <param name="target">
     ///     删除的目标列表
     /// </param>
-    void Delete<T>(IList<T> target) where T : IData;
+    void Delete<T>(IList<T> target) where T : BaseDataModel;
 
     /// <summary>
     ///    从数据库中删除数据，如果数据不存在则抛出异常
@@ -58,7 +58,7 @@ public interface IManager
     /// <param name="target">
     ///     删除的目标列表
     /// </param>
-    void Delete<T>(params T[] target) where T : IData;
+    void Delete<T>(params T[] target) where T : BaseDataModel;
 
     /// <summary>
     ///     更新数据库中的数据，如果数据不存在则抛出异常
@@ -66,7 +66,7 @@ public interface IManager
     /// <param name="data">
     ///     数据列表
     /// </param>
-    void Update<T>(IList<T> data) where T : IData;
+    void Update<T>(IList<T> data) where T : BaseDataModel;
 
     /// <summary>
     ///     更新数据库中的数据，如果数据不存在则抛出异常
@@ -74,5 +74,5 @@ public interface IManager
     /// <param name="data">
     ///     数据列表
     /// </param>
-    void Update<T>(params T[] data) where T : IData;
+    void Update<T>(params T[] data) where T : BaseDataModel;
 }
