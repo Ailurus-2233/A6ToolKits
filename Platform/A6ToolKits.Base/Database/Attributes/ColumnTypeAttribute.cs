@@ -35,17 +35,17 @@ public class ColumnTypeAttribute(string name, ColumnType columnType, int dataLen
     public int DataLength { get; } = dataLength;
 
     /// <summary>
-    ///     是否是XML列
+    ///     是否是文件数据库的列
     /// </summary>
     /// <returns>
-    ///     返回是否是XML列
+    ///     true 是文件数据库的列, false 不是文件数据库的列
     /// </returns>
-    public bool IsXMLColumn()
+    public bool IsFileColumn()
     {
         var typeString = ColumnType.ToString();
-        return typeString.StartsWith("XML_");
+        return typeString.StartsWith("FILE_");
     }
-
+    
     /// <summary>
     ///     是否是SQLite列
     /// </summary>
@@ -72,16 +72,16 @@ public class ColumnTypeAttribute(string name, ColumnType columnType, int dataLen
 
     private readonly Dictionary<ColumnType, List<Type>> _availableTypes = new()
     {
-        { ColumnType.XML_STRING, [typeof(string), typeof(char)] },
+        { ColumnType.FILE_STRING, [typeof(string), typeof(char)] },
         {
-            ColumnType.XML_INTEGER,
+            ColumnType.FILE_INTEGER,
             [
                 typeof(byte), typeof(short), typeof(int), typeof(long), typeof(sbyte), typeof(ushort), typeof(uint),
                 typeof(ulong)
             ]
         },
-        { ColumnType.XML_FLOAT, [typeof(float), typeof(double)] },
-        { ColumnType.XML_BOOLEAN, [typeof(bool)] },
+        { ColumnType.File_FLOAT, [typeof(float), typeof(double)] },
+        { ColumnType.File_BOOLEAN, [typeof(bool)] },
 
         { ColumnType.SQLITE_NULL, [] },
         {

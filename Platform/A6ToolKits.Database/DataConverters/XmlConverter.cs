@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Xml;
 using A6ToolKits.Database.Attributes;
+using A6ToolKits.Database.DataModels;
 
 namespace A6ToolKits.Database.DataConverters;
 
@@ -17,7 +18,7 @@ public static class XmlConverter
     /// <returns>
     ///     转化后的 <see cref="XmlDocument" /> 对象
     /// </returns>
-    public static XmlElement ToXml(this FileDataModelBase data)
+    public static XmlElement ToXml(this IData data)
     {
         var xml = new XmlDocument();
         var root = xml.CreateElement(data.GetType().Name);
@@ -26,7 +27,7 @@ public static class XmlConverter
         var primaryKeyElement = xml.CreateElement("PrimaryKeys");
         foreach (var primaryKey in primaryKeys)
         {
-            if (!primaryKey.GetCustomAttribute<ColumnTypeAttribute>()!.IsXMLColumn()) continue;
+            if (!primaryKey.GetCustomAttribute<ColumnTypeAttribute>()!.IsFileColumn()) continue;
             var primaryKeyElementItem = data.CreateXmlElement(xml, primaryKey);
             if (primaryKeyElementItem == null) continue;
             primaryKeyElement.AppendChild(primaryKeyElementItem);
@@ -38,7 +39,7 @@ public static class XmlConverter
         var columns = data.GetNonPrimaryKey();
         foreach (var column in columns)
         {
-            if (!column.GetCustomAttribute<ColumnTypeAttribute>()!.IsXMLColumn()) continue;
+            if (!column.GetCustomAttribute<ColumnTypeAttribute>()!.IsFileColumn()) continue;
             var columnElement = data.CreateXmlElement(xml, column);
             if (columnElement == null) continue;
             root.AppendChild(columnElement);
@@ -47,7 +48,7 @@ public static class XmlConverter
         return root;
     }
 
-    private static XmlElement? CreateXmlElement(this FileDataModelBase data, XmlDocument xml, PropertyInfo property)
+    private static XmlElement? CreateXmlElement(this IData data, XmlDocument xml, PropertyInfo property)
     {
         var columnType = property.GetCustomAttribute<ColumnTypeAttribute>();
         var element = xml.CreateElement(property.Name);
@@ -66,13 +67,13 @@ public static class XmlConverter
     /// <param name="xml">
     ///     XML数据
     /// </param>
-    public static void FromXml(this FileDataModelBase data, XmlElement xml)
+    public static void FromXml(this IData data, XmlElement xml)
     {
         var properties = data.GetType().GetProperties();
         foreach (var property in properties)
         {
             var columnType = property.GetCustomAttribute<ColumnTypeAttribute>();
-            if (columnType == null || !columnType.IsXMLColumn()) continue;
+            if (columnType == null || !columnType.IsFileColumn()) continue;
 
             var xmlNodeList = xml.GetElementsByTagName(property.Name);
             var element = xmlNodeList[0];
