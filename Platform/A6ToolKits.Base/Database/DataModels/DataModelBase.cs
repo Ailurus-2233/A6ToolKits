@@ -11,6 +11,18 @@ namespace A6ToolKits.Database.DataModels;
 public class DataModelBase : IData
 {
     /// <summary>
+    ///     获取表名，表名是TableNameAttribute特性的Name属性，如果没有则使用类名
+    /// </summary>
+    /// <returns>
+    ///     表名
+    /// </returns>
+    public string GetTableName()
+    {
+        var table = GetType().GetCustomAttribute<TableNameAttribute>(); 
+        return table?.Name ?? GetType().Name;
+    }
+    
+    /// <summary>
     ///     从当前属性中获取主键，是主键的条件是属性上有PrimaryKeyAttribute和ColumnTypeAttribute两个特性
     /// </summary>
     /// <returns>

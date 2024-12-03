@@ -5,8 +5,8 @@ using A6ToolKits.Database.Enums;
 
 namespace DatabaseModuleTest.DataModels;
 
-[TableName(nameof(TestXMLModel))]
-public class TestXMLModel : DataModelBase
+[TableName(nameof(TestModel))]
+public class TestModel : DataModelBase
 {
     [PrimaryKey]
     [ColumnType("Id", ColumnType.FILE_INTEGER)]

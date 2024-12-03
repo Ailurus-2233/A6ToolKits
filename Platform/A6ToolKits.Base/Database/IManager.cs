@@ -75,4 +75,15 @@ public interface IManager
     ///     数据列表
     /// </param>
     void Update<T>(params T[] data) where T : IData;
+    
+    /// <summary>
+    ///     从数据库中搜索满足条件的数据
+    /// </summary>
+    /// <param name="query">
+    ///     搜索表达式
+    /// </param>
+    /// <returns>
+    ///     搜索结果
+    /// </returns>
+    List<T> Select<T>(Func<T, bool> query) where T : IData;
 }

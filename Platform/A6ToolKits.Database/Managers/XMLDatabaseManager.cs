@@ -97,6 +97,24 @@ public class XMLDatabaseManager(string path) : FileDatabaseManagerBase
     }
 
     /// <inheritdoc />
+    public override List<T> Select<T>(Func<T, bool> query)
+    {
+        var (_, root) = LoadDocument<T>();
+        List<T> result = [];
+
+        foreach (XmlElement element in root.ChildNodes)
+        {
+            if (Activator.CreateInstance(typeof(T)) is not IData dataModel)
+                throw new InvalidDataModelException(typeof(T));
+            dataModel.FromXml(element);
+            if (query((T)dataModel))
+                result.Add((T)dataModel);
+        }
+
+        return result;
+    }
+
+    /// <inheritdoc />
     protected override void Initialize<T>()
     {
         var targetType = typeof(T);
@@ -122,7 +140,9 @@ public class XMLDatabaseManager(string path) : FileDatabaseManagerBase
     /// <inheritdoc/>
     protected override string GetFilePath(Type target)
     {
-        var tableName = target.GetCustomAttribute<TableNameAttribute>()?.Name ?? target.Name;
+        CheckType(target);
+        var instance = Activator.CreateInstance(target) as IData;
+        var tableName = instance?.GetTableName();
         return Path.Combine(FolderPath, $"{tableName}.xml");
     }
 

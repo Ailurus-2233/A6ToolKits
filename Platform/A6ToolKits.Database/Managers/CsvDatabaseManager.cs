@@ -21,7 +21,10 @@ public class CsvDatabaseManager(string path) : FileDatabaseManagerBase
     /// <inheritdoc />
     protected override string GetFilePath(Type target)
     {
-        return Path.Combine(FolderPath, $"{target.Name}.csv");
+        CheckType(target);
+        var instance = Activator.CreateInstance(target) as IData;
+        var tableName = instance?.GetTableName();
+        return Path.Combine(FolderPath, $"{tableName}.csv");
     }
 
     /// <inheritdoc />
@@ -145,6 +148,29 @@ public class CsvDatabaseManager(string path) : FileDatabaseManagerBase
         }
         
         file.Close();
+    }
+
+    /// <inheritdoc />
+    public override List<T> Select<T>(Func<T, bool> query)
+    {
+        CheckType(typeof(T));
+        var targetPath = GetFilePath(typeof(T));
+        if (!File.Exists(targetPath))
+            Initialize<T>();
+
+        var result = new List<T>();
+        var lines = File.ReadAllLines(targetPath);
+        for (var i = 1; i < lines.Length; i++)
+        {
+            var line = lines[i];
+            if (Activator.CreateInstance(typeof(T)) is not IData dataModel)
+                throw new InvalidDataModelException(typeof(T));
+            dataModel.FromCsvLine(line, Split);
+            if (query((T) dataModel))
+                result.Add((T) dataModel);
+        }
+
+        return result;
     }
 
     /// <inheritdoc />

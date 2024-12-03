@@ -8,7 +8,7 @@ public abstract class FileDatabaseManagerTestBase
 {
     protected abstract FileDatabaseManagerBase DatabaseManager { get; }
 
-    protected readonly List<TestXMLModel> Data =
+    protected readonly List<TestModel> Data =
     [
         new() { Id = 1, Name = "A", Age = 1 },
         new() { Id = 2, Name = "B", Age = 2 },
@@ -17,7 +17,7 @@ public abstract class FileDatabaseManagerTestBase
 
     protected void Initialize()
     {
-        var dataInFile = DatabaseManager.Load<TestXMLModel>();
+        var dataInFile = DatabaseManager.Load<TestModel>();
         foreach (var item in dataInFile)
         {
             DatabaseManager.Delete(item);
@@ -36,7 +36,7 @@ public abstract class FileDatabaseManagerTestBase
     public void LoadTest()
     {
         Initialize();
-        var result = DatabaseManager.Load<TestXMLModel>();
+        var result = DatabaseManager.Load<TestModel>();
         Assert.That(result, Is.EqualTo(Data));
     }
 
@@ -45,7 +45,7 @@ public abstract class FileDatabaseManagerTestBase
     [TestCase(4, "D", 4, true)]
     public void TestAdd(int id, string name, int age, bool finished)
     {
-        var testItem = new TestXMLModel { Id = id, Name = name, Age = age };
+        var testItem = new TestModel { Id = id, Name = name, Age = age };
         var result = false;
         try
         {
@@ -69,7 +69,7 @@ public abstract class FileDatabaseManagerTestBase
     [TestCase(100, "D", 4, false)]
     public void TestDelete(int id, string name, int age, bool finished)
     {
-        var testItem = new TestXMLModel { Id = id, Name = name, Age = age };
+        var testItem = new TestModel { Id = id, Name = name, Age = age };
         var result = false;
         try
         {
@@ -93,12 +93,12 @@ public abstract class FileDatabaseManagerTestBase
     [TestCase(100, "D", 4, false)]
     public void TestUpdate(int id, string name, int age, bool finished)
     {
-        var testItem = new TestXMLModel { Id = id, Name = name, Age = age };
+        var testItem = new TestModel { Id = id, Name = name, Age = age };
         var result = false;
         try
         {
             DatabaseManager.Update(testItem);
-            var dataInFile = DatabaseManager.Load<TestXMLModel>().FirstOrDefault(i => i.Id == id);
+            var dataInFile = DatabaseManager.Load<TestModel>().FirstOrDefault(i => i.Id == id);
             result = dataInFile?.Name == name && dataInFile.Age == age;
         }
         catch (DataNotFoundException)
@@ -111,5 +111,25 @@ public abstract class FileDatabaseManagerTestBase
         }
 
         Assert.That(result, Is.EqualTo(finished));
+    }
+
+    protected static Func<TestModel, bool>[] QueryCases =
+    [
+        i => i.Id == 1,
+        i => i.Name == "A",
+        i => i.Age == 1,
+        i => i.Age > 1,
+        i => i.Age != 2,
+        i => i.Id > 1 && i.Name != "B"
+    ];
+
+    [Test]
+    [TestCaseSource(nameof(QueryCases))]
+    public void TestSelect(Func<TestModel, bool> queryCase)
+    {
+        Initialize();
+        var result = DatabaseManager.Select(queryCase);
+        var expected = Data.Where(queryCase).ToList();
+        Assert.That(result, Is.EqualTo(expected));
     }
 }

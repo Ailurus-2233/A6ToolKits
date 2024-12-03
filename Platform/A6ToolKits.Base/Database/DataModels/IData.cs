@@ -8,6 +8,14 @@ namespace A6ToolKits.Database.DataModels;
 public interface IData
 {
     /// <summary>
+    ///     获取存储数据的表名
+    /// </summary>
+    /// <returns>
+    ///     表名
+    /// </returns>
+    string GetTableName();
+    
+    /// <summary>
     ///     获取主键属性列表，属性中有PrimaryKeyAttribute特性
     /// </summary>
     /// <returns>

@@ -44,16 +44,22 @@ public abstract class FileDatabaseManagerBase : IManager
     protected abstract string GetFilePath(Type target);
 
     /// <summary>
-    ///     检查数据类型是否为 FileDataModelBase 的子类
+    ///     检查数据类型是否为 DataModelBase 的子类
     /// </summary>
-    /// <param name="target">要检查的数据类型</param>
-    /// <exception cref="InvalidDataModelException">如果数据类型不匹配</exception>
-    protected static void CheckType(Type target)
+    /// <param name="target">
+    ///     要检查的数据类型
+    /// </param>
+    /// <returns>
+    ///     true 如果数据类型匹配
+    /// </returns>
+    /// <exception cref="InvalidDataModelException">
+    ///     抛出异常，如果数据类型不匹配
+    /// </exception>
+    protected static bool CheckType(Type target)
     {
         if (!typeof(DataModelBase).IsAssignableFrom(target))
-        {
             throw new InvalidDataModelException(target);
-        }
+        return true;
     }
 
     /// <inheritdoc/>
@@ -117,4 +123,8 @@ public abstract class FileDatabaseManagerBase : IManager
 
     /// <inheritdoc/>
     public void Update<T>(params T[] data) where T : IData => Update(data.ToList());
+
+    /// <inheritdoc />
+    public abstract List<T> Select<T>(Func<T, bool> query) where T : IData;
+    
 }
