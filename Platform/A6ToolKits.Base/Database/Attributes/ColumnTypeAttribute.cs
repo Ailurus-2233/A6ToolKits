@@ -1,4 +1,5 @@
-﻿using A6ToolKits.Database.Enums;
+﻿using System.Reflection;
+using A6ToolKits.Database.Enums;
 
 // ReSharper disable ClassNeverInstantiated.Global
 
@@ -45,7 +46,7 @@ public class ColumnTypeAttribute(string name, ColumnType columnType, int dataLen
         var typeString = ColumnType.ToString();
         return typeString.StartsWith("FILE_");
     }
-    
+
     /// <summary>
     ///     是否是SQLite列
     /// </summary>
@@ -94,6 +95,12 @@ public class ColumnTypeAttribute(string name, ColumnType columnType, int dataLen
         { ColumnType.SQLITE_REAL, [typeof(float), typeof(double)] },
         { ColumnType.SQLITE_TEXT, [typeof(string)] },
         { ColumnType.SQLITE_BLOB, [typeof(byte[]), typeof(sbyte[])] },
+        {
+            ColumnType.SQLITE_NUMERIC, [
+                typeof(byte), typeof(short), typeof(int), typeof(long), typeof(sbyte), typeof(ushort), typeof(uint),
+                typeof(ulong), typeof(float), typeof(double)
+            ]
+        },
 
         { ColumnType.MYSQL_TINYINT, [typeof(sbyte)] },
         { ColumnType.MYSQL_SMALLINT, [typeof(short)] },
@@ -124,6 +131,43 @@ public class ColumnTypeAttribute(string name, ColumnType columnType, int dataLen
         { ColumnType.MYSQL_JSON, [typeof(string)] },
     };
 
+    private Dictionary<ColumnType, string> _targetSQLType = new Dictionary<ColumnType, string>()
+    {
+        { ColumnType.SQLITE_INTEGER, "INTEGER" },
+        { ColumnType.SQLITE_REAL, "REAL" },
+        { ColumnType.SQLITE_TEXT, "TEXT" },
+        { ColumnType.SQLITE_BLOB, "BLOB" },
+        { ColumnType.SQLITE_NUMERIC, "NUMERIC" },
+
+        { ColumnType.MYSQL_TINYINT, "TINYINT" },
+        { ColumnType.MYSQL_SMALLINT, "SMALLINT" },
+        { ColumnType.MYSQL_MEDIUMINT, "MEDIUMINT" },
+        { ColumnType.MYSQL_INT, "INT" },
+        { ColumnType.MYSQL_BIGINT, "BIGINT" },
+        { ColumnType.MYSQL_FLOAT, "FLOAT" },
+        { ColumnType.MYSQL_DOUBLE, "DOUBLE" },
+        { ColumnType.MYSQL_DECIMAL, "DECIMAL" },
+        { ColumnType.MYSQL_DATE, "DATE" },
+        { ColumnType.MYSQL_TIME, "TIME" },
+        { ColumnType.MYSQL_YEAR, "YEAR" },
+        { ColumnType.MYSQL_DATETIME, "DATETIME" },
+        { ColumnType.MYSQL_TIMESTAMP, "TIMESTAMP" },
+        { ColumnType.MYSQL_CHAR, "CHAR" },
+        { ColumnType.MYSQL_VARCHAR, "VARCHAR" },
+        { ColumnType.MYSQL_TINYTEXT, "TINYTEXT" },
+        { ColumnType.MYSQL_TEXT, "TEXT" },
+        { ColumnType.MYSQL_MEDIUMTEXT, "MEDIUMTEXT" },
+        { ColumnType.MYSQL_LONGTEXT, "LONGTEXT" },
+        { ColumnType.MYSQL_BINARY, "BINARY" },
+        { ColumnType.MYSQL_VARBINARY, "VARBINARY" },
+        { ColumnType.MYSQL_TINYBLOB, "TINYBLOB" },
+        { ColumnType.MYSQL_BLOB, "BLOB" },
+        { ColumnType.MYSQL_MEDIUMBLOB, "MEDIUMBLOB" },
+        { ColumnType.MYSQL_LONGBLOB, "LONGBLOB" },
+        { ColumnType.MYSQL_BOOLEAN, "BOOLEAN" },
+        { ColumnType.MYSQL_JSON, "JSON" },
+    };
+
     /// <summary>
     ///     类型检查
     /// </summary>
@@ -137,5 +181,39 @@ public class ColumnTypeAttribute(string name, ColumnType columnType, int dataLen
     {
         if (value == null) return false;
         return _availableTypes.TryGetValue(ColumnType, out var type) && type.Contains(value.GetType());
+    }
+    
+    /// <summary>
+    ///     获取 SQL 类型
+    /// </summary>
+    /// <returns>
+    ///     返回的 SQL 类型
+    /// </returns>
+    public string GetSQLType()
+    {
+        return _targetSQLType[ColumnType];
+    }
+}
+
+/// <summary>
+///     列属性扩展方法
+/// </summary>
+public static class ColumnPropertyInfoExtend
+{
+    /// <summary>
+    ///     获取列类型特性
+    /// </summary>
+    /// <param name="property">
+    ///     属性信息
+    /// </param>
+    /// <returns>
+    ///     返回列类型特性
+    /// </returns>
+    public static ColumnTypeAttribute GetColumnType(this PropertyInfo property)
+    {
+        var attribute = property.GetCustomAttribute<ColumnTypeAttribute>();
+        if (attribute == null)
+            throw new NullReferenceException("Column Type Attribute is null");
+        return attribute;
     }
 }

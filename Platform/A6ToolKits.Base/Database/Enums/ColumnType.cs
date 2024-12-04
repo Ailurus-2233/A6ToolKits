@@ -13,6 +13,7 @@ public enum ColumnType
     SQLITE_REAL,
     SQLITE_TEXT,
     SQLITE_BLOB,
+    SQLITE_NUMERIC,
     
     // MySQL
     MYSQL_TINYINT,

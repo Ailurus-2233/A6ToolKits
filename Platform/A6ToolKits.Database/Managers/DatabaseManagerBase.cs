@@ -35,4 +35,18 @@ public abstract class DatabaseManagerBase : IManager
 
     /// <inheritdoc />
     public abstract void Update<T>(params T[] data) where T : IData;
+
+    /// <inheritdoc />
+    public abstract List<T> Select<T>(Func<T, bool> query) where T : IData;
+
+    /// <summary>
+    ///     根据 IData 创建一个表在指定数据库中
+    /// </summary>
+    /// <param name="data">
+    ///     数据类型
+    /// </param>
+    /// <typeparam name="T">
+    ///     数据类型
+    /// </typeparam>
+    public abstract void CreateTable<T>(T data) where T : IData;
 }
