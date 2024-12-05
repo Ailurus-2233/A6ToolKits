@@ -31,8 +31,16 @@ public abstract class WindowBase : Window
             _ => throw new ArgumentOutOfRangeException()
         };
         if (config.Icon == null) return;
-        var image = AssetHelper.LoadImage(config.Icon);
-        if (image is Bitmap bitmap)
-            Icon = new WindowIcon(bitmap);
+        try
+        {
+            var image = AssetHelper.LoadImage(config.Icon);
+            if (image is Bitmap bitmap)
+                Icon = new WindowIcon(bitmap);
+        }
+        catch (Exception e)
+        {
+            // ToDo Log Filed Load Icon
+        }
+
     }
 }

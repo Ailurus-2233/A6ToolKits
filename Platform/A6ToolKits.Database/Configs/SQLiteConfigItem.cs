@@ -1,4 +1,5 @@
 ﻿using A6ToolKits.Configuration;
+using A6ToolKits.Configuration.Attributes;
 using A6ToolKits.Configuration.Exceptions;
 using Microsoft.Data.Sqlite;
 
@@ -7,6 +8,7 @@ namespace A6ToolKits.Database.Configs;
 /// <summary>
 ///     SQLite 配置
 /// </summary>
+[ConfigName("SQLite")]
 public class SQLiteConfigItem : ConfigItemBase
 {
     /// <summary>
@@ -80,14 +82,8 @@ public class SQLiteConfigItem : ConfigItemBase
         }.ToString();
     }
 
-    /// <inheritdoc />
-    public override void LoadConfig()
-    {
-        var itemNode = ConfigHelper.GetElements("SQLite")?.Item(0);
-        if (itemNode == null)
-            throw new ConfigLoadException(typeof(SQLiteConfigItem));
-        GenerateFromXmlNode(itemNode);
-    }
+
+    public override bool IsNecessary { get; } = false;
 
     /// <inheritdoc />
     public override void SetDefault()
@@ -100,5 +96,10 @@ public class SQLiteConfigItem : ConfigItemBase
         RecursiveTriggers = "False";
         DefaultTimeout = "30";
         Pooling = "True";
+    }
+
+    /// <inheritdoc />
+    public override void OnLoadedConfig()
+    {
     }
 }

@@ -1,4 +1,9 @@
-﻿using System.Xml;
+﻿using System.Reflection;
+using System.Xml;
+using A6ToolKits.AssemblyManager;
+using A6ToolKits.Common.Container;
+using A6ToolKits.Configuration.Attributes;
+using A6ToolKits.Module;
 
 // ReSharper disable UnusedType.Global
 // ReSharper disable UnusedMember.Global
@@ -46,6 +51,32 @@ public static class ConfigHelper
         var doc = new XmlDocument();
         var root = doc.CreateElement("Configuration");
         doc.AppendChild(root);
+
+        var assemblies = LoadHelper.GetAllAssemblies();
+
+        var configItems = new List<Type>();
+
+        foreach (var assembly in assemblies.Select(Assembly.Load))
+        {
+            var types = assembly.GetTypes();
+            foreach (var type in types)
+            {
+                if (type.GetCustomAttribute<ModuleConfigAttribute>() != null)
+                    configItems.Add(type);
+            }
+        }
+
+        if (configItems.Count != 0)
+        {
+            foreach (var item in configItems)
+            {
+                if (Activator.CreateInstance(item) is not IConfigItem config)
+                    continue;
+                var node = config.CreateDefaultConfig(doc);
+                root.AppendChild(node);
+            }
+        }
+
         doc.Save(DefaultConfig);
     }
 
@@ -66,17 +97,5 @@ public static class ConfigHelper
                 root.RemoveChild(o);
         root.AppendChild(node);
         document.Save(DefaultConfig);
-    }
-
-    /// <summary>
-    ///     获取默认配置文件
-    /// </summary>
-    /// <returns>
-    ///     默认配置文件
-    /// </returns>
-    public static XmlDocument GetDefaultConfig()
-    {
-        document.Load(DefaultConfig);
-        return document;
     }
 }

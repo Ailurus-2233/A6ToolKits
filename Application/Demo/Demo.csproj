@@ -11,13 +11,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Compile Update="TabDemo\Tab1.axaml.cs">
-        <DependentUpon>Tab1.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
+      <ProjectReference Include="..\..\Platform\A6ToolKits.Database\A6ToolKits.Database.csproj" />
       <ProjectReference Include="..\..\Platform\A6ToolKits.Layout\A6ToolKits.Layout.csproj" />
     </ItemGroup>
 

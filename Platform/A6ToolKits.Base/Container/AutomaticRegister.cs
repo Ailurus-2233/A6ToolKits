@@ -25,7 +25,8 @@ public static class AutomaticRegister
         AutoRegister(assembly);
 
         var assemblies = LoadHelper.GetAllAssemblies();
-        foreach (var loadedAssembly in assemblies.Select(Assembly.Load)) AutoRegister(loadedAssembly);
+        foreach (var loadedAssembly in assemblies.Select(Assembly.Load)) 
+            AutoRegister(loadedAssembly);
     }
 
     /// <summary>

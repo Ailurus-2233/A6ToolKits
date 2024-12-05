@@ -1,4 +1,7 @@
-﻿using System.Xml;
+﻿using System.Reflection;
+using System.Xml;
+using A6ToolKits.Configuration.Attributes;
+using A6ToolKits.Configuration.Exceptions;
 
 namespace A6ToolKits.Configuration;
 
@@ -7,39 +10,96 @@ namespace A6ToolKits.Configuration;
 /// </summary>
 public abstract class ConfigItemBase : IConfigItem
 {
-    /// <summary>
-    ///     从配置文件加载配置项
-    /// </summary>
-    public abstract void LoadConfig();
+    /// <inheritdoc />
+    public List<IConfigItem> Children { get; } = [];
 
     /// <summary>
-    ///     创建一个默认的配置项
+    ///     配置项是否加载完成
     /// </summary>
-    /// <param name="tagName">
-    ///     配置项的标签名
-    /// </param>
+    public bool LoadedFinished { get; set; } = false;
+
+    /// <summary>
+    ///     配置项是否需要
+    /// </summary>
+    public abstract bool IsNecessary { get; }
+
+
+    /// <summary>
+    ///     获取配置项名称
+    /// </summary>
     /// <returns>
-    ///     返回一个默认的配置项
+    ///     返回配置项名称
     /// </returns>
-    public XmlElement CreateDefaultConfig(string tagName)
+    /// <exception cref="ConfigLoadException">
+    ///     当配置项名称没有设置 ConfigNameAttribute 时抛出异常
+    /// </exception>
+    protected string GetNodeName()
     {
-        var doc = ConfigHelper.GetDefaultConfig();
-        var result = doc.CreateElement(tagName);
-        SetDefault();
-        var property = GetType().GetProperties();
+        var nodeName = GetType().GetCustomAttribute<ConfigNameAttribute>()?.Name;
+        if (nodeName == null)
+            throw new ConfigLoadException(GetType(),
+                "You must set the ConfigNameAttribute for the config item.");
+        return nodeName;
+    }
+
+    /// <inheritdoc />
+    public void LoadConfig()
+    {
+        var nodeName = GetNodeName();
+        var configNode = ConfigHelper.GetElements(nodeName)?.Item(0);
+        if (configNode == null)
+        {
+            if (IsNecessary)
+                throw new ConfigLoadException(GetType(), $"{nodeName} not founded in config file.");
+        }
+        else
+        {
+            GenerateFromXmlNode(configNode);
+            LoadedFinished = true;
+            OnLoadedConfig();
+        }
+    }
+
+    /// <inheritdoc />
+    public abstract void SetDefault();
+
+    /// <inheritdoc />
+    public abstract void OnLoadedConfig();
+
+    private List<string> _skipProperties =>
+    [
+        nameof(Children),
+        nameof(LoadedFinished),
+        nameof(IsNecessary)
+    ];
+
+    /// <inheritdoc />
+    public XmlElement CreateDefaultConfig(XmlDocument doc)
+    {
+        var result = doc.CreateElement(GetNodeName());
+        
+        if (Activator.CreateInstance(GetType()) is not IConfigItem defaultConfig)
+            throw new ConfigLoadException(GetType(), "Can't create the default config item.");
+        
+        defaultConfig.SetDefault();
+        var property = defaultConfig.GetType().GetProperties();
         foreach (var prop in property)
         {
+            var name = prop.Name;
+            if (_skipProperties.Contains(name))
+                continue;
             var value = prop.GetValue(this);
             if (value != null) result.SetAttribute(prop.Name, value.ToString());
         }
 
+        foreach (var child in defaultConfig.Children)
+        {
+            var childNode = child.CreateDefaultConfig(doc);
+            result.AppendChild(childNode);
+        }
+
         return result;
     }
-
-    /// <summary>
-    ///     设置配置项的默认值
-    /// </summary>
-    public abstract void SetDefault();
 
     /// <summary>
     ///     从 XmlNode 生成配置项
@@ -50,10 +110,42 @@ public abstract class ConfigItemBase : IConfigItem
     protected void GenerateFromXmlNode(XmlNode node)
     {
         var property = GetType().GetProperties();
+        SetDefault();
         foreach (var prop in property)
         {
-            var value = node.Attributes?[prop.Name]?.Value;
-            if (value != null) prop.SetValue(this, Convert.ChangeType(value, prop.PropertyType));
+            var name = prop.Name;
+            if (_skipProperties.Contains(name))
+                continue;
+            var value = node.Attributes?[name]?.Value;
+            if (value != null)
+                prop.SetValue(this, Convert.ChangeType(value, prop.PropertyType));
         }
+
+        Children.Clear();
+        var childNodes = node.ChildNodes;
+        foreach (XmlNode childNode in childNodes)
+        {
+            var child = CreateItem(childNode.Name);
+            child.GenerateFromXmlNode(childNode);
+            Children.Add(child);
+        }
+    }
+
+    private ConfigItemBase CreateItem(string nodeName)
+    {
+        var type = GetType().Assembly.GetTypes()
+            .Where(t => t.GetCustomAttribute<ConfigNameAttribute>()?.Name == nodeName).ToList();
+        if (type == null || type.Count == 0)
+            throw new ConfigLoadException(GetType(), $"Can't find the config item {nodeName}");
+
+        if (type.Count > 1)
+            throw new ConfigLoadException(GetType(), $"Find more than one config item {nodeName}");
+
+        var instance = Activator.CreateInstance(type[0]) as ConfigItemBase;
+
+        if (instance == null)
+            throw new ConfigLoadException(GetType(), $"Can't create the config item {nodeName}");
+
+        return instance;
     }
 }

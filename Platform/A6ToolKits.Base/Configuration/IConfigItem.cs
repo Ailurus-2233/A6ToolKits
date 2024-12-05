@@ -8,20 +8,37 @@ namespace A6ToolKits.Configuration;
 public interface IConfigItem
 {
     /// <summary>
+    ///     配置项的子配置项
+    /// </summary>
+    List<IConfigItem> Children { get; }
+
+    /// <summary>
+    ///     配置项是否加载完成
+    /// </summary>
+    bool LoadedFinished { get; set; }
+
+    /// <summary>
+    ///     配置项是否必要
+    /// </summary>
+    bool IsNecessary { get; }
+
+    /// <summary>
     ///     从配置文件加载配置项
     /// </summary>
     void LoadConfig();
 
     /// <summary>
+    ///     配置项加载完成后的操作
+    /// </summary>
+    void OnLoadedConfig();
+
+    /// <summary>
     ///     创建一个默认的配置项
     /// </summary>
-    /// <param name="tagName">
-    ///     配置项的标签名
-    /// </param>
     /// <returns>
     ///     返回一个默认的配置项
     /// </returns>
-    XmlElement CreateDefaultConfig(string tagName);
+    XmlElement CreateDefaultConfig(XmlDocument root);
 
     /// <summary>
     ///     设置配置项的默认值

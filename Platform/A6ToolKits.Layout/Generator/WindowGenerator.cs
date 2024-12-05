@@ -30,7 +30,7 @@ internal class WindowGenerator
     /// <exception cref="Exception"></exception>
     internal Window GenerateWindow(LayoutConfigItem item)
     {
-        item.SetToResources();
+        WindowConfig.Instance.LoadLayoutConfig(item);
 
         Window result = _config.BorderStyle switch
         {

@@ -102,4 +102,27 @@ internal class WindowConfig
     ///     应用主题
     /// </summary>
     public ThemeVariant Theme { get; set; } = ThemeVariant.Default;
+
+    public void LoadLayoutConfig(LayoutConfigItem configItem)
+    {
+        Title = !string.IsNullOrEmpty(configItem.Title) ? configItem.Title : "A6ToolKits";
+        Width = !string.IsNullOrEmpty(configItem.Width) ? double.Parse(configItem.Width) : 0;
+        Height = !string.IsNullOrEmpty(configItem.Height) ? double.Parse(configItem.Height) : 0;
+        PrimaryColor =
+            Color.TryParse(configItem.PrimaryColor, out var primaryColor)
+                ? Color.FromRgb(primaryColor.R, primaryColor.G, primaryColor.B)
+                : Colors.CornflowerBlue;
+        BackgroundColor =
+            Color.TryParse(configItem.BackgroundColor, out var backgroundColor)
+                ? Color.FromRgb(backgroundColor.R, backgroundColor.G, backgroundColor.B)
+                : Colors.Wheat;
+        BorderStyle = Enum.TryParse<WindowBorderType>(configItem.BorderStyle, out var borderStyle)
+            ? borderStyle
+            : WindowBorderType.Default;
+
+        var brightness = 0.299 * backgroundColor.R + 0.587 * backgroundColor.G + 0.114 * backgroundColor.B;
+        Theme = brightness > 128 ? ThemeVariant.Light : ThemeVariant.Dark;
+        if (string.IsNullOrEmpty(configItem.Icon)) return;
+        Icon = new Uri(configItem.Icon);
+    }
 }
