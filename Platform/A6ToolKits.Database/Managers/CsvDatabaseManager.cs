@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq.Expressions;
+using System.Text;
 using A6ToolKits.Database.DataConverters;
 using A6ToolKits.Database.DataModels;
 using A6ToolKits.Database.Exceptions;
@@ -151,7 +152,7 @@ public class CsvDatabaseManager(string path) : FileDatabaseManagerBase
     }
 
     /// <inheritdoc />
-    public override List<T> Select<T>(Func<T, bool> query)
+    public override List<T> Select<T>(Expression<Func<T, bool>> predicate)
     {
         CheckType(typeof(T));
         var targetPath = GetFilePath(typeof(T));
@@ -166,7 +167,7 @@ public class CsvDatabaseManager(string path) : FileDatabaseManagerBase
             if (Activator.CreateInstance(typeof(T)) is not IData dataModel)
                 throw new InvalidDataModelException(typeof(T));
             dataModel.FromCsvLine(line, Split);
-            if (query((T) dataModel))
+            if (predicate.Compile().Invoke((T) dataModel))
                 result.Add((T) dataModel);
         }
 

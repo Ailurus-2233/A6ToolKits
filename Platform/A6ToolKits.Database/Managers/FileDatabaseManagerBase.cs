@@ -1,4 +1,5 @@
-﻿using A6ToolKits.Database.Exceptions;
+﻿using System.Linq.Expressions;
+using A6ToolKits.Database.Exceptions;
 using A6ToolKits.Database.DataModels;
 
 namespace A6ToolKits.Database.Managers;
@@ -23,7 +24,7 @@ public abstract class FileDatabaseManagerBase : IManager
     /// </summary>
     /// <typeparam name="T">数据类型</typeparam>
     /// <returns>数据集的索引列表</returns>
-    protected IList<int> LoadIndex<T>() where T : IData
+    protected IList<int> LoadIndex<T>() where T : class, IData
     {
         var dataset = Load<T>();
         List<int> result = [];
@@ -63,13 +64,13 @@ public abstract class FileDatabaseManagerBase : IManager
     }
 
     /// <inheritdoc/>
-    public void Save<T>(IList<T> data, bool force = false) where T : IData
+    public void Save<T>(IList<T> data, bool force = false) where T : class, IData
     {
         CheckType(typeof(T));
 
         if (force)
         {
-            Initialize<T>();
+            Clear<T>();
             Add(data);
         }
         else
@@ -104,27 +105,34 @@ public abstract class FileDatabaseManagerBase : IManager
     }
 
     /// <inheritdoc/>
-    public abstract void Add<T>(IList<T> data) where T : IData;
+    public abstract void Add<T>(IList<T> data) where T : class, IData;
 
     /// <inheritdoc/>
-    public abstract IList<T> Load<T>() where T : IData;
+    public abstract IList<T> Load<T>() where T : class, IData;
 
     /// <inheritdoc/>
-    public abstract void Delete<T>(IList<T> target) where T : IData;
-
-    /// <inheritdoc/>
-    public abstract void Update<T>(IList<T> target) where T : IData;
-
-    /// <inheritdoc/>
-    public void Add<T>(params T[] data) where T : IData => Add(data.ToList());
-
-    /// <inheritdoc/>
-    public void Delete<T>(params T[] target) where T : IData => Delete(target.ToList());
-
-    /// <inheritdoc/>
-    public void Update<T>(params T[] data) where T : IData => Update(data.ToList());
+    public abstract void Delete<T>(IList<T> target) where T : class, IData;
 
     /// <inheritdoc />
-    public abstract List<T> Select<T>(Func<T, bool> query) where T : IData;
+    public void Clear<T>() where T : class, IData
+    {
+        CheckType(typeof(T));
+        Initialize<T>();
+    }
+
+    /// <inheritdoc/>
+    public abstract void Update<T>(IList<T> target) where T : class, IData;
+
+    /// <inheritdoc/>
+    public void Add<T>(params T[] data) where T : class, IData => Add(data.ToList());
+
+    /// <inheritdoc/>
+    public void Delete<T>(params T[] target) where T : class, IData => Delete(target.ToList());
+
+    /// <inheritdoc/>
+    public void Update<T>(params T[] data) where T : class, IData => Update(data.ToList());
+
+    /// <inheritdoc />
+    public abstract List<T> Select<T>(Expression<Func<T, bool>> predicate) where T : class, IData;
     
 }

@@ -1,4 +1,5 @@
-﻿using A6ToolKits.Database.Exceptions;
+﻿using System.Linq.Expressions;
+using A6ToolKits.Database.Exceptions;
 using A6ToolKits.Database.Managers;
 using DatabaseModuleTest.DataModels;
 
@@ -113,7 +114,7 @@ public abstract class FileDatabaseManagerTestBase
         Assert.That(result, Is.EqualTo(finished));
     }
 
-    protected static Func<TestModel, bool>[] QueryCases =
+    protected static Expression<Func<TestModel, bool>>[] QueryCases =
     [
         i => i.Id == 1,
         i => i.Name == "A",
@@ -125,11 +126,11 @@ public abstract class FileDatabaseManagerTestBase
 
     [Test]
     [TestCaseSource(nameof(QueryCases))]
-    public void TestSelect(Func<TestModel, bool> queryCase)
+    public void TestSelect(Expression<Func<TestModel, bool>> queryCase)
     {
         Initialize();
         var result = DatabaseManager.Select(queryCase);
-        var expected = Data.Where(queryCase).ToList();
+        var expected = Data.Where(queryCase.Compile()).ToList();
         Assert.That(result, Is.EqualTo(expected));
     }
 }

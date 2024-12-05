@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Linq.Expressions;
+using System.Reflection;
 using System.Xml;
 using A6ToolKits.Database.Attributes;
 using A6ToolKits.Database.DataConverters;
@@ -97,7 +98,7 @@ public class XMLDatabaseManager(string path) : FileDatabaseManagerBase
     }
 
     /// <inheritdoc />
-    public override List<T> Select<T>(Func<T, bool> query)
+    public override List<T> Select<T>(Expression<Func<T, bool>> predicate)
     {
         var (_, root) = LoadDocument<T>();
         List<T> result = [];
@@ -107,7 +108,7 @@ public class XMLDatabaseManager(string path) : FileDatabaseManagerBase
             if (Activator.CreateInstance(typeof(T)) is not IData dataModel)
                 throw new InvalidDataModelException(typeof(T));
             dataModel.FromXml(element);
-            if (query((T)dataModel))
+            if (predicate.Compile().Invoke((T)dataModel))
                 result.Add((T)dataModel);
         }
 
