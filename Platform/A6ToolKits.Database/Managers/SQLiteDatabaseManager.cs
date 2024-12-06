@@ -19,7 +19,7 @@ public class SQLiteDatabaseManager : DatabaseManagerBase
     /// <param name="config">
     ///     SQLite 配置项
     /// </param>
-    public SQLiteDatabaseManager(SQLiteConfigItem config)
+    public SQLiteDatabaseManager(SQLiteConfigItem config) : base(config.Name)
     {
         ConnectionString = config.ToConnectionString();
     }
@@ -154,7 +154,7 @@ public class SQLiteDatabaseManager : DatabaseManagerBase
         var result = new List<T>();
         while (reader.Read())
             result.Add(ReadItem<T>(reader));
-        
+
         return result;
     }
 
@@ -183,7 +183,7 @@ public class SQLiteDatabaseManager : DatabaseManagerBase
     /// <exception cref="InvalidDataModelException">
     ///     数据模型无效
     /// </exception>
-    public T ReadItem<T>(SqliteDataReader reader) where T: class, IData
+    public T ReadItem<T>(SqliteDataReader reader) where T : class, IData
     {
         var item = Activator.CreateInstance(typeof(T));
         if (item is not T dataModel)
@@ -194,11 +194,11 @@ public class SQLiteDatabaseManager : DatabaseManagerBase
             var value = reader[columnType.Name];
             if (value == DBNull.Value)
                 continue;
-                
+
             var type = property.PropertyType;
             if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
                 type = type.GetGenericArguments()[0];
-                
+
             if (type == typeof(int))
                 property.SetValue(dataModel, Convert.ToInt32(value));
             else if (type == typeof(long))
@@ -216,9 +216,9 @@ public class SQLiteDatabaseManager : DatabaseManagerBase
             else if (type == typeof(DateTime))
                 property.SetValue(dataModel, Convert.ToDateTime(value));
             else if (type == typeof(byte[]))
-                property.SetValue(dataModel, (byte[]) value);
+                property.SetValue(dataModel, (byte[])value);
             else
-                property.SetValue(dataModel, reader[property.GetColumnType().Name]);   
+                property.SetValue(dataModel, reader[property.GetColumnType().Name]);
         }
 
         return dataModel;

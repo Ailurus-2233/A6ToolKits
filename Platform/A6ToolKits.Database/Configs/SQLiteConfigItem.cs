@@ -16,7 +16,7 @@ public class SQLiteConfigItem : DatabaseConfigItemBase
     public override string Name { get; set; } = "database_sqlite";
 
     /// <inheritdoc />
-    public override IManager GenerateManager()
+    public override ManagerBase GenerateManager()
     {
         return new SQLiteDatabaseManager(this);
     }

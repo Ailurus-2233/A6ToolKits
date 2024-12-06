@@ -11,11 +11,8 @@ namespace A6ToolKits.Database.Managers;
 /// <summary>
 ///     XML 数据库管理器
 /// </summary>
-public class XMLDatabaseManager(string path) : FileDatabaseManagerBase
+public class XMLDatabaseManager(string folderPath, string id) : FileDatabaseManagerBase(folderPath, id)
 {
-    /// <inheritdoc/>
-    protected override string FolderPath { get; } = path;
-
     /// <inheritdoc/>
     public override void Add<T>(IList<T> data)
     {
@@ -146,7 +143,7 @@ public class XMLDatabaseManager(string path) : FileDatabaseManagerBase
         var tableName = instance?.GetTableName();
         return Path.Combine(FolderPath, $"{tableName}.xml");
     }
-
+    
     /// <summary>
     ///     加载 XML 文档
     /// </summary>

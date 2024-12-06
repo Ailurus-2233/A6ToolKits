@@ -6,5 +6,5 @@ namespace DatabaseModuleTest.ManagersTest;
 
 public class XMLDatabaseManagerTest : FileDatabaseManagerTestBase
 {
-    protected override FileDatabaseManagerBase DatabaseManager { get; } = new XMLDatabaseManager("test");
+    protected override FileDatabaseManagerBase DatabaseManager { get; } = new XMLDatabaseManager("test", "test");
 }

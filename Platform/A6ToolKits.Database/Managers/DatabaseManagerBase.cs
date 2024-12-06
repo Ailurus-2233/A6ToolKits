@@ -6,59 +6,39 @@ namespace A6ToolKits.Database.Managers;
 /// <summary>
 ///     数据库管理器基类
 /// </summary>
-public abstract class DatabaseManagerBase : IManager
+public abstract class DatabaseManagerBase(string id) : ManagerBase(id)
 {
     /// <summary>
     ///     连接字符串
     /// </summary>
     protected string? ConnectionString { get; set; }
+    
+    #region ManagerBase
+
+#pragma warning disable CS1591 // 缺少对公共可见类型或成员的 XML 注释
+    
+#pragma warning restore CS1591 // 缺少对公共可见类型或成员的 XML 注释
+
+    #endregion
 
     /// <inheritdoc />
-    public void Save<T>(IList<T> data, bool force = false) where T : class, IData
-    {
-        if (force)
-        {
-            Clear<T>();
-            Add(data);
-        }
-        else
-        {
-            var list = Load<T>();
-            foreach (var item in data)
-                if (!list.Contains(item))
-                    Add(item);
-                else
-                    Update(item);
-        }
-    }
+    public abstract override void Add<T>(IList<T> data);
 
     /// <inheritdoc />
-    public abstract void Add<T>(IList<T> data) where T : class, IData;
+    public abstract override IList<T> Load<T>();
 
     /// <inheritdoc />
-    public void Add<T>(params T[] data) where T : class, IData => Add(data.ToList());
-
-    /// <inheritdoc />
-    public abstract IList<T> Load<T>() where T : class, IData;
-
-    /// <inheritdoc />
-    public abstract void Delete<T>(IList<T> target) where T : class, IData;
+    public abstract override void Delete<T>(IList<T> target);
 
 
     /// <inheritdoc />
-    public abstract void Clear<T>() where T : class, IData;
+    public abstract override void Clear<T>();
 
     /// <inheritdoc />
-    public void Delete<T>(params T[] target) where T : class, IData => Delete(target.ToList());
+    public abstract override void Update<T>(IList<T> data);
 
     /// <inheritdoc />
-    public abstract void Update<T>(IList<T> data) where T : class, IData;
-
-    /// <inheritdoc />
-    public void Update<T>(params T[] data) where T : class, IData => Update(data.ToList());
-
-    /// <inheritdoc />
-    public abstract List<T> Select<T>(Expression<Func<T, bool>> predicate) where T : class, IData;
+    public abstract override List<T> Select<T>(Expression<Func<T, bool>> predicate);
 
     /// <summary>
     ///     根据 IData 创建一个表在指定数据库中

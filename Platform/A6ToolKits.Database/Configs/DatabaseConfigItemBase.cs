@@ -1,6 +1,7 @@
 ﻿using System.Xml;
 using A6ToolKits.Configuration;
 using A6ToolKits.Configuration.Exceptions;
+using A6ToolKits.Database.Managers;
 
 namespace A6ToolKits.Database.Configs;
 
@@ -20,5 +21,5 @@ public abstract class DatabaseConfigItemBase : ConfigItemBase
     /// <returns>
     ///     数据库管理器
     /// </returns>
-    public abstract IManager GenerateManager();
+    public abstract ManagerBase GenerateManager();
 }

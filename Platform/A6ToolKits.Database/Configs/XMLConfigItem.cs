@@ -15,7 +15,7 @@ public class XMLConfigItem : DatabaseConfigItemBase
     public override string Name { get; set; } = "database_xml";
 
     /// <inheritdoc />
-    public override IManager GenerateManager()
+    public override ManagerBase GenerateManager()
     {
         return new XMLDatabaseManager(Path, Name);
     }

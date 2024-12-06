@@ -5,5 +5,5 @@ namespace DatabaseModuleTest.ManagersTest;
 
 public class CsvDatabaseManagerTest : FileDatabaseManagerTestBase
 {
-    protected override FileDatabaseManagerBase DatabaseManager { get; } = new CsvDatabaseManager("test");
+    protected override FileDatabaseManagerBase DatabaseManager { get; } = new CsvDatabaseManager("test", "test");
 }

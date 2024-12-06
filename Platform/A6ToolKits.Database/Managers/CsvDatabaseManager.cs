@@ -12,12 +12,9 @@ namespace A6ToolKits.Database.Managers;
 /// <param name="path">
 ///     数据库文件夹路径
 /// </param>
-public class CsvDatabaseManager(string path) : FileDatabaseManagerBase
+public class CsvDatabaseManager(string folderPath, string id) : FileDatabaseManagerBase(folderPath, id)
 {
     private const char Split = ',';
-
-    /// <inheritdoc />
-    protected override string FolderPath { get; } = path;
 
     /// <inheritdoc />
     protected override string GetFilePath(Type target)

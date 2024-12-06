@@ -21,6 +21,18 @@ public interface IManager
     void Save<T>(IList<T> data, bool force = false) where T : class, IData;
 
     /// <summary>
+    ///     将数据保存到数据库，如果数据已经存在，
+    ///     则更新数据，否则插入数据
+    /// </summary>
+    /// <param name="data">
+    ///     数据列表
+    /// </param>
+    /// <typeparam name="T">
+    ///     数据类型
+    /// </typeparam>
+    void Save<T>(params T[] data) where T : class, IData;
+
+    /// <summary>
     ///     增加数据，如果数据已经存在，则抛出异常
     /// </summary>
     /// <param name="data">

@@ -17,7 +17,7 @@ public class CSVConfigItem : DatabaseConfigItemBase
     public override string Name { get; set; } = "database_csv";
 
     /// <inheritdoc />
-    public override IManager GenerateManager()
+    public override ManagerBase GenerateManager()
     {
         return new CsvDatabaseManager(Path, Name);
     }
