@@ -1,6 +1,7 @@
 ﻿using A6ToolKits.Configuration;
 using A6ToolKits.Configuration.Attributes;
 using A6ToolKits.Configuration.Exceptions;
+using A6ToolKits.Database.Managers;
 using Microsoft.Data.Sqlite;
 
 namespace A6ToolKits.Database.Configs;
@@ -9,8 +10,17 @@ namespace A6ToolKits.Database.Configs;
 ///     SQLite 配置
 /// </summary>
 [ConfigName("SQLite")]
-public class SQLiteConfigItem : ConfigItemBase
+public class SQLiteConfigItem : DatabaseConfigItemBase
 {
+    /// <inheritdoc />
+    public override string Name { get; set; } = "database_sqlite";
+
+    /// <inheritdoc />
+    public override IManager GenerateManager()
+    {
+        return new SQLiteDatabaseManager(this);
+    }
+
     /// <summary>
     ///     Data Source: （必需）指定数据库文件的路径。如果数据库文件不存在，SQLite 会在执行时创建一个新的数据库文件。
     ///     默认值为 ":memory:"，表示创建一个内存数据库。
@@ -83,11 +93,13 @@ public class SQLiteConfigItem : ConfigItemBase
     }
 
 
+    /// <inheritdoc />
     public override bool IsNecessary { get; } = false;
 
     /// <inheritdoc />
     public override void SetDefault()
     {
+        Name = "database_sqlite";
         DataSource = ":memory:";
         Mode = "ReadWriteCreate";
         Cache = "Default";

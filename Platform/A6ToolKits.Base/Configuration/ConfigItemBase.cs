@@ -64,9 +64,12 @@ public abstract class ConfigItemBase : IConfigItem
     public abstract void SetDefault();
 
     /// <inheritdoc />
-    public abstract void OnLoadedConfig();
+    public virtual void OnLoadedConfig()
+    {
+        
+    }
 
-    private List<string> _skipProperties =>
+    private static List<string> _skipProperties =>
     [
         nameof(Children),
         nameof(LoadedFinished),
@@ -128,6 +131,8 @@ public abstract class ConfigItemBase : IConfigItem
             var child = CreateItem(childNode.Name);
             child.GenerateFromXmlNode(childNode);
             Children.Add(child);
+            child.LoadedFinished = true;
+            child.OnLoadedConfig();
         }
     }
 

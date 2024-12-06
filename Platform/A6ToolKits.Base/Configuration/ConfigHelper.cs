@@ -46,7 +46,10 @@ public static class ConfigHelper
     }
 
 
-    private static void GenerateDefaultConfigFile()
+    /// <summary>
+    ///     生成默认配置文件
+    /// </summary>
+    public static void GenerateDefaultConfigFile()
     {
         var doc = new XmlDocument();
         var root = doc.CreateElement("Configuration");

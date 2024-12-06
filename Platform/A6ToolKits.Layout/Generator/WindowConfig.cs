@@ -1,4 +1,6 @@
-﻿using A6ToolKits.Layout.Generator.Enums;
+﻿using A6ToolKits.Configuration.Exceptions;
+using A6ToolKits.Layout.Configs;
+using A6ToolKits.Layout.Generator.Enums;
 using Avalonia.Media;
 using Avalonia.Styling;
 
@@ -105,24 +107,43 @@ internal class WindowConfig
 
     public void LoadLayoutConfig(LayoutConfigItem configItem)
     {
-        Title = !string.IsNullOrEmpty(configItem.Title) ? configItem.Title : "A6ToolKits";
-        Width = !string.IsNullOrEmpty(configItem.Width) ? double.Parse(configItem.Width) : 0;
-        Height = !string.IsNullOrEmpty(configItem.Height) ? double.Parse(configItem.Height) : 0;
+        var windowConfig = configItem.Children.OfType<WindowConfigItem>().FirstOrDefault();
+        if (windowConfig == null)
+            throw new ConfigLoadException(typeof(WindowConfigItem));
+
+        var controlConfig = configItem.Children.OfType<ControlConfigItem>().FirstOrDefault();
+        if (controlConfig == null)
+            throw new ConfigLoadException(typeof(ControlConfigItem));
+
+        Title = !string.IsNullOrEmpty(windowConfig.Title) ? windowConfig.Title : "A6ToolKits";
+        Width = !string.IsNullOrEmpty(windowConfig.Width) ? double.Parse(windowConfig.Width) : 0;
+        Height = !string.IsNullOrEmpty(windowConfig.Height) ? double.Parse(windowConfig.Height) : 0;
         PrimaryColor =
-            Color.TryParse(configItem.PrimaryColor, out var primaryColor)
+            Color.TryParse(controlConfig.PrimaryColor, out var primaryColor)
                 ? Color.FromRgb(primaryColor.R, primaryColor.G, primaryColor.B)
                 : Colors.CornflowerBlue;
         BackgroundColor =
-            Color.TryParse(configItem.BackgroundColor, out var backgroundColor)
+            Color.TryParse(controlConfig.BackgroundColor, out var backgroundColor)
                 ? Color.FromRgb(backgroundColor.R, backgroundColor.G, backgroundColor.B)
                 : Colors.Wheat;
-        BorderStyle = Enum.TryParse<WindowBorderType>(configItem.BorderStyle, out var borderStyle)
+        BorderStyle = Enum.TryParse<WindowBorderType>(windowConfig.BorderStyle, out var borderStyle)
             ? borderStyle
             : WindowBorderType.Default;
 
+        MenuHeight = !string.IsNullOrEmpty(controlConfig.MenuHeight) ? double.Parse(controlConfig.MenuHeight) : 30;
+        StatusBarHeight = !string.IsNullOrEmpty(controlConfig.StatusBarHeight)
+            ? double.Parse(controlConfig.StatusBarHeight)
+            : 30;
+        ToolBarHeight = !string.IsNullOrEmpty(controlConfig.ToolBarHeight)
+            ? double.Parse(controlConfig.ToolBarHeight)
+            : 30;
+        TitleBarHeight = !string.IsNullOrEmpty(controlConfig.TitleBarHeight)
+            ? double.Parse(controlConfig.TitleBarHeight)
+            : 30;
+
         var brightness = 0.299 * backgroundColor.R + 0.587 * backgroundColor.G + 0.114 * backgroundColor.B;
         Theme = brightness > 128 ? ThemeVariant.Light : ThemeVariant.Dark;
-        if (string.IsNullOrEmpty(configItem.Icon)) return;
-        Icon = new Uri(configItem.Icon);
+        if (string.IsNullOrEmpty(windowConfig.Icon)) return;
+        Icon = new Uri(windowConfig.Icon);
     }
 }

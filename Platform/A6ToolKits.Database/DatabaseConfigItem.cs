@@ -23,9 +23,4 @@ public class DatabaseConfigItem : ConfigItemBase
         Children.Add(new CSVConfigItem());
         Children.Add(new SQLiteConfigItem());
     }
-
-    /// <inheritdoc />
-    public override void OnLoadedConfig()
-    {
-    }
 }
