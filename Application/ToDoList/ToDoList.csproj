@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Platform\A6ToolKits.Base\A6ToolKits.Base.csproj" />
+      <ProjectReference Include="..\..\Platform\A6ToolKits.Database\A6ToolKits.Database.csproj" />
+      <ProjectReference Include="..\..\Platform\A6ToolKits.Layout\A6ToolKits.Layout.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.2" />
+      <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="bin\Debug\net8.0\config.xml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Modules\" />
+    </ItemGroup>
+
+</Project>
