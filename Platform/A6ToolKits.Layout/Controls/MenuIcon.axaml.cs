@@ -24,6 +24,7 @@ public partial class MenuIcon : UserControl
             MenuButton.Items.Add(menuItem);
             menuItem.Height = WindowConfig.Instance.MenuHeight;
         });
+        if (menuItems.Count > 0) Menu.IsVisible = true;
         if (WindowConfig.Instance.Icon == null) return;
         if (!AssetHelper.TryLoadImage(WindowConfig.Instance.Icon, out var image)) return;
         HeaderIcon.Source = image;

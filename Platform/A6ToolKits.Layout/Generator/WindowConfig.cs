@@ -1,6 +1,7 @@
 ﻿using A6ToolKits.Configuration.Exceptions;
 using A6ToolKits.Layout.Configs;
 using A6ToolKits.Layout.Generator.Enums;
+using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Styling;
 
@@ -105,6 +106,8 @@ internal class WindowConfig
     /// </summary>
     public ThemeVariant Theme { get; set; } = ThemeVariant.Default;
 
+    public Type MainPageType { get; set; } = typeof(UserControl);
+
     public void LoadLayoutConfig(LayoutConfigItem configItem)
     {
         var windowConfig = configItem.Children.OfType<WindowConfigItem>().FirstOrDefault();
@@ -114,6 +117,10 @@ internal class WindowConfig
         var controlConfig = configItem.Children.OfType<ControlConfigItem>().FirstOrDefault();
         if (controlConfig == null)
             throw new ConfigLoadException(typeof(ControlConfigItem));
+
+        var mainPageConfig = configItem.Children.OfType<MainPageConfigItem>().FirstOrDefault();
+        if (mainPageConfig == null)
+            throw new ConfigLoadException(typeof(MainPageConfigItem));
 
         Title = !string.IsNullOrEmpty(windowConfig.Title) ? windowConfig.Title : "A6ToolKits";
         Width = !string.IsNullOrEmpty(windowConfig.Width) ? double.Parse(windowConfig.Width) : 0;
@@ -143,7 +150,11 @@ internal class WindowConfig
 
         var brightness = 0.299 * backgroundColor.R + 0.587 * backgroundColor.G + 0.114 * backgroundColor.B;
         Theme = brightness > 128 ? ThemeVariant.Light : ThemeVariant.Dark;
-        if (string.IsNullOrEmpty(windowConfig.Icon)) return;
-        Icon = new Uri(windowConfig.Icon);
+        if (!string.IsNullOrEmpty(windowConfig.Icon))
+            Icon = new Uri(windowConfig.Icon);
+
+        var targetType = mainPageConfig.FindTargetType();
+        if (targetType != null)
+            MainPageType = targetType;
     }
 }

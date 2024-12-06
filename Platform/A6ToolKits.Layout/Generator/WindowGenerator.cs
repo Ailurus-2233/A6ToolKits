@@ -2,6 +2,7 @@
 using A6ToolKits.Layout.Generator.Enums;
 using Avalonia.Controls;
 using DefaultWindow = A6ToolKits.Layout.Controls.LayoutWindow.DefaultWindow;
+using WindowBase = A6ToolKits.Layout.Controls.LayoutWindow.WindowBase;
 
 namespace A6ToolKits.Layout.Generator;
 
@@ -32,7 +33,7 @@ internal class WindowGenerator
     {
         WindowConfig.Instance.LoadLayoutConfig(item);
 
-        Window result = _config.BorderStyle switch
+        WindowBase result = _config.BorderStyle switch
         {
             WindowBorderType.Origin => new OriginWindow(),
             WindowBorderType.Default => new DefaultWindow(),
@@ -40,6 +41,7 @@ internal class WindowGenerator
             _ => throw new IndexOutOfRangeException("未知的 TopBarType 类型")
         };
 
+        result.MainRegion = Activator.CreateInstance(_config.MainPageType) as UserControl;
         return result;
     }
 }

@@ -5,5 +5,5 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="A6ToolKits.Layout.Controls.LayoutWindow.EmptyWindow"
         Title="NoneWindow">
-    <UserControl x:Name="MainRegion" />
+    <Grid x:Name="MainControl" />
 </Window>

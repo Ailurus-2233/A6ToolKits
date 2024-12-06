@@ -14,6 +14,11 @@ namespace A6ToolKits.Layout.Controls.LayoutWindow;
 public abstract class WindowBase : Window
 {
     /// <summary>
+    ///     主区域
+    /// </summary>
+    public abstract UserControl? MainRegion { get; set; }
+    
+    /// <summary>
     ///     窗口基类构造函数
     /// </summary>
     protected WindowBase()

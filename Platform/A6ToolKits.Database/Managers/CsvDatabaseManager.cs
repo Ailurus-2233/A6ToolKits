@@ -9,7 +9,10 @@ namespace A6ToolKits.Database.Managers;
 /// <summary>
 ///     CSV 数据库管理器
 /// </summary>
-/// <param name="path">
+/// <param name="folderPath">
+///     数据库文件夹路径
+/// </param>
+/// <param name="id">
 ///     数据库文件夹路径
 /// </param>
 public class CsvDatabaseManager(string folderPath, string id) : FileDatabaseManagerBase(folderPath, id)

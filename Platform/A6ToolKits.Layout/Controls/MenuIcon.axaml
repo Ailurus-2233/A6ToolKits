@@ -6,10 +6,10 @@
              x:Class="A6ToolKits.Layout.Controls.MenuIcon">
     <StackPanel Orientation="Horizontal">
         <Image x:Name="HeaderIcon" IsVisible="False" Margin="5"/>
-        <Menu x:Name="Menu">
+        <Menu x:Name="Menu" IsVisible="False">
             <MenuItem x:Name="MenuButton" Padding="5">
                 <MenuItem.Header>
-                    <Image Source="{DynamicResource LayoutMenuIcon}" />
+                    <Image Source="{DynamicResource MenuIcon}" />
                 </MenuItem.Header>
             </MenuItem>
         </Menu>

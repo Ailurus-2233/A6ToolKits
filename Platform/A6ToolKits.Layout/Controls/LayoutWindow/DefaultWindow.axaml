@@ -3,7 +3,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:A6ToolKits.Layout.Controls"
-        xmlns:container="clr-namespace:A6ToolKits.Layout.Controls.Container"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="A6ToolKits.Layout.Controls.LayoutWindow.DefaultWindow"
         ExtendClientAreaToDecorationsHint="True"
@@ -15,7 +14,7 @@
         <Grid RowDefinitions="Auto,Auto,*,Auto,Auto">
             <controls:TitleBar x:Name="TitleBar" Grid.Row="0" />
             <controls:ToolBar x:Name="ToolBar" Grid.Row="1" />
-            <container:MainContainer x:Name="MainContainer" Grid.Row="2" />
+            <Grid x:Name="MainControl" Grid.Row="2" />
             <controls:StatusBar x:Name="StatusBar" Grid.Row="3" />
         </Grid>
     </Border>

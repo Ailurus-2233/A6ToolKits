@@ -1,4 +1,5 @@
 ﻿using A6ToolKits.Layout.Generator;
+using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
 
@@ -25,5 +26,17 @@ public partial class DefaultWindow : WindowBase
     private void TitleBar_PointerPressed(object? sender, PointerPressedEventArgs e)
     {
         if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed) BeginMoveDrag(e);
+    }
+    
+    /// <inheritdoc />
+    public override UserControl? MainRegion
+    {
+        get => MainControl.Children.FirstOrDefault() as UserControl;
+        set
+        {
+            if (value == null) return;
+            MainControl.Children.Clear();
+            MainControl.Children.Add(value);
+        }
     }
 }

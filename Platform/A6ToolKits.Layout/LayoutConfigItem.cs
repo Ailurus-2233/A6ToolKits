@@ -23,5 +23,6 @@ public class LayoutConfigItem : ConfigItemBase
         Children.Clear();
         Children.Add(new WindowConfigItem());
         Children.Add(new ControlConfigItem());
+        Children.Add(new MainPageConfigItem());
     }
 }
