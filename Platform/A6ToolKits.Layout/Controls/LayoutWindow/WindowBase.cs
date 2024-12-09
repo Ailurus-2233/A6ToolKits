@@ -42,7 +42,7 @@ public abstract class WindowBase : Window
             if (image is Bitmap bitmap)
                 Icon = new WindowIcon(bitmap);
         }
-        catch (Exception e)
+        catch (Exception)
         {
             // ToDo Log Filed Load Icon
         }

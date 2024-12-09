@@ -1,6 +1,5 @@
 ﻿using A6ToolKits.Configuration;
 using A6ToolKits.Module.Exceptions;
-using A6ToolKits.Modules;
 
 namespace A6ToolKits.Module;
 
@@ -14,16 +13,18 @@ public abstract class ModuleBase<T> : ModuleBase where T : IConfigItem, new()
     /// </summary>
     protected T Config { get; } = new T();
 
-    /// <summary>
-    ///     加载模块
-    /// </summary>
-    /// <exception cref="LoadModuleException">
-    ///     模块加载失败
-    /// </exception>
-    public override void LoadModule()
+
+    /// <inheritdoc />
+    public override void OnLoadModule()
     {
         Config.LoadConfig();
         Initialize();
+    }
+
+    /// <inheritdoc />
+    public override void OnUnloadModule()
+    {
+        Config.SaveConfig();
     }
 }
 
@@ -32,19 +33,17 @@ public abstract class ModuleBase<T> : ModuleBase where T : IConfigItem, new()
 /// </summary>
 public abstract class ModuleBase : IModule
 {
-    /// <summary>
-    ///     初始化，加载模块时执行的操作
-    /// </summary>
+    /// <inheritdoc />
     public abstract void Initialize();
 
-    /// <summary>
-    ///     加载模块
-    /// </summary>
-    /// <exception cref="LoadModuleException">
-    ///     模块加载失败
-    /// </exception>
-    public virtual void LoadModule()
+    /// <inheritdoc />
+    public virtual void OnLoadModule()
     {
         Initialize();
+    }
+
+    /// <inheritdoc />
+    public virtual void OnUnloadModule()
+    {
     }
 }

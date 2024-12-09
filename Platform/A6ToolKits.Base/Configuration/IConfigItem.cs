@@ -39,9 +39,25 @@ public interface IConfigItem
     ///     返回一个默认的配置项
     /// </returns>
     XmlElement CreateDefaultConfig(XmlDocument root);
+    
+    /// <summary>
+    ///     生成 XmlNode
+    /// </summary>
+    /// <param name="root">
+    ///     XmlDocument
+    /// </param>
+    /// <returns>
+    ///     返回生成的 XmlNode
+    /// </returns>
+    XmlElement GenerateXmlNode(XmlDocument root);
 
     /// <summary>
     ///     设置配置项的默认值
     /// </summary>
     void SetDefault();
+    
+    /// <summary>
+    ///     保存配置项到配置文件
+    /// </summary>
+    void SaveConfig();
 }

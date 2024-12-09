@@ -26,7 +26,7 @@ public abstract class DatabaseManagerTestBase
     [Test]
     public void CreateTableTest()
     {
-        DatabaseManager.CreateTable(Data[0]);
+        DatabaseManager.CreateTable<SQLTestModel>();
     }
 
     [Test]

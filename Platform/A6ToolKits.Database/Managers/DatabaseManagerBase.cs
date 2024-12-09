@@ -27,6 +27,22 @@ public abstract class DatabaseManagerBase(string id) : ManagerBase(id)
     /// <inheritdoc />
     public abstract override IList<T> Load<T>();
 
+
+    /// <inheritdoc />
+    public override IList<T> TryLoad<T>()
+    {
+        try
+        {
+            return Load<T>();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            CreateTable<T>();
+            return new List<T>();
+        }
+    }
+
     /// <inheritdoc />
     public abstract override void Delete<T>(IList<T> target);
 
@@ -43,11 +59,8 @@ public abstract class DatabaseManagerBase(string id) : ManagerBase(id)
     /// <summary>
     ///     根据 IData 创建一个表在指定数据库中
     /// </summary>
-    /// <param name="data">
-    ///     数据类型
-    /// </param>
     /// <typeparam name="T">
     ///     数据类型
     /// </typeparam>
-    public abstract void CreateTable<T>(T data) where T : class, IData;
+    public abstract void CreateTable<T>() where T : class, IData;
 }

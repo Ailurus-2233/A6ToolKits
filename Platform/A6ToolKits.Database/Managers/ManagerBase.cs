@@ -98,6 +98,7 @@ public abstract class ManagerBase : IManager
     public abstract void Add<T>(IList<T> data) where T : class, IData;
     public void Add<T>(params T[] data) where T : class, IData => Add(data.ToList());
     public abstract IList<T> Load<T>() where T : class, IData;
+    public abstract IList<T> TryLoad<T>() where T : class, IData;
     public abstract void Delete<T>(IList<T> target) where T : class, IData;
     public void Delete<T>(params T[] target) where T : class, IData => Delete(target.ToList());
     public abstract void Clear<T>() where T : class, IData;

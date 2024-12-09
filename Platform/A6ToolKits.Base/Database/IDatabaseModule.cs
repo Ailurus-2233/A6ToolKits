@@ -1,4 +1,4 @@
-﻿using A6ToolKits.Modules;
+﻿using A6ToolKits.Module;
 
 namespace A6ToolKits.Database;
 
@@ -16,7 +16,7 @@ public interface IDatabaseModule: IModule
     /// <returns>
     ///     数据库管理器
     /// </returns>
-    IManager GetDatabaseManger(string id);
+    IManager? GetDatabaseManger(string id);
 
     /// <summary>
     ///     根据 ID 获取数据库管理器

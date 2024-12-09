@@ -56,6 +56,16 @@ public interface IManager
     /// </returns>
     IList<T> Load<T>() where T : class, IData;
 
+    /// <summary>
+    ///     尝试从数据库中加载数据
+    /// </summary>
+    /// <typeparam name="T">
+    ///     数据类型
+    /// </typeparam>
+    /// <returns>
+    ///     加载的数据列表，如果加载失败则返回空列表
+    /// </returns>
+    IList<T> TryLoad<T>() where T : class, IData;
 
     /// <summary>
     ///    从数据库中删除数据，如果数据不存在则抛出异常

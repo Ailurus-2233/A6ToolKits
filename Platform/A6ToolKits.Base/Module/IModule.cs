@@ -1,4 +1,4 @@
-﻿namespace A6ToolKits.Modules;
+﻿namespace A6ToolKits.Module;
 
 /// <summary>
 ///     模块接口
@@ -13,5 +13,10 @@ public interface IModule
     /// <summary>
     ///     模块加载流程
     /// </summary>
-    public void LoadModule();
+    public void OnLoadModule();
+    
+    /// <summary>
+    ///     模块卸载流程
+    /// </summary>
+    public void OnUnloadModule();
 }

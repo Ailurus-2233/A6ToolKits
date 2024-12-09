@@ -101,4 +101,61 @@ public static class ConfigHelper
         root.AppendChild(node);
         document.Save(DefaultConfig);
     }
+
+    /// <summary>
+    ///     设置配置节点
+    /// </summary>
+    /// <param name="nodeName">
+    ///     节点名称
+    /// </param>
+    /// <param name="node">
+    ///     节点内容
+    /// </param>
+    public static void SetConfigNode(string nodeName, XmlElement node)
+    {
+        document.Load(ConfigPath);
+        var root = document.DocumentElement;
+        if (root == null) return;
+        var oldNode = root.GetElementsByTagName(nodeName);
+
+        if (oldNode.Count > 0)
+        {
+            var copyNode = new XmlElement?[oldNode.Count];
+            for (var i = 0; i < oldNode.Count; i++)
+                copyNode[i] = (XmlElement?)oldNode[i];
+
+            foreach (var o in copyNode)
+            {
+                if (o != null)
+                    root.RemoveChild(o);
+            }
+        }
+
+        root.AppendChild(node);
+        document.Save(ConfigPath);
+    }
+
+    /// <summary>
+    ///     获取配置文档
+    /// </summary>
+    /// <returns>
+    ///     返回配置文档
+    /// </returns>
+    public static XmlDocument GetConfigDocument()
+    {
+        document.Load(ConfigPath);
+        return document;
+    }
+
+    /// <summary>
+    ///     获取默认配置文档
+    /// </summary>
+    /// <returns>
+    ///     返回默认配置文档
+    /// </returns>
+    public static XmlDocument GetDefaultConfigDocument()
+    {
+        document.Load(DefaultConfig);
+        return document;
+    }
 }

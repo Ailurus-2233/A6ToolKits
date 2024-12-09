@@ -5,7 +5,7 @@ using A6ToolKits.Common.Container;
 using A6ToolKits.EventAggregator;
 using A6ToolKits.LifetimeExtension;
 using A6ToolKits.Module;
-using A6ToolKits.Modules;
+using A6ToolKits.Services;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -27,7 +27,7 @@ namespace A6ToolKits.Bootstrapper;
 ///     主窗体类型，指定一个 Window 类型作为主窗体
 /// </typeparam>
 public abstract class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, IWindowController, IModuleManager,
-    IAssemblyManager
+    IAssemblyManager, IServiceManager
     where TApplication : Application, new()
     where TWindow : Window, new()
 {
@@ -55,6 +55,11 @@ public abstract class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, I
     ///     需要加载的模块
     /// </summary>
     protected abstract List<Type> ToLoadModules { get; }
+    
+    /// <summary>
+    ///     需要加载的服务
+    /// </summary>
+    protected abstract List<Type> ToLoadServices { get; }
 
     /// <summary>
     ///     Assembly 加载的路径
@@ -93,8 +98,10 @@ public abstract class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, I
         AutomaticRegister.AutoRegisterAll();
         IoC.RegisterSingleton<IWindowController>(this);
         IoC.RegisterSingleton<IModuleManager>(this);
+        IoC.RegisterSingleton<IServiceManager>(this);
         IoC.RegisterSingleton<IAssemblyManager>(this);
-        IoC.GetInstance<CoreModule>()?.LoadModule();
+        IoC.GetInstance<CoreModule>()?.OnLoadModule();
+        IoC.GetInstance<CoreService>()?.Initialize();
     }
 
     /// <summary>
@@ -112,29 +119,38 @@ public abstract class BaseBootstrapper<TApplication, TWindow> : IBootstrapper, I
     }
 
     /// <summary>
-    ///     结束步骤：在程序退出时，需要执行的一些操作，这里输出了程序结束的日志
+    ///     结束步骤：在程序退出时，需要执行的一些操作
     /// </summary>
     public virtual void OnFinished()
     {
+        IoC.GetInstance<IEventAggregator>()?.Publish(new ApplicationExitEvent());
     }
 
-    /// <summary>
-    ///     获取模块列表
-    /// </summary>
-    /// <returns>
-    ///     模块的类型列表
-    /// </returns>
+    /// <inheritdoc />
     public List<Type> GetToLoadModuleList()
     {
         return ToLoadModules;
     }
 
-    /// <summary>
-    ///     获取已加载的模块列表
-    /// </summary>
-    /// <returns>
-    ///     已加载的模块列表
-    /// </returns>
+    /// <inheritdoc />
+    public List<Type> GetToLoadServiceList()
+    {
+        return ToLoadServices;
+    }
+
+    /// <inheritdoc />
+    public List<IService> GetLoadedServices()
+    {
+        var result = new List<IService>();
+        ToLoadServices.ForEach(type =>
+        {
+            if (IoC.GetInstance(type) is IService service)
+                result.Add(service);
+        });
+        return result;
+    }
+
+    /// <inheritdoc />
     public List<IModule> GetLoadedModules()
     {
         var result = new List<IModule>();

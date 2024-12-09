@@ -1,9 +1,9 @@
-﻿namespace A6ToolKits.Module;
+﻿namespace A6ToolKits.Services;
 
 /// <summary>
-///     模块管理器接口
+///     服务管理器
 /// </summary>
-public interface IModuleManager
+public interface IServiceManager
 {
     /// <summary>
     ///     获取需要加载模块类型列表
@@ -11,7 +11,7 @@ public interface IModuleManager
     /// <returns>
     ///     需要加载的模块列表
     /// </returns>
-    List<Type> GetToLoadModuleList();
+    List<Type> GetToLoadServiceList();
 
     /// <summary>
     ///     获取已加载的模块
@@ -19,5 +19,5 @@ public interface IModuleManager
     /// <returns>
     ///     已加载的模块列表
     /// </returns>
-    List<IModule> GetLoadedModules();
+    List<IService> GetLoadedServices();
 }

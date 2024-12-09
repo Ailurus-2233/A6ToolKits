@@ -27,6 +27,8 @@ public class SQLiteDatabaseManager : DatabaseManagerBase
     /// <inheritdoc />
     public override void Add<T>(IList<T> data)
     {
+        if (data.Count == 0)
+            return;
         var command = data[0].GenerateInsertCommand();
         using var connection = new SqliteConnection(ConnectionString);
         connection.Open();
@@ -66,7 +68,6 @@ public class SQLiteDatabaseManager : DatabaseManagerBase
         var result = new List<T>();
         while (reader.Read())
             result.Add(ReadItem<T>(reader));
-
         return result;
     }
 
@@ -159,12 +160,13 @@ public class SQLiteDatabaseManager : DatabaseManagerBase
     }
 
     /// <inheritdoc />
-    public override void CreateTable<T>(T data)
+    public override void CreateTable<T>()
     {
         using var connection = new SqliteConnection(ConnectionString);
         connection.Open();
         using var command = connection.CreateCommand();
-        command.CommandText = data.GenerateCreateTableCommand();
+        var data = Activator.CreateInstance(typeof(T)) as T;
+        command.CommandText = data?.GenerateCreateTableCommand();
         command.ExecuteNonQuery();
     }
 

@@ -66,7 +66,6 @@ public abstract class ConfigItemBase : IConfigItem
     /// <inheritdoc />
     public virtual void OnLoadedConfig()
     {
-        
     }
 
     private static List<string> _skipProperties =>
@@ -80,10 +79,10 @@ public abstract class ConfigItemBase : IConfigItem
     public XmlElement CreateDefaultConfig(XmlDocument doc)
     {
         var result = doc.CreateElement(GetNodeName());
-        
+
         if (Activator.CreateInstance(GetType()) is not IConfigItem defaultConfig)
             throw new ConfigLoadException(GetType(), "Can't create the default config item.");
-        
+
         defaultConfig.SetDefault();
         var property = defaultConfig.GetType().GetProperties();
         foreach (var prop in property)
@@ -136,6 +135,30 @@ public abstract class ConfigItemBase : IConfigItem
         }
     }
 
+
+    /// <inheritdoc />
+    public XmlElement GenerateXmlNode(XmlDocument doc)
+    {
+        var result = doc.CreateElement(GetNodeName());
+        var property = GetType().GetProperties();
+        foreach (var prop in property)
+        {
+            var name = prop.Name;
+            if (_skipProperties.Contains(name))
+                continue;
+            var value = prop.GetValue(this);
+            if (value != null) result.SetAttribute(prop.Name, value.ToString());
+        }
+
+        foreach (var child in Children)
+        {
+            var childNode = child.GenerateXmlNode(doc);
+            result.AppendChild(childNode);
+        }
+
+        return result;
+    }
+
     private ConfigItemBase CreateItem(string nodeName)
     {
         var type = GetType().Assembly.GetTypes()
@@ -152,5 +175,14 @@ public abstract class ConfigItemBase : IConfigItem
             throw new ConfigLoadException(GetType(), $"Can't create the config item {nodeName}");
 
         return instance;
+    }
+
+    /// <inheritdoc />
+    public void SaveConfig()
+    {
+        var doc = ConfigHelper.GetConfigDocument();
+        var nodeName = GetNodeName();
+        var node = GenerateXmlNode(doc);
+        ConfigHelper.SetConfigNode(nodeName, node);
     }
 }

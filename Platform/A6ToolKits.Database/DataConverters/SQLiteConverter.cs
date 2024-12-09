@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using A6ToolKits.Database.Attributes;
 using A6ToolKits.Database.DataModels;
@@ -27,24 +28,50 @@ public static class SQLiteConverter
 
         var result = new StringBuilder($"CREATE TABLE IF NOT EXISTS {data.GetTableName()} (");
 
-        foreach (var primary in primaryKeys)
+        switch (primaryKeys.Count)
         {
-            result.Append($"{primary.Name} {primary.GetColumnType().GetSQLType()},");
-        }
+            case 0:
+                throw new ArgumentException("Primary key is required");
+            case 1:
+            {
+                var primary = primaryKeys[0];
+                if (primary.GetCustomAttribute<AutoIncrementAttribute>() != null)
+                    result.Append($"{primary.Name} {primary.GetColumnType().GetSQLType()} PRIMARY KEY AUTOINCREMENT,");
 
-        foreach (var column in columns)
-        {
-            result.Append($"{column.Name} {column.GetColumnType().GetSQLType()},");
-        }
+                else
+                    result.Append($"{primary.Name} {primary.GetColumnType().GetSQLType()} PRIMARY KEY,");
 
-        result.Append("PRIMARY KEY (");
-        foreach (var primary in primaryKeys)
-        {
-            result.Append($"{primary.Name},");
-        }
 
-        result.Remove(result.Length - 1, 1);
-        result.Append("));");
+                foreach (var column in columns)
+                    result.Append($"{column.Name} {column.GetColumnType().GetSQLType()},");
+
+
+                result.Remove(result.Length - 1, 1);
+                result.Append(");");
+                break;
+            }
+            default:
+            {
+                foreach (var primary in primaryKeys)
+                {
+                    if (primary.GetCustomAttribute<AutoIncrementAttribute>() != null)
+                        throw new ArgumentException("Auto increment is not supported for multiple primary keys");
+                    result.Append($"{primary.Name} {primary.GetColumnType().GetSQLType()},");
+                }
+                    
+
+                foreach (var column in columns)
+                    result.Append($"{column.Name} {column.GetColumnType().GetSQLType()},");
+
+                result.Append("PRIMARY KEY (");
+                foreach (var primary in primaryKeys)
+                    result.Append($"{primary.Name},");
+
+                result.Remove(result.Length - 1, 1);
+                result.Append("));");
+                break;
+            }
+        }
 
         return result.ToString();
     }
@@ -154,12 +181,12 @@ public static class SQLiteConverter
         var condition = GenerateConditionStatement<T>(predicate.Body);
 
         result.Append(condition);
-        
+
         if (string.IsNullOrEmpty(condition))
             result.Remove(result.Length - 7, 7);
         result.Append(';');
 
-         return result.ToString();
+        return result.ToString();
     }
 
     private static string GenerationSingleConditionStatement<T>(BinaryExpression? expression) where T : class, IData
@@ -185,11 +212,11 @@ public static class SQLiteConverter
             ExpressionType.LessThanOrEqual => "<=",
             _ => throw new ArgumentException("Unsupported operation")
         };
-        
+
         var value = right.Value;
         if (column.GetColumnType().ColumnType == ColumnType.SQLITE_TEXT)
             value = $"'{value}'";
-        
+
         return $"{column.GetColumnType().Name} {operate} {value}";
     }
 
@@ -218,7 +245,7 @@ public static class SQLiteConverter
 
         if (singleExpressionTypes.Contains(body.NodeType))
             return GenerationSingleConditionStatement<T>(body);
-        
+
         if (!multiExpressionTypes.Contains(body.NodeType))
             throw new ArgumentException("Unsupported expression");
 
@@ -234,7 +261,7 @@ public static class SQLiteConverter
 
         return $"({left} {connect} {right})";
     }
-    
+
     /// <summary>
     ///     生成清空表的 SQL 语句
     /// </summary>

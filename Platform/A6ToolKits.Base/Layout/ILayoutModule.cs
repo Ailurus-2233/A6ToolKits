@@ -1,4 +1,4 @@
-﻿using A6ToolKits.Modules;
+﻿using A6ToolKits.Module;
 
 namespace A6ToolKits.Layout;
 /// <summary>

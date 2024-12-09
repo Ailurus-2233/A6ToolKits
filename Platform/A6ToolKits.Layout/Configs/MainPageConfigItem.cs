@@ -34,6 +34,6 @@ public class MainPageConfigItem : ConfigItemBase
     public Type? FindTargetType()
     {
         var assembly = Assembly.GetEntryAssembly();
-        return assembly.GetType(TargetType);
+        return assembly?.GetType(TargetType);
     }
 }

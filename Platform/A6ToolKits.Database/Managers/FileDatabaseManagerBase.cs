@@ -51,6 +51,12 @@ public abstract class FileDatabaseManagerBase : ManagerBase
     /// <inheritdoc/>
     public abstract override IList<T> Load<T>();
 
+    /// <inheritdoc />
+    public override IList<T> TryLoad<T>()
+    {
+        return Load<T>();
+    }
+
     /// <inheritdoc/>
     public abstract override void Delete<T>(IList<T> target);
 

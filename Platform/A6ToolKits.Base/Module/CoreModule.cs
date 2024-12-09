@@ -1,9 +1,10 @@
-﻿using A6ToolKits.Common.Container;
+﻿using A6ToolKits.Bootstrapper.Events;
+using A6ToolKits.Common.Container;
 using A6ToolKits.Configuration;
 using A6ToolKits.Container.Attributes;
+using A6ToolKits.EventAggregator;
 using A6ToolKits.Module;
 using A6ToolKits.Module.Exceptions;
-using A6ToolKits.Modules;
 using Avalonia;
 using Avalonia.Markup.Xaml.Styling;
 
@@ -28,6 +29,7 @@ public class CoreModule : ModuleBase
     {
         ConfigHelper.GenerateDefaultConfigFile();
         var moduleList = IoC.GetInstance<IModuleManager>()?.GetToLoadModuleList();
+        var eventAggregator = IoC.GetInstance<IEventAggregator>();
         if (moduleList is not { Count: > 0 }) return;
         // 最后加载 LayoutModule
         var layout = moduleList.Find(t => t.Name == "ILayoutModule");
@@ -41,7 +43,8 @@ public class CoreModule : ModuleBase
                 // 判断 module 是否是 ModuleBase 的基类
                 if (!module.GetInterfaces().Contains(typeof(IModule))) return;
                 var target = IoC.GetInstance(module) as IModule;
-                target?.LoadModule();
+                target?.OnLoadModule();
+                eventAggregator?.Subscribe<ApplicationExitEvent>(e => target?.OnUnloadModule());
             }
             catch (Exception e)
             {
@@ -52,7 +55,7 @@ public class CoreModule : ModuleBase
         if (layout == null) return;
 
         var target = IoC.GetInstance(layout) as IModule;
-        target?.LoadModule();
+        target?.OnLoadModule();
     }
 
     private static void LoadResources()
