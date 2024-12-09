@@ -15,4 +15,6 @@ public class Bootstrapper : BaseBootstrapper<App, Window>
         typeof(ILayoutModule),
         typeof(IDatabaseModule)
     ];
+
+    protected override List<Type> ToLoadServices => [];
 }

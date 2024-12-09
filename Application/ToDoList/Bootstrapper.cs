@@ -2,6 +2,7 @@
 using A6ToolKits.Database;
 using A6ToolKits.Layout;
 using Avalonia.Controls;
+using ToDoList.Services;
 
 namespace ToDoList;
 
@@ -11,5 +12,10 @@ public class Bootstrapper: BaseBootstrapper<MainApp, Window>
     [
         typeof(ILayoutModule),
         typeof(IDatabaseModule)
+    ];
+    
+    protected override List<Type> ToLoadServices =>
+    [
+        typeof(TagManagerService)
     ];
 }
