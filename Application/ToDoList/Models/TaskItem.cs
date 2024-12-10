@@ -3,6 +3,7 @@ using A6ToolKits.Database;
 using A6ToolKits.Database.Attributes;
 using A6ToolKits.Database.DataModels;
 using A6ToolKits.Database.Enums;
+using ToDoList.Models.RelationModels;
 
 namespace ToDoList.Models;
 
@@ -38,6 +39,7 @@ public class TaskItem : DataModelBase,ITask
     public List<ITask> SubTasks { get; set; } = [];
     public List<TaskTag> Tags { get; set; } = [];
     
+    public TaskList TaskList { get; set; } = new();
     public void AddTag(TaskTag tag)
     {
         if (Tags.Contains(tag))

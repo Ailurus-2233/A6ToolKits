@@ -27,8 +27,7 @@ public class SQLiteDatabaseManager : DatabaseManagerBase
     /// <inheritdoc />
     public override void Add<T>(IList<T> data)
     {
-        if (data.Count == 0)
-            return;
+        if (data.Count == 0) return;
         var command = data[0].GenerateInsertCommand();
         using var connection = new SqliteConnection(ConnectionString);
         connection.Open();
@@ -74,6 +73,7 @@ public class SQLiteDatabaseManager : DatabaseManagerBase
     /// <inheritdoc />
     public override void Delete<T>(IList<T> target)
     {
+        if (target.Count == 0) return;
         var command = target[0].GenerateDeleteCommand();
         using var connection = new SqliteConnection(ConnectionString);
         connection.Open();
@@ -116,6 +116,7 @@ public class SQLiteDatabaseManager : DatabaseManagerBase
     /// <inheritdoc />
     public override void Update<T>(IList<T> data)
     {
+        if (data.Count == 0) return;
         var command = data[0].GenerateUpdateCommand();
         using var connection = new SqliteConnection(ConnectionString);
         connection.Open();

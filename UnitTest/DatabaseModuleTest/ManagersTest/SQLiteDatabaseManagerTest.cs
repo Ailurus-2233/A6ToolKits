@@ -7,14 +7,14 @@ namespace DatabaseModuleTest.ManagersTest;
 
 public class SQLiteDatabaseManagerTest : DatabaseManagerTestBase
 {
-    private SQLiteDatabaseManager _databaseManager;
+    private SQLiteDatabaseManager? _databaseManager;
     
-    protected override DatabaseManagerBase DatabaseManager => _databaseManager;
+    protected override DatabaseManagerBase? DatabaseManager => _databaseManager;
 
     public override void Initialize()
     {
         var config = new SQLiteConfigItem { DataSource = "test.db" };
         _databaseManager = new SQLiteDatabaseManager(config);
-        DatabaseManager.Clear<SQLTestModel>();
+        DatabaseManager?.Clear<SQLTestModel>();
     }
 }

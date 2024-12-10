@@ -9,14 +9,14 @@ namespace ToDoList.Services;
 [AutoRegister(typeof(TagManagerService), RegisterType.Singleton)]
 public class TagManagerService : IService
 {
-    private IManager? _manager => IoC.GetInstance<IDatabaseModule>()?.GetDatabaseManger("Data");
+    private IManager? _dataManager => IoC.GetInstance<IDatabaseModule>()?.GetDatabaseManger("Data");
     public List<TaskTag> TagList { get; } = [];
     
     public void Initialize()
     {
         TagList.Clear();
         // Load tags from database
-        var tags = _manager?.TryLoad<TaskTag>();
+        var tags = _dataManager?.TryLoad<TaskTag>();
         if (tags == null)
             return;
         TagList.AddRange(tags);
@@ -24,7 +24,7 @@ public class TagManagerService : IService
 
     public void OnExit()
     {
-        _manager?.Save(TagList);
+        _dataManager?.Save(TagList);
     }
 
     public bool CheckTagExist(string name)

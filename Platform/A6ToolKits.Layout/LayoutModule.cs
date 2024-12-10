@@ -3,6 +3,8 @@ using A6ToolKits.Common.Container;
 using A6ToolKits.Container.Attributes;
 using A6ToolKits.Layout.Generator;
 using A6ToolKits.Module;
+using Avalonia;
+using Avalonia.Controls;
 
 namespace A6ToolKits.Layout;
 
@@ -20,6 +22,7 @@ public sealed class LayoutModule : ModuleBase<LayoutConfigItem>, ILayoutModule
     public override void Initialize()
     {
         SetMainWindow();
+        AddColorResources();
     }
 
     /// <summary>
@@ -37,5 +40,16 @@ public sealed class LayoutModule : ModuleBase<LayoutConfigItem>, ILayoutModule
         {
             throw new NullReferenceException("Cannot get window controller");
         }
+    }
+
+    private void AddColorResources()
+    {
+        var resource = new ResourceDictionary
+        {
+            { "PrimaryColor", WindowConfig.Instance.PrimaryColor },
+            { "SecondaryColor", WindowConfig.Instance.SecondaryColor },
+            { "TertiaryColor", WindowConfig.Instance.TertiaryColor }
+        };
+        Application.Current?.Resources.MergedDictionaries.Add(resource);
     }
 }

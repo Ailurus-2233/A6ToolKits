@@ -25,7 +25,6 @@
     <ItemGroup>
       <Folder Include="UIModules\HabitModule\HabitDetail\" />
       <Folder Include="UIModules\HabitModule\HabitList\" />
-      <Folder Include="UIModules\LeftToolBarModule\" />
       <Folder Include="UIModules\MonthModule\" />
       <Folder Include="UIModules\TaskManagerModule\TaskDetail\" />
       <Folder Include="UIModules\TaskManagerModule\TaskListManager\" />

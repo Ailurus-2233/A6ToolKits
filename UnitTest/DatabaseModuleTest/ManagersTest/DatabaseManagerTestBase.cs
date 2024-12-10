@@ -6,7 +6,7 @@ namespace DatabaseModuleTest.ManagersTest;
 
 public abstract class DatabaseManagerTestBase
 {
-    protected abstract DatabaseManagerBase DatabaseManager { get; }
+    protected abstract DatabaseManagerBase? DatabaseManager { get; }
     
     protected readonly List<SQLTestModel> Data =
     [
