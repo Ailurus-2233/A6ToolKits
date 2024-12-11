@@ -81,7 +81,7 @@ public class SQLiteConfigItem : DatabaseConfigItemBase
     {
         var filePath = DataSource;
         var folderPath = Path.GetDirectoryName(filePath);
-        if (folderPath != null && !Directory.Exists(folderPath))
+        if (!string.IsNullOrEmpty(folderPath) && !Directory.Exists(folderPath))
             Directory.CreateDirectory(folderPath);
         return new SqliteConnectionStringBuilder
         {

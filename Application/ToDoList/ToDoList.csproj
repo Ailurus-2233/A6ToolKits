@@ -31,4 +31,48 @@
       <Folder Include="UIModules\TaskManagerModule\TaskList\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <EmbeddedResource Update="Languages\Language.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>language.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Languages\Language.zh.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>language.zh.Designer.cs</LastGenOutput>
+        <DependentUpon>Language.resx</DependentUpon>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Languages\Language.en.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>language.en.Designer.cs</LastGenOutput>
+        <DependentUpon>Language.resx</DependentUpon>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Languages\Language.resx">
+        <LastGenOutput>Language.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Languages\Language.zh.resx">
+        <LastGenOutput>Language.zh.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Languages\Language.en.resx">
+        <LastGenOutput>Language.en.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Languages\Language.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Language.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Languages\Language.zh.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Language.zh.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Languages\Language.en.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Language.en.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>

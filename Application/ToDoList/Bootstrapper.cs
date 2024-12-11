@@ -18,4 +18,11 @@ public class Bootstrapper: BaseBootstrapper<MainApp, Window>
     [
         typeof(TagManagerService)
     ];
+
+    public override void Configure()
+    {
+        base.Configure();
+        var systemLanguage = System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+        LanguageManager.InitialResource(systemLanguage);
+    }
 }
