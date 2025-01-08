@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Platform\A6ToolKits.Base\A6ToolKits.Base.csproj" />
+      <ProjectReference Include="..\..\Platform\A6ToolKits.Starter\A6ToolKits.Starter.csproj" />
       <ProjectReference Include="..\..\Platform\A6ToolKits.Database\A6ToolKits.Database.csproj" />
       <ProjectReference Include="..\..\Platform\A6ToolKits.Layout\A6ToolKits.Layout.csproj" />
     </ItemGroup>
@@ -29,6 +29,8 @@
       <Folder Include="UIModules\TaskManagerModule\TaskDetail\" />
       <Folder Include="UIModules\TaskManagerModule\TaskListManager\" />
       <Folder Include="UIModules\TaskManagerModule\TaskList\" />
+      <Folder Include="UIPackage\Controls\" />
+      <Folder Include="UIPackage\Styles\" />
     </ItemGroup>
 
     <ItemGroup>

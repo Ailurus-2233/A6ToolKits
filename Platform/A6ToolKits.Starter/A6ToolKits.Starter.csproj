@@ -1,0 +1,72 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>A6ToolKits</RootNamespace>
+        <LangVersion>default</LangVersion>
+        <Version>0.1.0</Version>
+        <AssemblyVersion>0.1.0</AssemblyVersion>
+        <FileVersion>0.1.0</FileVersion>
+        <Title>A6 应用开发工具包 - 应用框架</Title>
+        <Authors>Ailurus2233</Authors>
+        <Description>A6ToolKits 是一个快速搭建 Avalonia 桌面应用程序的开发框架，应用框架定义了应用的基本框架，以及接口、工具类等</Description>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageIcon>A6ToolKits.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <NeutralLanguage>default</NeutralLanguage>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DebugType>full</DebugType>
+      <DocumentationFile>bin\Debug\A6ToolKits.Base.xml</DocumentationFile>
+      <WarningLevel>4</WarningLevel>
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+      <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+      <DebugType>none</DebugType>
+      <WarningLevel>4</WarningLevel>
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="11.2.2" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.2.2" />
+        <PackageReference Include="Avalonia.Diagnostics" Version="11.2.2" />
+        <PackageReference Include="Avalonia.Svg" Version="11.2.0.2" />
+        <PackageReference Include="Avalonia.Xaml.Behaviors" Version="11.2.0.1" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\Resources\Icon\A6ToolKits.png">
+            <Pack>True</Pack>
+            <PackagePath/>
+            <Link>A6ToolKits.png</Link>
+        </None>
+        <None Include="README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Resources\BrushResources.axaml" />
+      <AdditionalFiles Include="Resources\Icons\Base\CloseIconResource.axaml" />
+      <AdditionalFiles Include="Resources\Icons\Base\MaximizeIconResource.axaml" />
+      <AdditionalFiles Include="Resources\Icons\Base\MenuIconResource.axaml" />
+      <AdditionalFiles Include="Resources\Icons\Base\MinusIconResource.axaml" />
+      <AdditionalFiles Include="Resources\Icons\Base\WindowIconResource.axaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Styles\TabControl\TabBodyTheme.axaml" />
+      <UpToDateCheckInput Remove="Styles\TabControl\TabContainerTheme.axaml" />
+      <UpToDateCheckInput Remove="Styles\TabControl\TabControlThemes.axaml" />
+      <UpToDateCheckInput Remove="Styles\TabControl\TabHeaderTheme.axaml" />
+      <UpToDateCheckInput Remove="Styles\TabControl\TabRadioButtonTheme.axaml" />
+    </ItemGroup>
+
+</Project>
