@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\A6ToolKits.Base\A6ToolKits.Base.csproj" />
+    <PackageReference Include="Avalonia" Version="11.2.3" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.2.3" />
+    <PackageReference Include="Avalonia.Svg" Version="11.2.0.2" />
   </ItemGroup>
 
 </Project>

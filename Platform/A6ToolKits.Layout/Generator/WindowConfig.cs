@@ -1,4 +1,4 @@
-﻿using A6ToolKits.Configuration.Exceptions;
+﻿using A6ToolKits.Exceptions;
 using A6ToolKits.Layout.Configs;
 using A6ToolKits.Layout.Generator.Enums;
 using Avalonia.Controls;

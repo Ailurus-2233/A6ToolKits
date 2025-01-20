@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using A6ToolKits.Bootstrapper;
 using A6ToolKits.Database;
 using A6ToolKits.Layout;
-using A6ToolKits.Module;
+using A6ToolKits.Starter;
 using Avalonia.Controls;
 
 namespace UIDemo;

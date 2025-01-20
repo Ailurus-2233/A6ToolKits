@@ -1,8 +1,7 @@
 ﻿using System.Reflection;
-using A6ToolKits.AssemblyManager;
-using A6ToolKits.AssemblyManager.Exceptions;
-using A6ToolKits.Command;
-using A6ToolKits.Common.Container;
+using A6ToolKits.Container;
+using A6ToolKits.Controls.Command;
+using A6ToolKits.Helpers;
 using A6ToolKits.Layout.Attributes;
 using A6ToolKits.Layout.Exceptions;
 using A6ToolKits.Layout.Generator;
@@ -26,7 +25,7 @@ internal static class MenuBarGenerateHelper
     /// </returns>
     public static List<IGrouping<string, Type>> GetMenuItemGroup()
     {
-        var types = LoadHelper.GetTypeWithAttribute<MenuActionAttribute>();
+        var types = AssemblyHelper.GetTypeWithAttribute<MenuActionAttribute>();
         var group = types.GroupBy(t => GetMenuActionAttribute(t).Path[0].ItemName);
         var result = group.OrderBy(g => GetMenuActionAttribute(g.First()).Path[0].Order).ToList();
         return result;

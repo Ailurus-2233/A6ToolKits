@@ -1,5 +1,4 @@
-﻿using A6ToolKits.Configuration;
-using A6ToolKits.Configuration.Attributes;
+﻿using A6ToolKits.Attributes;
 using A6ToolKits.Database.Managers;
 
 namespace A6ToolKits.Database.Configs;

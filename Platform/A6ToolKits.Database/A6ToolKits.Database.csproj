@@ -28,11 +28,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\A6ToolKits.Starter\A6ToolKits.Starter.csproj" />
+      <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.11" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.11" />
+      <ProjectReference Include="..\A6ToolKits.Base\A6ToolKits.Base.csproj" />
+      <ProjectReference Include="..\A6ToolKits.Services\A6ToolKits.Services.csproj" />
     </ItemGroup>
 
 </Project>

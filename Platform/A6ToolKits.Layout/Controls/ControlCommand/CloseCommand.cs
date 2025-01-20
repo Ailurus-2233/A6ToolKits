@@ -1,24 +1,30 @@
-﻿using A6ToolKits.Bootstrapper;
-using A6ToolKits.Command;
-using A6ToolKits.Common.Container;
-using A6ToolKits.Common.ResourceLoader;
+﻿using A6ToolKits.ApplicationController;
+using A6ToolKits.Container;
+using A6ToolKits.Controls.Command;
+using A6ToolKits.ResourceLoader;
 using Avalonia.Media;
 
 namespace A6ToolKits.Layout.Controls.ControlCommand;
 
-#pragma warning disable CS1591 // 缺少对公共可见类型或成员的 XML 注释
+/// <summary>
+///     关闭 Command
+/// </summary>
 public sealed class CloseCommand : CommandBase
 {
-    public override string? Name { get; } = "关闭程序";
-    public override string? ToolTip { get; } = "关闭程序";
+    /// <inheritdoc />
+    public override string Text => "关闭程序";
+
+    /// <inheritdoc />
+    public override string ToolTip => "关闭程序";
+
+    /// <inheritdoc />
     public override IImage? Image { get; } = ResourceHelper.LoadImage("CloseIcon");
 
+    /// <inheritdoc />
     public override Task Run()
     {
-        var window = IoC.GetInstance<IWindowController>()?.GetMainWindow();
+        var window = IoC.GetInstance<IApplicationController>()?.MainWindow;
         window?.Close();
         return Task.CompletedTask;
     }
 }
-
-#pragma warning restore CS1591 // 缺少对公共可见类型或成员的 XML 注释

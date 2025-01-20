@@ -1,8 +1,8 @@
-﻿using A6ToolKits.Bootstrapper;
-using A6ToolKits.Common.Container;
-using A6ToolKits.Container.Attributes;
+﻿using A6ToolKits.ApplicationController;
+using A6ToolKits.Attributes;
+using A6ToolKits.Container;
 using A6ToolKits.Layout.Generator;
-using A6ToolKits.Module;
+using A6ToolKits.Modules;
 using Avalonia;
 using Avalonia.Controls;
 
@@ -11,8 +11,8 @@ namespace A6ToolKits.Layout;
 /// <summary>
 ///     布局模块，如果加载该模块将会基于配置文件自动加载窗口
 /// </summary>
-[AutoRegister(typeof(ILayoutModule), RegisterType.Singleton)]
-public sealed class LayoutModule : ModuleBase<LayoutConfigItem>, ILayoutModule
+[AutoRegister(typeof(LayoutModule), RegisterType.Singleton)]
+public sealed class LayoutModule : ModuleBase<LayoutConfigItem>
 {
     private static WindowGenerator _generator => WindowGenerator.Instance;
     
@@ -30,11 +30,11 @@ public sealed class LayoutModule : ModuleBase<LayoutConfigItem>, ILayoutModule
     /// </summary>
     public void SetMainWindow()
     {
-        var controller = IoC.GetInstance<IWindowController>();
+        var controller = IoC.GetInstance<IApplicationController>();
         if (controller != null)
         {
-            controller.SetupMainWindow(_generator.GenerateWindow(Config));
-            controller.SetupTheme(WindowConfig.Instance.Theme);
+            controller.MainWindow = _generator.GenerateWindow(Config);
+            controller.Theme = WindowConfig.Instance.Theme;
         }
         else
         {

@@ -1,11 +1,12 @@
-﻿using A6ToolKits.Bootstrapper;
-using A6ToolKits.Bootstrapper.Events;
-using A6ToolKits.Common.Container;
+﻿using A6ToolKits.ApplicationController;
+using A6ToolKits.Container;
 using A6ToolKits.EventAggregator;
+using A6ToolKits.Events;
 using A6ToolKits.Layout.Attributes;
 using A6ToolKits.Layout.Controls.ControlCommand;
 using A6ToolKits.Layout.Exceptions;
 using A6ToolKits.Layout.Generator;
+using A6ToolKits.Starter.Events;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
@@ -50,11 +51,11 @@ public partial class TitleBar : UserControl
 
         IoC.GetInstance<IEventAggregator>()?.Subscribe<BootFinishedEvent>(_ =>
         {
-            var window = IoC.GetInstance<IWindowController>()?.GetMainWindow();
+            var window = IoC.GetInstance<IApplicationController>()?.MainWindow;
             if (window == null) 
                 throw new WindowUninitializedException();
             var observable = window.GetObservable(Window.WindowStateProperty);
-            observable.Subscribe(UpdateControlButton);
+            observable.Subscribe(new WindowStateObserver(this));
             UpdateControlButton(window.WindowState);
         });
     }
@@ -66,7 +67,7 @@ public partial class TitleBar : UserControl
     ///     如果是最大化或全屏状态，则隐藏最大化按钮，显示还原按钮
     ///     如果是正常状态，则显示最大化按钮，隐藏还原按钮
     /// </param>
-    public void UpdateControlButton(WindowState state)
+    private void UpdateControlButton(WindowState state)
     {
         switch (state)
         {
@@ -82,6 +83,20 @@ public partial class TitleBar : UserControl
             case WindowState.Minimized:
             default:
                 break;
+        }
+    }
+    
+    private class WindowStateObserver(TitleBar titleBar) : IObserver<WindowState>
+    {
+        public void OnCompleted()
+        { }
+
+        public void OnError(Exception error)
+        { }
+
+        public void OnNext(WindowState value)
+        {
+            titleBar.UpdateControlButton(value);
         }
     }
 }

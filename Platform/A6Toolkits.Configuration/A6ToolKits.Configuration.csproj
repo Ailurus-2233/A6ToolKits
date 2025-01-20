@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AssemblyName>A6ToolKits.Configuration</AssemblyName>
+        <RootNamespace>A6ToolKits.Configuration</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\A6ToolKits.Base\A6ToolKits.Base.csproj" />
+      <ProjectReference Include="..\A6ToolKits.Common\A6ToolKits.Common.csproj" />
+    </ItemGroup>
+
+</Project>

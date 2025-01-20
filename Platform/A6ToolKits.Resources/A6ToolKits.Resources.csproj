@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <AdditionalFiles Include="Icons\IconResources.axaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\A6ToolKits.Controls\A6ToolKits.Controls.csproj" />
+  </ItemGroup>
+
 </Project>

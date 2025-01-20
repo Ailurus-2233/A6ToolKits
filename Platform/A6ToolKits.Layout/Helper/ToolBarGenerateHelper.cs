@@ -1,8 +1,7 @@
 ﻿using System.Reflection;
-using A6ToolKits.AssemblyManager;
-using A6ToolKits.AssemblyManager.Exceptions;
-using A6ToolKits.Command;
-using A6ToolKits.Common.Container;
+using A6ToolKits.Container;
+using A6ToolKits.Controls.Command;
+using A6ToolKits.Helpers;
 using A6ToolKits.Layout.Attributes;
 using A6ToolKits.Layout.Exceptions;
 using A6ToolKits.Layout.Generator;
@@ -37,7 +36,7 @@ internal static class ToolBarGenerateHelper
     /// </summary>
     public static List<IGrouping<int?, Type>> GetToolBarGroup()
     {
-        var types = LoadHelper.GetTypeWithAttribute<ToolBarActionAttribute>();
+        var types = AssemblyHelper.GetTypeWithAttribute<ToolBarActionAttribute>();
         var groups = types.GroupBy(t => t.GetCustomAttribute<ToolBarActionAttribute>()?.Group)
             .OrderBy(group => group.Key).ToList();
         return groups;

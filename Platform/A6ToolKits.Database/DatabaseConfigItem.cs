@@ -1,6 +1,6 @@
 ﻿using System.Xml;
-using A6ToolKits.Configuration;
-using A6ToolKits.Configuration.Attributes;
+using A6ToolKits.Attributes;
+using A6Toolkits.Configuration;
 using A6ToolKits.Database.Configs;
 
 namespace A6ToolKits.Database;

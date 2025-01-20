@@ -1,5 +1,5 @@
-﻿using A6ToolKits.Command;
-using A6ToolKits.Common.ResourceLoader;
+﻿using A6ToolKits.Base.Commands;
+using A6ToolKits.ResourceLoader;
 using Avalonia.Media;
 
 namespace ToDoList.UIModules.LeftToolBarModule.Commands;

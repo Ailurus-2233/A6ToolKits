@@ -1,5 +1,5 @@
-﻿using A6ToolKits.Configuration;
-using A6ToolKits.Configuration.Attributes;
+﻿using A6ToolKits.Attributes;
+using A6Toolkits.Configuration;
 using A6ToolKits.Layout.Configs;
 
 

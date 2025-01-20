@@ -4,7 +4,6 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>A6ToolKits</RootNamespace>
         <LangVersion>default</LangVersion>
         <Version>0.1.0</Version>
         <AssemblyVersion>0.1.0</AssemblyVersion>
@@ -34,16 +33,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.2.2" />
-        <PackageReference Include="Avalonia.Desktop" Version="11.2.2" />
-        <PackageReference Include="Avalonia.Diagnostics" Version="11.2.2" />
-        <PackageReference Include="Avalonia.Svg" Version="11.2.0.2" />
-        <PackageReference Include="Avalonia.Xaml.Behaviors" Version="11.2.0.1" />
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2"/>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <None Include="..\Resources\Icon\A6ToolKits.png">
             <Pack>True</Pack>
             <PackagePath/>
@@ -53,20 +42,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <AdditionalFiles Include="Resources\BrushResources.axaml" />
-      <AdditionalFiles Include="Resources\Icons\Base\CloseIconResource.axaml" />
-      <AdditionalFiles Include="Resources\Icons\Base\MaximizeIconResource.axaml" />
-      <AdditionalFiles Include="Resources\Icons\Base\MenuIconResource.axaml" />
-      <AdditionalFiles Include="Resources\Icons\Base\MinusIconResource.axaml" />
-      <AdditionalFiles Include="Resources\Icons\Base\WindowIconResource.axaml" />
+      <PackageReference Include="Avalonia.Diagnostics" Version="11.2.3" />
     </ItemGroup>
 
     <ItemGroup>
-      <UpToDateCheckInput Remove="Styles\TabControl\TabBodyTheme.axaml" />
-      <UpToDateCheckInput Remove="Styles\TabControl\TabContainerTheme.axaml" />
-      <UpToDateCheckInput Remove="Styles\TabControl\TabControlThemes.axaml" />
-      <UpToDateCheckInput Remove="Styles\TabControl\TabHeaderTheme.axaml" />
-      <UpToDateCheckInput Remove="Styles\TabControl\TabRadioButtonTheme.axaml" />
+      <ProjectReference Include="..\A6ToolKits.Desktop\A6ToolKits.Desktop.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using A6ToolKits.Command;
-using A6ToolKits.Common.ResourceLoader;
+using A6ToolKits.Base.Commands;
 using A6ToolKits.Layout.Attributes;
 using A6ToolKits.ResourceLoader;
 using Avalonia.Media;

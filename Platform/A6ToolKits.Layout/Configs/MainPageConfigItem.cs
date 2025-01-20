@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using A6ToolKits.Configuration;
-using A6ToolKits.Configuration.Attributes;
+using A6ToolKits.Attributes;
+using A6Toolkits.Configuration;
 
 namespace A6ToolKits.Layout.Configs;
 

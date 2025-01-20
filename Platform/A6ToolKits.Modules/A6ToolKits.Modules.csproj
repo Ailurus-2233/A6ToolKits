@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\A6ToolKits.Base\A6ToolKits.Base.csproj" />
+      <ProjectReference Include="..\A6ToolKits.Desktop\A6ToolKits.Desktop.csproj" />
+    </ItemGroup>
+
+</Project>
