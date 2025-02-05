@@ -6,7 +6,6 @@ using A6ToolKits.Layout.Attributes;
 using A6ToolKits.Layout.Controls.ControlCommand;
 using A6ToolKits.Layout.Exceptions;
 using A6ToolKits.Layout.Generator;
-using A6ToolKits.Starter.Events;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;

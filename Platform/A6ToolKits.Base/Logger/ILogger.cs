@@ -1,4 +1,4 @@
-﻿namespace A6ToolKits.Base.Logger;
+﻿namespace A6ToolKits.Logger;
 
 /// <summary>
 ///     日志接口

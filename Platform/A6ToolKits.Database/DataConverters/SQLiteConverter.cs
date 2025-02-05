@@ -220,7 +220,7 @@ public static class SQLiteConverter
         return $"{column.GetColumnType().Name} {operate} {value}";
     }
 
-    private static readonly ExpressionType[] singleExpressionTypes =
+    private static readonly ExpressionType[] SingleExpressionTypes =
     [
         ExpressionType.Equal,
         ExpressionType.NotEqual,
@@ -230,7 +230,7 @@ public static class SQLiteConverter
         ExpressionType.LessThanOrEqual
     ];
 
-    private static readonly ExpressionType[] multiExpressionTypes =
+    private static readonly ExpressionType[] MultiExpressionTypes =
     [
         ExpressionType.AndAlso,
         ExpressionType.OrElse
@@ -238,15 +238,15 @@ public static class SQLiteConverter
 
     private static string GenerateConditionStatement<T>(Expression predicate) where T : class, IData
     {
-        if (predicate is ConstantExpression constant)
+        if (predicate is ConstantExpression)
             return string.Empty;
         if (predicate is not BinaryExpression body)
             throw new ArgumentException("Predicate must be a binary expression");
 
-        if (singleExpressionTypes.Contains(body.NodeType))
+        if (SingleExpressionTypes.Contains(body.NodeType))
             return GenerationSingleConditionStatement<T>(body);
 
-        if (!multiExpressionTypes.Contains(body.NodeType))
+        if (!MultiExpressionTypes.Contains(body.NodeType))
             throw new ArgumentException("Unsupported expression");
 
         var connect = predicate.NodeType switch

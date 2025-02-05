@@ -88,10 +88,8 @@ public class DataModelBase : IData
     {
         if (other == null)
             return false;
-        if (other.GetType() != GetType())
-            return false;
-        
-        return Equals((DataModelBase) other);
+        return other.GetType() == GetType() && Equals((DataModelBase) other);
+
     }
 
     /// <summary>

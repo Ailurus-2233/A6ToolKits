@@ -6,13 +6,8 @@
 public class BootStartEvent : EventBase
 {
     /// <summary>
-    ///     应用启动引导开始时间
-    /// </summary>
-    public DateTime StartTime { get; set; } = DateTime.Now;
-
-    /// <summary>
     ///     用于日志显示的事件内容
     /// </summary>
     /// <returns>事件内容</returns>
-    public override string Message => $"应用启动引导开始，开始时间： {StartTime:yyyy-MM-dd HH:mm:ss}";
+    public override string Message => $"应用启动引导开始，开始时间： {Time:yyyy-MM-dd HH:mm:ss}";
 }

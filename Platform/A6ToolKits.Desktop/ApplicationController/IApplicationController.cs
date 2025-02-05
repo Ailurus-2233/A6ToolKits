@@ -1,6 +1,5 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Styling;
-
 namespace A6ToolKits.ApplicationController;
 
 /// <summary>

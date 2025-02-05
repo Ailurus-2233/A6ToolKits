@@ -1,5 +1,4 @@
 ﻿using System.Linq.Expressions;
-using A6ToolKits.Database.Exceptions;
 using A6ToolKits.Database.DataModels;
 
 namespace A6ToolKits.Database.Managers;

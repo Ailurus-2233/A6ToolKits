@@ -14,7 +14,7 @@ namespace A6ToolKits.Layout;
 [AutoRegister(typeof(LayoutModule), RegisterType.Singleton)]
 public sealed class LayoutModule : ModuleBase<LayoutConfigItem>
 {
-    private static WindowGenerator _generator => WindowGenerator.Instance;
+    private static WindowGenerator Generator => WindowGenerator.Instance;
     
     /// <summary>
     ///     初始化布局模块，加载布局配置文件
@@ -33,7 +33,7 @@ public sealed class LayoutModule : ModuleBase<LayoutConfigItem>
         var controller = IoC.GetInstance<IApplicationController>();
         if (controller != null)
         {
-            controller.MainWindow = _generator.GenerateWindow(Config);
+            controller.MainWindow = Generator.GenerateWindow(Config);
             controller.Theme = WindowConfig.Instance.Theme;
         }
         else

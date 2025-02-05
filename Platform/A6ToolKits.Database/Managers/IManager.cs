@@ -1,7 +1,6 @@
 ﻿using System.Linq.Expressions;
 using A6ToolKits.Database.DataModels;
-
-namespace A6ToolKits.Database;
+namespace A6ToolKits.Database.Managers;
 
 /// <summary>
 ///     数据库管理器

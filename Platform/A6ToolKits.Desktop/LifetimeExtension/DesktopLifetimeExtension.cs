@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-
 namespace A6ToolKits.LifetimeExtension;
 
 /// <summary>

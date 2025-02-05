@@ -1,8 +1,6 @@
 ﻿using A6ToolKits.Attributes;
-using A6ToolKits.EventAggregator;
 using A6ToolKits.Events;
-
-namespace A6ToolKits.Common.EventAggregator;
+namespace A6ToolKits.EventAggregator;
 
 /// <summary>
 ///     事件聚合器

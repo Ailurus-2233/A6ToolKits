@@ -1,7 +1,7 @@
 ﻿using A6ToolKits.Container;
 using A6ToolKits.EventAggregator;
+using A6ToolKits.Events;
 using A6ToolKits.Exceptions;
-using A6ToolKits.Starter.Events;
 
 namespace A6ToolKits.Modules;
 

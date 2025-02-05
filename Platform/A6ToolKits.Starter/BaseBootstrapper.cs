@@ -3,15 +3,14 @@ using A6ToolKits.ApplicationController;
 using A6ToolKits.Container;
 using A6ToolKits.EventAggregator;
 using A6ToolKits.Events;
-using A6ToolKits.Starter.Events;
+using A6ToolKits.Starter;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml.Styling;
-
-namespace A6ToolKits.Starter;
+namespace A6ToolKits;
 
 /// <summary>
-///     应用程序启动类，用于初始化Avalonia应用程序，并加载配置文件中指定的模块
+///     应用程序启动类，用于初始化 Avalonia 应用程序，并加载配置文件中指定的模块
 /// </summary>
 /// <typeparam name="TApplication">
 ///     应用程序类型，指定一个 Application 类型作为应用启动类
@@ -50,11 +49,11 @@ public abstract class BaseBootstrapper<TApplication, TWindow> : ApplicationContr
     /// </summary>
     public virtual void OnCompleted()
     {
-        if (_lifetime == null) return;
-        _lifetime.MainWindow = MainWindow;
+        if (Lifetime == null) return;
+        Lifetime.MainWindow = MainWindow;
         if (Debugger.IsAttached) MainWindow.AttachDevTools();
         IoC.GetInstance<IEventAggregator>()?.Publish(new BootFinishedEvent());
-        _lifetime.Start(_runArguments ?? []);
+        Lifetime.Start(RunArguments ?? []);
     }
 
     /// <summary>

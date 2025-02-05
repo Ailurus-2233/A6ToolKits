@@ -15,6 +15,7 @@
         <PackageIcon>A6ToolKits.png</PackageIcon>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <NeutralLanguage>default</NeutralLanguage>
+        <RootNamespace>A6ToolKits</RootNamespace>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

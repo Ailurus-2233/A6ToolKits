@@ -1,7 +1,7 @@
 ﻿using A6ToolKits.ApplicationController;
 using A6ToolKits.Container;
 using A6ToolKits.Controls.Command;
-using A6ToolKits.ResourceLoader;
+using A6ToolKits.Desktop.ResourceLoader;
 using Avalonia.Media;
 
 namespace A6ToolKits.Layout.Controls.ControlCommand;

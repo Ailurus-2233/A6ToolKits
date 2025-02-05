@@ -7,7 +7,7 @@ using Avalonia.Svg;
 // ReSharper disable UnusedType.Global
 // ReSharper disable UnusedMember.Global
 
-namespace A6ToolKits.ResourceLoader;
+namespace A6ToolKits.Desktop.ResourceLoader;
 
 /// <summary>
 ///     资源帮助类
