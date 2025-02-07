@@ -1,4 +1,4 @@
-﻿namespace A6ToolKits.Command;
+﻿namespace A6ToolKits.Controls.Command;
 
 /// <summary>
 ///     Command 处理器接口

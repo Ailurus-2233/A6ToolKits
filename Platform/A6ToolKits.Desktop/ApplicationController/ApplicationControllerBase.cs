@@ -14,7 +14,7 @@ public abstract class ApplicationControllerBase<TApplication, TWindow> : IApplic
     protected ClassicDesktopStyleApplicationLifetime? Lifetime;
     protected string[]? RunArguments;
 
-    public Window MainWindow { get; set; } = new TWindow();
+    public Window? MainWindow { get; set; }
     public ThemeVariant Theme { get; set; } = ThemeVariant.Default;
 
     public virtual void Run(string[] args)

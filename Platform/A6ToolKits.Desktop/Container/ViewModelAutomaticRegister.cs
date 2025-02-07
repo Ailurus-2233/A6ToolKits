@@ -11,13 +11,13 @@ namespace A6ToolKits.Container;
 /// <summary>
 ///     自动注册帮助类
 /// </summary>
-public static class AutomaticRegister
+public static class ViewModelAutomaticRegister
 {
     /// <summary>
     ///     从所有加载的程序集中查找带有 AutoRegisterAttribute 特性的类型并注册到 IoC 容器中
     ///     注意：最好不要使用，因为会加载所有的程序集
     /// </summary>
-    public static void AutoRegisterAll()
+    public static void AutoRegister()
     {
         var assembly = Assembly.GetEntryAssembly();
         if (assembly == null) return;
@@ -36,45 +36,9 @@ public static class AutomaticRegister
     /// </param>
     public static void AutoRegister(Assembly assembly)
     {
-        var serviceTypes =
-            assembly.GetTypes().Where(type => type.GetCustomAttributes<AutoRegisterAttribute>().Any());
-        RegisterServices(serviceTypes);
-
         var viewModelTypes =
             assembly.GetTypes().Where(type => type.GetCustomAttributes<TargetViewAttribute>().Any());
         RegisterViewModel(viewModelTypes);
-    }
-
-    /// <summary>
-    ///     注册类型到 IoC 容器中
-    /// </summary>
-    /// <param name="types">
-    ///     需要要注册的类型列表
-    /// </param>
-    public static void RegisterServices(IEnumerable<Type> types)
-    {
-        foreach (var type in types)
-        {
-            var attribute = type.GetCustomAttribute<AutoRegisterAttribute>();
-            if (attribute == null) continue;
-
-            var interfaceType = attribute.InterfaceType ?? type;
-            var registerType = attribute.RegisterType;
-
-            switch (registerType)
-            {
-                case RegisterType.Singleton:
-                    var instance = IoC.Create(type);
-                    if (instance == null) continue;
-                    InjectDependencies(instance);
-                    IoC.RegisterSingleton(interfaceType, instance);
-                    break;
-                case RegisterType.Transient:
-                default:
-                    IoC.Register(interfaceType, type);
-                    break;
-            }
-        }
     }
 
     /// <summary>
@@ -83,7 +47,7 @@ public static class AutomaticRegister
     /// <param name="types">
     ///     需要要注册的 ViewModel 类型列表
     /// </param>
-    public static void RegisterViewModel(IEnumerable<Type> types)
+    private static void RegisterViewModel(IEnumerable<Type> types)
     {
         foreach (var type in types)
         {
@@ -101,6 +65,8 @@ public static class AutomaticRegister
                     targetView.DataContext = viewModel;
                     IoC.RegisterSingleton(type, viewModel);
                     IoC.RegisterSingleton(targetViewType, targetView);
+                    AutomaticRegister.InjectDependencies(viewModel);
+                    AutomaticRegister.InjectDependencies(targetView);
                     break;
                 case RegisterType.Transient:
                 default:
@@ -108,28 +74,6 @@ public static class AutomaticRegister
                     IoC.Register(type);
                     break;
             }
-        }
-    }
-
-    /// <summary>
-    ///     依赖注入，从 IoC 容器中获取依赖并注入到目标对象中
-    /// </summary>
-    /// <param name="target">
-    ///     要注入依赖的对象
-    /// </param>
-    public static void InjectDependencies(object? target)
-    {
-        if (target == null) return;
-
-        var properties = target.GetType()
-            .GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-
-        foreach (var property in properties)
-        {
-            if (!property.IsDefined(typeof(InjectAttribute), false)) continue;
-            var service = IoC.GetInstance(property.PropertyType);
-            if (property.GetValue(target) == null)
-                property.SetValue(target, service);
         }
     }
 }

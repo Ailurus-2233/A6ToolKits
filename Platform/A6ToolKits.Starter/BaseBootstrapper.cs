@@ -38,8 +38,10 @@ public abstract class BaseBootstrapper<TApplication, TWindow> : ApplicationContr
     /// </summary>
     public virtual void Configure()
     {
-        AutomaticRegister.AutoRegisterAll();
+        AutomaticRegister.AutoRegister();
+        ViewModelAutomaticRegister.AutoRegister();
         IoC.RegisterSingleton<IApplicationController>(this);
+        IoC.RegisterSingleton<IBootstrapper>(this);
         LoadResources();
     }
 
@@ -50,6 +52,7 @@ public abstract class BaseBootstrapper<TApplication, TWindow> : ApplicationContr
     public virtual void OnCompleted()
     {
         if (Lifetime == null) return;
+        MainWindow ??= new TWindow();
         Lifetime.MainWindow = MainWindow;
         if (Debugger.IsAttached) MainWindow.AttachDevTools();
         IoC.GetInstance<IEventAggregator>()?.Publish(new BootFinishedEvent());

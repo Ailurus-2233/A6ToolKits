@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Platform\A6ToolKits.Base\A6ToolKits.Base.csproj" />
+      <ProjectReference Include="..\..\Platform\A6ToolKits.Controls\A6ToolKits.Controls.csproj" />
+      <ProjectReference Include="..\..\Platform\A6ToolKits.Database\A6ToolKits.Database.csproj" />
+      <ProjectReference Include="..\..\Platform\A6ToolKits.Desktop\A6ToolKits.Desktop.csproj" />
+      <ProjectReference Include="..\..\Platform\A6ToolKits.Layout\A6ToolKits.Layout.csproj" />
+      <ProjectReference Include="..\..\Platform\A6ToolKits.Modules\A6ToolKits.Modules.csproj" />
+      <ProjectReference Include="..\..\Platform\A6ToolKits.Resources\A6ToolKits.Resources.csproj" />
+      <ProjectReference Include="..\..\Platform\A6ToolKits.Services\A6ToolKits.Services.csproj" />
+      <ProjectReference Include="..\..\Platform\A6ToolKits.Starter\A6ToolKits.Starter.csproj" />
+    </ItemGroup>
+
+</Project>

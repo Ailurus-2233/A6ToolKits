@@ -2,8 +2,6 @@
 // ReSharper disable UnusedMember.Global
 // ReSharper disable VirtualMemberNeverOverridden.Global
 
-using A6ToolKits.Command;
-
 namespace A6ToolKits.Controls.Command;
 
 /// <summary>
