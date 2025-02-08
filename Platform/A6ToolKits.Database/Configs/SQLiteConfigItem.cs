@@ -111,9 +111,4 @@ public class SQLiteConfigItem : DatabaseConfigItemBase
         DefaultTimeout = "30";
         Pooling = "True";
     }
-
-    /// <inheritdoc />
-    public override void OnLoadedConfig()
-    {
-    }
 }

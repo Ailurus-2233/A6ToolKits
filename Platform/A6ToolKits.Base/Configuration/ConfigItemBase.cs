@@ -11,16 +11,15 @@ namespace A6Toolkits.Configuration;
 /// </summary>
 public abstract class ConfigItemBase : IConfigItem
 {
-    /// <inheritdoc />
-    public List<IConfigItem> Children { get; } = [];
-
     /// <summary>
-    ///     配置项是否加载完成
+    ///     子配置项
     /// </summary>
-    public bool LoadedFinished { get; set; }
+    public IList<IConfigItem> Children { get; } = [];
 
     /// <summary>
-    ///     配置项是否需要
+    ///     配置项是否需要:
+    ///         True    必须存在，否则抛出异常
+    ///         False   可选项
     /// </summary>
     public abstract bool IsNecessary { get; }
 
@@ -42,8 +41,11 @@ public abstract class ConfigItemBase : IConfigItem
                 "You must set the ConfigNameAttribute for the config item.");
         return nodeName;
     }
-
-    /// <inheritdoc />
+    
+    /// <summary>
+    ///     从 config.xml 加载配置
+    /// </summary>
+    /// <exception cref="ConfigLoadException"></exception>
     public void LoadConfig()
     {
         var nodeName = GetNodeName();
@@ -55,32 +57,45 @@ public abstract class ConfigItemBase : IConfigItem
         }
         else
         {
-            GenerateFromXmlNode(configNode);
-            LoadedFinished = true;
-            OnLoadedConfig();
+            try
+            {
+                GenerateFromXmlNode(configNode);
+            } catch (Exception)
+            {
+                throw new ConfigLoadException(GetType(), $"Load {nodeName} failed.");
+            }
         }
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    ///     设置默认配置
+    /// </summary>
     public abstract void SetDefault();
 
-    /// <inheritdoc />
-    public virtual void OnLoadedConfig()
-    {
-    }
-
+    /// <summary>
+    ///     跳过的属性
+    /// </summary>
     private static List<string> SkipProperties =>
     [
         nameof(Children),
-        nameof(LoadedFinished),
         nameof(IsNecessary)
     ];
 
-    /// <inheritdoc />
+    /// <summary>
+    ///     创建默认配置
+    /// </summary>
+    /// <param name="doc">
+    ///     XmlDocument 对象, 用于创建 XmlElement
+    /// </param>
+    /// <returns>
+    ///     返回创建的配置项 XmlElement
+    /// </returns>
+    /// <exception cref="ConfigLoadException">
+    ///     当创建默认配置失败时抛出异常
+    /// </exception>
     public XmlElement CreateDefaultConfig(XmlDocument doc)
     {
         var result = doc.CreateElement(GetNodeName());
-
         if (Activator.CreateInstance(GetType()) is not IConfigItem defaultConfig)
             throw new ConfigLoadException(GetType(), "Can't create the default config item.");
 
@@ -131,13 +146,19 @@ public abstract class ConfigItemBase : IConfigItem
             var child = CreateItem(childNode.Name);
             child.GenerateFromXmlNode(childNode);
             Children.Add(child);
-            child.LoadedFinished = true;
-            child.OnLoadedConfig();
         }
     }
 
 
-    /// <inheritdoc />
+    /// <summary>
+    ///     生成 XmlNode， 用于保存配置
+    /// </summary>
+    /// <param name="doc">
+    ///     XmlDocument 对象
+    /// </param>
+    /// <returns>
+    ///     创建的配置项 XmlNode
+    /// </returns>
     public XmlElement GenerateXmlNode(XmlDocument doc)
     {
         var result = doc.CreateElement(GetNodeName());
@@ -160,6 +181,18 @@ public abstract class ConfigItemBase : IConfigItem
         return result;
     }
 
+    /// <summary>
+    ///     创建配置项
+    /// </summary>
+    /// <param name="nodeName">
+    ///     配置项名称
+    /// </param>
+    /// <returns>
+    ///     返回创建的配置项
+    /// </returns>
+    /// <exception cref="ConfigLoadException">
+    ///     当创建配置项失败时抛出异常
+    /// </exception>
     private ConfigItemBase CreateItem(string nodeName)
     {
         var type = GetType().Assembly.GetTypes()
@@ -170,15 +203,15 @@ public abstract class ConfigItemBase : IConfigItem
         if (type.Count > 1)
             throw new ConfigLoadException(GetType(), $"Find more than one config item {nodeName}");
 
-        var instance = Activator.CreateInstance(type[0]) as ConfigItemBase;
-
-        if (instance == null)
+        if (Activator.CreateInstance(type[0]) is not ConfigItemBase instance)
             throw new ConfigLoadException(GetType(), $"Can't create the config item {nodeName}");
 
         return instance;
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    ///     保存配置
+    /// </summary>
     public void SaveConfig()
     {
         var doc = ConfigHelper.GetConfigDocument();

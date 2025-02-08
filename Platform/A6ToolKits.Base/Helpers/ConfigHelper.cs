@@ -2,46 +2,52 @@
 using System.Xml;
 using A6ToolKits.Attributes;
 using A6Toolkits.Configuration;
-using SysAssembly = System.Reflection.Assembly;
-
-// ReSharper disable UnusedType.Global
-// ReSharper disable UnusedMember.Global
 
 namespace A6ToolKits.Helpers;
 
 /// <summary>
-///     配置帮助类，配置文件名称为 config.xml，如果配置文件不存在则从
-///     default_config.xml 复制
+///     配置帮助类，配置文件名称为 config.xml，如果配置文件不存在则从 default_config.xml 复制
+///     主要功能有：
+///         1. 从配置文件获取指定名称配置项的 XmlElement，首先从 config.xml 获取，如果不存在则从 default_config.xml 获取
+///         2. 根据属性 ConfigItemAttribute 生成默认配置文件，生成的配置文件为 default_config.xml
+///         3. 拷贝默认配置文件到配置文件
 /// </summary>
 public static class ConfigHelper
 {
     private const string ConfigPath = "config.xml";
     private const string DefaultConfig = "default_config.xml";
-    private static readonly XmlDocument Document = new();
 
     /// <summary>
-    ///     获取配置项
+    ///     从配置文件获取指定名称配置项的 XmlElement，首先从 config.xml 获取，如果不存在则从 default_config.xml 获取
     /// </summary>
+    /// <param name="config">
+    ///     配置项
+    /// </param>
     /// <param name="elementName">
     ///     配置项名称
     /// </param>
     /// <returns>
     ///     返回配置项
     /// </returns>
-    public static XmlNodeList? GetElements(string elementName)
+    public static void LoadConfigFromFile(this ConfigItemBase config)
     {
-        // 如果配置文件不存在则从默认配置文件复制
-        if (!File.Exists(ConfigPath))
-        {
-            if (!File.Exists(DefaultConfig))
-                GenerateDefaultConfigFile();
-            File.Copy(DefaultConfig, ConfigPath);
-        }
-
+        var configDoc = new XmlDocument();
+        var defaultConfigDoc = new XmlDocument();
+        
         // 加载配置文件
-        Document.Load(ConfigPath);
-        var root = Document.DocumentElement;
-        return root?.GetElementsByTagName(elementName);
+        if (File.Exists(ConfigPath))
+            configDoc.Load(ConfigPath);
+        
+        if (File.Exists(DefaultConfig))
+            defaultConfigDoc.Load(DefaultConfig);
+        
+        var root = configDoc.DocumentElement;
+        var result = root?.GetElementsByTagName(elementName);
+        
+        var defaultRoot = defaultConfigDoc.DocumentElement;
+        var defaultResult = defaultRoot?.GetElementsByTagName(elementName);
+        
+        return result?.Count > 0 ? result : defaultResult;
     }
 
 
@@ -58,7 +64,7 @@ public static class ConfigHelper
 
         var configItems = new List<Type>();
 
-        foreach (var assembly in assemblies.Select(SysAssembly.Load))
+        foreach (var assembly in assemblies.Select(Assembly.Load))
         {
             var types = assembly.GetTypes();
             foreach (var type in types)
@@ -143,18 +149,6 @@ public static class ConfigHelper
     public static XmlDocument GetConfigDocument()
     {
         Document.Load(ConfigPath);
-        return Document;
-    }
-
-    /// <summary>
-    ///     获取默认配置文档
-    /// </summary>
-    /// <returns>
-    ///     返回默认配置文档
-    /// </returns>
-    public static XmlDocument GetDefaultConfigDocument()
-    {
-        Document.Load(DefaultConfig);
         return Document;
     }
 }

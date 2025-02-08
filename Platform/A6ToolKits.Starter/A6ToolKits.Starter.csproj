@@ -48,6 +48,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\A6ToolKits.Desktop\A6ToolKits.Desktop.csproj" />
+      <ProjectReference Include="..\A6ToolKits.Modules\A6ToolKits.Modules.csproj" />
     </ItemGroup>
 
 </Project>

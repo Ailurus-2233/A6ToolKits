@@ -54,9 +54,8 @@ public class WindowConfigItem : ConfigItemBase
         Icon = "";
         Children.Clear();
     }
-
-    /// <inheritdoc />
-    public override void OnLoadedConfig()
+    
+    public void OnLoadedConfig()
     {
         if (string.IsNullOrEmpty(Icon)) return;
         var runAssembly = Assembly.GetEntryAssembly();

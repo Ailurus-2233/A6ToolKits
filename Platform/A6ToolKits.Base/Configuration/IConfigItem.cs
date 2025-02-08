@@ -10,13 +10,8 @@ public interface IConfigItem
     /// <summary>
     ///     配置项的子配置项
     /// </summary>
-    List<IConfigItem> Children { get; }
-
-    /// <summary>
-    ///     配置项是否加载完成
-    /// </summary>
-    bool LoadedFinished { get; set; }
-
+    IList<IConfigItem> Children { get; }
+    
     /// <summary>
     ///     配置项是否必要
     /// </summary>
@@ -26,12 +21,7 @@ public interface IConfigItem
     ///     从配置文件加载配置项
     /// </summary>
     void LoadConfig();
-
-    /// <summary>
-    ///     配置项加载完成后的操作
-    /// </summary>
-    void OnLoadedConfig();
-
+    
     /// <summary>
     ///     创建一个默认的配置项
     /// </summary>
